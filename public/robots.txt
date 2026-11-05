@@ -34,9 +34,9 @@ Disallow: /admin
 Disallow: /admin/*
 
 # LLM Knowledge Index (Specification: https://llmstxt.org/)
-# LLMs-Text: https://shinodayamashinchi-recruit.com/llms.txt
-# LLMs-Full-Text: https://shinodayamashinchi-recruit.com/llms-full.txt
+# LLMs-Text: https://osaka-shinodayamashinchi-recruit.com/llms.txt
+# LLMs-Full-Text: https://osaka-shinodayamashinchi-recruit.com/llms-full.txt
 
 # Canonical Sitemap and Host
-Sitemap: https://shinodayamashinchi-recruit.com/sitemap.xml
-Host: https://shinodayamashinchi-recruit.com
+Sitemap: https://osaka-shinodayamashinchi-recruit.com/sitemap.xml
+Host: https://osaka-shinodayamashinchi-recruit.com

@@ -181,14 +181,14 @@ export default function ComparisonPage({
   useEffect(() => {
     let title = '安心の理由＆あなたにぴったりの働き方ガイド【2026年最新】｜信太山ガールズ';
     let description = '信太山新地で安心して働ける理由（旅館直営とスカウト業者の違い）と、未経験・高収入・週1日・短期出稼ぎ・寮希望などタイプ別の働き方ガイド。店先顔見せなし・個室待機・即日全額日払い。';
-    let canonicalUrl = 'https://shinodayamashinchi-recruit.com/compare';
+    let canonicalUrl = 'https://osaka-shinodayamashinchi-recruit.com/compare';
 
     if (selectedTargetSlug && selectedTargetSlug !== 'all') {
       const cat = TARGET_JOB_CATEGORIES.find(c => c.slug === selectedTargetSlug);
       if (cat) {
         title = `${cat.title}｜信太山新地旅館直営公式 信太山ガールズ`;
         description = cat.summary || `${cat.title}についての求人情報・給与・勤務条件・安全対策を詳しく解説。`;
-        canonicalUrl = `https://shinodayamashinchi-recruit.com/compare/${cat.slug}`;
+        canonicalUrl = `https://osaka-shinodayamashinchi-recruit.com/compare/${cat.slug}`;
       }
     }
     document.title = title;
@@ -236,7 +236,7 @@ export default function ComparisonPage({
       const schemaData = singleCat ? {
         '@context': 'https://schema.org',
         '@type': 'JobPosting',
-        '@id': `https://shinodayamashinchi-recruit.com/compare/${singleCat.slug}#jobposting`,
+        '@id': `https://osaka-shinodayamashinchi-recruit.com/compare/${singleCat.slug}#jobposting`,
         'title': `信太山新地 ${singleCat.title}（旅館個室接客・即日全額日払い）`,
         'description': `信太山新地（大阪府和泉市）の老舗旅館直営求人。【${singleCat.title}】${singleCat.summary} ${singleCat.llmDirectAnswer}店先顔見せなし・完全個室待機・15分短時間コース・全額日払い手渡し・時給1万円保証・ノルマ罰金一切なし・個室マンション寮完備・託児支援・安心の女性スタッフサポート。`,
         'identifier': {
@@ -264,8 +264,8 @@ export default function ComparisonPage({
         'hiringOrganization': {
           '@type': 'Organization',
           'name': '信太山新地 旅館直営求人（信太山ガールズ）',
-          'sameAs': 'https://shinodayamashinchi-recruit.com',
-          'logo': 'https://shinodayamashinchi-recruit.com/favicon.png'
+          'sameAs': 'https://osaka-shinodayamashinchi-recruit.com',
+          'logo': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
         },
         'jobLocation': {
           '@type': 'Place',
@@ -311,10 +311,10 @@ export default function ComparisonPage({
       } : {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        '@id': 'https://shinodayamashinchi-recruit.com/compare',
+        '@id': 'https://osaka-shinodayamashinchi-recruit.com/compare',
         'name': '信太山新地 安心の理由＆タイプ別働き方ガイド【2026年最新】｜信太山ガールズ',
         'description': '信太山新地の旅館直営公式採用の安心の理由と、未経験・高収入・週1日・短期出稼ぎ・寮付き・Wワーク・20代・30代・40代などタイプ別の働き方ガイド。店先顔出しなし100%、未経験率92%、天引き0円、最短15分3,800円〜、時給1万円保証、即日全額日払い。',
-        'url': 'https://shinodayamashinchi-recruit.com/compare',
+        'url': 'https://osaka-shinodayamashinchi-recruit.com/compare',
         'about': [
           {
             '@type': 'Thing',
@@ -450,7 +450,7 @@ export default function ComparisonPage({
                 <span itemProp="name">トップ（求人総合）</span>
               </button>
               <meta itemProp="position" content="1" />
-              <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/" />
+              <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
               <span>/</span>
             </li>
             {currentCategory ? (
@@ -469,7 +469,7 @@ export default function ComparisonPage({
                     <span itemProp="name">安心の理由＆タイプ別の働き方</span>
                   </button>
                   <meta itemProp="position" content="2" />
-                  <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/compare" />
+                  <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/compare" />
                   <span>/</span>
                 </li>
                 <li
@@ -480,7 +480,7 @@ export default function ComparisonPage({
                 >
                   <span itemProp="name">{currentCategory.title}</span>
                   <meta itemProp="position" content="3" />
-                  <meta itemProp="item" content={`https://shinodayamashinchi-recruit.com/compare/${currentCategory.slug}`} />
+                  <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/compare/${currentCategory.slug}`} />
                 </li>
               </>
             ) : (
@@ -492,7 +492,7 @@ export default function ComparisonPage({
               >
                 <span itemProp="name">安心の理由＆タイプ別の働き方ガイド</span>
                 <meta itemProp="position" content="2" />
-                <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/compare" />
+                <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/compare" />
               </li>
             )}
           </ol>

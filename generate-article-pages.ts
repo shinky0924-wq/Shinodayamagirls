@@ -85,7 +85,7 @@ export function injectMetaIntoHtml(baseHtml: string, meta: {
   return html;
 }
 
-export function toAbsoluteImageUrl(imagePath: string, domain = 'https://shinodayamashinchi-recruit.com'): string {
+export function toAbsoluteImageUrl(imagePath: string, domain = 'https://osaka-shinodayamashinchi-recruit.com'): string {
   if (!imagePath) {
     return `${domain}/images/japanese_hero_banner.jpg`;
   }
@@ -108,8 +108,8 @@ async function main() {
   const rootDir = process.cwd();
   const distDir = path.join(rootDir, 'dist');
   const articlesFile = path.join(rootDir, 'data', 'blogArticles.json');
-  // Default to custom domain shinodayamashinchi-recruit.com
-  const baseDomain = process.env.DEPLOY_DOMAIN || 'https://shinodayamashinchi-recruit.com';
+  // Default to custom domain osaka-shinodayamashinchi-recruit.com
+  const baseDomain = process.env.DEPLOY_DOMAIN || 'https://osaka-shinodayamashinchi-recruit.com';
 
   if (!fs.existsSync(distDir)) {
     console.warn('⚠️ dist directory not found. Please run vite build first.');

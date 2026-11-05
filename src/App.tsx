@@ -241,7 +241,7 @@ export default function App() {
       updatePageSeo({
         title: '信太山新地求人｜店先顔見せなし・旅館個室待機・高収入｜信太山ガールズ',
         description: '【信太山新地求人公式】店先顔見せなし・未経験歓迎・高収入（15分短時間コース・保証あり・日給5万〜10万円即日全額日払い）。大阪府和泉市の旅館直営、毎月20日定休日、家電付き個室寮・託児所完備。女性サポートスタッフによる無料相談受付中。',
-        canonicalUrl: 'https://shinodayamashinchi-recruit.com/',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
         ogImage: '/images/hub_beginner_cast_1792485407920.jpg',
         ogType: 'website'
       });
@@ -250,7 +250,7 @@ export default function App() {
         updatePageSeo({
           title: `${currentArticle.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
           description: currentArticle.summary || `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`,
-          canonicalUrl: `https://shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
+          canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
           ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.jpg',
           ogType: 'article',
           publishedTime: currentArticle.publishedAt,
@@ -264,7 +264,7 @@ export default function App() {
             'inLanguage': 'ja-JP',
             'isAccessibleForFree': true,
             'keywords': Array.isArray(currentArticle.tags) ? currentArticle.tags.join(', ') : '信太山新地, 信太山ガールズ, 求人, 旅館個室待機, 即日全額日払い',
-            'image': currentArticle.eyeCatch ? `https://shinodayamashinchi-recruit.com${currentArticle.eyeCatch}` : undefined,
+            'image': currentArticle.eyeCatch ? `https://osaka-shinodayamashinchi-recruit.com${currentArticle.eyeCatch}` : undefined,
             'author': {
               '@type': 'Person',
               'name': currentArticle.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
@@ -272,16 +272,16 @@ export default function App() {
               'worksFor': {
                 '@type': 'Organization',
                 'name': '信太山新地 老舗旅館直営グループ（信太山ガールズ）',
-                'url': 'https://shinodayamashinchi-recruit.com/'
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/'
               }
             },
             'publisher': {
               '@type': 'Organization',
               'name': '信太山ガールズ（旅館直営求人・女性採用サポート）',
-              'url': 'https://shinodayamashinchi-recruit.com/',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/',
               'logo': {
                 '@type': 'ImageObject',
-                'url': 'https://shinodayamashinchi-recruit.com/favicon.png'
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
               }
             },
             'speakable': {
@@ -290,7 +290,7 @@ export default function App() {
             },
             'mainEntityOfPage': {
               '@type': 'WebPage',
-              '@id': `https://shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
+              '@id': `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
             }
           }
         });
@@ -298,7 +298,7 @@ export default function App() {
         updatePageSeo({
           title: '信太山新地求人 お仕事コラム一覧（全139記事）｜信太山ガールズ公式',
           description: '信太山新地の仕事内容、給与計算、旅館個室待機、顔見せなしルール、未経験向けガイドなど現役キャスト・旅館求人担当者の生の声をお届けする公式コラム集。',
-          canonicalUrl: 'https://shinodayamashinchi-recruit.com/blog',
+          canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
           ogType: 'website'
         });
       }
@@ -306,7 +306,7 @@ export default function App() {
       updatePageSeo({
         title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
         description: '信太山新地の老舗旅館直営求人窓口「信太山ガールズ」の運営者情報、所在地（大阪府和泉市）、理念、女性サポート体制についてご紹介します。',
-        canonicalUrl: 'https://shinodayamashinchi-recruit.com/about',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
         ogType: 'website'
       });
     }
@@ -497,7 +497,7 @@ export default function App() {
                           <span itemProp="name">信太山新地求人トップ</span>
                         </button>
                         <meta itemProp="position" content="1" />
-                        <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/" />
+                        <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
                         <span>/</span>
                       </li>
                       <li
@@ -514,7 +514,7 @@ export default function App() {
                           <span itemProp="name">お仕事コラム一覧</span>
                         </button>
                         <meta itemProp="position" content="2" />
-                        <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/blog" />
+                        <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/blog" />
                         <span>/</span>
                       </li>
                       <li
@@ -531,7 +531,7 @@ export default function App() {
                           <span itemProp="name">{TOPIC_CLUSTERS[relatedClusterTopic]?.title || currentArticle.categoryLabel}</span>
                         </button>
                         <meta itemProp="position" content="3" />
-                        <meta itemProp="item" content={`https://shinodayamashinchi-recruit.com/${relatedClusterTopic}`} />
+                        <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/${relatedClusterTopic}`} />
                         <span>/</span>
                       </li>
                       <li
@@ -542,7 +542,7 @@ export default function App() {
                       >
                         <span itemProp="name">{currentArticle.title}</span>
                         <meta itemProp="position" content="4" />
-                        <meta itemProp="item" content={`https://shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`} />
+                        <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`} />
                       </li>
                     </ol>
                   </nav>

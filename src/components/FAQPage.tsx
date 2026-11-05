@@ -169,25 +169,25 @@ export default function FAQPage({ initialCategory, onNavigateHome, onCtaclick }:
       '@graph': [
         {
           '@type': 'BreadcrumbList',
-          '@id': 'https://shinodayamashinchi-recruit.com/faq#breadcrumb',
+          '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#breadcrumb',
           'itemListElement': [
             {
               '@type': 'ListItem',
               'position': 1,
               'name': '信太山新地求人トップ',
-              'item': 'https://shinodayamashinchi-recruit.com/'
+              'item': 'https://osaka-shinodayamashinchi-recruit.com/'
             },
             {
               '@type': 'ListItem',
               'position': 2,
               'name': '信太山新地求人FAQ（全119問・8大目的別）',
-              'item': 'https://shinodayamashinchi-recruit.com/faq'
+              'item': 'https://osaka-shinodayamashinchi-recruit.com/faq'
             }
           ]
         },
         {
           '@type': 'FAQPage',
-          '@id': 'https://shinodayamashinchi-recruit.com/faq#faq',
+          '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faq',
           'mainEntity': [...highIntentEntities, ...standardEntities]
         }
       ]

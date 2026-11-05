@@ -524,7 +524,7 @@ export default function Testimonials() {
             "@context": "https://schema.org",
             "@graph": TESTIMONIALS.map((t) => ({
               "@type": "Article",
-              "@id": `https://shinodayamashinchi-recruit.com/#interview-${t.id}`,
+              "@id": `https://osaka-shinodayamashinchi-recruit.com/#interview-${t.id}`,
               "headline": `信太山新地で働いた女性インタビュー【${t.name}さん・年齢:${t.profile.ageGroup}・前職:${t.profile.previousJob}・勤務歴:${t.profile.workPeriod}】`,
               "description": `${t.name}さん（${t.profile.ageGroup}・前職:${t.profile.previousJob}・経験:${t.profile.nightWorkExp}）への公式対面インタビュー。取材日:${t.profile.interviewDate}。実在キャストの公式対面インタビュー記録。`,
               "datePublished": "2026-03-14",
@@ -545,8 +545,8 @@ export default function Testimonials() {
               "publisher": {
                 "@type": "Organization",
                 "name": "信太山新地求人 信太山ガールズ（旅館直営）",
-                "url": "https://shinodayamashinchi-recruit.com",
-                "logo": "https://shinodayamashinchi-recruit.com/favicon.svg"
+                "url": "https://osaka-shinodayamashinchi-recruit.com",
+                "logo": "https://osaka-shinodayamashinchi-recruit.com/favicon.svg"
               }
             }))
           })

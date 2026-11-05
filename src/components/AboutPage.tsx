@@ -17,14 +17,14 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick }
     updatePageSeo({
       title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
       description: '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報、グループ店舗概要、所在地、採用責任者、所属団体（信太山新地旅館組合）、事業内容、コンプライアンス就労憲章、個人情報保護規程を明示しています。',
-      canonicalUrl: 'https://shinodayamashinchi-recruit.com/about',
+      canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
       ogType: 'website',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'AboutPage',
         'name': '運営者情報・店舗概要',
         'description': '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
-        'url': 'https://shinodayamashinchi-recruit.com/about'
+        'url': 'https://osaka-shinodayamashinchi-recruit.com/about'
       }
     });
   }, []);

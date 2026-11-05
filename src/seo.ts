@@ -13,7 +13,7 @@ export interface SeoConfig {
   jsonLd?: object | object[];
 }
 
-export const BASE_SITE_URL = 'https://shinodayamashinchi-recruit.com';
+export const BASE_SITE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
 export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/hub_beginner_cast_1792485407920.jpg`;
 
 /**

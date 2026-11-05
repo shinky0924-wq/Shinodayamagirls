@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const BASE_URL = 'https://shinodayamashinchi-recruit.com';
+const BASE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
 
 // 1. Load blog articles
 const blogArticlesPath = path.join(rootDir, 'data', 'blogArticles.json');

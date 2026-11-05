@@ -181,10 +181,10 @@ export default function TopicClusterPage({
       '@graph': [
         {
           '@type': 'Article',
-          '@id': `https://shinodayamashinchi-recruit.com${data.path}#article`,
+          '@id': `https://osaka-shinodayamashinchi-recruit.com${data.path}#article`,
           'headline': data.title,
           'description': data.metaDescription || data.overview,
-          'image': data.heroImage ? `https://shinodayamashinchi-recruit.com${data.heroImage}` : undefined,
+          'image': data.heroImage ? `https://osaka-shinodayamashinchi-recruit.com${data.heroImage}` : undefined,
           'inLanguage': 'ja-JP',
           'author': {
             '@type': 'Organization',
@@ -195,7 +195,7 @@ export default function TopicClusterPage({
             'name': '信太山ガールズ',
             'logo': {
               '@type': 'ImageObject',
-              'url': 'https://shinodayamashinchi-recruit.com/favicon.png'
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
             }
           },
           'speakable': {
@@ -209,25 +209,25 @@ export default function TopicClusterPage({
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `https://shinodayamashinchi-recruit.com${data.path}#breadcrumb`,
+          '@id': `https://osaka-shinodayamashinchi-recruit.com${data.path}#breadcrumb`,
           'itemListElement': [
             {
               '@type': 'ListItem',
               'position': 1,
               'name': '信太山新地求人トップ',
-              'item': 'https://shinodayamashinchi-recruit.com/'
+              'item': 'https://osaka-shinodayamashinchi-recruit.com/'
             },
             {
               '@type': 'ListItem',
               'position': 2,
               'name': data.title,
-              'item': `https://shinodayamashinchi-recruit.com${data.path}`
+              'item': `https://osaka-shinodayamashinchi-recruit.com${data.path}`
             }
           ]
         },
         {
           '@type': 'FAQPage',
-          '@id': `https://shinodayamashinchi-recruit.com${data.path}#faq`,
+          '@id': `https://osaka-shinodayamashinchi-recruit.com${data.path}#faq`,
           'mainEntity': (data.faqs || []).map((item) => ({
             '@type': 'Question',
             'name': item.q,
@@ -243,7 +243,7 @@ export default function TopicClusterPage({
     updatePageSeo({
       title: data.seoTitle || `${data.title}｜信太山新地求人 公式分野別ガイド【信太山ガールズ】`,
       description: data.metaDescription || `${data.overview} 信太山新地の旅館直営公式求人情報。店先顔見せなし・完全個室待機・即日全額日払い。`,
-      canonicalUrl: `https://shinodayamashinchi-recruit.com${data.path}`,
+      canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${data.path}`,
       ogImage: data.heroImage || visualAsset.secondaryImage,
       ogType: 'article',
       jsonLd: schemaData
@@ -300,7 +300,7 @@ export default function TopicClusterPage({
                 <span itemProp="name">信太山新地求人（トップ）</span>
               </button>
               <meta itemProp="position" content="1" />
-              <meta itemProp="item" content="https://shinodayamashinchi-recruit.com/" />
+              <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
             </li>
             <li className="text-zinc-400">/</li>
             <li
@@ -313,7 +313,7 @@ export default function TopicClusterPage({
               <span>{data.emoji}</span>
               <span itemProp="name">{data.title}</span>
               <meta itemProp="position" content="2" />
-              <meta itemProp="item" content={`https://shinodayamashinchi-recruit.com${data.path}`} />
+              <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com${data.path}`} />
             </li>
           </ol>
         </nav>
