@@ -1,0 +1,6 @@
+{
+  "name": "信太山新地求人ガイド",
+  "description": "【信太山新地求人公式】顔見せなし・旅館個室待機・未経験歓迎の高収入（時給1万円保証・日給5万〜10万円即日日払い）。大阪府和泉市・信太山新地の仕事内容、旅館の給料システム、毎月20日定休日、寮・託児所完備を徹底解説。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
