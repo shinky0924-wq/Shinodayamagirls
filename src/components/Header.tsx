@@ -301,6 +301,34 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                         </button>
                       ))}
                     </div>
+
+                    {/* Featured Special Guides */}
+                    <div className="mt-2.5 pt-2 border-t border-rose-100 flex items-center justify-between gap-2 text-xs">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setGuideDropdownOpen(false);
+                          onChangeTab('workstyle');
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="flex-1 py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#E5004F] font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-xs"
+                      >
+                        <LucideIcon name="Target" size={14} />
+                        <span>タイプ別働き方ガイド</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setGuideDropdownOpen(false);
+                          onChangeTab('compare');
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="flex-1 py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#E5004F] font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-xs"
+                      >
+                        <LucideIcon name="Scale" size={14} />
+                        <span>新地・風俗徹底比較</span>
+                      </button>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -483,6 +511,42 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </div>
                 )}
               </div>
+
+              {/* ├─ 新地・風俗徹底比較 */}
+              <button
+                type="button"
+                onClick={(e) => handleLinkClick(e, { action: 'compare' })}
+                className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
+                id="mobile-link-compare"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                    <LucideIcon name="Scale" size={15} />
+                  </div>
+                  <span className="font-bold text-sm text-zinc-900 group-hover:text-rose-600">
+                    新地・風俗徹底比較
+                  </span>
+                </div>
+                <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
+              </button>
+
+              {/* ├─ タイプ別働き方ガイド */}
+              <button
+                type="button"
+                onClick={(e) => handleLinkClick(e, { action: 'workstyle' })}
+                className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
+                id="mobile-link-workstyle"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                    <LucideIcon name="Target" size={15} />
+                  </div>
+                  <span className="font-bold text-sm text-zinc-900 group-hover:text-rose-600">
+                    タイプ別働き方ガイド
+                  </span>
+                </div>
+                <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
+              </button>
 
               {/* ├─ 選ばれる理由 */}
               <button
