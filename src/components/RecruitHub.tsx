@@ -558,63 +558,230 @@ export default function RecruitHub({
           </div>
         </div>
 
-        {/* 8つのタイプ別ガイドへのクイック導線バナー */}
-        <div className="bg-gradient-to-r from-[#E5004F] via-pink-600 to-[#E5004F] rounded-[18px] p-6 sm:p-8 text-white shadow-md mb-8">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div className="max-w-2xl">
-              <button
-                type="button"
-                onClick={() => onNavigateCompare ? onNavigateCompare() : onScrollToSection('compare')}
-                className="inline-flex items-center gap-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full mb-3 shadow-2xs cursor-pointer transition-colors"
+        {/* ========================================================
+            あなたに合った働き方・タイプ別ガイド ナビゲーションバナー
+           ======================================================== */}
+        <section 
+          className="bg-[#FFFAFC] border border-[#F0DDE4] rounded-[18px] p-6 sm:p-8 lg:p-10 shadow-[0_4px_24px_-4px_rgba(216,23,93,0.06)] mb-8 overflow-hidden"
+          aria-labelledby="workstyle-banner-title"
+        >
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            {/* 左側 70%: 見出し・説明・8つのタグ・CTAボタン */}
+            <div className="w-full lg:w-[68%] xl:w-[70%]">
+              {/* 小さな英字ラベル */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF1F5] text-[#D8175D] font-black text-[10px] tracking-wider uppercase mb-2 border border-[#F0DDE4]">
+                <LucideIcon name="Sparkles" size={12} />
+                <span>WORK STYLE GUIDE</span>
+              </div>
+
+              {/* 日本語の小見出し */}
+              <div className="text-xs sm:text-sm font-bold text-[#D8175D] mb-1.5 tracking-wide">
+                あなたに合った働き方・タイプ別ガイド
+              </div>
+
+              {/* メイン見出し */}
+              <h3 
+                id="workstyle-banner-title"
+                className="font-display font-extrabold text-xl sm:text-2xl lg:text-[26px] text-[#292329] leading-snug mb-3 tracking-tight"
               >
-                <LucideIcon name="Target" size={13} />
-                <span>あなたにぴったりの働き方・タイプ別ガイド</span>
-                <LucideIcon name="ChevronRight" size={12} />
-              </button>
-              <h3 className="font-display font-black text-xl sm:text-2xl text-white tracking-tight mb-2">
-                「未経験」「高収入」「週1日」「短期」「寮付き」「Wワーク」「20代」「30代・40代」から選ぶ
+                あなたに合った働き方、<br className="hidden xs:inline sm:hidden" />
+                <span className="text-[#D8175D]">ここから見つけませんか？</span>
               </h3>
-              <p className="text-xs sm:text-sm text-rose-100 leading-relaxed mb-4">
-                「自分に合う働き方はどれ？」「未経験や副業でも大丈夫？」など、あなたの生活スタイルや希望条件にぴったりの働き方をご紹介しています。
+
+              {/* 説明文 */}
+              <p className="font-sans text-xs sm:text-sm text-[#777777] leading-relaxed mb-6 max-w-2xl">
+                未経験から始めたい方、収入を重視したい方、プライバシーが気になる方、自由な働き方を希望する方まで。あなたの希望やライフスタイルに合わせたお仕事探しに役立つ情報をご紹介します。
               </p>
-              
-              <div className="flex flex-wrap gap-1.5">
+
+              {/* 8つのタグナビゲーション */}
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 mb-7">
                 {[
-                  { label: '未経験向け', slug: 'inexperienced' },
-                  { label: '高収入', slug: 'high-income' },
-                  { label: '週1日〜', slug: 'weekly-1' },
-                  { label: '短期集中', slug: 'short-term' },
-                  { label: '個室寮付き', slug: 'dormitory' },
-                  { label: 'Wワーク', slug: 'double-work' },
-                  { label: '20代向け', slug: 'age-20s' },
-                  { label: '30代・40代向け', slug: 'age-30s' },
+                  {
+                    id: 'beginner',
+                    label: '未経験から始めたい',
+                    icon: 'HeartHandshake',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['beginner'] = (counts['beginner'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('beginner');
+                      else if (onNavigateCompare) onNavigateCompare('inexperienced');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'salary',
+                    label: '高収入を目指したい',
+                    icon: 'Wallet',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['salary'] = (counts['salary'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('salary');
+                      else if (onNavigateCompare) onNavigateCompare('high-income');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'weekly1',
+                    label: '週1日から働きたい',
+                    icon: 'CalendarDays',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['weekly1'] = (counts['weekly1'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('workstyle');
+                      else if (onNavigateCompare) onNavigateCompare('weekly-1');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'privacy',
+                    label: '顔出しなし・身バレ対策',
+                    icon: 'ShieldCheck',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['privacy'] = (counts['privacy'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('safety');
+                      else if (onNavigateCompare) onNavigateCompare('double-work');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'short-time',
+                    label: '短時間・短期で働きたい',
+                    icon: 'Clock',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['short-time'] = (counts['short-time'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('workstyle');
+                      else if (onNavigateCompare) onNavigateCompare('short-term');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'staff-consult',
+                    label: '女性スタッフに相談したい',
+                    icon: 'MessagesSquare',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['staff-consult'] = (counts['staff-consult'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      onScrollToSection('recruiter-interview');
+                    }
+                  },
+                  {
+                    id: 'dorm',
+                    label: '出稼ぎ・寮付き希望',
+                    icon: 'House',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['dorm'] = (counts['dorm'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      if (onNavigateTopic) onNavigateTopic('dorm');
+                      else if (onNavigateCompare) onNavigateCompare('dormitory');
+                      else onScrollToSection('jobs');
+                    }
+                  },
+                  {
+                    id: 'first-inquiry',
+                    label: 'まずは話を聞きたい',
+                    icon: 'MessageCircle',
+                    onClick: () => {
+                      try {
+                        const raw = localStorage.getItem('workstyle_banner_tag_clicks');
+                        const counts = raw ? JSON.parse(raw) : {};
+                        counts['first-inquiry'] = (counts['first-inquiry'] || 0) + 1;
+                        localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
+                      } catch {}
+                      onScrollToSection('consultation');
+                    }
+                  }
                 ].map((tag) => (
                   <button
-                    key={tag.slug}
+                    key={tag.id}
                     type="button"
-                    onClick={() => onNavigateCompare ? onNavigateCompare(tag.slug) : onScrollToSection('compare')}
-                    className="text-xs bg-white/20 hover:bg-white text-white hover:text-[#E5004F] px-3 py-1 rounded-full font-bold transition-all cursor-pointer shadow-2xs"
+                    onClick={tag.onClick}
+                    className="h-[42px] sm:h-[44px] px-2.5 sm:px-3.5 rounded-[12px] bg-[#FFF1F5] hover:bg-[#ffe3eb] active:scale-[0.98] border border-[#F0DDE4] hover:border-[#D8175D]/40 text-[#D8175D] font-bold text-[11px] sm:text-xs md:text-[13px] flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 transition-all cursor-pointer shadow-2xs group"
+                    id={`workstyle-tag-${tag.id}`}
+                    title={tag.label}
                   >
-                    #{tag.label}
+                    <LucideIcon 
+                      name={tag.icon} 
+                      size={15} 
+                      className="text-[#D8175D] shrink-0 group-hover:scale-110 transition-transform" 
+                    />
+                    <span className="truncate">{tag.label}</span>
                   </button>
                 ))}
               </div>
+
+              {/* CTAボタン & 補足文 */}
+              <div className="flex flex-col items-center sm:items-start max-w-md">
+                <button
+                  type="button"
+                  onClick={() => onNavigateCompare ? onNavigateCompare() : onScrollToSection('compare')}
+                  className="w-full sm:w-auto sm:min-w-[300px] h-[52px] sm:h-[54px] px-8 rounded-[12px] font-extrabold text-sm sm:text-base bg-[#D8175D] hover:bg-[#b5124c] text-white transition-all flex items-center justify-center gap-2 shadow-md shadow-[#D8175D]/20 hover:shadow-lg cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
+                  id="recruit-hub-compare-btn"
+                >
+                  <span>自分に合った働き方を探す →</span>
+                </button>
+                <p className="text-xs text-[#777777] text-center sm:text-left mt-2.5 w-full">
+                  気になる条件から、あなたに合った情報をご覧いただけます。
+                </p>
+              </div>
             </div>
 
-            <div className="shrink-0 w-full lg:w-auto">
-              <button
-                type="button"
-                onClick={() => onNavigateCompare ? onNavigateCompare() : onScrollToSection('compare')}
-                className="w-full lg:w-auto bg-white hover:bg-rose-50 text-[#E5004F] font-black text-sm px-6 py-3.5 rounded-[12px] shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-105"
-                id="recruit-hub-compare-btn"
-              >
-                <LucideIcon name="Scale" size={16} />
-                <span>タイプ別の働き方を見る</span>
-                <LucideIcon name="ChevronRight" size={16} />
-              </button>
+            {/* 右側 30%: 成人女性の上品なイメージ画像（PCのみ表示、スマホでは省略） */}
+            <div className="hidden lg:flex lg:w-[32%] xl:w-[30%] shrink-0 flex-col items-center justify-center pl-2">
+              <div className="relative w-full max-w-[280px] rounded-[16px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-white p-2.5">
+                <div className="relative rounded-[12px] overflow-hidden aspect-[4/5] bg-[#FFF1F5]">
+                  <img
+                    src="/images/col_search_phone_jp_1792475574840.jpg"
+                    alt="自分に合った働き方を探す女性"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                    width={280}
+                    height={350}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-white/95 backdrop-blur-xs px-3 py-2 rounded-[10px] text-center shadow-xs border border-rose-100">
+                    <span className="text-[11px] font-bold text-[#D8175D] block">
+                      女性スタッフが丁寧に対応
+                    </span>
+                    <span className="text-[9.5px] text-[#777777] block mt-0.5">
+                      質問・相談だけでも大歓迎です
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* お仕事コラム一覧へのリンク */}
         {onNavigateToBlog && (
