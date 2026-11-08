@@ -52,7 +52,17 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     { name: '応募・面接の流れ', action: 'section', target: '#flow' },
   ];
 
-  const targetCategoryLinks = [
+  interface CategoryLinkItem {
+    name: string;
+    icon: string;
+    slug?: string;
+    action: string;
+    target: string;
+    sectionId?: string;
+    topicId?: string;
+  }
+
+  const targetCategoryLinks: CategoryLinkItem[] = [
     { 
       name: '未経験から始めたい', 
       icon: 'HeartHandshake',
@@ -78,9 +88,8 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
       name: '顔出しなし・身バレ対策', 
       icon: 'ShieldCheck',
       slug: 'double-work', 
-      action: 'topic',
-      topicId: 'safety',
-      target: '/safety' 
+      action: 'workstyle',
+      target: '/types/double-work' 
     },
     { 
       name: '短時間・短期で働きたい', 
@@ -100,9 +109,8 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
       name: '出稼ぎ・寮付き希望', 
       icon: 'House',
       slug: 'dormitory', 
-      action: 'topic',
-      topicId: 'dorm',
-      target: '/dorm' 
+      action: 'workstyle',
+      target: '/types/dormitory' 
     },
     { 
       name: 'まずは話を聞きたい', 

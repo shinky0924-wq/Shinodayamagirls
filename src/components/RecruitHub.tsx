@@ -607,8 +607,8 @@ export default function RecruitHub({
                         counts['beginner'] = (counts['beginner'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('beginner');
-                      else if (onNavigateCompare) onNavigateCompare('inexperienced');
+                      if (onNavigateCompare) onNavigateCompare('inexperienced');
+                      else if (onNavigateTopic) onNavigateTopic('beginner');
                       else onScrollToSection('jobs');
                     }
                   },
@@ -623,8 +623,8 @@ export default function RecruitHub({
                         counts['salary'] = (counts['salary'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('salary');
-                      else if (onNavigateCompare) onNavigateCompare('high-income');
+                      if (onNavigateCompare) onNavigateCompare('high-income');
+                      else if (onNavigateTopic) onNavigateTopic('salary');
                       else onScrollToSection('jobs');
                     }
                   },
@@ -639,8 +639,8 @@ export default function RecruitHub({
                         counts['weekly1'] = (counts['weekly1'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('workstyle');
-                      else if (onNavigateCompare) onNavigateCompare('weekly-1');
+                      if (onNavigateCompare) onNavigateCompare('weekly-1');
+                      else if (onNavigateTopic) onNavigateTopic('workstyle');
                       else onScrollToSection('jobs');
                     }
                   },
@@ -655,8 +655,8 @@ export default function RecruitHub({
                         counts['privacy'] = (counts['privacy'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('safety');
-                      else if (onNavigateCompare) onNavigateCompare('double-work');
+                      if (onNavigateCompare) onNavigateCompare('double-work');
+                      else if (onNavigateTopic) onNavigateTopic('safety');
                       else onScrollToSection('jobs');
                     }
                   },
@@ -671,8 +671,8 @@ export default function RecruitHub({
                         counts['short-time'] = (counts['short-time'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('workstyle');
-                      else if (onNavigateCompare) onNavigateCompare('short-term');
+                      if (onNavigateCompare) onNavigateCompare('short-term');
+                      else if (onNavigateTopic) onNavigateTopic('workstyle');
                       else onScrollToSection('jobs');
                     }
                   },
@@ -701,8 +701,8 @@ export default function RecruitHub({
                         counts['dorm'] = (counts['dorm'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateTopic) onNavigateTopic('dorm');
-                      else if (onNavigateCompare) onNavigateCompare('dormitory');
+                      if (onNavigateCompare) onNavigateCompare('dormitory');
+                      else if (onNavigateTopic) onNavigateTopic('dorm');
                       else onScrollToSection('jobs');
                     }
                   },
