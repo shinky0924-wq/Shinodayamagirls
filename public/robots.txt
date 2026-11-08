@@ -1,0 +1,46 @@
+# ==============================================================
+# Robots.txt for 信太山ガールズ（信太山新地求人公式サイト）
+# Optimized for Web Search Engines & Generative AI Search (LLMO)
+# ==============================================================
+
+# Standard Search Engines (Google, Bing, Yahoo, DuckDuckGo, etc.)
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Mobile
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+Allow: /
+
+# Generative AI Search & LLMO Web Retrieval Bots (ChatGPT Search, Perplexity, Claude, Gemini, etc.)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: GoogleOther
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: Diffbot
+Allow: /
+
+# General Crawlers
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+
+# LLM Knowledge Index (Specification: https://llmstxt.org/)
+# LLMs-Text: https://osaka-shinodayamashinchi-recruit.com/llms.txt
+# LLMs-Full-Text: https://osaka-shinodayamashinchi-recruit.com/llms-full.txt
+
+# Canonical Sitemap and Host
+Sitemap: https://osaka-shinodayamashinchi-recruit.com/sitemap.xml
+Host: https://osaka-shinodayamashinchi-recruit.com

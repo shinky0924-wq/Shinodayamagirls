@@ -1,0 +1,1088 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Testimonials from './components/Testimonials';
+import RecruitHub from './components/RecruitHub';
+import JobRequirementsSection from './components/JobRequirementsSection';
+import WorkFlowSection from './components/WorkFlowSection';
+import RecruiterInterviewSection from './components/RecruiterInterviewSection';
+import ConsultationForm from './components/ConsultationForm';
+import Footer from './components/Footer';
+import AboutPage from './components/AboutPage';
+import ComparisonPage from './components/ComparisonPage';
+import FAQPage from './components/FAQPage';
+import TopicClusterPage from './components/TopicClusterPage';
+import AdminPanel from './components/AdminPanel';
+import LucideIcon from './components/LucideIcon';
+import ArticleCardImage from './components/ArticleCardImage';
+
+import { getStoredSiteContent, SiteContent } from './siteContent';
+import { LINE_OFFICIAL_URL } from './data';
+import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch } from './blogData';
+import { TOPIC_CLUSTERS } from './topicClusterData';
+import { updatePageSeo } from './seo';
+
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'faq' | 'cluster';
+
+export default function App() {
+  const [siteContent] = useState<SiteContent>(getStoredSiteContent());
+  const [currentTab, setCurrentTab] = useState<AppTab>('recruit');
+  const [selectedTopicId, setSelectedTopicId] = useState<string>('job');
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
+  const [initialFaqCategory, setInitialFaqCategory] = useState<string | null>(null);
+  const [consultationMessage, setConsultationMessage] = useState<string>('');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Sync route on mount and back/forward navigation
+  useEffect(() => {
+    const parseLocation = () => {
+      const pathname = window.location.pathname;
+      const search = window.location.search;
+      const params = new URLSearchParams(search);
+
+      if (pathname.startsWith('/about')) {
+        setCurrentTab('about');
+      } else if (pathname.startsWith('/compare')) {
+        setCurrentTab('compare');
+        const parts = pathname.split('/').filter(Boolean);
+        if (parts.length > 1) {
+          setSelectedCategorySlug(parts[1]);
+        } else if (params.get('category')) {
+          setSelectedCategorySlug(params.get('category'));
+        }
+      } else if (pathname.startsWith('/faq')) {
+        setCurrentTab('faq');
+        if (params.get('category')) {
+          setInitialFaqCategory(params.get('category'));
+        }
+      } else if (pathname.startsWith('/admin')) {
+        setCurrentTab('admin');
+      } else if (pathname.startsWith('/blog')) {
+        setCurrentTab('blog');
+        const parts = pathname.split('/').filter(Boolean);
+        if (parts.length > 1) {
+          setSelectedBlogSlug(parts[1]);
+        } else {
+          setSelectedBlogSlug(null);
+        }
+      } else {
+        const clusterTopics = [
+          'job',
+          'salary',
+          'benefits',
+          'beginner',
+          'experienced',
+          'requirements',
+          'flow',
+          'workstyle',
+          'shops',
+          'dorm',
+          'safety'
+        ];
+        const matchCluster = clusterTopics.find((t) => pathname === `/${t}` || pathname === `/${t}/`);
+        if (matchCluster) {
+          setCurrentTab('cluster');
+          setSelectedTopicId(matchCluster === 'benefits' ? 'salary' : matchCluster);
+        } else {
+          setCurrentTab('recruit');
+        }
+      }
+    };
+
+    parseLocation();
+    window.addEventListener('popstate', parseLocation);
+    return () => window.removeEventListener('popstate', parseLocation);
+  }, []);
+
+  // Show scroll-to-top button on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Navigation helpers that push browser history
+  const navigateTo = (tab: AppTab, path: string = '/') => {
+    setCurrentTab(tab);
+    window.history.pushState({}, '', path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleTabChange = (tab: AppTab) => {
+    if (tab === 'recruit') {
+      navigateTo('recruit', '/');
+    } else if (tab === 'about') {
+      navigateTo('about', '/about');
+    } else if (tab === 'compare') {
+      navigateTo('compare', '/compare');
+    } else if (tab === 'faq') {
+      navigateTo('faq', '/faq');
+    } else if (tab === 'blog') {
+      setSelectedBlogSlug(null);
+      navigateTo('blog', '/blog');
+    } else if (tab === 'admin') {
+      navigateTo('admin', '/admin');
+    } else if (tab === 'cluster') {
+      const topic = selectedTopicId === 'benefits' ? 'salary' : selectedTopicId;
+      navigateTo('cluster', `/${topic}`);
+    }
+  };
+
+  const handleNavigateTopic = (topicId: string) => {
+    const targetTopic = topicId === 'benefits' ? 'salary' : topicId;
+    setSelectedTopicId(targetTopic);
+    navigateTo('cluster', `/${targetTopic}`);
+  };
+
+  const handleNavigateCompare = (categorySlug?: string) => {
+    setSelectedCategorySlug(categorySlug || null);
+    const path = categorySlug ? `/compare/${categorySlug}` : '/compare';
+    navigateTo('compare', path);
+  };
+
+  const handleNavigateFaq = (category?: string) => {
+    setInitialFaqCategory(category || null);
+    const path = category ? `/faq?category=${category}` : '/faq';
+    navigateTo('faq', path);
+  };
+
+  const handleNavigateBlog = (slug?: string) => {
+    if (slug) {
+      setSelectedBlogSlug(slug);
+      navigateTo('blog', `/blog/${slug}`);
+    } else {
+      setSelectedBlogSlug(null);
+      navigateTo('blog', '/blog');
+    }
+  };
+
+  const handleScrollToSection = (sectionId: string) => {
+    if (currentTab !== 'recruit') {
+      setCurrentTab('recruit');
+      window.history.pushState({}, '', '/');
+      setTimeout(() => {
+        const id = sectionId.startsWith('#') ? sectionId.slice(1) : sectionId;
+        const elem = document.getElementById(id);
+        if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const id = sectionId.startsWith('#') ? sectionId.slice(1) : sectionId;
+      const elem = document.getElementById(id);
+      if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCtaclick = () => {
+    window.open(LINE_OFFICIAL_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleInjectedScroll = (message: string) => {
+    setConsultationMessage(message);
+    if (currentTab !== 'recruit') {
+      setCurrentTab('recruit');
+      window.history.pushState({}, '', '/');
+    }
+    setTimeout(() => {
+      const elem = document.getElementById('consultation');
+      if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  };
+
+  // Currently viewing blog article
+  const currentArticle = useMemo(() => {
+    if (currentTab === 'blog' && selectedBlogSlug) {
+      return BLOG_ARTICLES.find((a) => a.slug === selectedBlogSlug) || null;
+    }
+    return null;
+  }, [currentTab, selectedBlogSlug]);
+
+  // Contextual primary topic cluster for internal cross-linking
+  const relatedClusterTopic = useMemo(() => {
+    if (!currentArticle) return 'job';
+    const mapping: Record<string, string> = {
+      salary: 'salary',
+      beginner: 'beginner',
+      safety: 'safety',
+      dorm: 'dorm',
+      job: 'job',
+      workstyle: 'workstyle',
+      experienced: 'experienced',
+      shops: 'shops',
+      interview: 'job',
+      beauty: 'beginner',
+      faq: 'safety'
+    };
+    return mapping[currentArticle.category] || 'job';
+  }, [currentArticle]);
+
+  // Contextual 3 related articles for internal link network
+  const relatedArticles = useMemo(() => {
+    if (!currentArticle) return [];
+    const sameCategory = BLOG_ARTICLES.filter(
+      (a) => a.id !== currentArticle.id && a.category === currentArticle.category
+    );
+    if (sameCategory.length >= 3) {
+      return sameCategory.slice(0, 3);
+    }
+    const otherArticles = BLOG_ARTICLES.filter(
+      (a) => a.id !== currentArticle.id && a.category !== currentArticle.category
+    );
+    return [...sameCategory, ...otherArticles].slice(0, 3);
+  }, [currentArticle]);
+
+  // Synchronize dynamic SEO metadata and JSON-LD structured data for LLM and Web crawlers
+  useEffect(() => {
+    if (currentTab === 'recruit') {
+      updatePageSeo({
+        title: '信太山新地求人｜店先顔見せなし・旅館個室待機・高収入｜信太山ガールズ',
+        description: '【信太山新地求人公式】店先顔見せなし・未経験歓迎・高収入（15分短時間コース・保証あり・日給5万〜10万円即日全額日払い）。大阪府和泉市の旅館直営、毎月20日定休日、家電付き個室寮・託児所完備。女性サポートスタッフによる無料相談受付中。',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
+        ogImage: '/images/hub_beginner_cast_1792485407920.jpg',
+        ogType: 'website'
+      });
+    } else if (currentTab === 'blog') {
+      if (currentArticle) {
+        updatePageSeo({
+          title: `${currentArticle.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
+          description: currentArticle.summary || `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`,
+          canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
+          ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.jpg',
+          ogType: 'article',
+          publishedTime: currentArticle.publishedAt,
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            'headline': currentArticle.title,
+            'description': currentArticle.summary,
+            'datePublished': currentArticle.publishedAt,
+            'dateModified': currentArticle.publishedAt,
+            'inLanguage': 'ja-JP',
+            'isAccessibleForFree': true,
+            'keywords': Array.isArray(currentArticle.tags) ? currentArticle.tags.join(', ') : '信太山新地, 信太山ガールズ, 求人, 旅館個室待機, 即日全額日払い',
+            'image': currentArticle.eyeCatch ? `https://osaka-shinodayamashinchi-recruit.com${currentArticle.eyeCatch}` : undefined,
+            'author': {
+              '@type': 'Person',
+              'name': currentArticle.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
+              'jobTitle': '女性採用アドバイザー・現場サポート責任者',
+              'worksFor': {
+                '@type': 'Organization',
+                'name': '信太山新地 老舗旅館直営グループ（信太山ガールズ）',
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/'
+              }
+            },
+            'publisher': {
+              '@type': 'Organization',
+              'name': '信太山ガールズ（旅館直営求人・女性採用サポート）',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/',
+              'logo': {
+                '@type': 'ImageObject',
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
+              }
+            },
+            'speakable': {
+              '@type': 'SpeakableSpecification',
+              'cssSelector': ['#llm-article-summary-text', 'h1']
+            },
+            'mainEntityOfPage': {
+              '@type': 'WebPage',
+              '@id': `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
+            }
+          }
+        });
+      } else {
+        updatePageSeo({
+          title: '信太山新地求人 お仕事コラム一覧（全139記事）｜信太山ガールズ公式',
+          description: '信太山新地の仕事内容、給与計算、旅館個室待機、顔見せなしルール、未経験向けガイドなど現役キャスト・旅館求人担当者の生の声をお届けする公式コラム集。',
+          canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
+          ogType: 'website'
+        });
+      }
+    } else if (currentTab === 'about') {
+      updatePageSeo({
+        title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
+        description: '信太山新地の老舗旅館直営求人窓口「信太山ガールズ」の運営者情報、所在地（大阪府和泉市）、理念、女性サポート体制についてご紹介します。',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
+        ogType: 'website'
+      });
+    }
+  }, [currentTab, currentArticle]);
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans text-slate-800 antialiased selection:bg-rose-200 selection:text-rose-900">
+      {/* Top Header */}
+      <Header
+        currentTab={currentTab}
+        onChangeTab={handleTabChange}
+        onCtaclick={handleCtaclick}
+        onScrollToSection={handleScrollToSection}
+        onNavigateTopic={handleNavigateTopic}
+      />
+
+      {/* Main Content Router */}
+      <main className="flex-1 pb-20 sm:pb-0">
+        {currentTab === 'recruit' && (
+          <div>
+            {/* Hero Section */}
+            <Hero
+              content={siteContent.hero}
+              onCtaclick={handleCtaclick}
+              onBlogClick={() => handleNavigateBlog()}
+              articles={BLOG_ARTICLES}
+              onArticleClick={(slug) => handleNavigateBlog(slug)}
+            />
+
+            {/* Recruit Hub Section (知りたい専門テーマから探す 公式分野別ガイド) */}
+            <div id="hub">
+              <RecruitHub
+                onScrollToSection={handleScrollToSection}
+                onNavigateToArticle={(slug) => handleNavigateBlog(slug)}
+                onNavigateToBlog={() => handleNavigateBlog()}
+                onNavigateCompare={handleNavigateCompare}
+                onNavigateTopic={handleNavigateTopic}
+                onNavigateFaq={() => handleNavigateFaq()}
+              />
+            </div>
+
+            {/* Reasons Why Shinodayama Is Chosen (選ばれる6つの理由) */}
+            <section className="py-16 sm:py-24 bg-gradient-to-b from-rose-50/30 via-white to-pink-50/20" id="reasons">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6">
+                <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                  <div className="inline-flex items-center gap-1.5 bg-rose-100 text-secondary text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs">
+                    <LucideIcon name="ShieldCheck" size={14} />
+                    <span>6 REASONS TO CHOOSE</span>
+                  </div>
+                  <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 mb-3">
+                    {siteContent.reasons?.title || '信太山新地の当店が選ばれる6つの理由'}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-zinc-600">
+                    他の新地エリアとは一線を画す「店先顔見せなし」「旅館複数経営」「安心の送迎・柔軟シフト」が安心の証です。
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                  {siteContent.reasons.items.map((reason) => (
+                    <div
+                      key={reason.number}
+                      className="bg-white rounded-3xl p-6 border border-rose-100/80 shadow-[0_4px_20px_-4px_rgba(244,63,94,0.06)] hover:shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="font-display font-black text-3xl sm:text-4xl text-rose-200 group-hover:text-secondary transition-colors">
+                            {reason.number}
+                          </span>
+                          <div className="w-12 h-12 rounded-2xl bg-rose-50 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors shadow-2xs">
+                            <LucideIcon name={reason.iconName} size={22} />
+                          </div>
+                        </div>
+                        <h3 className="font-bold text-base sm:text-lg text-zinc-900 mb-2">
+                          {reason.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                          {reason.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Testimonials / Real Interviews (信太山新地で働いた女性インタビュー: リアル体験談) */}
+            <Testimonials />
+
+            {/* Job Requirements Section (募集要項・採用条件一覧) */}
+            <JobRequirementsSection
+              onCtaclick={handleCtaclick}
+              onNavigateDetail={() => handleNavigateTopic('requirements')}
+            />
+
+            {/* WorkFlow Section (応募からお仕事開始までの流れ) */}
+            <WorkFlowSection
+              onCtaclick={handleCtaclick}
+              onNavigateDetail={() => handleNavigateTopic('flow')}
+            />
+
+            {/* Recruiter & Staff Interview Section */}
+            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8">
+              <RecruiterInterviewSection />
+            </div>
+
+            {/* Consultation / LINE Section */}
+            <div id="consultation">
+              <ConsultationForm
+                content={siteContent.consultation}
+                initialMessage={consultationMessage}
+                onClearInitialMessage={() => setConsultationMessage('')}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* About Page View */}
+        {currentTab === 'about' && (
+          <AboutPage
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateBlog={() => handleNavigateBlog()}
+            onCtaclick={handleCtaclick}
+          />
+        )}
+
+        {/* Comparison Page View */}
+        {currentTab === 'compare' && (
+          <ComparisonPage
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateBlog={() => handleNavigateBlog()}
+            onNavigateTopic={handleNavigateTopic}
+            onNavigateFaq={(cat) => handleNavigateFaq(cat)}
+            onCtaclick={handleCtaclick}
+            onInjectedScroll={handleInjectedScroll}
+            initialCategorySlug={selectedCategorySlug}
+            onSelectCategorySlug={(slug) => {
+              setSelectedCategorySlug(slug);
+              window.history.pushState({}, '', slug === 'all' ? '/compare' : `/compare/${slug}`);
+            }}
+          />
+        )}
+
+        {/* FAQ Page View */}
+        {currentTab === 'faq' && (
+          <FAQPage
+            initialCategory={initialFaqCategory}
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onCtaclick={handleCtaclick}
+          />
+        )}
+
+        {/* Topic Cluster Page View */}
+        {currentTab === 'cluster' && (
+          <TopicClusterPage
+            topicId={selectedTopicId}
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateTopic={handleNavigateTopic}
+            onNavigateBlog={handleNavigateBlog}
+            onNavigateFaq={() => handleNavigateFaq()}
+            onCtaclick={handleCtaclick}
+            onInjectedScroll={handleInjectedScroll}
+            onNavigateCompare={() => handleNavigateCompare()}
+          />
+        )}
+
+        {/* Admin Panel View */}
+        {currentTab === 'admin' && (
+          <AdminPanel
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateBlog={(slug) => handleNavigateBlog(slug)}
+          />
+        )}
+
+        {/* Blog / Column View */}
+        {currentTab === 'blog' && (
+          <div className="bg-surface min-h-screen py-8 sm:py-12">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6">
+              {/* If viewing a single article */}
+              {currentArticle ? (
+                <div>
+                  {/* Article Breadcrumbs with Schema.org Microdata */}
+                  <nav aria-label="Breadcrumb" className="mb-6">
+                    <ol
+                      itemScope
+                      itemType="https://schema.org/BreadcrumbList"
+                      className="flex items-center gap-1.5 text-xs text-zinc-500 flex-wrap"
+                    >
+                      <li
+                        itemProp="itemListElement"
+                        itemScope
+                        itemType="https://schema.org/ListItem"
+                        className="flex items-center gap-1.5"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => navigateTo('recruit', '/')}
+                          className="hover:text-secondary transition-colors cursor-pointer flex items-center gap-1"
+                        >
+                          <LucideIcon name="Home" size={12} className="text-rose-500" />
+                          <span itemProp="name">信太山新地求人トップ</span>
+                        </button>
+                        <meta itemProp="position" content="1" />
+                        <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
+                        <span>/</span>
+                      </li>
+                      <li
+                        itemProp="itemListElement"
+                        itemScope
+                        itemType="https://schema.org/ListItem"
+                        className="flex items-center gap-1.5"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => handleNavigateBlog()}
+                          className="hover:text-secondary transition-colors cursor-pointer"
+                        >
+                          <span itemProp="name">お仕事コラム一覧</span>
+                        </button>
+                        <meta itemProp="position" content="2" />
+                        <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/blog" />
+                        <span>/</span>
+                      </li>
+                      <li
+                        itemProp="itemListElement"
+                        itemScope
+                        itemType="https://schema.org/ListItem"
+                        className="flex items-center gap-1.5"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => handleNavigateTopic(relatedClusterTopic)}
+                          className="hover:text-secondary transition-colors cursor-pointer text-rose-600 font-medium"
+                        >
+                          <span itemProp="name">{TOPIC_CLUSTERS[relatedClusterTopic]?.title || currentArticle.categoryLabel}</span>
+                        </button>
+                        <meta itemProp="position" content="3" />
+                        <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/${relatedClusterTopic}`} />
+                        <span>/</span>
+                      </li>
+                      <li
+                        itemProp="itemListElement"
+                        itemScope
+                        itemType="https://schema.org/ListItem"
+                        className="text-zinc-800 font-bold line-clamp-1 max-w-[280px] sm:max-w-md"
+                      >
+                        <span itemProp="name">{currentArticle.title}</span>
+                        <meta itemProp="position" content="4" />
+                        <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`} />
+                      </li>
+                    </ol>
+                  </nav>
+
+                  <article className="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-sm mb-10">
+                    <div className="inline-block bg-rose-100 text-secondary text-xs font-bold px-3 py-1 rounded-full mb-3">
+                      {currentArticle.categoryLabel || currentArticle.category}
+                    </div>
+                    <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 mb-4 leading-tight">
+                      {currentArticle.title}
+                    </h1>
+                    <div className="flex items-center gap-4 text-xs text-zinc-400 mb-6 pb-6 border-b border-zinc-100">
+                      {currentArticle.publishedAt && <span>📅 {currentArticle.publishedAt}</span>}
+                      {currentArticle.readTime && <span>⏱️ 読了目安 {currentArticle.readTime}</span>}
+                      {currentArticle.author && <span>✍️ {currentArticle.author.name}</span>}
+                    </div>
+
+                    {/* Eyecatch */}
+                    <div className="w-full h-64 sm:h-96 rounded-2xl overflow-hidden mb-8 bg-rose-50 shadow-xs">
+                      <ArticleCardImage
+                        src={getValidArticleEyeCatch(currentArticle)}
+                        alt={currentArticle.title}
+                        title={currentArticle.title}
+                        articleId={currentArticle.id}
+                        slug={currentArticle.slug}
+                        category={currentArticle.category}
+                        categoryLabel={currentArticle.categoryLabel}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* 📌 Article 30-Second Summary Card (3 Key Takeaways & LLMO Direct Answer) */}
+                    {currentArticle.summary && (
+                      <section
+                        id="llm-article-summary"
+                        aria-label="この記事のポイント（30秒でわかる3行要約）"
+                        data-entity-type="DirectAnswer"
+                        itemScope
+                        itemType="https://schema.org/Answer"
+                        className="bg-gradient-to-br from-rose-50/95 via-[#fff8f8] to-amber-50/30 border-2 border-rose-200/90 p-5 sm:p-6 rounded-3xl mb-8 shadow-sm relative overflow-hidden"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-rose-200/70">
+                          <div className="flex items-center gap-2 text-rose-900 font-black text-xs sm:text-sm">
+                            <span className="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs shadow-2xs">📌</span>
+                            <span>この記事のポイント（30秒でわかる3行要約）</span>
+                          </div>
+                          <span className="inline-flex items-center gap-1 text-[11px] bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-bold border border-rose-200">
+                            <LucideIcon name="Sparkles" size={11} className="text-rose-600" />
+                            <span>AI検索・Google推奨サマリー</span>
+                          </span>
+                        </div>
+
+                        {/* 3 Bullet Points */}
+                        <div className="space-y-2 mb-4">
+                          {[
+                            currentArticle.title.includes('給料') || currentArticle.title.includes('稼')
+                              ? '信太山新地の給料システム・日給5万〜12万円即日手渡し日払いのリアル'
+                              : '信太山新地は店先顔見せ一切なし・旅館個室待機で知り合いバレ徹底防止',
+                            'ノルマ・罰金・飲酒・客との連絡先交換（営業LINE）は一切不要',
+                            '老舗旅館直営の専任仲居さん＆女性スタッフによる24時間親身サポート'
+                          ].map((pt, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white/95 border border-rose-100/90 shadow-2xs">
+                              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[11px] font-black shrink-0 mt-0.5 shadow-2xs">
+                                ✓
+                              </span>
+                              <span className="text-xs sm:text-sm text-zinc-900 font-bold leading-relaxed">
+                                {pt}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Direct Answer Paragraph */}
+                        <div className="pt-2 border-t border-rose-100/80">
+                          <p
+                            id="llm-article-summary-text"
+                            itemProp="text"
+                            className="text-xs sm:text-sm text-zinc-700 leading-relaxed font-medium"
+                          >
+                            {currentArticle.summary}
+                          </p>
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Article Body Content */}
+                    {Array.isArray(currentArticle.content) && (
+                      <div className="article-body-content space-y-2">
+                        {currentArticle.content.map((block: any, idx: number) => {
+                          if (block.type === 'p') {
+                            return (
+                              <p key={idx} className="text-sm sm:text-base text-zinc-700 leading-relaxed mb-6 font-normal">
+                                {block.text}
+                              </p>
+                            );
+                          }
+                          if (block.type === 'h2') {
+                            return (
+                              <h2 key={idx} className="font-display font-black text-xl sm:text-2xl text-zinc-900 mt-10 mb-4 pb-2.5 border-b border-rose-100 flex items-center gap-2.5">
+                                <span className="w-2.5 h-6 bg-gradient-to-b from-rose-500 to-pink-600 rounded-full inline-block shrink-0 shadow-2xs" />
+                                <span>{block.text}</span>
+                              </h2>
+                            );
+                          }
+                          if (block.type === 'h3') {
+                            return (
+                              <h3 key={idx} className="font-bold text-base sm:text-lg text-zinc-800 mt-6 mb-3 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-rose-400 shrink-0" />
+                                <span>{block.text}</span>
+                              </h3>
+                            );
+                          }
+                          if (block.type === 'list') {
+                            return (
+                              <div key={idx} className="bg-rose-50/50 border border-rose-100 rounded-2xl p-4 sm:p-5 my-6 shadow-2xs">
+                                <ul className="space-y-2.5">
+                                  {block.items?.map((item: string, i: number) => (
+                                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                                      <span className="text-secondary font-black shrink-0 mt-0.5">✔</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            );
+                          }
+                          if (block.type === 'qna') {
+                            return (
+                              <div key={idx} className="bg-gradient-to-r from-rose-50/80 via-pink-50/40 to-white p-4 sm:p-5 rounded-2xl border border-rose-200/80 my-6 shadow-2xs">
+                                <div className="font-bold text-sm sm:text-base text-zinc-900 mb-2 flex items-start gap-2.5">
+                                  <span className="w-6 h-6 rounded-lg bg-rose-600 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-2xs">
+                                    Q
+                                  </span>
+                                  <span className="leading-snug">{block.question}</span>
+                                </div>
+                                <div className="text-xs sm:text-sm text-zinc-700 leading-relaxed pl-8">
+                                  <span className="font-bold text-rose-600 mr-1.5">A.</span>
+                                  {block.answer || block.text}
+                                </div>
+                              </div>
+                            );
+                          }
+                          if (block.type === 'cta') {
+                            return (
+                              <div key={idx} className="my-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-rose-50 via-pink-50 to-amber-50/40 border border-rose-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xs">
+                                <div>
+                                  <div className="inline-block bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full mb-1">
+                                    信太山新地の当店公式募集
+                                  </div>
+                                  <h4 className="font-bold text-sm sm:text-base text-zinc-900 mb-1">
+                                    信太山新地の当店へ応募！気になる点や不安は女性スタッフにLINEで直接質問できます
+                                  </h4>
+                                  <p className="text-xs text-zinc-600">
+                                    面接前の給料システム・シフト・即日寮・身バレ対策など、信太山新地の当店専任スタッフが匿名で親身にお答えします。
+                                  </p>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={handleCtaclick}
+                                  className="shrink-0 px-5 py-2.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                                >
+                                  <LucideIcon name="MessageCircle" size={14} />
+                                  <span>信太山新地の当店へLINEで応募・相談</span>
+                                </button>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
+                    )}
+
+                    {/* Fallback for Object-based sections/intro */}
+                    {!Array.isArray(currentArticle.content) && currentArticle.content && (
+                      <div className="article-body-content">
+                        {currentArticle.content.intro && (
+                          <p className="text-sm sm:text-base text-zinc-700 leading-relaxed mb-8">
+                            {currentArticle.content.intro}
+                          </p>
+                        )}
+
+                        {currentArticle.content.sections?.map((sec: any, idx: number) => (
+                          <div key={idx} className="mb-8">
+                            <h2 className="font-bold text-lg sm:text-xl text-zinc-900 mb-3 flex items-center gap-2">
+                              <span className="w-2 h-5 bg-secondary rounded-full inline-block" />
+                              <span>{sec.heading}</span>
+                            </h2>
+                            {sec.body && (
+                              <p className="text-sm sm:text-base text-zinc-700 leading-relaxed mb-4">
+                                {sec.body}
+                              </p>
+                            )}
+                            {sec.points && sec.points.length > 0 && (
+                              <ul className="space-y-2 bg-zinc-50 p-4 rounded-2xl mb-4 text-xs sm:text-sm text-zinc-700">
+                                {sec.points.map((pt: string, pIdx: number) => (
+                                  <li key={pIdx} className="flex items-start gap-2">
+                                    <span className="text-secondary font-bold">✔</span>
+                                    <span>{pt}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        ))}
+
+                        {currentArticle.content.faqs && currentArticle.content.faqs.length > 0 && (
+                          <div className="mt-8 pt-8 border-t border-zinc-100">
+                            <h3 className="font-bold text-base sm:text-lg text-zinc-900 mb-4">
+                              この記事に関するQ&A
+                            </h3>
+                            <div className="space-y-3">
+                              {currentArticle.content.faqs.map((f: any, fIdx: number) => (
+                                <div key={fIdx} className="bg-rose-50/30 p-4 rounded-2xl border border-rose-100">
+                                  <div className="font-bold text-sm text-zinc-900 mb-1 flex items-start gap-2">
+                                    <span className="text-secondary font-black">Q.</span>
+                                    <span>{f.question}</span>
+                                  </div>
+                                  <div className="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                                    {f.answer}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* E-E-A-T Author & Supervisor Profile Card */}
+                    <div className="mt-12 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-rose-50/80 via-pink-50/40 to-amber-50/30 border border-rose-100 flex flex-col sm:flex-row items-center sm:items-start gap-4 shadow-2xs">
+                      <img
+                        src="/images/shinodayama_cast_ayaka_1792486845624.jpg"
+                        alt="あおい（信太山新地 専任女性採用担当・相談役）"
+                        className="w-16 h-16 rounded-2xl object-cover shrink-0 border-2 border-white shadow-xs"
+                      />
+                      <div className="flex-1 text-center sm:text-left">
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1.5">
+                          <span className="font-extrabold text-sm sm:text-base text-zinc-900">
+                            記事監修・執筆：あおい
+                          </span>
+                          <span className="text-[10px] bg-rose-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-2xs">
+                            女性サポート責任者
+                          </span>
+                          <span className="text-[10px] bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">
+                            信太山新地 老舗旅館直営店 所属
+                          </span>
+                        </div>
+                        <p className="text-xs text-zinc-600 leading-relaxed mb-2">
+                          信太山新地の現場旅館で女性採用とキャストサポートを担当。自身も夜職経験があり、未経験の方が抱える「身バレ」「お仕事内容」「給与」のリアルな疑問に寄り添って解説しています。
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[11px] text-zinc-500 font-medium">
+                          <span className="flex items-center gap-1">
+                            <LucideIcon name="ShieldCheck" size={13} className="text-emerald-600" />
+                            信太山新地旅館組合ルール準拠
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <LucideIcon name="CheckCircle2" size={13} className="text-rose-500" />
+                            店先顔見せなし・完全個室待機公認
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    {/* Related Articles Cards (3 Columns) */}
+                    {relatedArticles.length > 0 && (
+                      <div className="mt-8">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="font-display font-black text-base sm:text-lg text-zinc-900 flex items-center gap-2">
+                            <LucideIcon name="BookOpen" size={17} className="text-rose-600" />
+                            <span>この記事を読んだ人におすすめの公式コラム</span>
+                          </h3>
+                          <button
+                            type="button"
+                            onClick={() => handleNavigateBlog()}
+                            className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>コラム一覧へ</span>
+                            <LucideIcon name="ArrowRight" size={13} />
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          {relatedArticles.map((rel) => (
+                            <div
+                              key={rel.id}
+                              onClick={() => handleNavigateBlog(rel.slug)}
+                              className="bg-zinc-50/70 hover:bg-white rounded-2xl border border-zinc-200/80 hover:border-rose-300 overflow-hidden shadow-2xs hover:shadow-sm transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5"
+                            >
+                              <div className="relative h-28 w-full overflow-hidden bg-rose-50">
+                                <ArticleCardImage
+                                  src={getValidArticleEyeCatch(rel)}
+                                  alt={rel.title}
+                                  title={rel.title}
+                                  articleId={rel.id}
+                                  slug={rel.slug}
+                                  category={rel.category}
+                                  categoryLabel={rel.categoryLabel}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <span className="absolute top-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+                                  {rel.categoryLabel}
+                                </span>
+                              </div>
+                              <div className="p-3 flex-1 flex flex-col justify-between">
+                                <h4 className="font-bold text-xs text-zinc-900 group-hover:text-rose-600 transition-colors line-clamp-2 mb-1.5">
+                                  {rel.title}
+                                </h4>
+                                <div className="text-[10px] text-zinc-400 flex items-center gap-2">
+                                  <span>⏱️ {rel.readTime || '3分'}</span>
+                                  <span>📅 {rel.publishedAt}</span>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Article CTA Banner: Direct Shop Recruitment Prompt */}
+                    <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-rose-600 via-pink-600 to-rose-700 text-white text-center shadow-lg relative overflow-hidden">
+                      <div className="inline-block bg-white/20 backdrop-blur-xs text-white text-[11px] font-black px-3.5 py-1 rounded-full mb-3 shadow-2xs">
+                        ＼ 信太山新地 老舗旅館直営グループ「信太山ガールズ」公式採用 ／
+                      </div>
+                      <h3 className="font-display font-black text-xl sm:text-2xl mb-2 text-white">
+                        信太山新地の当店で、あなたも高収入と安心を手に入れませんか？
+                      </h3>
+                      <p className="text-xs sm:text-sm text-rose-100 max-w-xl mx-auto mb-6 leading-relaxed">
+                        当店は紹介所や仲介ではなく、信太山新地の現場旅館が直接運営する正規公式求人です。<br className="hidden sm:inline" />
+                        【店先顔見せ一切なし（完全個室待機）】【15分3,800円〜即日全額現金日払い】【日給保証・時給1万円保証】など、未経験の方も初日から安心して高収入を稼げる環境をお約束します。
+                      </p>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={handleCtaclick}
+                          className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white hover:bg-rose-50 text-rose-600 font-black text-sm shadow-md transition-all cursor-pointer inline-flex items-center justify-center gap-2"
+                        >
+                          <LucideIcon name="MessageCircle" size={18} />
+                          <span>当店へLINEで応募・無料相談する</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigateTo('recruit', '/');
+                            setTimeout(() => {
+                              const el = document.getElementById('consultation');
+                              el?.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                          }}
+                          className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-rose-800/60 hover:bg-rose-800/90 text-white font-bold text-xs border border-white/30 transition-all cursor-pointer inline-flex items-center justify-center gap-1.5"
+                        >
+                          <LucideIcon name="Calendar" size={15} />
+                          <span>体験入店・店舗見学について見る</span>
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-rose-200 mt-4">
+                        ※履歴書不要・私服のまま手ぶらでOK！女性専任スタッフ（あおい）が親身に対応いたします。
+                      </p>
+                    </div>
+
+                    <div className="mt-8 text-center">
+                      <button
+                        type="button"
+                        onClick={() => handleNavigateBlog()}
+                        className="text-xs font-bold text-zinc-500 hover:text-zinc-800 inline-flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <LucideIcon name="ArrowLeft" size={14} />
+                        <span>コラム一覧に戻る</span>
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              ) : (
+                /* Article Listing View */
+                <div>
+                  <div className="text-center max-w-2xl mx-auto mb-10">
+                    <div className="inline-flex items-center gap-1.5 bg-rose-100 text-secondary text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs">
+                      <LucideIcon name="BookOpen" size={14} />
+                      <span>OFFICIAL COLUMN</span>
+                    </div>
+                    <h1 className="font-display font-black text-2xl sm:text-4xl text-zinc-900 mb-3">
+                      信太山新地求人 お仕事コラム一覧
+                    </h1>
+                    <p className="text-xs sm:text-sm text-zinc-600">
+                      仕事内容、給与システム、店先顔見せなしの待機ルール、毎月20日の定休日など、未経験の女性に役立つ公式解説をお届けします。
+                    </p>
+                  </div>
+
+                  {/* Grid of Articles */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {BLOG_ARTICLES.map((article) => (
+                      <div
+                        key={article.id}
+                        onClick={() => handleNavigateBlog(article.slug)}
+                        className="bg-white rounded-3xl overflow-hidden border border-rose-100/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
+                      >
+                        <div>
+                          <div className="w-full h-48 bg-rose-50 overflow-hidden relative">
+                            <ArticleCardImage
+                              src={getValidArticleEyeCatch(article)}
+                              alt={article.title}
+                              title={article.title}
+                              articleId={article.id}
+                              slug={article.slug}
+                              category={article.category}
+                              categoryLabel={article.categoryLabel}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-5">
+                            <h2 className="font-bold text-sm sm:text-base text-zinc-900 line-clamp-2 group-hover:text-secondary transition-colors mb-2">
+                              {article.title}
+                            </h2>
+                            <p className="text-xs text-zinc-500 line-clamp-2 leading-relaxed">
+                              {article.summary}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-5 pt-0 flex items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-100 mt-2">
+                          <span>{article.publishedAt || '最新'}</span>
+                          <span className="text-secondary font-bold group-hover:translate-x-1 transition-transform">
+                            続きを読む →
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </main>
+
+      {/* 4. Enhanced Responsive Floating / Fixed Bottom LINE Bar with Reassurance Microcopy */}
+      {/* Scroll-to-Top Button (Always Available Above the Bar) */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-24 sm:bottom-24 right-4 sm:right-6 z-40 w-10 h-10 rounded-full bg-white text-zinc-600 shadow-lg border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-colors cursor-pointer"
+            title="ページ上部へ戻る"
+          >
+            <LucideIcon name="ArrowUp" size={18} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Sticky Bottom Dock Bar (Under 640px) */}
+      <div className="block sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-rose-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center justify-center gap-2 text-[10px] text-zinc-600 font-bold mb-1.5">
+          <span className="text-emerald-700 flex items-center gap-0.5">
+            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 女性スタッフ対応
+          </span>
+          <span className="text-zinc-300">|</span>
+          <span className="text-emerald-700 flex items-center gap-0.5">
+            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 匿名OK・履歴なし
+          </span>
+          <span className="text-zinc-300">|</span>
+          <span className="text-emerald-700 flex items-center gap-0.5">
+            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 無理な勧誘一切なし
+          </span>
+        </div>
+        <a
+          href={LINE_OFFICIAL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-3 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md shadow-[#06C755]/30 cursor-pointer"
+          id="mobile-sticky-line-cta"
+        >
+          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <LucideIcon name="MessageCircle" size={15} className="fill-white text-white" />
+          </div>
+          <span>【公式LINE】無料相談・即日日払い応募（24h受付）</span>
+        </a>
+      </div>
+
+      {/* Desktop / Tablet Floating Pill (640px and Up) */}
+      <div className="hidden sm:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-1.5">
+        <div className="bg-white/95 backdrop-blur-xs border border-rose-200/90 rounded-full px-3 py-1 shadow-xs flex items-center gap-2 text-[11px] font-bold text-zinc-600">
+          <span className="text-emerald-600 flex items-center gap-0.5">
+            <LucideIcon name="Check" size={12} /> 女性スタッフ対応
+          </span>
+          <span>·</span>
+          <span className="text-emerald-600 flex items-center gap-0.5">
+            <LucideIcon name="Check" size={12} /> 匿名OK
+          </span>
+          <span>·</span>
+          <span>無理な勧誘なし</span>
+        </div>
+
+        <a
+          href={LINE_OFFICIAL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white font-bold px-5 py-3 rounded-full shadow-[0_4px_18px_rgba(6,199,85,0.45)] hover:shadow-[0_6px_24px_rgba(6,199,85,0.55)] transition-all cursor-pointer hover:scale-105 active:scale-95"
+          id="desktop-floating-line-cta"
+        >
+          <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <LucideIcon name="MessageCircle" size={18} className="fill-white text-white" />
+          </div>
+          <div className="text-left">
+            <div className="text-[10px] font-black text-emerald-100 leading-tight">
+              店先顔見せなし・即日日払い
+            </div>
+            <div className="text-xs sm:text-sm font-black tracking-tight leading-tight">
+              LINEで無料相談する
+            </div>
+          </div>
+        </a>
+      </div>
+
+      {/* Global Footer */}
+      <Footer
+        currentTab={currentTab}
+        onChangeTab={handleTabChange}
+        onScrollToSection={handleScrollToSection}
+        onOpenAdmin={() => handleTabChange('admin')}
+        onNavigateCompare={handleNavigateCompare}
+        onNavigateTopic={handleNavigateTopic}
+      />
+    </div>
+  );
+}

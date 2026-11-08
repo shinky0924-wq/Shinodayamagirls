@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "Consultation": {
+      "title": "Consultation",
+      "description": "Form submissions from applicants for consultations",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Applicant nickname or name"
+        },
+        "age": {
+          "type": "string",
+          "description": "Applicant age"
+        },
+        "contact": {
+          "type": "string",
+          "description": "Applicant contact information"
+        },
+        "message": {
+          "type": "string",
+          "description": "Consultation message or inquiry"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["unread", "read", "contacted"],
+          "description": "Processing status"
+        },
+        "source": {
+          "type": "string",
+          "description": "Submission source"
+        }
+      },
+      "required": ["name", "contact", "createdAt", "status"]
+    },
+    "CmsContent": {
+      "title": "CmsContent",
+      "description": "CMS stored articles or site settings content",
+      "type": "object",
+      "properties": {
+        "articles": {
+          "type": "array",
+          "description": "List of blog articles"
+        },
+        "content": {
+          "type": "object",
+          "description": "Site content settings"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/consultations/{consultationId}": {
+      "schema": "Consultation",
+      "description": "Individual applicant consultations"
+    },
+    "/cms/{docId}": {
+      "schema": "CmsContent",
+      "description": "Site CMS settings and articles"
+    }
+  }
+}
