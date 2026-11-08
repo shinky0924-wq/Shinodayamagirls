@@ -9,15 +9,16 @@ import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
 
 interface FooterProps {
   currentTab: string;
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'faq' | 'cluster') => void;
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster') => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAdmin: () => void;
   onNavigateCompare?: (categorySlug?: string) => void;
+  onNavigateWorkstyle?: (categorySlug?: string) => void;
   onNavigateTopic?: (topicId: string) => void;
   isAdminMode?: boolean;
 }
 
-export default function Footer({ currentTab, onChangeTab, onScrollToSection, onOpenAdmin, onNavigateCompare, onNavigateTopic, isAdminMode }: FooterProps) {
+export default function Footer({ currentTab, onChangeTab, onScrollToSection, onOpenAdmin, onNavigateCompare, onNavigateWorkstyle, onNavigateTopic, isAdminMode }: FooterProps) {
   const [showAdminLink, setShowAdminLink] = useState(false);
   const [activeModal, setActiveModal] = useState<'policy' | 'company' | null>(null);
   const siteContent = getStoredSiteContent();
@@ -38,7 +39,8 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
   }, []);
 
   const navLinks = [
-    { name: 'タイプ別の働き方ガイド', action: 'compare', target: '/compare' },
+    { name: '新地・一般風俗・スカウト徹底比較', action: 'compare', target: '/compare' },
+    { name: 'タイプ別の働き方ガイド', action: 'workstyle', target: '/types' },
     { name: '求人総合ガイド', action: 'section', target: '#hub' },
     { name: 'お仕事コラム一覧', action: 'blog' },
     { name: '運営者情報・グループ店舗概要', action: 'about', target: '/about' },
@@ -67,6 +69,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     if (link.action === 'compare') {
       onChangeTab('compare');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.action === 'workstyle') {
+      onChangeTab('workstyle');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (link.action === 'blog') {
       onChangeTab('blog');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -88,14 +93,16 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
 
   const handleCategoryLinkClick = (e: MouseEvent<HTMLAnchorElement>, slug?: string) => {
     e.preventDefault();
-    if (onNavigateCompare) {
+    if (onNavigateWorkstyle) {
+      onNavigateWorkstyle(slug);
+    } else if (onNavigateCompare) {
       onNavigateCompare(slug);
     } else {
       if (typeof window !== 'undefined') {
-        const targetUrl = slug ? `/compare/${slug}` : '/compare';
+        const targetUrl = slug ? `/types/${slug}` : '/types';
         window.history.pushState({}, '', targetUrl);
       }
-      onChangeTab('compare');
+      onChangeTab('workstyle');
     }
   };
 

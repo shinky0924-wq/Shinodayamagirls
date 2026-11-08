@@ -122,6 +122,7 @@ interface ComparisonPageProps {
   onInjectedScroll?: (message: string) => void;
   initialCategorySlug?: string | null;
   onSelectCategorySlug?: (slug: string) => void;
+  onNavigateComparisonGuide?: () => void;
 }
 
 export default function ComparisonPage({
@@ -132,14 +133,13 @@ export default function ComparisonPage({
   onCtaclick,
   onInjectedScroll,
   initialCategorySlug,
-  onSelectCategorySlug
+  onSelectCategorySlug,
+  onNavigateComparisonGuide
 }: ComparisonPageProps) {
   const [selectedTargetSlug, setSelectedTargetSlug] = useState<string>(
     initialCategorySlug || 'all'
   );
   const [expandedFaqId, setExpandedFaqId] = useState<string | null>(null);
-  const [showMatrixOnCategoryPage, setShowMatrixOnCategoryPage] = useState<boolean>(false);
-  const [activeComparisonTab, setActiveComparisonTab] = useState<'area' | 'channel'>('area');
   const [faqCategory, setFaqCategory] = useState<string>('featured');
   const [faqSearchQuery, setFaqSearchQuery] = useState<string>('');
   const [visibleFaqCount, setVisibleFaqCount] = useState<number>(8);
@@ -179,9 +179,9 @@ export default function ComparisonPage({
 
   // Dynamically update document title, description and canonical URL based on selected category
   useEffect(() => {
-    let title = '安心の理由＆あなたにぴったりの働き方ガイド【2026年最新】｜信太山ガールズ';
-    let description = '信太山新地で安心して働ける理由（旅館直営とスカウト業者の違い）と、未経験・高収入・週1日・短期出稼ぎ・寮希望などタイプ別の働き方ガイド。店先顔見せなし・個室待機・即日全額日払い。';
-    let canonicalUrl = 'https://osaka-shinodayamashinchi-recruit.com/compare';
+    let title = '2026年最新版｜当店が選ばれる理由＆タイプ別働き方ガイド｜信太山ガールズ';
+    let description = '安心して働ける理由と、あなたに最適な働き方が必ず見つかる。「スカウト業者や仲介サイトと何が違うの？」「未経験や週1、30代・40代でも本当に大丈夫？」といった疑問や不安を解消。紹介料や給料の天引きが一切ない旅館直営公式採用だからこその安心環境と、あなたの希望に合わせた8つの働き方をご紹介します。';
+    let canonicalUrl = 'https://osaka-shinodayamashinchi-recruit.com/types';
 
     if (selectedTargetSlug && selectedTargetSlug !== 'all') {
       const cat = TARGET_JOB_CATEGORIES.find(c => c.slug === selectedTargetSlug);
@@ -466,10 +466,10 @@ export default function ComparisonPage({
                     onClick={() => handleCategorySelect('all')}
                     className="hover:text-secondary transition-colors underline cursor-pointer"
                   >
-                    <span itemProp="name">安心の理由＆タイプ別の働き方</span>
+                    <span itemProp="name">当店が選ばれる理由＆タイプ別働き方</span>
                   </button>
                   <meta itemProp="position" content="2" />
-                  <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/compare" />
+                  <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/types" />
                   <span>/</span>
                 </li>
                 <li
@@ -480,7 +480,7 @@ export default function ComparisonPage({
                 >
                   <span itemProp="name">{currentCategory.title}</span>
                   <meta itemProp="position" content="3" />
-                  <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/compare/${currentCategory.slug}`} />
+                  <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/types/${currentCategory.slug}`} />
                 </li>
               </>
             ) : (
@@ -490,9 +490,9 @@ export default function ComparisonPage({
                 itemType="https://schema.org/ListItem"
                 className="text-zinc-800 font-bold"
               >
-                <span itemProp="name">安心の理由＆タイプ別の働き方ガイド</span>
+                <span itemProp="name">当店が選ばれる理由＆タイプ別働き方ガイド</span>
                 <meta itemProp="position" content="2" />
-                <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/compare" />
+                <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/types" />
               </li>
             )}
           </ol>
@@ -865,204 +865,32 @@ export default function ComparisonPage({
               </div>
             </section>
 
-            {/* Optional Collapsible Site Comparison Matrix */}
-            <div className="mb-12">
-              <button
-                type="button"
-                onClick={() => setShowMatrixOnCategoryPage(!showMatrixOnCategoryPage)}
-                className="w-full bg-white hover:bg-rose-50/50 border border-rose-200 rounded-2xl p-4 text-center font-bold text-xs sm:text-sm text-zinc-700 flex items-center justify-center gap-2 cursor-pointer shadow-2xs transition-colors"
-              >
-                <LucideIcon name="Table" size={16} className="text-secondary" />
-                <span>
-                  {showMatrixOnCategoryPage 
-                    ? '【閉じる】旅館直営とスカウト業者・仲介サイトの違い一覧' 
-                    : '【確認する】安心の理由（旅館直営とスカウト業者・仲介サイトの違い）を開く'}
-                </span>
-                <LucideIcon 
-                  name="ChevronDown" 
-                  size={16} 
-                  className={`transition-transform ${showMatrixOnCategoryPage ? 'rotate-180 text-secondary' : 'text-zinc-400'}`} 
-                />
-              </button>
-
-              {showMatrixOnCategoryPage && (
-                <div className="mt-4 bg-white rounded-3xl border border-rose-100 shadow-md p-4 sm:p-6 overflow-hidden">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <button
-                      type="button"
-                      onClick={() => setActiveComparisonTab('area')}
-                      className={`text-xs font-black px-3.5 py-2 rounded-xl transition-all cursor-pointer border flex items-center gap-1.5 ${
-                        activeComparisonTab === 'area'
-                          ? 'bg-secondary text-white border-secondary shadow-xs'
-                          : 'bg-zinc-50 hover:bg-rose-50 text-zinc-700 border-zinc-200'
-                      }`}
-                    >
-                      <LucideIcon name="MapPin" size={13} />
-                      <span>【エリア比較】信太山 vs 飛田 vs 松島 vs 一般風俗</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveComparisonTab('channel')}
-                      className={`text-xs font-black px-3.5 py-2 rounded-xl transition-all cursor-pointer border flex items-center gap-1.5 ${
-                        activeComparisonTab === 'channel'
-                          ? 'bg-secondary text-white border-secondary shadow-xs'
-                          : 'bg-zinc-50 hover:bg-rose-50 text-zinc-700 border-zinc-200'
-                      }`}
-                    >
-                      <LucideIcon name="ShieldCheck" size={13} />
-                      <span>【採用形態比較】旅館直営公式 vs スカウト vs 外部サイト</span>
-                    </button>
+            {/* Dedicated Comparison Guide Link */}
+            {onNavigateComparisonGuide && (
+              <div className="mb-12 bg-white hover:bg-rose-50/40 border border-rose-200 rounded-2xl p-5 shadow-2xs transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-rose-100 text-[#E5004F] flex items-center justify-center shrink-0">
+                    <LucideIcon name="Scale" size={18} />
                   </div>
-
-                  <div className="overflow-x-auto scrollbar-thin">
-                    {activeComparisonTab === 'area' ? (
-                      <table className="w-full text-left border-collapse min-w-[900px]">
-                        <thead>
-                          <tr className="border-b border-rose-100">
-                            <th scope="col" className="p-3.5 bg-zinc-50 font-bold text-xs text-zinc-700 w-[17%] min-w-[130px] sticky left-0 z-10 border-r border-rose-100/60">
-                              比較項目
-                            </th>
-                            <th scope="col" className="p-3.5 bg-rose-500 text-white font-black text-xs w-[27%] min-w-[210px] shadow-xs border-r border-rose-600/40">
-                              <div className="flex items-center gap-1.5">
-                                <LucideIcon name="Award" size={15} className="text-yellow-300 flex-shrink-0" />
-                                <span>【公式】信太山新地（旅館直営）</span>
-                              </div>
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-100 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[170px] border-r border-zinc-200/60">
-                              飛田新地
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-50 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[170px] border-r border-zinc-200/60">
-                              松島新地
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-100 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[170px]">
-                              一般風俗・キャバクラ
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-rose-50 text-xs">
-                          {AREA_COMPARISON_ROWS.map((row, idx) => (
-                            <tr 
-                              key={row.criteria} 
-                              className={idx % 2 === 0 ? 'bg-white hover:bg-rose-50/30' : 'bg-zinc-50/40 hover:bg-rose-50/30'}
-                            >
-                              <th scope="row" className="p-3.5 font-bold text-zinc-800 bg-inherit sticky left-0 z-10 border-r border-rose-100/60 min-w-[130px] text-left">
-                                {row.criteria}
-                              </th>
-                              <td className="p-3.5 bg-rose-50/50 border-r border-rose-200/70 font-semibold text-[#3c2a2e] min-w-[210px]">
-                                <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                                  {renderGradeBadge(row.shinodayama.grade)}
-                                  {row.shinodayama.badge && (
-                                    <span className="text-[10px] font-black bg-rose-600 text-white px-1.5 py-0.5 rounded">
-                                      {row.shinodayama.badge}
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="leading-snug font-medium text-xs">
-                                  {row.shinodayama.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 border-r border-zinc-200/60 min-w-[170px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.tobita.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.tobita.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 border-r border-zinc-200/60 min-w-[170px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.matsushima.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.matsushima.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 min-w-[170px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.generalNight.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.generalNight.text}
-                                </p>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    ) : (
-                      <table className="w-full text-left border-collapse min-w-[900px]">
-                        <thead>
-                          <tr className="border-b border-rose-100">
-                            <th scope="col" className="p-3.5 bg-zinc-50 font-bold text-xs text-zinc-600 w-[16%] min-w-[130px] sticky left-0 z-10 border-r border-rose-100/60">
-                              チェック項目
-                            </th>
-                            <th scope="col" className="p-3.5 bg-rose-500 text-white font-extrabold text-xs w-[28%] min-w-[220px] shadow-xs border-r border-rose-600/40">
-                              <div className="flex items-center gap-1.5">
-                                <LucideIcon name="Award" size={15} className="text-yellow-300 flex-shrink-0" />
-                                <span>【公式】信太山ガールズ（旅館直営）</span>
-                              </div>
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-100 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                              SNS・街頭スカウト業者
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-50 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                              他求人サイト（外部ポータルなど）
-                            </th>
-                            <th scope="col" className="p-3.5 bg-zinc-100 font-bold text-xs text-zinc-700 w-[18.66%] min-w-[180px]">
-                              他業種ナイトワーク（ソープ等）
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-rose-50 text-xs">
-                          {SITE_COMPARISON_ROWS.map((row, idx) => (
-                            <tr 
-                              key={row.criteria} 
-                              className={idx % 2 === 0 ? 'bg-white hover:bg-rose-50/30' : 'bg-zinc-50/40 hover:bg-rose-50/30'}
-                            >
-                              <th scope="row" className="p-3.5 font-bold text-zinc-800 bg-inherit sticky left-0 z-10 border-r border-rose-100/60 min-w-[130px] text-left">
-                                {row.criteria}
-                              </th>
-                              <td className="p-3.5 bg-rose-50/40 border-r border-rose-200/60 font-semibold text-[#3c2a2e] min-w-[220px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.ourShop.grade)}
-                                </div>
-                                <p className="leading-snug font-medium text-xs">
-                                  {row.ourShop.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.scoutAgency.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.scoutAgency.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.generalPortal.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.generalPortal.text}
-                                </p>
-                              </td>
-                              <td className="p-3.5 text-zinc-600 min-w-[180px]">
-                                <div className="mb-1">
-                                  {renderGradeBadge(row.otherNightwork.grade)}
-                                </div>
-                                <p className="leading-snug text-xs text-zinc-600">
-                                  {row.otherNightwork.text}
-                                </p>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    )}
+                  <div>
+                    <h3 className="font-bold text-xs sm:text-sm text-zinc-900">
+                      他の新地（飛田・松島）・スカウト業者との違いを確認したい方へ
+                    </h3>
+                    <p className="text-xs text-zinc-500">
+                      店先顔見せなし・給与天引きゼロ・個室待機など、他エリアとの待遇の違いを比較表でご確認いただけます。
+                    </p>
                   </div>
                 </div>
-              )}
-            </div>
+                <button
+                  type="button"
+                  onClick={onNavigateComparisonGuide}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-black text-xs bg-[#E5004F] hover:bg-[#c90044] text-white transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer shadow-xs"
+                >
+                  <span>徹底比較ガイドを見る</span>
+                  <LucideIcon name="ChevronRight" size={14} />
+                </button>
+              </div>
+            )}
 
             {/* Direct Consultation Box for Category */}
             <div className="bg-gradient-to-r from-rose-100/60 via-white to-rose-100/60 border border-rose-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 shadow-sm">
@@ -1207,286 +1035,32 @@ export default function ComparisonPage({
               </div>
             </section>
 
-            {/* SECTION 2: 比較表（大阪新地比較 ＆ 採用形態比較） */}
-            <section className="mb-16 md:mb-24 scroll-mt-24" id="site-comparison-matrix">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-                <div>
-                  <div className="text-xs font-extrabold text-secondary tracking-wider mb-1 flex items-center gap-1.5">
-                    <LucideIcon name="ShieldCheck" size={14} />
-                    <span>COMPARISON TABLES</span>
-                  </div>
-                  <h2 className="font-display font-black text-xl sm:text-2xl md:text-3xl text-on-surface">
-                    徹底比較｜他の新地・一般風俗・スカウトとの違い
-                  </h2>
-                </div>
-                <span className="text-xs bg-rose-50 text-secondary border border-rose-200 px-3 py-1 rounded-full font-semibold self-start sm:self-auto">
-                  ※表は左右にスクロールできます
-                </span>
-              </div>
-
-              {/* Table Switcher Tabs */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                <button
-                  type="button"
-                  onClick={() => setActiveComparisonTab('area')}
-                  className={`text-xs sm:text-sm font-black px-4 sm:px-5 py-2.5 rounded-2xl transition-all cursor-pointer border flex items-center gap-2 ${
-                    activeComparisonTab === 'area'
-                      ? 'bg-secondary text-white border-secondary shadow-sm'
-                      : 'bg-white hover:bg-rose-50 text-zinc-700 border-zinc-200'
-                  }`}
-                >
-                  <LucideIcon name="MapPin" size={15} />
-                  <span>【エリア比較】信太山 vs 飛田 vs 松島 vs 一般風俗</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveComparisonTab('channel')}
-                  className={`text-xs sm:text-sm font-black px-4 sm:px-5 py-2.5 rounded-2xl transition-all cursor-pointer border flex items-center gap-2 ${
-                    activeComparisonTab === 'channel'
-                      ? 'bg-secondary text-white border-secondary shadow-sm'
-                      : 'bg-white hover:bg-rose-50 text-zinc-700 border-zinc-200'
-                  }`}
-                >
-                  <LucideIcon name="ShieldCheck" size={15} />
-                  <span>【採用形態比較】旅館直営公式 vs スカウト業者 vs 外部サイト</span>
-                </button>
-              </div>
-
-              {/* Comparison Table Container */}
-              <div className="bg-white rounded-3xl border border-rose-100 shadow-md overflow-hidden mb-6">
-                <div className="overflow-x-auto scrollbar-thin">
-                  {activeComparisonTab === 'area' ? (
-                    /* TAB 1: AREA COMPARISON (信太山 vs 飛田 vs 松島 vs 一般風俗) */
-                    <table className="w-full text-left border-collapse min-w-[920px]">
-                      <caption className="sr-only">
-                        大阪三大新地（信太山新地・飛田新地・松島新地）と一般風俗・キャバクラの待遇・働き方比較表
-                      </caption>
-                      <thead>
-                        <tr className="border-b border-rose-100">
-                          <th scope="col" className="p-4 bg-zinc-50 font-bold text-xs sm:text-sm text-zinc-700 w-[17%] min-w-[135px] sticky left-0 z-10 border-r border-rose-100/60">
-                            比較項目
-                          </th>
-                          <th scope="col" className="p-4 bg-rose-500 text-white font-black text-xs sm:text-sm w-[27%] min-w-[220px] shadow-xs border-r border-rose-600/40">
-                            <div className="flex items-center gap-1.5">
-                              <LucideIcon name="Award" size={16} className="text-yellow-300 flex-shrink-0" />
-                              <span>【公式】信太山新地（旅館直営）</span>
-                            </div>
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-100 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                            飛田新地
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-50 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                            松島新地
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-100 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px]">
-                            一般風俗・キャバクラ
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-rose-50 text-xs sm:text-sm">
-                        {AREA_COMPARISON_ROWS.map((row, idx) => (
-                          <tr 
-                            key={row.criteria} 
-                            className={idx % 2 === 0 ? 'bg-white hover:bg-rose-50/30' : 'bg-zinc-50/40 hover:bg-rose-50/30'}
-                          >
-                            <th scope="row" className="p-4 font-bold text-zinc-800 bg-inherit sticky left-0 z-10 border-r border-rose-100/60 min-w-[135px] text-left">
-                              {row.criteria}
-                            </th>
-                            <td className="p-4 bg-rose-50/50 border-r border-rose-200/70 font-semibold text-[#3c2a2e] min-w-[220px]">
-                              <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                                {renderGradeBadge(row.shinodayama.grade)}
-                                {row.shinodayama.badge && (
-                                  <span className="text-[10px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-md">
-                                    {row.shinodayama.badge}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="leading-snug font-medium text-xs sm:text-sm">
-                                {row.shinodayama.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.tobita.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.tobita.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.matsushima.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.matsushima.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.generalNight.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.generalNight.text}
-                              </p>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    /* TAB 2: CHANNEL COMPARISON (直営 vs スカウト vs 外部サイト) */
-                    <table className="w-full text-left border-collapse min-w-[900px]">
-                      <caption className="sr-only">
-                        旅館直営公式採用とSNSスカウト業者・外部求人ポータルの比較表
-                      </caption>
-                      <thead>
-                        <tr className="border-b border-rose-100">
-                          <th scope="col" className="p-4 bg-zinc-50 font-bold text-xs sm:text-sm text-zinc-600 w-[16%] min-w-[130px] sticky left-0 z-10 border-r border-rose-100/60">
-                            チェック項目
-                          </th>
-                          <th scope="col" className="p-4 bg-rose-500 text-white font-extrabold text-xs sm:text-sm w-[28%] min-w-[220px] shadow-xs border-r border-rose-600/40">
-                            <div className="flex items-center gap-1.5">
-                              <LucideIcon name="Award" size={16} className="text-yellow-300 flex-shrink-0" />
-                              <span>【公式】信太山ガールズ（旅館直営）</span>
-                            </div>
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-100 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                            SNS・街頭スカウト業者
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-50 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px] border-r border-zinc-200/60">
-                            他求人サイト（外部ポータルなど）
-                          </th>
-                          <th scope="col" className="p-4 bg-zinc-100 font-bold text-xs sm:text-sm text-zinc-700 w-[18.66%] min-w-[180px]">
-                            他業種ナイトワーク（ソープ等）
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-rose-50 text-xs sm:text-sm">
-                        {SITE_COMPARISON_ROWS.map((row, idx) => (
-                          <tr 
-                            key={row.criteria} 
-                            className={idx % 2 === 0 ? 'bg-white hover:bg-rose-50/30' : 'bg-zinc-50/40 hover:bg-rose-50/30'}
-                          >
-                            <th scope="row" className="p-4 font-bold text-zinc-800 bg-inherit sticky left-0 z-10 border-r border-rose-100/60 min-w-[130px] text-left">
-                              {row.criteria}
-                            </th>
-                            <td className="p-4 bg-rose-50/40 border-r border-rose-200/60 font-semibold text-[#3c2a2e] min-w-[220px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.ourShop.grade)}
-                              </div>
-                              <p className="leading-snug font-medium text-xs sm:text-sm">
-                                {row.ourShop.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.scoutAgency.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.scoutAgency.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 border-r border-zinc-200/60 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.generalPortal.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.generalPortal.text}
-                              </p>
-                            </td>
-                            <td className="p-4 text-zinc-600 min-w-[180px]">
-                              <div className="mb-1.5">
-                                {renderGradeBadge(row.otherNightwork.grade)}
-                              </div>
-                              <p className="leading-snug text-xs sm:text-sm text-zinc-600">
-                                {row.otherNightwork.text}
-                              </p>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
-
-                {/* Warning Callout Box for Scouts */}
-                <div className="p-5 sm:p-6 bg-gradient-to-r from-amber-50 to-rose-50 border-t border-rose-100 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs sm:text-sm">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
-                    <LucideIcon name="AlertTriangle" size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-zinc-900 mb-1">
-                      【警告】街頭やSNS裏垢（X/旧Twitter）のスカウト業者経由は絶対にNG！
-                    </h3>
-                    <p className="text-zinc-600 text-xs leading-relaxed">
-                      スカウトを通すと、あなたの売上から毎月10〜30%が「紹介料」として永久に天引きされます。また個人情報の流出や退職時の脅迫トラブルも後を絶ちません。信太山新地は<strong className="text-secondary font-black">旅館直営公式採用（信太山ガールズ）</strong>から応募することで、仲介手数料ゼロ・高額バック即日全額手渡し・時給1万円保証・日給保証が約束されます。
+            {/* 徹底比較ページへの案内バナー */}
+            <section className="mb-14 sm:mb-20 scroll-mt-24">
+              <div className="bg-gradient-to-r from-rose-500 via-pink-600 to-[#E5004F] rounded-3xl p-6 sm:p-8 text-white shadow-md">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="max-w-2xl">
+                    <div className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-black px-3.5 py-1 rounded-full mb-3 backdrop-blur-xs">
+                      <LucideIcon name="Scale" size={14} />
+                      <span>他エリア・一般風俗・スカウトとの違い</span>
+                    </div>
+                    <h2 className="font-display font-black text-xl sm:text-2xl text-white mb-2 leading-snug">
+                      信太山新地 徹底比較ガイド（別ページで詳しく解説中）
+                    </h2>
+                    <p className="text-xs sm:text-sm text-rose-100 leading-relaxed">
+                      「飛田新地・松島新地との違いは？」「店先の顔見せはあるの？」「スカウト業者を通すと何が危険？」など、気になる比較ポイントを比較表付きで徹底解説しています。
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* SECTION 3: 15分単位の標準報酬設定＆時給換算表（具体的数字データ） */}
-              <div className="bg-white rounded-3xl border border-rose-200/80 p-6 sm:p-8 shadow-xs">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-secondary font-black text-xs bg-rose-100 px-3 py-1 rounded-full flex items-center gap-1">
-                    <LucideIcon name="Coins" size={13} />
-                    <span>具体的数字で見る給与体系</span>
-                  </span>
-                </div>
-                <h3 className="font-display font-black text-lg sm:text-2xl text-zinc-900 mb-2">
-                  信太山新地のコース時間と支給額・時給換算データ表
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-600 mb-6 leading-relaxed">
-                  1コース最短15分からスタート。時給換算15,200円の高額還元率で、雑費や天引きは完全0円です。
-                </p>
-
-                <div className="overflow-x-auto scrollbar-thin">
-                  <table className="w-full text-xs sm:text-sm border-collapse min-w-[640px]">
-                    <caption className="sr-only">
-                      信太山新地の15分単位コース料金・キャスト支給額・時給換算表
-                    </caption>
-                    <thead>
-                      <tr className="bg-rose-50/70 border-b border-rose-200 text-zinc-800">
-                        <th scope="col" className="py-3.5 px-4 text-left font-bold w-[18%]">コース時間</th>
-                        <th scope="col" className="py-3.5 px-4 text-left font-bold w-[22%]">キャスト手取り支給額</th>
-                        <th scope="col" className="py-3.5 px-4 text-left font-bold w-[22%]">時給換算相当額</th>
-                        <th scope="col" className="py-3.5 px-4 text-left font-bold w-[38%]">特徴・保障制度</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-zinc-100">
-                      {COURSE_REWARD_SCHEDULE.map((item) => (
-                        <tr key={item.courseTime} className="hover:bg-rose-50/30">
-                          <th scope="row" className="py-3 px-4 font-bold text-zinc-900 text-left">
-                            {item.courseTime}コース
-                          </th>
-                          <td className="py-3 px-4 font-black text-rose-600 text-base">
-                            {item.reward.toLocaleString()}円
-                          </td>
-                          <td className="py-3 px-4 font-bold text-zinc-800">
-                            時給換算 約{item.hourlyEquivalent.toLocaleString()}円
-                          </td>
-                          <td className="py-3 px-4 text-zinc-600 text-xs">
-                            {item.note}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-4 border-t border-rose-100">
-                  <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
-                    <span className="font-bold text-rose-700 block mb-0.5">時給10,000円保証</span>
-                    <span className="text-zinc-600 text-[11px]">客足に関係なく最低時給1万円を保証。待機損がありません。</span>
-                  </div>
-                  <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
-                    <span className="font-bold text-rose-700 block mb-0.5">日給8万〜10万円保証</span>
-                    <span className="text-zinc-600 text-[11px]">12時間フル待機時の日給保証制度あり。確実な手取りを確保。</span>
-                  </div>
-                  <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
-                    <span className="font-bold text-rose-700 block mb-0.5">天引き完全0円</span>
-                    <span className="text-zinc-600 text-[11px]">厚生費・衣装代・写真代などの中抜き一切なし、100%全額手渡し。</span>
-                  </div>
+                  {onNavigateComparisonGuide && (
+                    <button
+                      type="button"
+                      onClick={onNavigateComparisonGuide}
+                      className="w-full md:w-auto px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-white hover:bg-rose-50 text-[#E5004F] transition-all flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer hover:scale-105 active:scale-95"
+                    >
+                      <LucideIcon name="TableProperties" size={16} />
+                      <span>徹底比較ページを見る →</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </section>

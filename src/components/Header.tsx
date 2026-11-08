@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import LucideIcon from './LucideIcon';
 
 interface HeaderProps {
-  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'faq' | 'cluster';
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'faq' | 'cluster') => void;
+  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster';
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster') => void;
   onCtaclick: () => void;
   onScrollToSection: (sectionId: string) => void;
   onNavigateTopic?: (topicId: string) => void;
@@ -85,6 +85,9 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
       }
     } else if (link.action === 'compare') {
       onChangeTab('compare');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.action === 'workstyle') {
+      onChangeTab('workstyle');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (link.action === 'blog') {
       onChangeTab('blog');

@@ -16,6 +16,7 @@ import ConsultationForm from './components/ConsultationForm';
 import Footer from './components/Footer';
 import AboutPage from './components/AboutPage';
 import ComparisonPage from './components/ComparisonPage';
+import ComparisonGuidePage from './components/ComparisonGuidePage';
 import FAQPage from './components/FAQPage';
 import TopicClusterPage from './components/TopicClusterPage';
 import AdminPanel from './components/AdminPanel';
@@ -28,7 +29,7 @@ import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch } from './blogData'
 import { TOPIC_CLUSTERS } from './topicClusterData';
 import { updatePageSeo } from './seo';
 
-type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'faq' | 'cluster';
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster';
 
 export default function App() {
   const [siteContent] = useState<SiteContent>(getStoredSiteContent());
@@ -49,13 +50,23 @@ export default function App() {
 
       if (pathname.startsWith('/about')) {
         setCurrentTab('about');
-      } else if (pathname.startsWith('/compare')) {
+      } else if (pathname === '/compare' || pathname === '/compare/' || pathname.startsWith('/comparison')) {
         setCurrentTab('compare');
+      } else if (pathname.startsWith('/compare/')) {
+        setCurrentTab('workstyle');
+        const parts = pathname.split('/').filter(Boolean);
+        if (parts.length > 1) {
+          setSelectedCategorySlug(parts[1]);
+        }
+      } else if (pathname.startsWith('/types') || pathname.startsWith('/workstyles')) {
+        setCurrentTab('workstyle');
         const parts = pathname.split('/').filter(Boolean);
         if (parts.length > 1) {
           setSelectedCategorySlug(parts[1]);
         } else if (params.get('category')) {
           setSelectedCategorySlug(params.get('category'));
+        } else {
+          setSelectedCategorySlug('all');
         }
       } else if (pathname.startsWith('/faq')) {
         setCurrentTab('faq');
@@ -143,10 +154,14 @@ export default function App() {
     navigateTo('cluster', `/${targetTopic}`);
   };
 
-  const handleNavigateCompare = (categorySlug?: string) => {
+  const handleNavigateCompare = () => {
+    navigateTo('compare', '/compare');
+  };
+
+  const handleNavigateWorkstyles = (categorySlug?: string) => {
     setSelectedCategorySlug(categorySlug || null);
-    const path = categorySlug ? `/compare/${categorySlug}` : '/compare';
-    navigateTo('compare', path);
+    const path = categorySlug ? `/types/${categorySlug}` : '/types';
+    navigateTo('workstyle', path);
   };
 
   const handleNavigateFaq = (category?: string) => {
@@ -346,7 +361,7 @@ export default function App() {
                 onScrollToSection={handleScrollToSection}
                 onNavigateToArticle={(slug) => handleNavigateBlog(slug)}
                 onNavigateToBlog={() => handleNavigateBlog()}
-                onNavigateCompare={handleNavigateCompare}
+                onNavigateCompare={handleNavigateWorkstyles}
                 onNavigateTopic={handleNavigateTopic}
                 onNavigateFaq={() => handleNavigateFaq()}
               />
@@ -436,8 +451,18 @@ export default function App() {
           />
         )}
 
-        {/* Comparison Page View */}
+        {/* Dedicated Comparison Guide Page View (徹底比較ページ) */}
         {currentTab === 'compare' && (
+          <ComparisonGuidePage
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateWorkstyleGuide={(slug) => handleNavigateWorkstyles(slug)}
+            onCtaclick={handleCtaclick}
+            onInjectedScroll={handleInjectedScroll}
+          />
+        )}
+
+        {/* Workstyle & Reasons Guide View (当店が選ばれる理由＆タイプ別働き方ガイド) */}
+        {currentTab === 'workstyle' && (
           <ComparisonPage
             onNavigateHome={() => navigateTo('recruit', '/')}
             onNavigateBlog={() => handleNavigateBlog()}
@@ -448,8 +473,9 @@ export default function App() {
             initialCategorySlug={selectedCategorySlug}
             onSelectCategorySlug={(slug) => {
               setSelectedCategorySlug(slug);
-              window.history.pushState({}, '', slug === 'all' ? '/compare' : `/compare/${slug}`);
+              window.history.pushState({}, '', slug === 'all' ? '/types' : `/types/${slug}`);
             }}
+            onNavigateComparisonGuide={() => handleNavigateCompare()}
           />
         )}
 
@@ -1097,6 +1123,7 @@ export default function App() {
         onScrollToSection={handleScrollToSection}
         onOpenAdmin={() => handleTabChange('admin')}
         onNavigateCompare={handleNavigateCompare}
+        onNavigateWorkstyle={handleNavigateWorkstyles}
         onNavigateTopic={handleNavigateTopic}
       />
     </div>
