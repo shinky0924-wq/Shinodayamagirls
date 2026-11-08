@@ -53,14 +53,64 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
   ];
 
   const targetCategoryLinks = [
-    { name: '未経験向け求人（約9割が初心者）', slug: 'inexperienced' },
-    { name: '高収入求人（日給10万〜・時給1万保証）', slug: 'high-income' },
-    { name: '週1日・マイペース求人', slug: 'weekly-1' },
-    { name: '短期・出稼ぎ求人（往復交通費支給）', slug: 'short-term' },
-    { name: '個室寮付き（即日住み込み・格安）', slug: 'dormitory' },
-    { name: 'Wワーク・副業向け（顔見せなし・身バレ防止）', slug: 'double-work' },
-    { name: '20代向け求人（学生・フリーター）', slug: 'age-20s' },
-    { name: '30代〜40代積極採用求人', slug: 'age-30s' },
+    { 
+      name: '未経験から始めたい', 
+      icon: 'HeartHandshake',
+      slug: 'inexperienced', 
+      action: 'workstyle',
+      target: '/types/inexperienced' 
+    },
+    { 
+      name: '高収入を目指したい', 
+      icon: 'Wallet',
+      slug: 'high-income', 
+      action: 'workstyle',
+      target: '/types/high-income' 
+    },
+    { 
+      name: '週1日から働きたい', 
+      icon: 'CalendarDays',
+      slug: 'weekly-1', 
+      action: 'workstyle',
+      target: '/types/weekly-1' 
+    },
+    { 
+      name: '顔出しなし・身バレ対策', 
+      icon: 'ShieldCheck',
+      slug: 'double-work', 
+      action: 'topic',
+      topicId: 'safety',
+      target: '/safety' 
+    },
+    { 
+      name: '短時間・短期で働きたい', 
+      icon: 'Clock',
+      slug: 'short-term', 
+      action: 'workstyle',
+      target: '/types/short-term' 
+    },
+    { 
+      name: '女性スタッフに相談したい', 
+      icon: 'MessagesSquare',
+      action: 'section',
+      sectionId: 'recruiter-interview',
+      target: '#recruiter-interview' 
+    },
+    { 
+      name: '出稼ぎ・寮付き希望', 
+      icon: 'House',
+      slug: 'dormitory', 
+      action: 'topic',
+      topicId: 'dorm',
+      target: '/dorm' 
+    },
+    { 
+      name: 'まずは話を聞きたい', 
+      icon: 'MessageCircle',
+      action: 'section',
+      sectionId: 'consultation',
+      target: '#consultation' 
+    },
   ];
 
   const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
@@ -91,18 +141,53 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     }
   };
 
-  const handleCategoryLinkClick = (e: MouseEvent<HTMLAnchorElement>, slug?: string) => {
+  const handleCategoryLinkClick = (e: MouseEvent<HTMLAnchorElement>, item?: typeof targetCategoryLinks[0]) => {
     e.preventDefault();
-    if (onNavigateWorkstyle) {
-      onNavigateWorkstyle(slug);
-    } else if (onNavigateCompare) {
-      onNavigateCompare(slug);
-    } else {
-      if (typeof window !== 'undefined') {
-        const targetUrl = slug ? `/types/${slug}` : '/types';
-        window.history.pushState({}, '', targetUrl);
+    if (!item) {
+      if (onNavigateWorkstyle) {
+        onNavigateWorkstyle();
+      } else if (onNavigateCompare) {
+        onNavigateCompare();
+      } else {
+        onChangeTab('workstyle');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      onChangeTab('workstyle');
+      return;
+    }
+
+    if (item.action === 'section' && item.sectionId) {
+      if (currentTab !== 'recruit') {
+        onChangeTab('recruit');
+      }
+      setTimeout(() => {
+        onScrollToSection(item.sectionId!);
+      }, 50);
+      return;
+    }
+
+    if (item.action === 'topic' && item.topicId && onNavigateTopic) {
+      onNavigateTopic(item.topicId);
+      return;
+    }
+
+    if (item.slug) {
+      if (onNavigateWorkstyle) {
+        onNavigateWorkstyle(item.slug);
+      } else if (onNavigateCompare) {
+        onNavigateCompare(item.slug);
+      } else {
+        if (typeof window !== 'undefined') {
+          const targetUrl = `/types/${item.slug}`;
+          window.history.pushState({}, '', targetUrl);
+        }
+        onChangeTab('workstyle');
+      }
+    } else {
+      if (onNavigateWorkstyle) {
+        onNavigateWorkstyle();
+      } else {
+        onChangeTab('workstyle');
+      }
     }
   };
 
@@ -167,7 +252,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
           <div className="space-y-4">
             <h5 className="font-display font-bold text-on-surface text-sm uppercase tracking-wider">
               <a
-                href="/compare"
+                href="/types"
                 onClick={(e) => handleCategoryLinkClick(e)}
                 className="hover:text-secondary flex items-center gap-1.5 transition-colors group cursor-pointer"
                 title="タイプ別の働き方ガイドへ"
@@ -179,13 +264,14 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
             </h5>
             <ul className="space-y-2 font-sans text-xs md:text-sm">
               {targetCategoryLinks.map((cat) => (
-                <li key={cat.slug}>
+                <li key={cat.name}>
                   <a 
-                    href={`/compare/${cat.slug}`}
-                    onClick={(e) => handleCategoryLinkClick(e, cat.slug)}
-                    className="text-on-surface-variant hover:text-secondary hover:underline transition-all block"
+                    href={cat.target}
+                    onClick={(e) => handleCategoryLinkClick(e, cat)}
+                    className="text-on-surface-variant hover:text-secondary hover:underline transition-all flex items-center gap-1.5 group"
                   >
-                    {cat.name}
+                    <LucideIcon name={cat.icon} size={13} className="text-rose-400 group-hover:text-secondary shrink-0 transition-colors" />
+                    <span>{cat.name}</span>
                   </a>
                 </li>
               ))}
