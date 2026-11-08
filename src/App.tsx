@@ -1010,33 +1010,49 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Sticky Bottom Dock Bar (Under 640px) */}
+      {/* Mobile Sticky Bottom Dock Bar (Section 8: 3 Items Navigation) */}
       <div className="block sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-rose-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-center gap-2 text-[10px] text-zinc-600 font-bold mb-1.5">
-          <span className="text-emerald-700 flex items-center gap-0.5">
-            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 女性スタッフ対応
-          </span>
-          <span className="text-zinc-300">|</span>
-          <span className="text-emerald-700 flex items-center gap-0.5">
-            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 匿名OK・履歴なし
-          </span>
-          <span className="text-zinc-300">|</span>
-          <span className="text-emerald-700 flex items-center gap-0.5">
-            <LucideIcon name="Check" size={12} className="text-emerald-600" /> 無理な勧誘一切なし
-          </span>
-        </div>
-        <a
-          href={LINE_OFFICIAL_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-3 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md shadow-[#06C755]/30 cursor-pointer"
-          id="mobile-sticky-line-cta"
-        >
-          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <LucideIcon name="MessageCircle" size={15} className="fill-white text-white" />
+        <div className="grid grid-cols-12 gap-2 items-center">
+          {/* 1. 求人トップ */}
+          <button
+            type="button"
+            onClick={() => {
+              if (currentTab !== 'recruit') handleTabChange('recruit');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="col-span-3 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-zinc-700 hover:text-[#E5004F] transition-colors cursor-pointer"
+          >
+            <LucideIcon name="Home" size={18} className="text-[#E5004F]" />
+            <span className="text-[10px] font-bold mt-0.5">求人トップ</span>
+          </button>
+
+          {/* 2. ガイド一覧 */}
+          <button
+            type="button"
+            onClick={() => {
+              if (currentTab !== 'recruit') handleTabChange('recruit');
+              handleScrollToSection('recruit-hub');
+            }}
+            className="col-span-3 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-zinc-700 hover:text-[#E5004F] transition-colors cursor-pointer"
+          >
+            <LucideIcon name="Compass" size={18} className="text-[#E5004F]" />
+            <span className="text-[10px] font-bold mt-0.5">ガイド一覧</span>
+          </button>
+
+          {/* 3. 応募・相談 (最も目立つボタン) */}
+          <div className="col-span-6">
+            <a
+              href={LINE_OFFICIAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-2.5 px-3 rounded-xl font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-[#06C755]/30 cursor-pointer"
+              id="mobile-sticky-line-cta"
+            >
+              <LucideIcon name="MessageCircle" size={16} className="fill-white text-white shrink-0" />
+              <span>応募・相談</span>
+            </a>
           </div>
-          <span>【公式LINE】無料相談・即日日払い応募（24h受付）</span>
-        </a>
+        </div>
       </div>
 
       {/* Desktop / Tablet Floating Pill (640px and Up) */}
