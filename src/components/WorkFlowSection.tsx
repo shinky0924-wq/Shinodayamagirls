@@ -3,113 +3,174 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from 'react';
 import LucideIcon from './LucideIcon';
+import { LINE_OFFICIAL_URL } from '../data';
 
 interface WorkFlowSectionProps {
-  onCtaclick: () => void;
-  onNavigateDetail: () => void;
+  onCtaclick?: () => void;
+  onNavigateDetail?: () => void;
+}
+
+interface StepItem {
+  step: string;
+  title: string;
+  badge: string;
+  desc: string;
+  icon: string;
 }
 
 export default function WorkFlowSection({
   onCtaclick,
   onNavigateDetail,
 }: WorkFlowSectionProps) {
-  const steps = [
+  const steps: StepItem[] = [
     {
       step: '01',
-      title: 'LINE・お電話で無料相談',
-      time: '所要時間：1〜3分',
-      desc: '24時間いつでも受付中。匿名での質問や「お話だけ聞いてみたい」という段階でも大歓迎です。女性スタッフが親身に対応します。',
-      icon: 'MessageCircle',
-      badge: '匿名OK・24h受付'
+      title: 'まずはLINEで相談',
+      badge: '匿名での相談もOK',
+      desc: '気になることや不安なことを、LINEや電話でお気軽にご相談ください。応募を決めていなくても、質問だけで大丈夫です。',
+      icon: 'message-circle',
     },
     {
       step: '02',
-      title: '希望ヒアリング・店舗見学',
-      time: '所要時間：15〜20分',
-      desc: '働くペースや希望日給、生活状況を伺います。私服のまま手ぶらで清潔な旅館個室や控え室を実際にご覧いただけます。駅送迎あり。',
-      icon: 'Eye',
-      badge: '私服手ぶら見学'
+      title: '希望条件の確認・お店見学',
+      badge: '見学だけでも歓迎',
+      desc: '希望する働き方や収入、出勤日数などを確認します。実際のお店や待機場所を見てから検討することもできます。',
+      icon: 'building-2',
     },
     {
       step: '03',
-      title: '手ぶら面談・条件確認',
-      time: '所要時間：約10分',
-      desc: '履歴書不要！顔写真付き身分証1点（免許証・マイナンバー・パスポート等）のみでOK。住民票は不要です。',
-      icon: 'FileCheck',
-      badge: '履歴書不要'
+      title: '面接・仕事内容の説明',
+      badge: '履歴書不要',
+      desc: 'お仕事内容・給与・待遇・ルールを一つずつ説明します。疑問や不安は面接時に何でも質問してください。',
+      icon: 'clipboard-check',
     },
     {
       step: '04',
-      title: '即日体験入店（日払い）',
-      time: '最短当日からOK',
-      desc: '無料レンタル衣装に着替えて即日体入OK！仲居さんが優しく付き添います。体入終了時に稼いだ分を全額現金手渡し。合わなければ即日終了も自由です。',
-      icon: 'Sparkles',
-      badge: '全額即日日払い'
+      title: '希望者は体験入店',
+      badge: '希望する方のみ',
+      desc: 'お店の雰囲気や仕事の流れを実際に確認できます。体験するかどうかはご自身で決められます。',
+      icon: 'door-open',
     },
     {
       step: '05',
-      title: '本入店・お仕事スタート',
-      time: '完全自由出勤制',
-      desc: '気に入っていただけたら本入店へ。完全自由出勤制なので週1日〜マイペースに働けます。家具家電付き個室寮や交通費支給も即日適用。',
-      icon: 'Award',
-      badge: 'ノルマ・罰金ゼロ'
-    }
+      title: '納得したらお仕事スタート',
+      badge: '自分のペースで開始',
+      desc: '働き方や出勤日を相談してスタート。お給料の受け取り方法や勤務ルールも事前に確認できます。',
+      icon: 'check-circle',
+    },
   ];
 
-  return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-rose-50/40 via-white to-pink-50/20 relative overflow-hidden" id="flow">
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 bg-rose-100 text-rose-700 text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs border border-rose-200/80">
-            <LucideIcon name="GitMerge" size={14} className="text-rose-600" />
-            <span>応募からお仕事開始までの流れ（簡単5ステップ）</span>
-          </div>
+  const handleLineClick = (e: React.MouseEvent) => {
+    if (onCtaclick) {
+      e.preventDefault();
+      onCtaclick();
+    }
+  };
 
-          <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 leading-tight mb-4 tracking-tight">
-            お仕事までの簡単ステップ
-            <span className="block text-base sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 mt-1.5 font-sans">
-              履歴書不要・私服手ぶらOK・最短即日で体験入店＆全額日払い
-            </span>
+  return (
+    <section className="py-16 sm:py-24 bg-[#FFFAFC] relative overflow-hidden" id="flow">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* 1. メインタイトル */}
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
+            HOW TO START
+          </span>
+
+          <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            応募からお仕事開始まで
           </h2>
 
-          <p className="font-sans text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-2xl mx-auto">
-            応募から面接、体験入店、全額現金日払いの受け取りまでとてもスムーズ。無理な引き止めや強引な勧誘は一切ありませんのでご安心ください。
+          <p className="text-base sm:text-lg font-bold text-[#D8175D] mb-3">
+            はじめてでも安心の5ステップ
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
+            まずは相談だけでも大丈夫。お店の見学や条件の確認をしてから、働くかどうかを決められます。
           </p>
         </div>
 
-        {/* 5 Stepper Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+        {/* 2 & 3. 5ステップ（PC版：横一列5枚 / スマホ版：縦一列タイムライン） */}
+
+        {/* --- PC版（md以上：5枚横一列） --- */}
+        <div className="hidden md:grid md:grid-cols-5 gap-3 lg:gap-4 mb-10 items-stretch relative">
+          {steps.map((st, idx) => (
+            <div key={st.step} className="relative flex flex-col h-full group">
+              {/* カード本体 */}
+              <div className="h-full bg-white rounded-[18px] border border-[#F0DDE4] p-4 lg:p-5 flex flex-col justify-between shadow-[0_2px_12px_rgba(216,23,93,0.03)] hover:shadow-[0_6px_20px_rgba(216,23,93,0.08)] transition-all">
+                <div>
+                  {/* 上部：STEP番号 & 補助タグ */}
+                  <div className="flex items-center justify-between gap-1 mb-3">
+                    <span className="font-mono font-black text-2xl lg:text-3xl text-[#E5829D]/70 leading-none">
+                      {st.step}
+                    </span>
+                    <span className="text-[10px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded-full border border-[#F0DDE4] whitespace-nowrap">
+                      {st.badge}
+                    </span>
+                  </div>
+
+                  {/* アイコン（ピンクの薄い円形背景） */}
+                  <div className="w-11 h-11 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] flex items-center justify-center text-[#D8175D] mb-3.5 group-hover:scale-105 transition-transform">
+                    <LucideIcon name={st.icon} size={20} />
+                  </div>
+
+                  {/* タイトル（濃いネイビー） */}
+                  <h3 className="font-bold text-[13px] lg:text-sm text-[#1F2432] mb-2 leading-snug min-h-[38px] flex items-center">
+                    {st.title}
+                  </h3>
+
+                  {/* 説明文（濃いグレー） */}
+                  <p className="text-[11.5px] lg:text-xs text-[#555555] leading-relaxed">
+                    {st.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* PC版ステップ間のコネクト矢印（最後のカード以外） */}
+              {idx < steps.length - 1 && (
+                <div
+                  className="hidden lg:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] text-[#D8175D] items-center justify-center shadow-2xs pointer-events-none"
+                  aria-hidden="true"
+                >
+                  <LucideIcon name="ChevronRight" size={12} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* --- スマートフォン版（md未満：縦一列タイムライン） --- */}
+        <div className="md:hidden space-y-3.5 mb-8">
           {steps.map((st, idx) => (
             <div
-              key={idx}
-              className="bg-white rounded-3xl p-5 border border-rose-100 shadow-sm hover:shadow-md hover:border-rose-300 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+              key={st.step}
+              className="bg-white rounded-[18px] border border-[#F0DDE4] p-4 shadow-[0_2px_10px_rgba(216,23,93,0.03)] flex gap-3.5 relative"
             >
-              <div className="absolute top-0 right-0 w-16 h-16 bg-rose-50 rounded-bl-full -z-0 pointer-events-none group-hover:bg-rose-100/60 transition-colors" />
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono font-black text-2xl text-rose-600">
-                    {st.step}
-                  </span>
-                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200">
-                    {st.badge}
-                  </span>
-                </div>
-
-                <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:bg-rose-600 group-hover:text-white transition-colors shadow-2xs">
+              {/* 左側：STEP番号とアイコン */}
+              <div className="flex flex-col items-center shrink-0 w-12">
+                <span className="font-mono font-black text-xl text-[#E5829D]/80 leading-none mb-1">
+                  {st.step}
+                </span>
+                <div className="w-10 h-10 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] flex items-center justify-center text-[#D8175D]">
                   <LucideIcon name={st.icon} size={18} />
                 </div>
+                {/* 縦のガイドライン（最後のステップ以外） */}
+                {idx < steps.length - 1 && (
+                  <div className="w-[1.5px] bg-[#F0DDE4] flex-1 my-1.5" />
+                )}
+              </div>
 
-                <h3 className="font-display font-black text-sm text-zinc-900 mb-1.5 leading-snug">
+              {/* 右側：コンテンツ */}
+              <div className="flex-1 min-w-0 pt-0.5">
+                <div className="inline-block text-[10px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded-full border border-[#F0DDE4] mb-1.5">
+                  {st.badge}
+                </div>
+                <h3 className="font-bold text-sm text-[#1F2432] mb-1.5 leading-snug">
                   {st.title}
                 </h3>
-                <p className="text-[11px] font-bold text-rose-600 mb-2">
-                  {st.time}
-                </p>
-                <p className="text-xs text-zinc-600 leading-relaxed">
+                <p className="text-xs text-[#555555] leading-relaxed">
                   {st.desc}
                 </p>
               </div>
@@ -117,34 +178,61 @@ export default function WorkFlowSection({
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 rounded-3xl p-6 sm:p-8 text-white text-center shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <h3 className="font-display font-black text-lg sm:text-xl mb-1">
-              まずは私服のまま見学だけでも大歓迎です！
-            </h3>
-            <p className="text-xs sm:text-sm text-rose-100">
-              駅までの無料送迎・交通費支給あり。女性スタッフが笑顔でお迎えします。
-            </p>
+        {/* 5. 5ステップの下の安心メッセージエリア */}
+        <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[16px] p-5 sm:p-6 mb-8 text-center max-w-3xl mx-auto shadow-2xs">
+          <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#D8175D] border border-[#F0DDE4] mb-3 shadow-2xs">
+            <LucideIcon name="ShieldCheck" size={20} />
           </div>
-          <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto">
-            <button
-              type="button"
-              onClick={onCtaclick}
-              className="w-full sm:w-auto px-6 py-3 rounded-full bg-white hover:bg-rose-50 text-rose-600 font-black text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-              id="flow-cta-btn"
+          <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1.5">
+            応募したからといって、働くことを強制されません。
+          </h3>
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
+            見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
+          </p>
+        </div>
+
+        {/* 6. 下部のLINE相談エリア（上品で清潔感のあるデザイン） */}
+        <div className="bg-white rounded-[20px] p-6 sm:p-8 border border-[#F0DDE4] shadow-[0_4px_20px_rgba(216,23,93,0.04)] text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
+            <LucideIcon name="MessageCircle" size={13} />
+            <span>24時間いつでも受付中</span>
+          </div>
+
+          <h3 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+            まずは話を聞いてみるだけでも大丈夫。
+          </h3>
+
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6 max-w-lg mx-auto">
+            お仕事内容やお給料、働き方など、気になることは何でもご相談ください。女性スタッフが丁寧に対応します。
+          </p>
+
+          <div className="flex flex-col items-center">
+            <a
+              href={LINE_OFFICIAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLineClick}
+              className="w-full sm:w-auto min-w-[280px] sm:min-w-[320px] bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-3.5 px-8 rounded-full font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md shadow-[#06C755]/25 hover:shadow-lg transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
+              id="flow-line-consult-btn"
             >
-              <LucideIcon name="MessageCircle" size={16} />
-              <span>LINEで見学予約する</span>
-            </button>
-            <button
-              type="button"
-              onClick={onNavigateDetail}
-              className="w-full sm:w-auto px-4 py-3 rounded-full bg-rose-800/40 hover:bg-rose-800/70 text-white font-bold text-xs border border-white/30 transition-all flex items-center justify-center gap-1 cursor-pointer"
-            >
-              <span>詳しい流れ</span>
-              <LucideIcon name="ArrowRight" size={13} />
-            </button>
+              <LucideIcon name="MessageCircle" size={18} className="fill-white shrink-0" />
+              <span>LINEで気軽に相談する</span>
+            </a>
+
+            <span className="text-xs text-[#777777] font-medium mt-2.5">
+              相談だけでも大歓迎です。
+            </span>
+
+            {onNavigateDetail && (
+              <button
+                type="button"
+                onClick={onNavigateDetail}
+                className="inline-flex items-center gap-1 text-xs text-[#888888] hover:text-[#D8175D] mt-4 font-bold transition-colors cursor-pointer"
+              >
+                <span>詳しい採用の流れ・必要書類の解説を見る</span>
+                <LucideIcon name="ChevronRight" size={13} />
+              </button>
+            )}
           </div>
         </div>
 
