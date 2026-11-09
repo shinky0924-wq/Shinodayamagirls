@@ -11,7 +11,7 @@ import Testimonials from './components/Testimonials';
 import RecruitHub from './components/RecruitHub';
 import JobRequirementsSection from './components/JobRequirementsSection';
 import WorkFlowSection from './components/WorkFlowSection';
-import RecruiterInterviewSection from './components/RecruiterInterviewSection';
+import RecruiterInterviewPage from './components/RecruiterInterviewPage';
 import ConsultationForm from './components/ConsultationForm';
 import Footer from './components/Footer';
 import AboutPage from './components/AboutPage';
@@ -29,7 +29,7 @@ import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch } from './blogData'
 import { TOPIC_CLUSTERS } from './topicClusterData';
 import { updatePageSeo } from './seo';
 
-type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster';
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview';
 
 export default function App() {
   const [siteContent] = useState<SiteContent>(getStoredSiteContent());
@@ -73,6 +73,8 @@ export default function App() {
         if (params.get('category')) {
           setInitialFaqCategory(params.get('category'));
         }
+      } else if (pathname === '/interview' || pathname === '/interview/' || pathname.startsWith('/staff-interview') || pathname.startsWith('/recruiter-interview')) {
+        setCurrentTab('interview');
       } else if (pathname.startsWith('/admin')) {
         setCurrentTab('admin');
       } else if (pathname.startsWith('/blog')) {
@@ -140,6 +142,8 @@ export default function App() {
     } else if (tab === 'blog') {
       setSelectedBlogSlug(null);
       navigateTo('blog', '/blog');
+    } else if (tab === 'interview') {
+      navigateTo('interview', '/interview');
     } else if (tab === 'admin') {
       navigateTo('admin', '/admin');
     } else if (tab === 'cluster') {
@@ -328,6 +332,13 @@ export default function App() {
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
         ogType: 'website'
       });
+    } else if (currentTab === 'interview') {
+      updatePageSeo({
+        title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
+        description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答しました。店先顔見せなし、未経験率90%、給与・日払い、面接内容まで詳しく解説。',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
+        ogType: 'article'
+      });
     }
   }, [currentTab, currentArticle]);
 
@@ -467,11 +478,6 @@ export default function App() {
               onNavigateDetail={() => handleNavigateTopic('flow')}
             />
 
-            {/* Recruiter & Staff Interview Section */}
-            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8">
-              <RecruiterInterviewSection />
-            </div>
-
             {/* Consultation / LINE Section */}
             <div id="consultation">
               <ConsultationForm
@@ -540,6 +546,16 @@ export default function App() {
             onCtaclick={handleCtaclick}
             onInjectedScroll={handleInjectedScroll}
             onNavigateCompare={() => handleNavigateCompare()}
+          />
+        )}
+
+        {/* Recruiter & Staff Interview Page View */}
+        {currentTab === 'interview' && (
+          <RecruiterInterviewPage
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onCtaclick={handleCtaclick}
+            onNavigateBlog={() => handleNavigateBlog()}
+            onNavigateFaq={() => handleNavigateFaq()}
           />
         )}
 

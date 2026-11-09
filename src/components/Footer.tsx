@@ -9,7 +9,7 @@ import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
 
 interface FooterProps {
   currentTab: string;
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster') => void;
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview') => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAdmin: () => void;
   onNavigateCompare?: (categorySlug?: string) => void;
@@ -41,6 +41,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
   const navLinks = [
     { name: '新地・一般風俗・スカウト徹底比較', action: 'compare', target: '/compare' },
     { name: 'タイプ別の働き方ガイド', action: 'workstyle', target: '/types' },
+    { name: '旅館求人・採用担当者インタビュー', action: 'interview', target: '/interview' },
     { name: '求人総合ガイド', action: 'section', target: '#hub' },
     { name: 'お仕事コラム一覧', action: 'blog' },
     { name: '運営者情報・グループ店舗概要', action: 'about', target: '/about' },
@@ -138,6 +139,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (link.action === 'faq') {
       onChangeTab('faq');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.action === 'interview') {
+      onChangeTab('interview');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (link.action === 'topic' && link.target) {
       if (onNavigateTopic) {
@@ -342,6 +346,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
               { id: 'dorm', name: '🏠 個室寮・出稼ぎ', path: '/dorm' },
               { id: 'safety', name: '🤫 身バレ・顔見せなし', path: '/safety' },
               { id: 'faq', name: '💡 よくある質問 (100選)', path: '/faq' },
+              { id: 'interview', name: '🎤 採用担当者インタビュー', path: '/interview' },
               { id: 'blog', name: '📚 お仕事コラム', path: '/blog' },
             ].map((topic) => (
               <a
@@ -351,6 +356,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
                   e.preventDefault();
                   if (topic.id === 'faq') {
                     onChangeTab('faq');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else if (topic.id === 'interview') {
+                    onChangeTab('interview');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (topic.id === 'blog') {
                     onChangeTab('blog');
