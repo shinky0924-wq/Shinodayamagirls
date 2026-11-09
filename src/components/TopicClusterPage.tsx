@@ -10,6 +10,7 @@ import { TOPIC_CLUSTERS, ALL_CLUSTER_NODES, TopicClusterData } from '../topicClu
 import { BLOG_ARTICLES } from '../blogData';
 import SalaryPageContent from './SalaryPageContent';
 import BenefitsPageContent from './BenefitsPageContent';
+import JobPageContent from './JobPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -496,10 +497,21 @@ export default function TopicClusterPage({
         </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
-        
-        {/* 3. Hero Visual Header (2-Column Magazine Style with Real Japanese Photography) */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-rose-100 shadow-sm mb-8 relative overflow-hidden">
+      {topicId === 'job' ? (
+        <div className="pb-8">
+          <JobPageContent
+            onCtaclick={onCtaclick}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : (
+        <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
+          
+          {/* 3. Hero Visual Header (2-Column Magazine Style with Real Japanese Photography) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-rose-100 shadow-sm mb-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-rose-100/40 via-pink-50/20 to-transparent rounded-full blur-3xl -z-0 pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -1247,8 +1259,8 @@ export default function TopicClusterPage({
             ))}
           </div>
         </div>
-
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 }
