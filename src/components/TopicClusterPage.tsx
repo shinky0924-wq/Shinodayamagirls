@@ -11,6 +11,7 @@ import { BLOG_ARTICLES } from '../blogData';
 import SalaryPageContent from './SalaryPageContent';
 import BenefitsPageContent from './BenefitsPageContent';
 import JobPageContent from './JobPageContent';
+import SalaryBenefitsPageContent from './SalaryBenefitsPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -505,6 +506,15 @@ export default function TopicClusterPage({
             onNavigateFaq={onNavigateFaq}
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : topicId === 'salary' || topicId === 'benefits' ? (
+        <div className="pb-8">
+          <SalaryBenefitsPageContent
+            onCtaclick={onCtaclick}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
           />
         </div>
       ) : (
