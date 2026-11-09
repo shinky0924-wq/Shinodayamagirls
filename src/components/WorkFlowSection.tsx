@@ -178,21 +178,23 @@ export default function WorkFlowSection({
           ))}
         </div>
 
-        {/* 5. 5ステップの下の安心メッセージエリア */}
-        <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[16px] p-5 sm:p-6 mb-8 text-center max-w-3xl mx-auto shadow-2xs">
-          <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#D8175D] border border-[#F0DDE4] mb-3 shadow-2xs">
-            <LucideIcon name="ShieldCheck" size={20} />
+        {/* 5 & 6 合体エリア：安心のメッセージ ＆ LINE相談エリア */}
+        <div className="bg-white rounded-[20px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.06)] text-center max-w-2xl mx-auto">
+          {/* 上部：安心の約束・無理な勧誘なし */}
+          <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[16px] p-4 sm:p-5 mb-6 text-center">
+            <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#D8175D] mb-1.5">
+              <LucideIcon name="ShieldCheck" size={16} />
+              <span>安心の約束</span>
+            </div>
+            <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1">
+              応募したからといって、働くことを強制されません。
+            </h3>
+            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+              見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
+            </p>
           </div>
-          <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1.5">
-            応募したからといって、働くことを強制されません。
-          </h3>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
-            見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
-          </p>
-        </div>
 
-        {/* 6. 下部のLINE相談エリア（上品で清潔感のあるデザイン） */}
-        <div className="bg-white rounded-[20px] p-6 sm:p-8 border border-[#F0DDE4] shadow-[0_4px_20px_rgba(216,23,93,0.04)] text-center max-w-2xl mx-auto">
+          {/* 中央：相談メッセージ */}
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
             <LucideIcon name="MessageCircle" size={13} />
             <span>24時間いつでも受付中</span>
@@ -206,6 +208,7 @@ export default function WorkFlowSection({
             お仕事内容やお給料、働き方など、気になることは何でもご相談ください。女性スタッフが丁寧に対応します。
           </p>
 
+          {/* CTAボタン & 補足 */}
           <div className="flex flex-col items-center">
             <a
               href={LINE_OFFICIAL_URL}
