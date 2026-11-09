@@ -782,22 +782,6 @@ export default function RecruitHub({
             </div>
           </div>
         </section>
-
-        {/* お仕事コラム一覧へのリンク */}
-        {onNavigateToBlog && (
-          <div className="text-center">
-            <button
-              onClick={() => onNavigateToBlog()}
-              className="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-[#E5004F] hover:text-[#c90044] bg-white border border-[#E5004F]/20 px-7 py-3 rounded-full shadow-xs hover:shadow-md transition-all cursor-pointer"
-              id="recruit-hub-all-blog-btn"
-            >
-              <LucideIcon name="BookOpen" size={15} className="text-[#E5004F]" />
-              <span>お仕事コラム・解説記事一覧（全100本以上）を見る</span>
-              <LucideIcon name="ChevronRight" size={15} />
-            </button>
-          </div>
-        )}
-
       </div>
     </section>
   );
