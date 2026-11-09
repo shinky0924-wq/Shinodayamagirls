@@ -201,7 +201,7 @@ export default function BeginnerPageContent({
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {[
             {
               num: '①',
@@ -340,61 +340,66 @@ export default function BeginnerPageContent({
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto space-y-4">
-          {[
-            {
-              step: 'STEP 01',
-              title: 'LINE・電話で相談',
-              desc: '仕事内容や給与、働き方など気になることを質問できます。応募を決めていなくても、質問だけで大丈夫です。',
-              icon: 'MessageCircle'
-            },
-            {
-              step: 'STEP 02',
-              title: '面接・希望条件の確認',
-              desc: '希望する働き方や不安なことを確認します。履歴書不要で私服のまま手ぶらでお越しいただけます。',
-              icon: 'ClipboardCheck'
-            },
-            {
-              step: 'STEP 03',
-              title: '仕事内容・給与・ルールの説明',
-              desc: '実際の仕事内容、給与体系、勤務条件について詳しく説明します。疑問や不安があれば何でも確認できます。',
-              icon: 'FileText'
-            },
-            {
-              step: 'STEP 04',
-              title: '希望者は体験・見学',
-              desc: '実際の環境を確認し、自分に合うか判断できます。体験入店するかどうかはご自身で決められます。',
-              icon: 'DoorOpen'
-            },
-            {
-              step: 'STEP 05',
-              title: '納得したうえで勤務開始',
-              desc: '仕事内容や条件を理解し、本人が希望した場合に勤務を開始します。出勤日や時間も自由に相談可能です。',
-              icon: 'CheckCircle2'
-            }
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-[#FFFAFC] rounded-[18px] p-4 sm:p-5 border border-[#F0DDE4] flex items-start gap-4 relative"
-            >
-              <div className="flex flex-col items-center shrink-0">
-                <span className="font-mono font-black text-xs text-[#D8175D] bg-[#FFF1F5] px-2.5 py-1 rounded-full border border-[#F0DDE4]">
-                  {item.step}
-                </span>
-                <div className="w-10 h-10 rounded-full bg-white border border-[#F0DDE4] flex items-center justify-center text-[#D8175D] mt-2 shadow-2xs">
-                  <LucideIcon name={item.icon} size={18} />
+        <div className="max-w-2xl mx-auto relative">
+          {/* Vertical connecting line */}
+          <div className="absolute left-[34px] sm:left-[39px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#D8175D]/40 via-[#D8175D]/20 to-[#D8175D]/40 -z-0 pointer-events-none hidden sm:block" />
+
+          <div className="space-y-4 relative z-10">
+            {[
+              {
+                step: 'STEP 01',
+                title: 'LINE・電話で相談',
+                desc: '仕事内容や給与、働き方など気になることを質問できます。応募を決めていなくても、質問だけで大丈夫です。',
+                icon: 'MessageCircle'
+              },
+              {
+                step: 'STEP 02',
+                title: '面接・希望条件の確認',
+                desc: '希望する働き方や不安なことを確認します。履歴書不要で私服のまま手ぶらでお越しいただけます。',
+                icon: 'ClipboardCheck'
+              },
+              {
+                step: 'STEP 03',
+                title: '仕事内容・給与・ルールの説明',
+                desc: '実際の仕事内容、給与体系、勤務条件について詳しく説明します。疑問や不安があれば何でも確認できます。',
+                icon: 'FileText'
+              },
+              {
+                step: 'STEP 04',
+                title: '希望者は体験・見学',
+                desc: '実際の環境を確認し、自分に合うか判断できます。体験入店するかどうかはご自身で決められます。',
+                icon: 'DoorOpen'
+              },
+              {
+                step: 'STEP 05',
+                title: '納得したうえで勤務開始',
+                desc: '仕事内容や条件を理解し、本人が希望した場合に勤務を開始します。出勤日や時間も自由に相談可能です。',
+                icon: 'CheckCircle2'
+              }
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-[#FFFAFC] rounded-[18px] p-4 sm:p-5 border border-[#F0DDE4] flex items-start gap-4 relative shadow-2xs hover:shadow-xs transition-shadow"
+              >
+                <div className="flex flex-col items-center shrink-0">
+                  <span className="font-mono font-black text-xs text-[#D8175D] bg-[#FFF1F5] px-2.5 py-1 rounded-full border border-[#F0DDE4]">
+                    {item.step}
+                  </span>
+                  <div className="w-10 h-10 rounded-full bg-white border border-[#F0DDE4] flex items-center justify-center text-[#D8175D] mt-2 shadow-2xs">
+                    <LucideIcon name={item.icon} size={18} />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0 pt-0.5">
+                  <h3 className="font-bold text-sm sm:text-base text-[#1F2432] mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-[#555555] leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
               </div>
-              <div className="flex-1 min-w-0 pt-0.5">
-                <h3 className="font-bold text-sm sm:text-base text-[#1F2432] mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-xs sm:text-[13px] text-[#555555] leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -413,7 +418,7 @@ export default function BeginnerPageContent({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto mb-6">
           {/* まいさん */}
           <div className="bg-[#FFFAFC] rounded-[18px] p-5 sm:p-6 border border-[#F0DDE4] flex flex-col justify-between shadow-2xs">
             <div>
@@ -469,6 +474,18 @@ export default function BeginnerPageContent({
               <span className="text-[#D8175D] font-bold">日給実績：約53,000円</span>
             </div>
           </div>
+        </div>
+
+        {/* インタビュー詳細へのリンク */}
+        <div className="text-center">
+          <button
+            type="button"
+            onClick={() => onNavigateTopic('interview')}
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#D8175D] hover:text-[#b8124d] bg-[#FFF1F5] hover:bg-[#ffe4ed] px-5 py-2.5 rounded-full border border-[#F0DDE4] transition-colors cursor-pointer"
+          >
+            <span>働く女性のリアルなインタビュー記事一覧を見る</span>
+            <LucideIcon name="ChevronRight" size={14} />
+          </button>
         </div>
       </section>
 
