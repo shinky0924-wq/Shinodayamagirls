@@ -5,7 +5,6 @@
 
 import React from 'react';
 import LucideIcon from './LucideIcon';
-import { LINE_OFFICIAL_URL } from '../data';
 
 interface WorkFlowSectionProps {
   onCtaclick?: () => void;
@@ -61,13 +60,6 @@ export default function WorkFlowSection({
       icon: 'check-circle',
     },
   ];
-
-  const handleLineClick = (e: React.MouseEvent) => {
-    if (onCtaclick) {
-      e.preventDefault();
-      onCtaclick();
-    }
-  };
 
   return (
     <section className="py-16 sm:py-24 bg-[#FFFAFC] relative overflow-hidden" id="flow">
@@ -178,65 +170,32 @@ export default function WorkFlowSection({
           ))}
         </div>
 
-        {/* 5 & 6 合体エリア：安心のメッセージ ＆ LINE相談エリア */}
-        <div className="bg-white rounded-[20px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.06)] text-center max-w-2xl mx-auto">
-          {/* 上部：安心の約束・無理な勧誘なし */}
-          <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[16px] p-4 sm:p-5 mb-6 text-center">
-            <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#D8175D] mb-1.5">
-              <LucideIcon name="ShieldCheck" size={16} />
-              <span>安心の約束</span>
-            </div>
-            <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1">
-              応募したからといって、働くことを強制されません。
-            </h3>
-            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-              見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
-            </p>
+        {/* 安心の約束エリア */}
+        <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[18px] p-6 sm:p-7 text-center max-w-2xl mx-auto shadow-2xs">
+          <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#D8175D] mb-2">
+            <LucideIcon name="ShieldCheck" size={17} />
+            <span>安心の約束</span>
           </div>
-
-          {/* 中央：相談メッセージ */}
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
-            <LucideIcon name="MessageCircle" size={13} />
-            <span>24時間いつでも受付中</span>
-          </div>
-
-          <h3 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
-            まずは話を聞いてみるだけでも大丈夫。
+          <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1.5">
+            応募したからといって、働くことを強制されません。
           </h3>
-
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6 max-w-lg mx-auto">
-            お仕事内容やお給料、働き方など、気になることは何でもご相談ください。女性スタッフが丁寧に対応します。
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
+            見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
           </p>
 
-          {/* CTAボタン & 補足 */}
-          <div className="flex flex-col items-center">
-            <a
-              href={LINE_OFFICIAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleLineClick}
-              className="w-full sm:w-auto min-w-[280px] sm:min-w-[320px] bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-3.5 px-8 rounded-full font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md shadow-[#06C755]/25 hover:shadow-lg transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
-              id="flow-line-consult-btn"
-            >
-              <LucideIcon name="MessageCircle" size={18} className="fill-white shrink-0" />
-              <span>LINEで気軽に相談する</span>
-            </a>
-
-            <span className="text-xs text-[#777777] font-medium mt-2.5">
-              相談だけでも大歓迎です。
-            </span>
-
-            {onNavigateDetail && (
+          {onNavigateDetail && (
+            <div className="mt-4 pt-3.5 border-t border-[#F0DDE4]/70">
               <button
                 type="button"
                 onClick={onNavigateDetail}
-                className="inline-flex items-center gap-1 text-xs text-[#888888] hover:text-[#D8175D] mt-4 font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-[#D8175D] hover:text-[#b5124c] font-bold bg-white px-5 py-2.5 rounded-full border border-[#F0DDE4] shadow-2xs hover:shadow-xs transition-all cursor-pointer hover:scale-[1.01]"
+                id="flow-detail-link-btn"
               >
                 <span>詳しい採用の流れ・必要書類の解説を見る</span>
                 <LucideIcon name="ChevronRight" size={13} />
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
       </div>
