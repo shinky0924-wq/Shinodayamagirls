@@ -12,6 +12,7 @@ import SalaryPageContent from './SalaryPageContent';
 import BenefitsPageContent from './BenefitsPageContent';
 import JobPageContent from './JobPageContent';
 import SalaryBenefitsPageContent from './SalaryBenefitsPageContent';
+import BeginnerPageContent from './BeginnerPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -515,6 +516,17 @@ export default function TopicClusterPage({
             onNavigateBlog={onNavigateBlog}
             onNavigateFaq={onNavigateFaq}
             onInjectedScroll={onInjectedScroll}
+          />
+        </div>
+      ) : topicId === 'beginner' ? (
+        <div className="pb-8">
+          <BeginnerPageContent
+            onCtaclick={onCtaclick}
+            onNavigateTopic={onNavigateTopic}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
           />
         </div>
       ) : (
