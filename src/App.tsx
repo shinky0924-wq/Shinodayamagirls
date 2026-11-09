@@ -343,7 +343,7 @@ export default function App() {
       />
 
       {/* Main Content Router */}
-      <main className="flex-1 pb-20 sm:pb-0">
+      <main className="flex-1 pb-28 sm:pb-12">
         {currentTab === 'recruit' && (
           <div>
             {/* Hero Section */}
@@ -453,7 +453,7 @@ export default function App() {
             </section>
 
             {/* Testimonials / Real Interviews (信太山新地で働いた女性インタビュー: リアル体験談) */}
-            <Testimonials />
+            <Testimonials onCtaclick={handleCtaclick} />
 
             {/* Job Requirements Section (募集要項・採用条件一覧) */}
             <JobRequirementsSection
@@ -1116,7 +1116,7 @@ export default function App() {
               id="mobile-sticky-line-cta"
             >
               <LucideIcon name="MessageCircle" size={16} className="fill-white text-white shrink-0" />
-              <span>応募・相談</span>
+              <span>LINEで応募・相談</span>
             </a>
           </div>
         </div>
