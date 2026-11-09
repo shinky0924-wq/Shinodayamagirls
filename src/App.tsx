@@ -367,46 +367,87 @@ export default function App() {
               />
             </div>
 
-            {/* Reasons Why Shinodayama Is Chosen (選ばれる6つの理由) */}
-            <section className="py-16 sm:py-24 bg-gradient-to-b from-rose-50/30 via-white to-pink-50/20" id="reasons">
-              <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            {/* Reasons Why Shinodayama Is Chosen (信太山新地で、当店が選ばれる6つの理由) */}
+            <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-[#FFFAFC] to-white relative overflow-hidden" id="reasons">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+                {/* 見出しブロック */}
                 <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                  <div className="inline-flex items-center gap-1.5 bg-rose-100 text-secondary text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs">
-                    <LucideIcon name="ShieldCheck" size={14} />
-                    <span>6 REASONS TO CHOOSE</span>
+                  <div className="inline-block text-[11px] font-bold tracking-[0.2em] text-[#D8175D] uppercase bg-[#FFF1F5] px-3.5 py-1 rounded-full border border-[#F0DDE4] mb-3">
+                    OUR ADVANTAGES
                   </div>
-                  <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 mb-3">
-                    {siteContent.reasons?.title || '信太山新地の当店が選ばれる6つの理由'}
+                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-[32px] text-[#222228] leading-tight">
+                    信太山新地で、当店が選ばれる6つの理由
                   </h2>
-                  <p className="text-xs sm:text-sm text-zinc-600">
-                    他の新地エリアとは一線を画す「店先顔見せなし」「旅館複数経営」「安心の送迎・柔軟シフト」が安心の証です。
+                  {/* 短いピンクのアクセントライン */}
+                  <div className="w-12 h-0.5 bg-[#D8175D] mx-auto mt-4 mb-4 rounded-full" />
+                  <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
+                    お店選びで大切なのは、お給料だけではありません。働く環境・プライバシーへの配慮・スタッフのサポートまで、女性が安心して働ける環境を大切にしています。
                   </p>
                 </div>
 
+                {/* 6つのカード（PC：横3列×縦2段、スマホ：縦1列） */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                   {siteContent.reasons.items.map((reason) => (
                     <div
                       key={reason.number}
-                      className="bg-white rounded-3xl p-6 border border-rose-100/80 shadow-[0_4px_20px_-4px_rgba(244,63,94,0.06)] hover:shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                      className="bg-white rounded-[18px] p-6 sm:p-7 border border-[#F3E5EB] shadow-[0_4px_20px_-4px_rgba(216,23,93,0.05)] hover:shadow-[0_8px_30px_-6px_rgba(216,23,93,0.12)] hover:border-[#D8175D]/30 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
                     >
                       <div>
+                        {/* 上部：左に淡いピンクの番号、右に上品なアイコンバッジ */}
                         <div className="flex items-center justify-between mb-4">
-                          <span className="font-display font-black text-3xl sm:text-4xl text-rose-200 group-hover:text-secondary transition-colors">
+                          <span className="font-display font-black text-2xl sm:text-[28px] text-[#F3A5BE] group-hover:text-[#D8175D] transition-colors tracking-wider">
                             {reason.number}
                           </span>
-                          <div className="w-12 h-12 rounded-2xl bg-rose-50 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors shadow-2xs">
-                            <LucideIcon name={reason.iconName} size={22} />
+                          <div className="w-11 h-11 rounded-[14px] bg-[#FFF1F5] text-[#D8175D] flex items-center justify-center border border-[#F0DDE4] group-hover:bg-[#D8175D] group-hover:text-white transition-all shadow-2xs group-hover:scale-105">
+                            <LucideIcon name={reason.iconName} size={20} />
                           </div>
                         </div>
-                        <h3 className="font-bold text-base sm:text-lg text-zinc-900 mb-2">
+
+                        {/* 見出し（濃いネイビー・チャコール系） */}
+                        <h3 className="font-bold text-base sm:text-lg text-[#222228] mb-2.5 leading-snug">
                           {reason.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+
+                        {/* 説明文（落ち着いた濃いグレー、左揃え） */}
+                        <p className="text-xs sm:text-[13px] text-[#555555] leading-relaxed text-left">
                           {reason.description}
                         </p>
                       </div>
                     </div>
                   ))}
+                </div>
+
+                {/* セクション下部：自然な応募・LINE相談への導線 */}
+                <div className="mt-12 sm:mt-16 max-w-2xl mx-auto bg-white rounded-[20px] p-6 sm:p-8 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.06)] text-center">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
+                    <LucideIcon name="MessageCircle" size={13} />
+                    <span>24時間いつでも受付中</span>
+                  </div>
+                  <h3 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#222228] mb-2.5">
+                    まずは、気になることを聞いてみませんか？
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#666666] leading-relaxed mb-6 max-w-lg mx-auto">
+                    応募するかどうかは、話を聞いてから決めても大丈夫です。お仕事内容・お給料・働き方など、気になることは女性スタッフにお気軽にご相談ください。
+                  </p>
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <a
+                      href={LINE_OFFICIAL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCtaclick();
+                      }}
+                      className="w-full sm:w-auto sm:min-w-[320px] h-[52px] sm:h-[54px] px-8 rounded-[12px] font-extrabold text-sm sm:text-base bg-[#06C755] hover:bg-[#05b34c] text-white transition-all flex items-center justify-center gap-2.5 shadow-md shadow-[#06C755]/20 hover:shadow-lg cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
+                      id="reasons-line-cta-btn"
+                    >
+                      <LucideIcon name="MessageCircle" size={20} className="fill-white text-white" />
+                      <span>LINEで気軽に相談する</span>
+                    </a>
+                    <span className="text-xs text-[#888888] font-medium mt-1">
+                      相談だけでも大歓迎です
+                    </span>
+                  </div>
                 </div>
               </div>
             </section>

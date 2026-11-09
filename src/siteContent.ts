@@ -32,6 +32,7 @@ export interface SiteContent {
   reasons: {
     title: string;
     subtitle: string;
+    description?: string;
     items: {
       number: string;
       iconName: string;
