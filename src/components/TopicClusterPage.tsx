@@ -17,6 +17,7 @@ import ExperiencedPageContent from './ExperiencedPageContent';
 import RequirementsPageContent from './RequirementsPageContent';
 import FlowPageContent from './FlowPageContent';
 import WorkstyleFiveStylesSection from './WorkstyleFiveStylesSection';
+import WorkstylePageContent from './WorkstylePageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -558,6 +559,17 @@ export default function TopicClusterPage({
       ) : topicId === 'flow' ? (
         <div className="pb-8">
           <FlowPageContent
+            onCtaclick={onCtaclick}
+            onNavigateTopic={onNavigateTopic}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : topicId === 'workstyle' ? (
+        <div className="pb-8">
+          <WorkstylePageContent
             onCtaclick={onCtaclick}
             onNavigateTopic={onNavigateTopic}
             onNavigateBlog={onNavigateBlog}
