@@ -16,6 +16,7 @@ import BeginnerPageContent from './BeginnerPageContent';
 import ExperiencedPageContent from './ExperiencedPageContent';
 import RequirementsPageContent from './RequirementsPageContent';
 import FlowPageContent from './FlowPageContent';
+import WorkstyleFiveStylesSection from './WorkstyleFiveStylesSection';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -982,7 +983,15 @@ export default function TopicClusterPage({
           </div>
         ) : (
           <div className="space-y-6 mb-8">
-            {(data.sections || []).map((sec, i) => {
+            {topicId === 'workstyle' && (
+              <WorkstyleFiveStylesSection
+                onCtaclickWithData={(msg) => onInjectedScroll ? onInjectedScroll(msg) : onCtaclick()}
+                onCtaclick={onCtaclick}
+              />
+            )}
+            {(data.sections || [])
+              .filter(sec => topicId !== 'workstyle' || (!sec.title.includes('4大シフトパターン') && !sec.title.includes('代表的な働き方')))
+              .map((sec, i) => {
               const isStepProcess = (sec.points || []).some(p => p.includes('STEP') || p.includes('【'));
 
               return (
