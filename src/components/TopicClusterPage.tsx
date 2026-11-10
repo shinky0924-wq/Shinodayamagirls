@@ -15,6 +15,7 @@ import SalaryBenefitsPageContent from './SalaryBenefitsPageContent';
 import BeginnerPageContent from './BeginnerPageContent';
 import ExperiencedPageContent from './ExperiencedPageContent';
 import RequirementsPageContent from './RequirementsPageContent';
+import FlowPageContent from './FlowPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -545,6 +546,17 @@ export default function TopicClusterPage({
       ) : topicId === 'requirements' ? (
         <div className="pb-8">
           <RequirementsPageContent
+            onCtaclick={onCtaclick}
+            onNavigateTopic={onNavigateTopic}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : topicId === 'flow' ? (
+        <div className="pb-8">
+          <FlowPageContent
             onCtaclick={onCtaclick}
             onNavigateTopic={onNavigateTopic}
             onNavigateBlog={onNavigateBlog}

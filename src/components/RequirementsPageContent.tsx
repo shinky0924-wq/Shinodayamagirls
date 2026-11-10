@@ -327,70 +327,70 @@ export default function RequirementsPageContent({
             <span className="w-6 h-6 rounded-full bg-[#FFF1F5] text-[#D8175D] font-bold text-xs flex items-center justify-center border border-[#F0DDE4]">
               2
             </span>
-            <span>日給の計算例（勤務時間・接客本数ごとのシミュレーション）</span>
+            <span>日給の計算例（15分メイン・接客本数ごとのリアルなシミュレーション）</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-[#FFFAFC] rounded-[18px] p-5 border border-[#F0DDE4] flex flex-col justify-between">
               <div>
                 <span className="inline-block text-[10px] font-bold bg-[#FFF1F5] text-[#D8175D] px-2.5 py-0.5 rounded-full border border-[#F0DDE4] mb-2">
-                  短時間・副業勤務（実働約4時間）
+                  短時間・スキマ副業（約3〜4時間）
                 </span>
                 <h4 className="font-bold text-base text-[#1F2432] mb-1">
-                  1日 4本接客（30分×4本）
+                  1日 8〜10本接客（15分メイン）
                 </h4>
                 <p className="text-xs text-[#555555] mb-3 leading-relaxed">
-                  昼職帰りや学校帰りのスキマ時間で無理なく勤務した場合の目安。
+                  昼職帰りや空いた時間だけでサクッと短時間勤務した場合の目安。
                 </p>
               </div>
               <div className="pt-3 border-t border-[#F0DDE4]">
-                <span className="text-[11px] text-[#777777] block">受取給与実績</span>
+                <span className="text-[11px] text-[#777777] block">受取給与実績目安</span>
                 <span className="font-display font-black text-xl sm:text-2xl text-[#D8175D]">
-                  30,400円
+                  30,400円 〜 38,000円
                 </span>
-                <span className="text-[10px] text-[#777777] block mt-0.5">7,600円 × 4本 ＝ 30,400円</span>
+                <span className="text-[10px] text-[#777777] block mt-0.5">3,800円 × 8〜10本（即日手渡し）</span>
               </div>
             </div>
 
             <div className="bg-[#FFFAFC] rounded-[18px] p-5 border border-[#D8175D]/40 ring-1 ring-[#D8175D]/20 flex flex-col justify-between shadow-xs">
               <div>
                 <span className="inline-block text-[10px] font-bold bg-[#D8175D] text-white px-2.5 py-0.5 rounded-full mb-2">
-                  レギュラー勤務（実働約6〜7時間）
+                  定番レギュラー勤務（約6〜8時間）★平均20本前後
                 </span>
                 <h4 className="font-bold text-base text-[#1F2432] mb-1">
-                  1日 8本接客（30分・45分混合）
+                  1日 18〜22本接客（15分メイン＋延長）
                 </h4>
                 <p className="text-xs text-[#555555] mb-3 leading-relaxed">
-                  週3〜4日出勤でしっかり安定した収入を得る定番スタイルの目安。
+                  信太山新地の回転率を活かし、平均20本前後をテンポよく接客する中心スタイル。
                 </p>
               </div>
               <div className="pt-3 border-t border-[#F0DDE4]">
-                <span className="text-[11px] text-[#777777] block">受取給与実績</span>
+                <span className="text-[11px] text-[#777777] block">受取給与実績目安</span>
                 <span className="font-display font-black text-xl sm:text-2xl text-[#D8175D]">
-                  68,400円 〜 80,000円
+                  76,000円 〜 90,000円超
                 </span>
-                <span className="text-[10px] text-[#777777] block mt-0.5">本数と延長・指名料により変動</span>
+                <span className="text-[10px] text-[#777777] block mt-0.5">3,800円 × 20本 ＝ 76,000円（＋延長・指名）</span>
               </div>
             </div>
 
             <div className="bg-[#FFFAFC] rounded-[18px] p-5 border border-[#F0DDE4] flex flex-col justify-between">
               <div>
                 <span className="inline-block text-[10px] font-bold bg-[#FFF1F5] text-[#D8175D] px-2.5 py-0.5 rounded-full border border-[#F0DDE4] mb-2">
-                  フルタイム専業・繁忙期（実働約8〜10時間）
+                  フル出勤・繁忙日（約8〜10時間）
                 </span>
                 <h4 className="font-bold text-base text-[#1F2432] mb-1">
-                  1日 12本接客＋ロング・延長多数
+                  1日 25〜35本以上＋延長・ロング
                 </h4>
                 <p className="text-xs text-[#555555] mb-3 leading-relaxed">
-                  週末や連休などのお客様が多い時間帯に集中して稼ぐ場合の目安。
+                  週末や給料日後など、客足の多い日に集中して高収入を狙う場合の最高水準。
                 </p>
               </div>
               <div className="pt-3 border-t border-[#F0DDE4]">
-                <span className="text-[11px] text-[#777777] block">受取給与実績</span>
+                <span className="text-[11px] text-[#777777] block">受取給与実績目安</span>
                 <span className="font-display font-black text-xl sm:text-2xl text-[#D8175D]">
-                  120,000円 〜 150,000円
+                  114,000円 〜 150,000円
                 </span>
-                <span className="text-[10px] text-[#777777] block mt-0.5">ロングコース多数成立時の実績</span>
+                <span className="text-[10px] text-[#777777] block mt-0.5">30本前後成立時＋延長手当多数</span>
               </div>
             </div>
           </div>
