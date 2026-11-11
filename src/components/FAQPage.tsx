@@ -128,9 +128,22 @@ export default function FAQPage({
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
             {/* 左側：メイン見出しと説明文 */}
             <div className="flex-1 min-w-0">
-              <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
-                RECRUITMENT FAQ & GUIDE
-              </span>
+              {/* テーマ表示 */}
+              <div className="inline-flex items-center gap-2 bg-[#FFF1F5] border border-[#F0DDE4] px-3.5 py-1.5 rounded-full mb-3 text-xs sm:text-sm font-bold shadow-2xs">
+                <span className="bg-[#D8175D] text-white text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full shrink-0">
+                  テーマ
+                </span>
+                <span className="text-[#D8175D] font-extrabold tracking-tight">
+                  働く前の疑問や不安を解消する、信太山新地求人FAQ
+                </span>
+              </div>
+
+              <div>
+                <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#777777] uppercase mb-1.5">
+                  RECRUITMENT FAQ & GUIDE
+                </span>
+              </div>
+
               <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
                 <span className="text-[#D8175D]">疑問や不安を解消して、</span><br />
                 安心してお仕事探し。
