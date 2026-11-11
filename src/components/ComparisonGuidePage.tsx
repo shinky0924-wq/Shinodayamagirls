@@ -106,7 +106,7 @@ export default function ComparisonGuidePage({
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen pt-24 pb-20">
+    <div className="bg-surface text-on-surface min-h-screen pt-4 sm:pt-6 pb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Breadcrumb Navigation */}

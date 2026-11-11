@@ -354,7 +354,7 @@ export default function App() {
       />
 
       {/* Main Content Router */}
-      <main className="flex-1 pb-28 sm:pb-12">
+      <main className="flex-1 pt-16 sm:pt-20 pb-28 sm:pb-12">
         {currentTab === 'recruit' && (
           <div>
             {/* Hero Section */}

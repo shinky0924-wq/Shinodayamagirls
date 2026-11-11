@@ -424,7 +424,7 @@ export default function ComparisonPage({
   };
 
   return (
-    <article className="min-h-screen bg-gradient-to-b from-rose-50/40 via-white to-rose-50/30 pt-24 pb-20 font-sans text-on-surface">
+    <article className="min-h-screen bg-gradient-to-b from-rose-50/40 via-white to-rose-50/30 pt-4 sm:pt-6 pb-20 font-sans text-on-surface">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
         
         {/* ==========================================

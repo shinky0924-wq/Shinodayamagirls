@@ -52,7 +52,7 @@ export default function Hero({ content, onCtaclick, onBlogClick, articles, onArt
   }, [articles]);
 
   return (
-    <section className="relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden hero-pattern bg-radial from-rose-50/20 via-transparent to-transparent">
+    <section className="relative pt-12 md:pt-16 pb-16 md:pb-24 overflow-hidden hero-pattern bg-radial from-rose-50/20 via-transparent to-transparent">
       {/* Backdrops */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-secondary-container/10 rounded-full blur-3xl pointer-events-none z-0" />
 
