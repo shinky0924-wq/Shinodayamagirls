@@ -3,94 +3,58 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import * as LucideIcons from 'lucide-react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import LucideIcon from './LucideIcon';
+import { LINE_OFFICIAL_URL } from '../data';
 import {
-  FAQ100Item,
-  FAQ_8_CATEGORIES,
-  FAQCategoryDef,
-  FAQ_100_LIST,
-  filterFAQ100,
-  FAQ8Category,
-  HIGH_INTENT_FAQS,
-  SEARCH_INTENT_CATEGORIES,
-  SearchIntentCategoryKey,
-  HighIntentFAQItem
-} from '../faq100Data';
-import { CONSULTANT_AVATAR_URL } from '../data';
-
-function LucideIcon({ name, size = 16, className = '' }: { name: string; size?: number; className?: string }) {
-  const IconComponent = (LucideIcons as any)[name] || LucideIcons.HelpCircle;
-  return <IconComponent size={size} className={className} />;
-}
-
-const POPULAR_SEARCH_TAGS = [
-  '未経験でも大丈夫？',
-  '初日は何をする？',
-  '面接で何を聞かれる？',
-  '体験入店',
-  '日払い',
-  '給料の計算方法',
-  '天引きはある？',
-  '週1でもいい？',
-  '短時間',
-  'Wワーク',
-  '個室寮',
-  '身バレが心配',
-  '会社に知られたくない',
-  '写真掲載はある？',
-  'SNSに載る？'
-];
+  FAQ_11_CATEGORIES,
+  FAQ_66_QUESTIONS,
+  FAQ_RELATED_ARTICLES,
+  FAQCategoryItem,
+  FAQQuestionItem
+} from '../faq11CategoriesData';
 
 interface FAQPageProps {
   initialCategory?: string | null;
   onNavigateHome: () => void;
   onCtaclick?: () => void;
+  onNavigateBlog?: (slug?: string) => void;
 }
 
-export default function FAQPage({ initialCategory, onNavigateHome, onCtaclick }: FAQPageProps) {
+export default function FAQPage({
+  initialCategory,
+  onNavigateHome,
+  onCtaclick,
+  onNavigateBlog
+}: FAQPageProps) {
+  // Category state: 'all' or categoryId
   const [selectedCategory, setSelectedCategory] = useState<string>(() => {
-    if (initialCategory && FAQ_8_CATEGORIES.some(c => c.id === initialCategory || c.slug === initialCategory)) {
+    if (initialCategory && FAQ_11_CATEGORIES.some(c => c.id === initialCategory)) {
       return initialCategory;
     }
     return 'all';
   });
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [openIds, setOpenIds] = useState<Set<string>>(() => {
-    // Open the first 3 items by default for immediate preview
-    return new Set(FAQ_100_LIST.slice(0, 3).map(i => i.id));
-  });
-  const [displayLimit, setDisplayLimit] = useState(25);
+  // Search input query
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Accordion open state: Set of question IDs for multi-open support
+  const [openIds, setOpenIds] = useState<Set<number>>(new Set([1, 7]));
+
+  const faqListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (initialCategory && FAQ_8_CATEGORIES.some(c => c.id === initialCategory || c.slug === initialCategory)) {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Sync initialCategory if changed externally
+  useEffect(() => {
+    if (initialCategory && FAQ_11_CATEGORIES.some(c => c.id === initialCategory)) {
       setSelectedCategory(initialCategory);
     }
   }, [initialCategory]);
 
-  useEffect(() => {
-    // Reset display limit when category or search changes
-    setDisplayLimit(25);
-  }, [selectedCategory, searchQuery]);
-
-  // Update page title and meta for SEO
-  useEffect(() => {
-    const originalTitle = document.title;
-    document.title = '信太山新地求人 FAQ（全119問）｜8大目的別よくある質問集【公式】';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    return () => {
-      document.title = originalTitle;
-    };
-  }, []);
-
-  const filteredItems = useMemo(() => {
-    return filterFAQ100(selectedCategory, searchQuery);
-  }, [selectedCategory, searchQuery]);
-
-  const toggleItem = (id: string) => {
+  const toggleQuestion = (id: number) => {
     setOpenIds(prev => {
       const next = new Set(prev);
       if (next.has(id)) {
@@ -102,758 +66,476 @@ export default function FAQPage({ initialCategory, onNavigateHome, onCtaclick }:
     });
   };
 
-  const expandAll = () => {
-    const allVisibleIds = new Set(filteredItems.slice(0, displayLimit).map(item => item.id));
-    setOpenIds(allVisibleIds);
+  const handleSelectCategory = (catId: string, shouldScroll = true) => {
+    setSelectedCategory(catId);
+    if (shouldScroll && faqListRef.current) {
+      faqListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
-  const collapseAll = () => {
+  const openAll = () => {
+    const all = new Set(filteredQuestions.map(q => q.id));
+    setOpenIds(all);
+  };
+
+  const closeAll = () => {
     setOpenIds(new Set());
   };
 
-  const activeCategoryDef = useMemo(() => {
-    return FAQ_8_CATEGORIES.find(c => c.id === selectedCategory) || FAQ_8_CATEGORIES[0];
-  }, [selectedCategory]);
+  // Filtered questions based on search query and category tab
+  const filteredQuestions = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-  const displayedList = filteredItems.slice(0, displayLimit);
-  const hasMore = filteredItems.length > displayLimit;
+    return FAQ_66_QUESTIONS.filter(item => {
+      // Category filter
+      const matchesCategory = selectedCategory === 'all' || item.categoryId === selectedCategory;
+      if (!matchesCategory) return false;
 
-  // Category item counts for badges
-  const categoryCounts = useMemo(() => {
-    const map: Record<string, number> = { all: FAQ_100_LIST.length };
-    FAQ_8_CATEGORIES.forEach(cat => {
-      if (cat.id !== 'all') {
-        map[cat.id] = FAQ_100_LIST.filter(item => item.eightCategory === cat.id).length;
-      }
+      // Query filter: matches question title or answer text
+      if (!query) return true;
+      const qText = item.q.toLowerCase();
+      const aText = item.a.toLowerCase();
+      const catText = item.categoryName.toLowerCase();
+      return qText.includes(query) || aText.includes(query) || catText.includes(query);
     });
-    return map;
-  }, []);
+  }, [selectedCategory, searchQuery]);
 
-  const [highIntentTab, setHighIntentTab] = useState<SearchIntentCategoryKey>('beginner');
-  const [highIntentOpenIds, setHighIntentOpenIds] = useState<Set<string>>(new Set(['hi-beg-1', 'hi-sal-1']));
+  const popularTags = [
+    '日払い',
+    '未経験',
+    '寮',
+    '顔バレ',
+    '週1日',
+    '半年ルール',
+    '体験入店',
+    '短時間'
+  ];
 
-  const toggleHighIntentItem = (id: string) => {
-    setHighIntentOpenIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
+  const handleLineClick = () => {
+    if (onCtaclick) {
+      onCtaclick();
+    } else {
+      window.open(LINE_OFFICIAL_URL, '_blank', 'noopener,noreferrer');
+    }
   };
 
-  // Generate JSON-LD for rich search results / LLM consumption
-  const jsonLdData = useMemo(() => {
-    const highIntentEntities = HIGH_INTENT_FAQS.map(item => ({
-      '@type': 'Question',
-      'name': `【${item.searchIntentCategoryLabel}】${item.searchQuery}（${item.question}）`,
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': `${item.directConclusion}\n\n【詳細解説】${item.answer}\n\n【要点まとめ】${item.keyTakeaways.join(' / ')}`
-      }
-    }));
-
-    const standardEntities = FAQ_100_LIST.slice(0, 30).map(item => ({
-      '@type': 'Question',
-      'name': item.question,
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': item.answer
-      }
-    }));
-
-    return {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'BreadcrumbList',
-          '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#breadcrumb',
-          'itemListElement': [
-            {
-              '@type': 'ListItem',
-              'position': 1,
-              'name': '信太山新地求人トップ',
-              'item': 'https://osaka-shinodayamashinchi-recruit.com/'
-            },
-            {
-              '@type': 'ListItem',
-              'position': 2,
-              'name': '信太山新地求人FAQ（全119問・8大目的別）',
-              'item': 'https://osaka-shinodayamashinchi-recruit.com/faq'
-            }
-          ]
-        },
-        {
-          '@type': 'FAQPage',
-          '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faq',
-          'mainEntity': [...highIntentEntities, ...standardEntities]
-        }
-      ]
-    };
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#faf8f7] via-white to-[#faf8f7] text-[#2c1810]">
-      {/* Structured data injection */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-      />
+    <div className="bg-[#FAF7F8] min-h-screen py-6 sm:py-10">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
 
-      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* ==========================================
-            Breadcrumb Navigation
-           ========================================== */}
-        <nav className="flex items-center gap-2 text-xs text-zinc-500 mb-6" aria-label="Breadcrumb">
-          <button
-            type="button"
-            onClick={onNavigateHome}
-            className="hover:text-secondary flex items-center gap-1 transition-colors"
-          >
-            <LucideIcon name="Home" size={13} />
-            <span>求人トップ</span>
-          </button>
-          <span className="text-zinc-300">/</span>
-          <span className="text-zinc-800 font-bold">信太山新地求人 FAQ</span>
-          {selectedCategory !== 'all' && (
-            <>
-              <span className="text-zinc-300">/</span>
-              <span className="text-secondary font-bold">{activeCategoryDef.label}</span>
-            </>
-          )}
-        </nav>
-
-        {/* ==========================================
-            Hero Header
-           ========================================== */}
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <div className="inline-flex items-center gap-2 bg-rose-100 text-secondary text-xs sm:text-sm font-extrabold px-4 py-1.5 rounded-full mb-4 shadow-xs">
-            <LucideIcon name="HelpCircle" size={15} />
-            <span>信太山新地求人 FAQ（全119問・8大テーマ体系化）</span>
-          </div>
-
-          <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#2c1810] leading-tight mb-4">
-            疑問や不安をすべて解消する<br />
-            <span className="text-secondary">信太山新地求人 119問FAQ</span>
-          </h1>
-
-          <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-600 leading-relaxed mb-4">
-            「応募・面接」「給料」「未経験」「勤務時間」「身バレ」「寮」「Wワーク」「退店」の8つの重要テーマに体系化。
-            応募前に女の子から寄せられる119のリアルな疑問に、現場の実務基準に基づき本音で回答しています。
-          </p>
-
-          <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-zinc-500 bg-white border border-rose-100 px-3.5 py-1.5 rounded-full shadow-2xs">
-            <LucideIcon name="CheckCircle2" size={13} className="text-emerald-600" />
-            <span>2026年最新求人実務基準で監修済み</span>
-            <span className="text-zinc-300">|</span>
-            <span>女性専任スタッフ常駐</span>
-          </div>
-        </div>
-
-        {/* ==========================================
-            High-Intent Search Queries Showcase (4大疑問・質重視Q&A)
-           ========================================== */}
-        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-rose-200/90 shadow-sm mb-10" id="high-intent-faq-showcase">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-rose-100">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-black text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full mb-2">
-                <LucideIcon name="Search" size={13} />
-                <span>ユーザーが実際に検索している4大疑問</span>
-              </div>
-              <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
-                「初心者・給料・働き方・不安」の最重要Q&A
-              </h2>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-1">
-                応募前に特に検索されているリアルな質問に、具体的な数字と事実で回答しています。
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold text-zinc-500">
-                厳選20問
+        {/* 1. ファーストビューを全面変更 */}
+        <section className="bg-white rounded-[24px] p-6 sm:p-10 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
+          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+            {/* 左側：メイン見出しと説明文 */}
+            <div className="flex-1 min-w-0">
+              <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
+                RECRUITMENT FAQ & GUIDE
               </span>
+              <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+                <span className="text-[#D8175D]">疑問や不安を解消して、</span><br />
+                安心してお仕事探し。
+                <span className="block text-base sm:text-lg md:text-xl font-bold text-[#444444] mt-2 font-sans">
+                  信太山新地求人 よくある質問FAQ
+                </span>
+              </h1>
+
+              <p className="font-bold text-xs sm:text-sm text-[#1F2432] mb-3 leading-relaxed">
+                応募資格・お給料・働き方・仕事内容・身バレ対策など、働く前に知っておきたい疑問をカテゴリー別にまとめました。
+              </p>
+
+              <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6">
+                「未経験でも大丈夫？」「実際のお給料はいくら？」「家族や知人に知られない？」など、応募前に気になることは人それぞれです。<br className="hidden sm:inline" />
+                こちらのFAQでは、信太山新地で働くことを検討している女性からよく寄せられる質問を分かりやすくご紹介します。<br className="hidden sm:inline" />
+                気になるカテゴリーから、自分の知りたい情報を探してみてください。
+              </p>
+
+              <div className="flex flex-wrap gap-2 text-xs font-semibold text-[#1F2432]">
+                <span className="inline-flex items-center gap-1.5 bg-[#FFF1F5] text-[#D8175D] px-3 py-1 rounded-full border border-[#F0DDE4]">
+                  <LucideIcon name="CheckCircle2" size={13} />
+                  全11カテゴリー・66問掲載
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-[#FFF1F5] text-[#D8175D] px-3 py-1 rounded-full border border-[#F0DDE4]">
+                  <LucideIcon name="ShieldCheck" size={13} />
+                  女性目線で誠実に回答
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-[#FFF1F5] text-[#D8175D] px-3 py-1 rounded-full border border-[#F0DDE4]">
+                  <LucideIcon name="MessageCircleHeart" size={13} />
+                  LINE事前相談24h受付
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* 4 Category Switcher Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
-            {SEARCH_INTENT_CATEGORIES.map((cat) => {
-              const isTabActive = highIntentTab === cat.key;
-              return (
-                <button
-                  key={cat.key}
-                  type="button"
-                  onClick={() => setHighIntentTab(cat.key)}
-                  className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
-                    isTabActive
-                      ? 'bg-rose-50/80 border-secondary ring-1 ring-secondary/20 shadow-xs'
-                      : 'bg-zinc-50/60 hover:bg-rose-50/30 border-zinc-200/80'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className={`inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-full border ${cat.colorClass}`}>
-                      <LucideIcon name={cat.icon} size={11} />
-                      <span>{cat.label}</span>
-                    </span>
-                    <span className="text-[10px] font-bold text-zinc-400">5問</span>
-                  </div>
-                  <div className="text-xs font-bold text-zinc-800 line-clamp-1">
-                    {cat.subLabel}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* High Intent Accordion List for Active Tab */}
-          <div className="space-y-3">
-            {HIGH_INTENT_FAQS.filter(item => item.searchIntentCategory === highIntentTab).map((faq, idx) => {
-              const isOpen = highIntentOpenIds.has(faq.id);
-
-              return (
-                <div
-                  key={faq.id}
-                  className={`rounded-2xl border transition-all overflow-hidden ${
-                    isOpen
-                      ? 'bg-white border-secondary/60 shadow-xs'
-                      : 'bg-zinc-50/50 hover:bg-rose-50/20 border-zinc-200/80'
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleHighIntentItem(faq.id)}
-                    className="w-full flex justify-between items-start sm:items-center p-3.5 sm:p-4 text-left cursor-pointer gap-3"
-                  >
-                    <div className="flex items-start sm:items-center gap-2.5 flex-1 min-w-0">
-                      <span className="flex-shrink-0 text-xs font-black bg-rose-100 text-secondary px-2.5 py-1 rounded-lg">
-                        Q.{(idx + 1).toString().padStart(2, '0')}
-                      </span>
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                          <span className="text-[10px] font-black text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.2 rounded-full inline-flex items-center gap-1">
-                            <LucideIcon name="Search" size={9} />
-                            <span>「{faq.searchQuery}」</span>
-                          </span>
-                          {faq.highlightLabel && (
-                            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/60 px-1.5 py-0.2 rounded-full inline-flex items-center gap-0.5">
-                              <LucideIcon name="Sparkles" size={9} />
-                              {faq.highlightLabel}
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="font-bold text-xs sm:text-sm text-zinc-900 leading-snug">
-                          {faq.question}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className={`text-zinc-400 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180 text-secondary' : ''}`}>
-                      <LucideIcon name="ChevronDown" size={16} />
-                    </div>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="px-4 sm:px-5 pb-5 pt-0 text-xs sm:text-sm text-zinc-700 border-t border-rose-100/60">
-                          <div className="pt-3 flex gap-2.5">
-                            <span className="text-secondary font-black text-base select-none flex-shrink-0">
-                              A.
-                            </span>
-                            <div className="flex-1 space-y-3">
-                              {faq.directConclusion && (
-                                <div className="bg-emerald-50/90 border border-emerald-200/90 rounded-xl p-3 text-emerald-950 font-bold text-xs sm:text-sm flex items-start gap-2 shadow-2xs">
-                                  <LucideIcon name="CheckCircle2" size={15} className="text-emerald-600 shrink-0 mt-0.5" />
-                                  <div>
-                                    <span className="text-[10px] font-black text-emerald-700 block uppercase tracking-wider mb-0.5">3秒でわかる要点・結論</span>
-                                    <span>{faq.directConclusion}</span>
-                                  </div>
-                                </div>
-                              )}
-
-                              {faq.keyTakeaways && faq.keyTakeaways.length > 0 && (
-                                <div className="bg-rose-50/70 border border-rose-100 rounded-xl p-3 space-y-1">
-                                  <div className="text-[11px] font-black text-secondary flex items-center gap-1">
-                                    <LucideIcon name="CheckCircle2" size={12} className="text-emerald-600" />
-                                    <span>重要ポイント:</span>
-                                  </div>
-                                  <ul className="space-y-0.5">
-                                    {faq.keyTakeaways.map((point, pIdx) => (
-                                      <li key={pIdx} className="text-xs font-semibold text-zinc-800 flex items-start gap-1">
-                                        <span className="text-secondary">・</span>
-                                        <span>{point}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              )}
-
-                              <p className="whitespace-pre-line text-xs sm:text-sm text-zinc-800 leading-relaxed font-normal">
-                                {faq.answer}
-                              </p>
-
-                              <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100">
-                                <span className="text-[11px] text-zinc-500">
-                                  信太山新地の当店ならLINEで匿名・24時間いつでも質問できます
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    if (onCtaclick) {
-                                      onCtaclick();
-                                    } else if (typeof window !== 'undefined') {
-                                      window.location.href = '#consultation';
-                                    }
-                                  }}
-                                  className="inline-flex items-center gap-1.5 text-xs font-bold text-secondary hover:text-rose-600 bg-rose-50 hover:bg-rose-100 px-3 py-1 rounded-lg border border-rose-200 transition-colors cursor-pointer"
-                                >
-                                  <LucideIcon name="MessageCircle" size={13} />
-                                  <span>信太山新地の当店へLINEで相談・応募する</span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+            {/* 右側：女性スタッフが相談に対応している写真 */}
+            <div className="w-full md:w-[400px] shrink-0">
+              <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-[#FFF5F8]/40 aspect-[4/3]">
+                <img
+                  src="/images/safety_female_consultation_1794375281375.jpg"
+                  alt="専任女性スタッフが親身に質問・相談に対応している様子"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-black/65 backdrop-blur-xs text-white text-[11px] px-3 py-1.5 rounded-lg font-medium text-center">
+                  専任の女性スタッフが疑問や不安に寄り添います
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ==========================================
-            Architecture Tree: 8大テーマ体系図
-           ========================================== */}
-        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-rose-100 shadow-sm mb-10">
-          <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-rose-100/60">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-rose-50 text-secondary flex items-center justify-center">
-                <LucideIcon name="GitBranch" size={16} />
-              </div>
-              <div>
-                <h2 className="font-bold text-sm sm:text-base text-zinc-900">
-                  信太山新地求人 FAQ 8大テーマ体系図
-                </h2>
-                <p className="text-[11px] text-zinc-500">
-                  知りたいテーマをクリックすると即座に絞り込まれます
-                </p>
               </div>
             </div>
-            <span className="hidden sm:inline-block text-xs font-bold text-secondary bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
-              全119問
+          </div>
+        </section>
+
+        {/* 2. FAQカテゴリーを11種類に再構成（PC 4列、スマホ 2列カード） */}
+        <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
+          <div className="max-w-3xl mx-auto text-center mb-8">
+            <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
+              CATEGORY DIRECTORY
             </span>
+            <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+              知りたい分野から探す 11のFAQカテゴリー
+            </h2>
+            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+              気になるカテゴリーをタップすると、該当する質問一覧へジャンプして確認できます。
+            </p>
           </div>
 
-          {/* Grid of the 8 Themes */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-            {FAQ_8_CATEGORIES.filter(c => c.id !== 'all').map((cat) => {
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {FAQ_11_CATEGORIES.map((cat: FAQCategoryItem) => {
               const isSelected = selectedCategory === cat.id;
-              const count = categoryCounts[cat.id] || 0;
-
               return (
                 <button
                   key={cat.id}
                   type="button"
-                  onClick={() => {
-                    setSelectedCategory(cat.id);
-                    // Update URL query without full reload
-                    if (typeof window !== 'undefined') {
-                      window.history.replaceState({}, '', `/faq?category=${cat.id}`);
-                    }
-                  }}
-                  className={`flex flex-col items-start p-3 sm:p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  onClick={() => handleSelectCategory(cat.id, true)}
+                  className={`text-left rounded-[18px] p-4 sm:p-4.5 border transition-all cursor-pointer flex flex-col justify-between group ${
                     isSelected
-                      ? 'bg-rose-50/70 border-secondary ring-1 ring-secondary/20 shadow-xs'
-                      : 'bg-zinc-50/50 hover:bg-rose-50/30 border-zinc-200/70 hover:border-rose-200'
+                      ? 'bg-[#FFF5F8] border-[#D8175D] shadow-sm ring-1 ring-[#D8175D]/20'
+                      : 'bg-[#FFFAFC] border-[#F0DDE4] hover:border-[#D8175D]/50 hover:bg-white shadow-2xs'
                   }`}
                 >
-                  <div className="flex items-center justify-between w-full mb-1.5">
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${
-                      isSelected ? 'bg-secondary text-white' : 'bg-white text-zinc-700 border border-zinc-200/60'
-                    }`}>
-                      <LucideIcon name={cat.icon} size={14} />
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[11px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded border border-[#F0DDE4]">
+                        {cat.num}
+                      </span>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                        isSelected ? 'bg-[#D8175D] text-white' : 'bg-white border border-[#F0DDE4] text-[#D8175D] group-hover:bg-[#FFF1F5]'
+                      }`}>
+                        <LucideIcon name={cat.icon} size={16} />
+                      </div>
                     </div>
-                    <span className={`text-[11px] font-black px-2 py-0.5 rounded-full ${
-                      isSelected ? 'bg-secondary text-white' : 'bg-white text-zinc-600 border border-zinc-200/60'
+                    <h3 className={`font-bold text-xs sm:text-sm mb-1.5 leading-snug transition-colors ${
+                      isSelected ? 'text-[#D8175D]' : 'text-[#1F2432] group-hover:text-[#D8175D]'
                     }`}>
-                      {count}問
+                      {cat.name}
+                    </h3>
+                    <p className="text-[11px] text-[#666666] leading-relaxed line-clamp-2">
+                      {cat.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 pt-2 border-t border-[#F0DDE4]/60 flex items-center justify-between text-[11px] font-medium text-[#777777]">
+                    <span>質問 {cat.count}件</span>
+                    <span className="text-[#D8175D] font-bold group-hover:translate-x-0.5 transition-transform flex items-center">
+                      見る →
                     </span>
                   </div>
-                  <span className={`font-bold text-xs sm:text-sm ${
-                    isSelected ? 'text-secondary font-black' : 'text-zinc-800'
-                  }`}>
-                    {cat.label}
-                  </span>
-                  <span className="text-[10px] text-zinc-500 line-clamp-1 mt-0.5">
-                    {cat.description}
-                  </span>
                 </button>
               );
             })}
           </div>
+        </section>
 
-          {/* All button */}
-          <div className="mt-3.5 pt-3 border-t border-rose-100/60 flex justify-end">
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCategory('all');
-                if (typeof window !== 'undefined') {
-                  window.history.replaceState({}, '', '/faq');
-                }
-              }}
-              className={`text-xs font-bold px-3.5 py-1.5 rounded-xl border transition-all cursor-pointer inline-flex items-center gap-1.5 ${
-                selectedCategory === 'all'
-                  ? 'bg-secondary text-white border-secondary shadow-2xs'
-                  : 'bg-white hover:bg-rose-50 text-zinc-600 border-zinc-200'
-              }`}
-            >
-              <LucideIcon name="Layers" size={13} />
-              <span>すべての質問（全119問）を表示</span>
-            </button>
-          </div>
+        {/* 3. FAQ検索機能 & 4. カテゴリー切り替えタブ */}
+        <div ref={faqListRef} className="scroll-mt-6">
+          <section className="bg-white rounded-[24px] p-6 sm:p-8 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
+            {/* 検索窓エリア */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="text-center mb-3">
+                <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1 block">
+                  KEYWORD SEARCH
+                </span>
+                <h3 className="font-display font-black text-lg sm:text-xl text-[#1F2432]">
+                  知りたいことをキーワードで検索
+                </h3>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="例：日払い・未経験・寮・顔バレ・週1日・半年ルール"
+                  className="w-full bg-[#FFFAFC] border-2 border-[#F0DDE4] focus:border-[#D8175D] focus:bg-white rounded-full py-3.5 pl-12 pr-10 text-xs sm:text-sm text-[#1F2432] placeholder-[#999999] outline-none transition-all shadow-2xs"
+                />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D8175D] pointer-events-none">
+                  <LucideIcon name="Search" size={18} />
+                </div>
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1 cursor-pointer"
+                    title="検索クリア"
+                  >
+                    <LucideIcon name="X" size={16} />
+                  </button>
+                )}
+              </div>
+
+              {/* クイック検索タグ */}
+              <div className="flex flex-wrap items-center gap-1.5 mt-3 justify-center">
+                <span className="text-[11px] text-[#777777] font-medium mr-1">人気キーワード:</span>
+                {popularTags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => setSearchQuery(tag)}
+                    className="text-[11px] bg-[#FFF1F5] hover:bg-[#D8175D] hover:text-white text-[#D8175D] font-medium px-2.5 py-1 rounded-full border border-[#F0DDE4] transition-colors cursor-pointer"
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* カテゴリー切り替えタブ（横スクロール対応） */}
+            <div className="border-t border-[#F0DDE4] pt-6 mb-6">
+              <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                <span className="text-xs font-bold text-[#1F2432]">
+                  カテゴリー絞り込み:
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={openAll}
+                    className="text-[11px] font-bold text-[#555555] hover:text-[#D8175D] bg-[#FFFAFC] border border-[#F0DDE4] px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                  >
+                    すべて開く
+                  </button>
+                  <button
+                    type="button"
+                    onClick={closeAll}
+                    className="text-[11px] font-bold text-[#555555] hover:text-[#D8175D] bg-[#FFFAFC] border border-[#F0DDE4] px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                  >
+                    すべて閉じる
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory('all')}
+                  className={`px-3.5 py-2 rounded-full whitespace-nowrap shrink-0 transition-all cursor-pointer ${
+                    selectedCategory === 'all'
+                      ? 'bg-[#D8175D] text-white shadow-xs'
+                      : 'bg-[#FFFAFC] text-[#555555] hover:text-[#1F2432] border border-[#F0DDE4]'
+                  }`}
+                >
+                  すべて (66)
+                </button>
+                {FAQ_11_CATEGORIES.map((cat: FAQCategoryItem) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`px-3.5 py-2 rounded-full whitespace-nowrap shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+                        isActive
+                          ? 'bg-[#D8175D] text-white shadow-xs'
+                          : 'bg-[#FFFAFC] text-[#555555] hover:text-[#1F2432] border border-[#F0DDE4]'
+                      }`}
+                    >
+                      <LucideIcon name={cat.icon} size={13} />
+                      <span>{cat.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. よくある質問一覧（アコーディオン） */}
+            <div className="space-y-3">
+              {filteredQuestions.length > 0 ? (
+                filteredQuestions.map((item: FAQQuestionItem, index: number) => {
+                  const isOpen = openIds.has(item.id);
+                  return (
+                    <div
+                      key={item.id}
+                      className={`rounded-[16px] border transition-all overflow-hidden ${
+                        isOpen
+                          ? 'border-[#D8175D]/40 bg-[#FFF5F8]/30 ring-1 ring-[#D8175D]/15'
+                          : 'border-[#F0DDE4] bg-[#FFFAFC] hover:border-[#D8175D]/40'
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleQuestion(item.id)}
+                        className="w-full text-left p-4 sm:p-4.5 flex items-start justify-between gap-3 cursor-pointer"
+                        aria-expanded={isOpen}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="w-6 h-6 rounded-full bg-[#D8175D] text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                            Q
+                          </span>
+                          <div>
+                            <span className="inline-block text-[10px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded-full border border-[#F0DDE4] mb-1">
+                              {item.categoryName}
+                            </span>
+                            <h4 className="font-bold text-xs sm:text-sm text-[#1F2432] leading-snug">
+                              {item.q}
+                            </h4>
+                          </div>
+                        </div>
+
+                        <div className="w-6 h-6 rounded-full bg-white border border-[#F0DDE4] flex items-center justify-center text-[#D8175D] shrink-0 mt-1">
+                          <LucideIcon name={isOpen ? 'ChevronUp' : 'ChevronDown'} size={14} />
+                        </div>
+                      </button>
+
+                      {isOpen && (
+                        <div className="px-4 sm:px-5 pb-4 pt-1 border-t border-[#F0DDE4]/60 bg-[#E6F4EA]/30">
+                          <div className="flex items-start gap-3 pt-2.5">
+                            <span className="w-6 h-6 rounded-full bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                              A
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs sm:text-sm text-[#333333] leading-relaxed font-medium">
+                                {item.a}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="text-center py-12 px-4 bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4]">
+                  <div className="w-12 h-12 rounded-full bg-[#FFF1F5] text-[#D8175D] flex items-center justify-center mx-auto mb-3">
+                    <LucideIcon name="HelpCircle" size={24} />
+                  </div>
+                  <p className="font-bold text-sm text-[#1F2432] mb-1">
+                    該当する質問が見つかりませんでした。
+                  </p>
+                  <p className="text-xs text-[#666666] mb-4">
+                    別のキーワードで検索するか、カテゴリーを変更してお試しください。
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory('all');
+                    }}
+                    className="text-xs text-[#D8175D] font-bold bg-[#FFF1F5] hover:bg-[#D8175D] hover:text-white px-4 py-2 rounded-full border border-[#F0DDE4] transition-colors cursor-pointer"
+                  >
+                    検索条件をリセットする
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* 件数表示 */}
+            <div className="mt-4 text-center text-xs text-[#777777]">
+              表示件数: <strong className="text-[#D8175D] font-bold">{filteredQuestions.length}</strong> 件 / 全 66 件
+            </div>
+          </section>
         </div>
 
-        {/* ==========================================
-            Search Bar & Keyword Quick Pills
-           ========================================== */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 border border-rose-100/80 shadow-sm mb-8">
-          <div className="relative mb-3">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-rose-400">
-              <LucideIcon name="Search" size={18} />
+        {/* 6. 関連記事（よく読まれているお役立ち記事） */}
+        <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+            <div>
+              <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1 block">
+                RELATED ARTICLES
+              </span>
+              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432]">
+                よく読まれているお役立ち記事
+              </h2>
             </div>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="疑問をキーワードで検索（例: 未経験、日払い、週1日、身バレ、お酒、30代、寮、退店）"
-              className="w-full pl-11 pr-10 py-3 bg-[#faf8f7] border border-rose-200/80 rounded-2xl text-xs sm:text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all"
-            />
-            {searchQuery && (
+            {onNavigateBlog && (
               <button
                 type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
-                title="検索をクリア"
+                onClick={() => onNavigateBlog()}
+                className="text-xs font-bold text-[#D8175D] hover:underline flex items-center gap-1 cursor-pointer"
               >
-                <LucideIcon name="X" size={16} />
+                <span>コラム一覧へ</span>
+                <LucideIcon name="ArrowRight" size={14} />
               </button>
             )}
           </div>
 
-          {/* Quick Search Tag Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <span className="text-[11px] font-bold text-zinc-500 mr-1 flex items-center gap-1">
-              <LucideIcon name="TrendingUp" size={13} className="text-secondary" />
-              注目のキーワード:
-            </span>
-            {POPULAR_SEARCH_TAGS.map((tag) => {
-              const isCurrent = searchQuery === tag;
-              return (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => setSearchQuery(isCurrent ? '' : tag)}
-                  className={`text-[11px] sm:text-xs font-medium px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                    isCurrent
-                      ? 'bg-secondary text-white font-bold shadow-xs'
-                      : 'bg-zinc-100 hover:bg-rose-100 text-zinc-700 hover:text-secondary'
-                  }`}
-                >
-                  #{tag}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ==========================================
-            Category Tabs & Active Category Info
-           ========================================== */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <span className="text-xs font-extrabold text-zinc-900 flex items-center gap-1.5">
-              <LucideIcon name="Filter" size={14} className="text-secondary" />
-              <span>選択中のテーマ: <strong className="text-secondary">{activeCategoryDef.label}</strong></span>
-            </span>
-            <span className="text-xs font-bold text-secondary bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
-              該当 {filteredItems.length} 問
-            </span>
-          </div>
-
-          {/* Horizontal scrollable pills */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-            {FAQ_8_CATEGORIES.map((cat: FAQCategoryDef) => {
-              const isActive = selectedCategory === cat.id;
-              const count = categoryCounts[cat.id] || 0;
-
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedCategory(cat.id);
-                    if (typeof window !== 'undefined') {
-                      window.history.replaceState(
-                        {},
-                        '',
-                        cat.id === 'all' ? '/faq' : `/faq?category=${cat.id}`
-                      );
-                    }
-                  }}
-                  className={`flex-shrink-0 flex items-center gap-1.5 text-xs sm:text-sm font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl transition-all cursor-pointer border ${
-                    isActive
-                      ? 'bg-gradient-to-r from-secondary to-rose-600 text-white border-secondary shadow-xs shadow-rose-500/20'
-                      : 'bg-white hover:bg-rose-50/60 text-zinc-700 border-zinc-200/80 hover:border-rose-200'
-                  }`}
-                >
-                  <LucideIcon name={cat.icon} size={14} />
-                  <span>{cat.shortLabel}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ml-0.5 ${
-                    isActive ? 'bg-white/20 text-white font-extrabold' : 'bg-zinc-100 text-zinc-500 font-semibold'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Category Description & Expand/Collapse All Buttons */}
-          <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 border-t border-rose-100/60 text-xs">
-            <p className="text-zinc-600">
-              <strong className="text-secondary font-bold">{activeCategoryDef.label}:</strong> {activeCategoryDef.description}
-            </p>
-            <div className="flex items-center gap-2 self-end sm:self-auto flex-shrink-0">
-              <button
-                type="button"
-                onClick={expandAll}
-                className="text-[11px] font-bold text-zinc-600 hover:text-secondary px-2 py-1 rounded hover:bg-rose-50 transition-colors"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {FAQ_RELATED_ARTICLES.map((article, idx) => (
+              <div
+                key={idx}
+                onClick={() => onNavigateBlog && onNavigateBlog(article.slug)}
+                className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden flex flex-col justify-between hover:border-[#D8175D]/40 transition-colors shadow-2xs cursor-pointer group"
               >
-                すべて開く
-              </button>
-              <span className="text-zinc-300">|</span>
-              <button
-                type="button"
-                onClick={collapseAll}
-                className="text-[11px] font-bold text-zinc-600 hover:text-secondary px-2 py-1 rounded hover:bg-rose-50 transition-colors"
-              >
-                すべて閉じる
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* ==========================================
-            Accordion Questions List
-           ========================================== */}
-        <div className="space-y-3 md:space-y-4 mb-10" id="faq-accordions-group">
-          {displayedList.length === 0 ? (
-            <div className="bg-white rounded-3xl p-10 text-center border border-dashed border-rose-200 my-6">
-              <div className="w-12 h-12 bg-rose-50 text-secondary rounded-full flex items-center justify-center mx-auto mb-3">
-                <LucideIcon name="SearchX" size={24} />
-              </div>
-              <h3 className="font-bold text-base text-zinc-900 mb-1">
-                該当する質問が見つかりませんでした
-              </h3>
-              <p className="text-xs text-zinc-500 mb-4">
-                「{searchQuery}」に一致する質問はありませんでした。別のキーワードでお試しいただくか、カテゴリーを選択してください。
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('all');
-                }}
-                className="text-xs font-bold bg-secondary text-white px-4 py-2 rounded-xl shadow-xs hover:bg-rose-600 transition-colors"
-              >
-                すべての質問を表示する
-              </button>
-            </div>
-          ) : (
-            displayedList.map((faq: FAQ100Item, index: number) => {
-              const isOpen = openIds.has(faq.id);
-              const questionIndex = index + 1;
-
-              return (
-                <div
-                  key={faq.id}
-                  className={`bg-white rounded-2xl border transition-all overflow-hidden ${
-                    isOpen
-                      ? 'border-secondary/60 shadow-md ring-1 ring-secondary/10'
-                      : 'border-zinc-200/80 hover:border-rose-200 shadow-2xs'
-                  }`}
-                  id={`faq-item-${faq.id}`}
-                >
-                  <button
-                    onClick={() => toggleItem(faq.id)}
-                    className={`w-full flex justify-between items-start sm:items-center p-4 sm:p-5 text-left cursor-pointer gap-3 sm:gap-4 transition-colors ${
-                      isOpen ? 'bg-rose-50/20' : 'hover:bg-rose-50/10'
-                    }`}
-                  >
-                    <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 flex-1 min-w-0">
-                      <span className="flex-shrink-0 text-xs font-black bg-rose-100 text-secondary px-2.5 py-1 rounded-lg mt-0.5 sm:mt-0 select-none">
-                        Q.{questionIndex.toString().padStart(2, '0')}
-                      </span>
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                          <span className="text-[10px] font-bold text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded-full">
-                            {faq.eightCategoryLabel}
-                          </span>
-                          {faq.isPopular && (
-                            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5">
-                              <LucideIcon name="Sparkles" size={10} />
-                              注目
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="font-sans font-bold text-xs sm:text-sm md:text-base text-zinc-900 group-hover:text-secondary leading-snug">
-                          {faq.question}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <motion.div
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                      className={`text-zinc-400 flex-shrink-0 mt-1 sm:mt-0 ${isOpen ? 'text-secondary' : ''}`}
-                    >
-                      <LucideIcon name="ChevronDown" size={18} className="sm:w-5 sm:h-5" />
-                    </motion.div>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: 'easeOut' }}
-                      >
-                        <div className="px-4 sm:px-6 pb-5 pt-0 font-sans text-xs sm:text-sm text-zinc-700 leading-relaxed border-t border-rose-100/50">
-                          <div className="pt-4 flex gap-2.5 sm:gap-3">
-                            <span className="text-secondary font-extrabold text-base sm:text-lg select-none flex-shrink-0">
-                              A.
-                            </span>
-                            <div className="flex-1 space-y-2">
-                              <p className="whitespace-pre-line text-xs sm:text-sm text-[#3c2a2e] leading-relaxed font-medium">
-                                {faq.answer}
-                              </p>
-                              {faq.keywords && faq.keywords.length > 0 && (
-                                <div className="pt-2 flex flex-wrap gap-1 border-t border-rose-50/60">
-                                  {faq.keywords.map(kw => (
-                                    <span key={kw} className="text-[10px] text-zinc-400">
-                                      #{kw}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div>
+                  <div className="aspect-[16/9] w-full overflow-hidden bg-rose-50 relative">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <span className="absolute top-2.5 left-2.5 bg-[#D8175D] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">
+                      {article.tag}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-xs sm:text-sm text-[#1F2432] group-hover:text-[#D8175D] transition-colors leading-snug mb-1.5 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <p className="text-[11px] text-[#666666] leading-relaxed line-clamp-2">
+                      {article.summary}
+                    </p>
+                  </div>
                 </div>
-              );
-            })
-          )}
-        </div>
 
-        {/* ==========================================
-            Pagination / Load More Controls
-           ========================================== */}
-        {hasMore && (
-          <div className="text-center mb-12 space-y-2 max-w-md mx-auto">
-            <button
-              type="button"
-              onClick={() => setDisplayLimit(prev => prev + 25)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-rose-50 text-secondary font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl border border-secondary/40 shadow-2xs hover:shadow-xs transition-all cursor-pointer"
+                <div className="p-4 pt-0 text-[11px] text-[#D8175D] font-bold flex items-center justify-end gap-1">
+                  <span>記事を読む</span>
+                  <LucideIcon name="ChevronRight" size={12} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 7. 最後のLINE相談エリア */}
+        <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.06)] text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
+            <LucideIcon name="MessageCircle" size={13} />
+            <span>24時間受付中</span>
+          </div>
+
+          <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+            まだ分からないことや、不安なことはありませんか？
+          </h2>
+
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6 max-w-lg mx-auto">
+            「自分でも働けるのかな？」「お給料や勤務条件を詳しく知りたい」「まずは話だけ聞いてみたい」など、どんな小さな疑問でもお気軽にご相談ください。<br className="hidden sm:inline" />
+            無理に入店を決める必要はありません。気になることを一つずつ確認して、自分に合った働き方を考えていきましょう。
+          </p>
+
+          <div className="flex flex-col items-center">
+            <a
+              href={LINE_OFFICIAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLineClick}
+              className="w-full sm:w-auto min-w-[280px] sm:min-w-[320px] bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-3.5 px-8 rounded-full font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md shadow-[#06C755]/25 hover:shadow-lg transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
+              id="faq-page-final-line-btn"
             >
-              <LucideIcon name="ChevronDown" size={16} />
-              <span>さらに質問を表示する（残り {filteredItems.length - displayLimit} 問）</span>
-            </button>
-            <div>
-              <button
-                type="button"
-                onClick={() => setDisplayLimit(filteredItems.length)}
-                className="text-[11px] text-zinc-500 hover:text-secondary underline underline-offset-2 transition-colors"
-              >
-                該当する全 {filteredItems.length} 問を一括表示する
-              </button>
-            </div>
-          </div>
-        )}
+              <LucideIcon name="MessageCircle" size={18} className="fill-white shrink-0" />
+              <span>LINEで気軽に質問・相談する</span>
+            </a>
 
-        {/* ==========================================
-            Consultant Advice & 24h LINE Contact Box
-           ========================================== */}
-        <div className="bg-gradient-to-r from-rose-50 via-white to-rose-50 border border-rose-100 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 shadow-sm mb-10">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-white rounded-full overflow-hidden border-2 border-secondary/30 shadow-md transform -rotate-3 hover:rotate-0 transition-transform">
-            <img 
-              src={CONSULTANT_AVATAR_URL} 
-              alt="店舗採用担当 あおい" 
-              className="w-full h-full object-cover" 
-              loading="lazy"
-              decoding="async"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                const target = e.currentTarget;
-                target.onerror = null;
-                target.src = '/images/shinodayama_advisor_sakura_1792225964799.jpg';
-              }}
-            />
+            <span className="text-xs text-[#777777] font-medium mt-2.5">
+              質問だけでも大歓迎｜専任の女性スタッフが丁寧にお答えします。
+            </span>
           </div>
-          <div className="flex-1 text-center sm:text-left">
-            <div className="inline-block bg-white text-secondary text-[11px] font-extrabold px-3 py-0.5 rounded-full border border-rose-200 mb-1.5 shadow-xs">
-              店舗採用担当 あおいより
-            </div>
-            <p className="font-sans text-xs sm:text-sm font-semibold text-zinc-800 leading-relaxed mb-3">
-              「当店は働きやすさと安心感を一番に大切にしています。どんな些細な疑問や不安も気軽にお話しくださいね」
-            </p>
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-              <a
-                href="#consultation"
-                onClick={(e) => {
-                  if (onCtaclick) {
-                    e.preventDefault();
-                    onCtaclick();
-                  }
-                }}
-                className="inline-flex items-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs sm:text-sm font-black px-5 py-2.5 rounded-xl shadow-xs transition-all"
-              >
-                <LucideIcon name="MessageCircle" size={16} />
-                <span>信太山新地の当店へLINEで応募・相談する（24時間受付）</span>
-              </a>
-              <span className="text-[11px] text-zinc-500 font-medium">
-                ※完全匿名・相談のみOK
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* ==========================================
-            Return to Recruit Top Page Button
-           ========================================== */}
-        <div className="text-center pt-2">
-          <button
-            type="button"
-            onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 bg-white hover:bg-zinc-50 text-zinc-700 hover:text-secondary text-xs sm:text-sm font-bold px-6 py-2.5 rounded-2xl border border-zinc-200 shadow-2xs transition-all"
-          >
-            <LucideIcon name="ArrowLeft" size={15} />
-            <span>信太山新地求人トップへ戻る</span>
-          </button>
-        </div>
+        </section>
 
       </div>
     </div>

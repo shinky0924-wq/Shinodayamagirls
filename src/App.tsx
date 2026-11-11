@@ -532,6 +532,7 @@ export default function App() {
             initialCategory={initialFaqCategory}
             onNavigateHome={() => navigateTo('recruit', '/')}
             onCtaclick={handleCtaclick}
+            onNavigateBlog={handleNavigateBlog}
           />
         )}
 
