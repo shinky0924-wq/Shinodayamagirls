@@ -20,6 +20,7 @@ import WorkstyleFiveStylesSection from './WorkstyleFiveStylesSection';
 import WorkstylePageContent from './WorkstylePageContent';
 import ShopsPageContent from './ShopsPageContent';
 import DormPageContent from './DormPageContent';
+import SafetyPageContent from './SafetyPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -113,9 +114,9 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
     accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   safety: {
-    secondaryImage: '/images/col_safety_gate_1792474007202.jpg',
-    imageCaption: '店先顔出し一切なし・完全個室待機・厳格なプライバシー保護規約',
-    reassuranceTags: ['店先顔見せ一切なし', '完全個室待機で鉢合わせゼロ', 'ネット写真・SNS掲載厳禁', 'アリバイ・副業対策万全'],
+    secondaryImage: '/images/privacy_ryokan_room_1794375281070.jpg',
+    imageCaption: '落ち着いた和風個室・店先顔見せなし・プライバシーに配慮した環境',
+    reassuranceTags: ['店先顔見せなし', '完全個室待機', '源氏名管理', '女性スタッフ相談窓口'],
     icon: 'ShieldCheck',
     accentBg: 'from-rose-50 via-white to-purple-50/30',
   },
@@ -163,8 +164,8 @@ const ADVISOR_TOPIC_INSIGHTS: Record<string, { advice: string; focus: string }> 
     focus: "信太山駅近辺の寮・遠方応募歓迎"
   },
   safety: {
-    advice: "顔バレ・身バレ対策は徹底しています。顔写真のネット掲載は原則なし、通りからの視線遮断、さらに店舗周辺の私設カメラや客引きも警察・組合規約で厳しく規制されています。家族や職場、友人に知られずに稼ぎたい方もご安心ください。",
-    focus: "顔バレ完全防止・組合規約"
+    advice: "身バレやプライバシーへの不安はとても自然なことです。当店では店先での顔見せがなく完全個室で待機できるほか、源氏名の使用や生活圏と重ならない通勤方法など、身近な人に知られるリスクを減らすための工夫を一緒に考えます。困ったときは女性スタッフにいつでもご相談ください。",
+    focus: "プライバシー配慮・相談対応"
   },
   faq: {
     advice: "求人に関する疑問や不安は、どんな小さなことでも公式LINEで私あおいに直接メッセージしてください。『私でも稼げる？』『今日これから行ける？』など、女性スタッフが1対1で優しくお答えします。",
@@ -594,6 +595,17 @@ export default function TopicClusterPage({
       ) : topicId === 'dorm' ? (
         <div className="pb-8">
           <DormPageContent
+            onCtaclick={onCtaclick}
+            onNavigateTopic={onNavigateTopic}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : topicId === 'safety' ? (
+        <div className="pb-8">
+          <SafetyPageContent
             onCtaclick={onCtaclick}
             onNavigateTopic={onNavigateTopic}
             onNavigateBlog={onNavigateBlog}
