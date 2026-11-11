@@ -240,7 +240,7 @@ export default function RecruitHub({
         "交通費や移動に関する確認事項"
       ],
       buttonText: "寮・出稼ぎ情報を見る →",
-      image: "/images/col_dorm_interior_1792463651469.jpg",
+      image: "/images/dorm_main_studio_1794374510330.jpg",
       icon: "Home",
       featuredArticles: [
         { slug: "shinodayama-housing-support", title: "個室寮の設備・セキュリティと入居手順", tag: "個室寮" },

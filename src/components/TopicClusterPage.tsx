@@ -19,6 +19,7 @@ import FlowPageContent from './FlowPageContent';
 import WorkstyleFiveStylesSection from './WorkstyleFiveStylesSection';
 import WorkstylePageContent from './WorkstylePageContent';
 import ShopsPageContent from './ShopsPageContent';
+import DormPageContent from './DormPageContent';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -105,11 +106,11 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
     accentBg: 'from-emerald-50 via-white to-cyan-50/30',
   },
   dorm: {
-    secondaryImage: '/images/col_cozy_apartment_jp_1792476810515.jpg',
-    imageCaption: '家具・家電付き即入居完全個室寮・出稼ぎ・遠方からの応募大歓迎',
-    reassuranceTags: ['即日入居OKの完全個室', '家具・家電・Wi-Fi完備', 'JR天王寺まで直通約20分', '初期費用ゼロ・手ぶらOK'],
+    secondaryImage: '/images/dorm_main_studio_1794374510330.jpg',
+    imageCaption: '信太山駅近辺の寮・清潔な生活環境・出稼ぎ・遠方からの応募歓迎',
+    reassuranceTags: ['信太山駅近辺の寮', '家具・家電・生活設備完備', '遠方からの応募歓迎', '交通費・移動費相談可能'],
     icon: 'Home',
-    accentBg: 'from-teal-50 via-white to-emerald-50/30',
+    accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   safety: {
     secondaryImage: '/images/col_safety_gate_1792474007202.jpg',
@@ -158,8 +159,8 @@ const ADVISOR_TOPIC_INSIGHTS: Record<string, { advice: string; focus: string }> 
     focus: "集客力の格差と半年ルール"
   },
   dorm: {
-    advice: "家具家電（エアコン・冷蔵庫・洗濯機・Wi-Fi・ベッド）完備の個室寮を即日ご用意できます。全国どこからでも新幹線・飛行機などの往復交通費を支給。身の回りの荷物ひとつですぐに新生活＆高収入ワークをスタートできますよ。",
-    focus: "即入居個室寮・往復交通費全額"
+    advice: "信太山駅近辺の寮をご案内しています。ベッドや収納、冷暖房など実際の設備や生活環境、寮費・光熱費などの費用面も事前にすべてご説明します。遠方からの移動費や交通費の支給、出稼ぎの期間なども丁寧にご相談に乗りますので、まずはお気軽にLINEでご相談くださいね。",
+    focus: "信太山駅近辺の寮・遠方応募歓迎"
   },
   safety: {
     advice: "顔バレ・身バレ対策は徹底しています。顔写真のネット掲載は原則なし、通りからの視線遮断、さらに店舗周辺の私設カメラや客引きも警察・組合規約で厳しく規制されています。家族や職場、友人に知られずに稼ぎたい方もご安心ください。",
@@ -582,6 +583,17 @@ export default function TopicClusterPage({
       ) : topicId === 'shops' ? (
         <div className="pb-8">
           <ShopsPageContent
+            onCtaclick={onCtaclick}
+            onNavigateTopic={onNavigateTopic}
+            onNavigateBlog={onNavigateBlog}
+            onNavigateFaq={onNavigateFaq}
+            onInjectedScroll={onInjectedScroll}
+            onNavigateCompare={onNavigateCompare}
+          />
+        </div>
+      ) : topicId === 'dorm' ? (
+        <div className="pb-8">
+          <DormPageContent
             onCtaclick={onCtaclick}
             onNavigateTopic={onNavigateTopic}
             onNavigateBlog={onNavigateBlog}

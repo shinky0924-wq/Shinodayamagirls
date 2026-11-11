@@ -53,7 +53,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
     { id: 'flow', name: '面接・体験入店までの流れ', icon: 'Calendar', desc: '履歴書不要・私服見学OK・面接当日の即日体入対応', badge: '手ぶらOK' },
     { id: 'workstyle', name: '働き方', icon: 'Clock', desc: '完全自由出勤制・週1日〜・毎月20日一斉定休日', badge: '自由出勤' },
     { id: 'shops', name: 'お店選び', icon: 'Store', desc: '旅館直営・仲居さん案内・安心の就労環境', badge: '旅館直営' },
-    { id: 'dorm', name: '寮・出稼ぎ', icon: 'Home', desc: '家具家電付き個室マンション寮・往復交通費全額支給', badge: '個室寮完備' },
+    { id: 'dorm', name: '寮・出稼ぎ', icon: 'Home', desc: '信太山駅近辺の寮・生活設備事前確認・遠方応募歓迎', badge: '信太山駅近' },
     { id: 'safety', name: '身バレ・安全', icon: 'EyeOff', desc: '店先顔見せゼロ・旅館個室待機・完全源氏名', badge: '秘密厳守' },
     { id: 'faq', name: 'よくある質問 FAQ', icon: 'HelpCircle', desc: '業界最多クラス全100問超・テーマ別体系化Q&A', badge: '100選' },
     { id: 'blog', name: 'お仕事コラム', icon: 'BookOpen', desc: '信太山新地の働き方・給与・制度の解説記事', badge: '解説多数' },
