@@ -6,6 +6,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import LucideIcon from './LucideIcon';
 import { LINE_OFFICIAL_URL } from '../data';
+import { ALL_CLUSTER_NODES } from '../topicClusterData';
 import {
   FAQ_11_CATEGORIES,
   FAQ_66_QUESTIONS,
@@ -17,6 +18,7 @@ import {
 interface FAQPageProps {
   initialCategory?: string | null;
   onNavigateHome: () => void;
+  onNavigateTopic?: (topicId: string) => void;
   onCtaclick?: () => void;
   onNavigateBlog?: (slug?: string) => void;
 }
@@ -24,6 +26,7 @@ interface FAQPageProps {
 export default function FAQPage({
   initialCategory,
   onNavigateHome,
+  onNavigateTopic,
   onCtaclick,
   onNavigateBlog
 }: FAQPageProps) {
@@ -43,8 +46,42 @@ export default function FAQPage({
 
   const faqListRef = useRef<HTMLDivElement>(null);
 
+  // Cluster Theme Navigation Bar scroll state
+  const navScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (!navScrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = navScrollRef.current;
+    setCanScrollLeft(scrollLeft > 4);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 4);
+  };
+
+  const scrollNav = (direction: 'left' | 'right') => {
+    if (!navScrollRef.current) return;
+    const scrollAmount = 240;
+    navScrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Initial check after mount and auto-scroll to FAQ active pill
+    const timer = setTimeout(() => {
+      checkScroll();
+      if (navScrollRef.current) {
+        const activeBtn = navScrollRef.current.querySelector('[data-active="true"]') as HTMLElement | null;
+        if (activeBtn) {
+          const container = navScrollRef.current;
+          const leftOffset = activeBtn.offsetLeft - (container.clientWidth / 2) + (activeBtn.clientWidth / 2);
+          container.scrollTo({ left: Math.max(0, leftOffset), behavior: 'smooth' });
+        }
+      }
+    }, 150);
+    return () => clearTimeout(timer);
   }, []);
 
   // Sync initialCategory if changed externally
@@ -120,7 +157,135 @@ export default function FAQPage({
   };
 
   return (
-    <div className="bg-[#FAF7F8] min-h-screen py-6 sm:py-10">
+    <div className="bg-[#FAF7F8] min-h-screen pb-12">
+      {/* 1. Breadcrumbs */}
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-4 pb-2">
+        <nav aria-label="Breadcrumb">
+          <ol
+            className="flex items-center gap-1.5 text-xs text-zinc-500 overflow-x-auto whitespace-nowrap scrollbar-none py-1"
+            itemScope
+            itemType="https://schema.org/BreadcrumbList"
+          >
+            <li
+              className="flex items-center gap-1.5"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <button
+                type="button"
+                onClick={onNavigateHome}
+                className="hover:text-rose-600 transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                itemProp="item"
+              >
+                <LucideIcon name="Home" size={12} className="text-zinc-400" />
+                <span itemProp="name">信太山新地求人TOP</span>
+              </button>
+              <meta itemProp="position" content="1" />
+            </li>
+            <li className="text-zinc-300">/</li>
+            <li
+              className="flex items-center gap-1.5 text-rose-600 font-bold"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <span>❓</span>
+              <span itemProp="name">よくある質問FAQ</span>
+              <meta itemProp="position" content="2" />
+              <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/faq" />
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      {/* 2. Topic Cluster Quick Switcher Carousel Bar (テーマ一覧カルーセルバー) */}
+      <div className="bg-gradient-to-r from-rose-50/90 via-white to-pink-50/90 border-y border-rose-200/80 py-2.5 mb-6 md:mb-8 sticky top-0 z-30 backdrop-blur-md bg-white/95 shadow-xs">
+        <div className="max-w-[1140px] mx-auto px-2 sm:px-6 relative flex items-center">
+          
+          {/* Left Arrow Button */}
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={() => scrollNav('left')}
+              className="absolute left-1 sm:left-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 border border-rose-300 shadow-md text-zinc-700 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center cursor-pointer transition-all shrink-0"
+              aria-label="前へスクロール"
+            >
+              <LucideIcon name="ChevronLeft" size={16} />
+            </button>
+          )}
+
+          {/* Left subtle fade mask */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
+          )}
+
+          {/* Scroll Container */}
+          <div
+            ref={navScrollRef}
+            onScroll={checkScroll}
+            className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1 px-1 sm:px-2 w-full scroll-smooth"
+          >
+            <button
+              type="button"
+              onClick={onNavigateHome}
+              className="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-zinc-700 hover:text-rose-600 border border-rose-200/80 hover:bg-rose-50 transition-all cursor-pointer shadow-2xs flex items-center gap-1"
+            >
+              <LucideIcon name="Home" size={13} className="text-rose-500" />
+              <span>求人トップ</span>
+            </button>
+            
+            <div className="h-4 w-px bg-rose-200 mx-1 shrink-0" />
+
+            {ALL_CLUSTER_NODES.filter(n => n.id !== 'recruit').map((node) => {
+              const isActive = node.id === 'faq';
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  data-active={isActive ? "true" : undefined}
+                  onClick={() => {
+                    if (node.id === 'faq') {
+                      // Already on FAQ
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else if (node.id === 'blog') {
+                      if (onNavigateBlog) onNavigateBlog();
+                    } else {
+                      if (onNavigateTopic) onNavigateTopic(node.id);
+                    }
+                  }}
+                  className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-2xs ${
+                    isActive
+                      ? 'bg-rose-600 text-white font-extrabold shadow-sm ring-2 ring-rose-300'
+                      : 'bg-white text-zinc-700 hover:text-rose-600 border border-gray-200/80 hover:bg-rose-50'
+                  }`}
+                >
+                  <span className="shrink-0">{node.emoji}</span>
+                  <span className="whitespace-nowrap">{node.title}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right subtle fade mask */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
+          )}
+
+          {/* Right Arrow Button */}
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={() => scrollNav('right')}
+              className="absolute right-1 sm:right-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 border border-rose-300 shadow-md text-zinc-700 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center cursor-pointer transition-all shrink-0 hover:scale-105"
+              aria-label="次へスクロール"
+            >
+              <LucideIcon name="ChevronRight" size={16} />
+            </button>
+          )}
+        </div>
+      </div>
+
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
 
         {/* 1. ファーストビューを全面変更 */}
@@ -128,16 +293,6 @@ export default function FAQPage({
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
             {/* 左側：メイン見出しと説明文 */}
             <div className="flex-1 min-w-0">
-              {/* テーマ表示 */}
-              <div className="inline-flex items-center gap-2 bg-[#FFF1F5] border border-[#F0DDE4] px-3.5 py-1.5 rounded-full mb-3 text-xs sm:text-sm font-bold shadow-2xs">
-                <span className="bg-[#D8175D] text-white text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full shrink-0">
-                  テーマ
-                </span>
-                <span className="text-[#D8175D] font-extrabold tracking-tight">
-                  働く前の疑問や不安を解消する、信太山新地求人FAQ
-                </span>
-              </div>
-
               <div>
                 <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#777777] uppercase mb-1.5">
                   RECRUITMENT FAQ & GUIDE

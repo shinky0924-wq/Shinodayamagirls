@@ -531,6 +531,7 @@ export default function App() {
           <FAQPage
             initialCategory={initialFaqCategory}
             onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateTopic={handleNavigateTopic}
             onCtaclick={handleCtaclick}
             onNavigateBlog={handleNavigateBlog}
           />
