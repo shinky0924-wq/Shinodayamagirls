@@ -21,6 +21,7 @@ import WorkstylePageContent from './WorkstylePageContent';
 import ShopsPageContent from './ShopsPageContent';
 import DormPageContent from './DormPageContent';
 import SafetyPageContent from './SafetyPageContent';
+import TopicClusterBottomNav from './TopicClusterBottomNav';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
 
@@ -516,6 +517,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'salary' || topicId === 'benefits' ? (
         <div className="pb-8">
@@ -525,6 +535,15 @@ export default function TopicClusterPage({
             onNavigateFaq={onNavigateFaq}
             onInjectedScroll={onInjectedScroll}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'beginner' ? (
         <div className="pb-8">
@@ -536,6 +555,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'experienced' ? (
         <div className="pb-8">
@@ -547,6 +575,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'requirements' ? (
         <div className="pb-8">
@@ -558,6 +595,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'flow' ? (
         <div className="pb-8">
@@ -569,6 +615,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'workstyle' ? (
         <div className="pb-8">
@@ -580,6 +635,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'shops' ? (
         <div className="pb-8">
@@ -591,6 +655,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'dorm' ? (
         <div className="pb-8">
@@ -602,6 +675,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : topicId === 'safety' ? (
         <div className="pb-8">
@@ -613,6 +695,15 @@ export default function TopicClusterPage({
             onInjectedScroll={onInjectedScroll}
             onNavigateCompare={onNavigateCompare}
           />
+          <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6">
+            <TopicClusterBottomNav
+              currentTopicId={topicId}
+              onNavigateHome={onNavigateHome}
+              onNavigateTopic={onNavigateTopic}
+              onNavigateBlog={onNavigateBlog}
+              onNavigateFaq={onNavigateFaq}
+            />
+          </div>
         </div>
       ) : (
         <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
@@ -1328,52 +1419,13 @@ export default function TopicClusterPage({
         </div>
 
         {/* 11. Bottom Multi-Theme Explorer (Browse Other Topics Without Returning to Top) */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display font-black text-base sm:text-lg text-zinc-900 flex items-center gap-2">
-              <LucideIcon name="Compass" size={18} className="text-rose-600" />
-              <span>他の公式分野別ガイドを見る</span>
-            </h3>
-            <button
-              type="button"
-              onClick={onNavigateHome}
-              className="text-xs font-bold text-zinc-600 hover:text-rose-600 flex items-center gap-1 cursor-pointer"
-            >
-              <span>求人トップへ戻る</span>
-              <LucideIcon name="ArrowLeft" size={13} />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
-            {ALL_CLUSTER_NODES.filter(n => n.id !== 'recruit' && n.id !== topicId).map((node) => (
-              <button
-                key={node.id}
-                type="button"
-                onClick={() => {
-                  if (node.id === 'faq') {
-                    onNavigateFaq();
-                  } else if (node.id === 'blog') {
-                    onNavigateBlog();
-                  } else {
-                    onNavigateTopic(node.id);
-                  }
-                }}
-                className="p-2.5 rounded-xl border border-gray-100 hover:border-rose-300 bg-rose-50/20 hover:bg-white text-left transition-all cursor-pointer group shadow-2xs hover:shadow-xs"
-              >
-                <div className="flex items-center gap-1.5 mb-1">
-                  <span className="text-base">{node.emoji}</span>
-                  <span className="text-xs font-bold text-zinc-900 group-hover:text-rose-600 transition-colors">
-                    {node.title}
-                  </span>
-                </div>
-                <span className="text-[10px] text-zinc-400 group-hover:text-rose-500 flex items-center gap-0.5">
-                  <span>詳しく見る</span>
-                  <LucideIcon name="ChevronRight" size={10} />
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <TopicClusterBottomNav
+          currentTopicId={topicId}
+          onNavigateHome={onNavigateHome}
+          onNavigateTopic={onNavigateTopic}
+          onNavigateBlog={onNavigateBlog}
+          onNavigateFaq={onNavigateFaq}
+        />
       </div>
     )}
   </div>
