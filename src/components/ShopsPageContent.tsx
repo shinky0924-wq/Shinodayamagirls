@@ -58,7 +58,7 @@ export default function ShopsPageContent({
     },
     {
       q: '半年ルールとは何ですか？',
-      a: 'お店によって定めている内容や適用条件が異なる場合があります。具体的な期間や対象となる条件を事前に確認してください。当店では事前の条件説明時に丁寧にご案内しています。'
+      a: '信太山新地全体の統一規約として、一度ある旅館（お店）に入店して在籍すると、原則として半年間（6ヶ月間）が経過するまで信太山新地内の他店へ移籍できないという独自ルールです。客足の少ないお店を選んでしまうと半年間思うように稼げないリスクがあるため、最初のお店選びが非常に重要です。当店ではこのルールについても包み隠さず丁寧にご説明しております。'
     },
     {
       q: 'すぐに入店を決めないといけませんか？',
@@ -352,37 +352,66 @@ export default function ShopsPageContent({
           </div>
 
           <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-3">
-            入店前に確認したい「半年ルール」と移籍条件
+            入店前に知っておくべき「半年ルール」と移籍条件
           </h2>
 
-          <p className="text-xs sm:text-sm text-[#444444] leading-relaxed mb-6">
-            お店によっては、退店後の再入店や他店への移籍について独自のルールを設けている場合があります。<br />
-            入店してから知らなかったということがないように、どのような条件があるのか、いつからいつまで適用されるのか、事前に確認しておきましょう。
-          </p>
+          <div className="text-xs sm:text-sm text-[#444444] leading-relaxed mb-6 space-y-2">
+            <p>
+              信太山新地には、新地エリア全体の統一規約として<strong className="text-[#D8175D] font-bold">「一度ある旅館（店舗）に入店・在籍すると、原則半年間（6ヶ月間）が経過するまで信太山新地内の他のお店へ移籍できない」</strong>という独自ルール（半年ルール）が存在します。
+            </p>
+            <p>
+              もし最初に入ったお店でお客様の入りが悪かったり、待機環境やお店の雰囲気が合わなかった場合でも、半年間はエリア内の他店舗で働くことができなくなってしまいます。
+            </p>
+            <p className="font-bold text-[#1F2432]">
+              だからこそ、信太山新地で働くうえで「最初のお店選び」は最も大切で、後悔しないための決定的なポイントになります。
+            </p>
+          </div>
 
           <div className="bg-white rounded-[18px] p-5 sm:p-6 border border-amber-200 shadow-2xs">
             <h3 className="font-bold text-sm sm:text-base text-[#1F2432] mb-3 flex items-center gap-2">
               <LucideIcon name="CheckCircle2" size={17} className="text-[#D8175D]" />
-              <span>事前に確認しておきたい5つの項目</span>
+              <span>「半年ルール」について事前に知っておくべき重要事項</span>
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#555555]">
-              {[
-                '半年間のルールは具体的に何を制限するのか',
-                'いつから適用されるのか',
-                '退店後も適用されるのか',
-                '例外や解除条件はあるのか',
-                '契約書や書面で確認できるのか'
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 bg-[#FFFDF5] p-2.5 rounded-[10px] border border-amber-100">
-                  <span className="w-5 h-5 rounded-full bg-amber-400 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <span className="font-medium text-[#333333] leading-relaxed">{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-2.5 bg-[#FFFDF5] p-3 rounded-[10px] border border-amber-100">
+                <span className="w-5 h-5 rounded-full bg-amber-400 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                  1
+                </span>
+                <div>
+                  <strong className="font-bold text-[#1F2432] block mb-0.5">信太山新地エリア全体の共通規約</strong>
+                  <span className="text-[#555555]">特定のお店だけのハウスルールではなく、信太山新地の組合加盟店舗すべてに適用される地域共通のルールです。</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5 bg-[#FFFDF5] p-3 rounded-[10px] border border-amber-100">
+                <span className="w-5 h-5 rounded-full bg-amber-400 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                  2
+                </span>
+                <div>
+                  <strong className="font-bold text-[#1F2432] block mb-0.5">他店へ移籍するには6ヶ月間のインターバルが必要</strong>
+                  <span className="text-[#555555]">一度入店した店舗を退店しても、6ヶ月間が経過するまでは信太山新地内の別の旅館で働くことはできません。</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5 bg-[#FFFDF5] p-3 rounded-[10px] border border-amber-100">
+                <span className="w-5 h-5 rounded-full bg-amber-400 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                  3
+                </span>
+                <div>
+                  <strong className="font-bold text-[#1F2432] block mb-0.5">集客力のない店舗に入ると半年間稼げないリスク</strong>
+                  <span className="text-[#555555]">客足の少ないお店を選んでしまうと、稼げない・待機が長いと感じても半年間身動きが取れなくなってしまいます。</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5 bg-[#FFFDF5] p-3 rounded-[10px] border border-amber-100">
+                <span className="w-5 h-5 rounded-full bg-amber-400 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                  4
+                </span>
+                <div>
+                  <strong className="font-bold text-[#1F2432] block mb-0.5">当店（直営老舗グループ）なら安定稼働・グループ内相談も可能</strong>
+                  <span className="text-[#555555]">当店は信太山新地でもトップクラスの知名度と紳士常連様を抱える老舗旅館直営のため、客足が途切れず安心。系列複数店舗の直営ネットワークがあるため、環境が合わない場合も柔軟に相談に乗ることができます。</span>
+                </div>
+              </li>
             </ul>
             <p className="text-[11px] text-[#777777] mt-4 pt-3 border-t border-amber-100 leading-relaxed">
-              ※当店では、面接やご相談の段階でルールの適用範囲や条件について包み隠さず丁寧にご説明しております。疑問点があればいつでも遠慮なくご質問ください。
+              ※当店では、女性が不利になるような情報を隠すことはいたしません。面接や見学、事前のLINE相談でもこの「半年ルール」について分かりやすく正直にご説明しております。
             </p>
           </div>
         </div>
@@ -629,12 +658,13 @@ export default function ShopsPageContent({
         </div>
 
         <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
-          自分に合ったお店選びを一緒に考えませんか？
+          信太山新地では、最初のお店選びがかなり重要です。
         </h2>
 
-        <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6 max-w-lg mx-auto">
-          「どんなお店を選べばいいか分からない」「お給料や勤務条件について詳しく知りたい」そんな疑問もお気軽にご相談ください。<br className="hidden sm:inline" />
-          入店を急かすことなく、気になることを一つずつご案内します。
+        <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6 max-w-xl mx-auto">
+          信太山新地には「半年ルール」があるからこそ、最初のお店選びで絶対に後悔してほしくありません。<br className="hidden sm:inline" />
+          「自分に合うお店の基準が分からない」「客足やお給料の目安、待機環境を事前に詳しく知りたい」など、どんな疑問もお気軽にご相談ください。<br className="hidden sm:inline" />
+          無理な勧誘や入店を急かすことは一切なく、あなたが納得して安心できるよう一つひとつ丁寧にお答えします。
         </p>
 
         <div className="flex flex-col items-center">
