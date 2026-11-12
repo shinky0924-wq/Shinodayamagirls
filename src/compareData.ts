@@ -884,3 +884,490 @@ export const COURSE_REWARD_SCHEDULE = [
   { courseTime: '45分', reward: 11400, hourlyEquivalent: 15200, note: 'リラックス接客。仲居さんが時間管理' },
   { courseTime: '60分', reward: 15200, hourlyEquivalent: 15200, note: 'じっくりコース。延長時も15分3,800円ずつ加算' }
 ];
+
+/**
+ * 6大比較対象（業種5種 ＋ 応募方法1種）のメタ情報定義
+ */
+export interface IndustryComparisonTarget {
+  id: 'shinodayama' | 'tobita' | 'mensEsthe' | 'cabaret' | 'soap' | 'scout';
+  name: string;
+  subName: string;
+  categoryType: 'industry' | 'channel';
+  isRecruitmentMethod: boolean;
+  icon: string;
+  highlight: boolean;
+  shortBadge: string;
+  description: string;
+}
+
+export const MAIN_6_TARGETS: IndustryComparisonTarget[] = [
+  {
+    id: 'shinodayama',
+    name: '信太山新地',
+    subName: '老舗料亭街・旅館直営',
+    categoryType: 'industry',
+    isRecruitmentMethod: false,
+    icon: 'Landmark',
+    highlight: true,
+    shortBadge: '完全個室・顔出しなし',
+    description: '関西屈指の歴史を誇る料亭街。店先での顔見せが一切ない完全個室待機と15分短時間コースが最大の特徴。'
+  },
+  {
+    id: 'tobita',
+    name: '飛田新地',
+    subName: '大阪最大級の新地',
+    categoryType: 'industry',
+    isRecruitmentMethod: false,
+    icon: 'Store',
+    highlight: false,
+    shortBadge: '店頭座り・短時間',
+    description: '日本最大規模の伝統的新地。通りに面した玄関先（上がり框）に座り顔出しして通行人から選ばれるスタイル。'
+  },
+  {
+    id: 'mensEsthe',
+    name: 'メンズエステ',
+    subName: '個室アロマ・リラクゼーション',
+    categoryType: 'industry',
+    isRecruitmentMethod: false,
+    icon: 'Sparkles',
+    highlight: false,
+    shortBadge: 'オイル施術・リフレ',
+    description: 'マンション個室や店舗で行うアロママッサージ・リラクゼーション業種。60〜120分の施術が中心。'
+  },
+  {
+    id: 'cabaret',
+    name: 'キャバクラ',
+    subName: '社交飲食店・ナイトクラブ',
+    categoryType: 'industry',
+    isRecruitmentMethod: false,
+    icon: 'Wine',
+    highlight: false,
+    shortBadge: '社交飲食・お酒提供',
+    description: 'お客様の隣でお酒を作り会話でもてなす社交接待業。時給制＋各種指名バックや同伴制度が基本。'
+  },
+  {
+    id: 'soap',
+    name: 'ソープランド',
+    subName: '個室入浴・浴場風俗（1号営業）',
+    categoryType: 'industry',
+    isRecruitmentMethod: false,
+    icon: 'Bath',
+    highlight: false,
+    shortBadge: '個室浴室・高額歩合',
+    description: '専用の個室浴室でお客様と共に入浴・洗体・サービスを提供する浴場業種。1本あたりの歩合単価が高い。'
+  },
+  {
+    id: 'scout',
+    name: 'スカウト・紹介経由',
+    subName: '街頭・SNS裏垢の仲介業者',
+    categoryType: 'channel',
+    isRecruitmentMethod: true,
+    icon: 'Share2',
+    highlight: false,
+    shortBadge: '※業種ではなく応募方法',
+    description: '※注意：業種ではなく店舗への「応募・紹介ルート」です。仲介手数料天引きや個人情報トラブルのリスクが存在します。'
+  }
+];
+
+export interface TargetValueDetail {
+  text: string;
+  point?: string;
+  badge?: string;
+  warning?: boolean;
+}
+
+export interface MainComparisonItem {
+  id: string;
+  name: string; // 比較項目名
+  icon: string;
+  summary: string;
+  values: {
+    shinodayama: TargetValueDetail;
+    tobita: TargetValueDetail;
+    mensEsthe: TargetValueDetail;
+    cabaret: TargetValueDetail;
+    soap: TargetValueDetail;
+    scout: TargetValueDetail;
+  };
+}
+
+/**
+ * 11項目の徹底比較マスターデータ
+ */
+export const MAIN_11_COMPARISON_ITEMS: MainComparisonItem[] = [
+  {
+    id: 'job-content',
+    name: '仕事内容',
+    icon: 'ClipboardList',
+    summary: '接客の実質的な業務内容と身体的負担の度合い',
+    values: {
+      shinodayama: {
+        text: '料亭個室でのお茶出し・談笑などのおもてなし接客。1回あたり15分〜の短時間接客が基本。浴衣または私服ドレス着用。',
+        point: '15分短時間・身体的負担が少ない',
+        badge: '短時間接客'
+      },
+      tobita: {
+        text: '玄関先（上がり框）での顔見せ座り、料亭2階個室でのお茶出し・談笑等。1回あたり15〜20分の短時間接客が基本。',
+        point: '店先での顔見せ座り必須'
+      },
+      mensEsthe: {
+        text: '完全個室（マンション等）でのアロママッサージ・オイルトリートメント施術・会話。洗体誘導を含む場合あり。',
+        point: '60〜120分のオイル施術中心'
+      },
+      cabaret: {
+        text: 'フロア席でお客様の隣に座り、お酒作り・タバコ火付け・社交会話・カラオケなどで場を盛り上げる飲食接待。',
+        point: 'お酒を一緒に飲む社交会話中心'
+      },
+      soap: {
+        text: '個室内専用浴室でお客様と入浴し、洗体・マッサージおよびベッド上での密接なサービス提供（風俗1号営業）。',
+        point: '入浴・洗体・密接サービス'
+      },
+      scout: {
+        text: '【※応募形態】スカウトマンを通じて各店舗へ紹介・斡旋される形態。仕事内容自体は紹介された店舗の規定に従う。',
+        point: '業種ではなく店舗への紹介窓口',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'service-style',
+    name: '接客スタイル',
+    icon: 'Users',
+    summary: 'お客様との対面環境、サポート体制、待機場所',
+    values: {
+      shinodayama: {
+        text: '完全個室での1対1接客。店先での顔出しは一切なく、専属の仲居さんが客室案内・お茶出し・時間管理を全面サポート。',
+        point: '完全個室・専属仲居サポート付き',
+        badge: '顔出し完全なし'
+      },
+      tobita: {
+        text: '通りに面した玄関先（上がり框）に座り、通行人から選ばれる対面スタイル。店頭の仲居（おばちゃん）が呼び込みを行う。',
+        point: '店頭座り・呼び込み型'
+      },
+      mensEsthe: {
+        text: 'マンション等の完全個室での1対1施術。施術着（ワンピースや水着等）着用で、お客様と2人きりの空間で対応。',
+        point: '完全個室の1対1対応'
+      },
+      cabaret: {
+        text: 'オープンフロア席で複数キャストと交代しながら接客（ヘルプ）または本指名席でのマンツーマン社交接客。',
+        point: 'フロア席でのローテーション接客'
+      },
+      soap: {
+        text: '控室から個室（浴室・ベッド室）へ移動し、専属で1対1の密着接客。入浴から退室まで1人のキャストが担当。',
+        point: '個室浴室での専属密着接客'
+      },
+      scout: {
+        text: '接客自体は配属店舗に従うが、出勤状況や日々の売上をスカウトへ報告・連絡させられるケースがある。',
+        point: 'スカウトへの進捗報告が必要な場合あり',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'salary-system',
+    name: 'お給料・報酬の仕組み',
+    icon: 'Coins',
+    summary: '時給制・歩合制・コース制の違いと支給形態',
+    values: {
+      shinodayama: {
+        text: '【コース制（15分単位）】15分3,800円〜（60分15,200円等）。最低時給1万円保証・日給保証制度あり。即日全額現金日払い、天引き完全0円。',
+        point: '15分規定バック・時給1万保証・天引き0円',
+        badge: '天引き完全0円'
+      },
+      tobita: {
+        text: '【コース制（15〜20分単位）】1回ごとの高額バック＋日給保証制度。終業時に即日日払い対応店舗が主流。一部店舗で雑費天引きあり。',
+        point: '短時間コース制・即日日払い中心'
+      },
+      mensEsthe: {
+        text: '【分給・コース歩合制】コース料金の40%〜60%前後がバック＋指名料・オプション料。待機中は無給または最低時給保証。日払いは上限あり。',
+        point: '施術1本ごとの歩合給＋待機時給確認要'
+      },
+      cabaret: {
+        text: '【時給制＋各種歩合（バック）】基本時給（2,000〜5,000円等）＋本指名・場内指名・同伴・ボトルバック。月末締め翌月払いが主流、日払いは上限1万円程度。',
+        point: '時給制＋売上・指名スライド'
+      },
+      soap: {
+        text: '【コース別高歩合制】コース料金の45%〜55%前後がキャスト支給。単価が高いため1回あたりの報酬が大きい。日払い・週払い制度あり。',
+        point: '1本あたりの高額歩合・高単価'
+      },
+      scout: {
+        text: '紹介先店舗の給与からスカウトへの仲介料（10〜30%）が長期にわたり天引きされるケースが多く、直接応募より手取りが大幅減額するリスクあり。',
+        point: '紹介料天引きによる実質減額リスク大',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'work-hours',
+    name: '勤務時間',
+    icon: 'Clock',
+    summary: '営業時間、シフト区分、終電対応の有無',
+    values: {
+      shinodayama: {
+        text: '昼・夜の2部制（例: 昼12:00〜18:00 / 夜18:00〜23:00等）。短時間（3〜4時間〜）のスポット出勤も相談可能。',
+        point: '昼夜2部制・短時間出勤OK',
+        badge: '短時間出勤OK'
+      },
+      tobita: {
+        text: '昼〜夜のシフト制（午前・午後・夜など店舗規定。通常24時前後に完全閉店）。深夜帯の営業はなし。',
+        point: '昼〜夜営業・深夜営業なし'
+      },
+      mensEsthe: {
+        text: '昼11:00〜深夜翌朝までなど営業時間が長く、1日4〜8時間の希望シフト制。終電後の朝まで待機可能な店舗も。',
+        point: '昼から深夜まで幅広い時間帯'
+      },
+      cabaret: {
+        text: '夜20:00〜深夜1:00前後が基本。1日3〜4時間の短時間勤務可能。営業終了後は送迎（送り）あり。',
+        point: '夜間・深夜中心（終電上がり可能店も）'
+      },
+      soap: {
+        text: '朝9:00〜深夜24:00前後（昼の部・夜の部の2交代制または通し勤務）。1日6〜10時間の拘束が一般的。',
+        point: '昼・夜シフトまたは通し勤務'
+      },
+      scout: {
+        text: '勤務時間は紹介先店舗に準じるが、スカウトの都合で希望と異なる長時間勤務や深夜枠を強く勧められることがある。',
+        point: '希望時間と店舗シフトの合致を確認要',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'shift-flexibility',
+    name: '出勤の自由度',
+    icon: 'Calendar',
+    summary: 'シフト提出頻度、最低勤務日数、休日の取りやすさ',
+    values: {
+      shinodayama: {
+        text: '週1日〜・月1日〜・週末のみ・短期出稼ぎなど完全自由出勤。毎月20日はエリア全体の一斉定休日で全員確実にお休み。',
+        point: '週1日〜自由出勤・毎月20日一斉定休',
+        badge: '毎月20日一斉休'
+      },
+      tobita: {
+        text: 'レギュラー勤務（週4〜5日）が優遇されやすいが、週2〜3日相談可能な店舗もあり。事前申告シフト制。',
+        point: '週3日以上優先・事前申告制'
+      },
+      mensEsthe: {
+        text: '週1〜2日〜OKの店舗が多く、前日や当日の空き枠シフト提出が可能な店もあるためWワークと両立しやすい。',
+        point: 'シフト融通が利きやすい'
+      },
+      cabaret: {
+        text: '週2〜3日以上が目安。週末（金・土）やイベント日の出勤を強く求められる場合がある。',
+        point: '週末出勤推奨・事前シフト制'
+      },
+      soap: {
+        text: '週2〜5日、または泊まり込みの短期集中出稼ぎ（1〜2週間）。出勤日数が多いほど優遇される傾向。',
+        point: '出稼ぎ集中勤務または定期シフト'
+      },
+      scout: {
+        text: 'スカウトとの取り決めにより「月◯日以上の出勤」などのノルマを課されたり、休日に出勤催促が来るトラブルがある。',
+        point: 'スカウトからの出勤プレッシャーに注意',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'beginner-friendly',
+    name: '未経験からの始めやすさ',
+    icon: 'Smile',
+    summary: '初心者の採用比率、求められるスキル、サポート体制',
+    values: {
+      shinodayama: {
+        text: '非常に始めやすい（未経験スタート率約92%）。お酒不要・店先顔出しなし・仲居さんの手厚い客室サポートあり。',
+        point: '未経験率9割超・手厚いサポート',
+        badge: '未経験率92%'
+      },
+      tobita: {
+        text: '未経験も採用されるが、店頭で大勢の通行人に見られる精神的プレッシャーが大きく、経験者や度胸のある女性向け。',
+        point: '店頭顔出しへの覚悟が必要'
+      },
+      mensEsthe: {
+        text: 'アロマ講習・施術手技研修を受講すれば未経験からスタート可能。力仕事ではないため始めやすい。',
+        point: '講習受講で未経験OK'
+      },
+      cabaret: {
+        text: 'ナイトワーク入門として人気だが、会話力やお酒の強さ、日頃の営業連絡（LINE）を継続するマメさが必要。',
+        point: 'ナイトワーク入門・社交性が鍵'
+      },
+      soap: {
+        text: '密接な身体的サービスを伴うため精神的・技術的ハードルが高く、未経験から始めるには事前の十分な確認・覚悟が必要。',
+        point: 'サービス内容への十分な理解が必要'
+      },
+      scout: {
+        text: '面接同行などをしてくれる場合もあるが、業界の厳しい実態を隠して甘い言葉だけで勧誘されるリスクに注意。',
+        point: '甘い言葉に惑わされず実態確認が必要',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'customer-attraction',
+    name: 'お客様の集客方法',
+    icon: 'Megaphone',
+    summary: '店舗の集客形態とキャスト個人の営業努力の要否',
+    values: {
+      shinodayama: {
+        text: '街全体の歴史・伝統と全国的な知名度により常連客・観光客が自然に来店。個人のSNS営業や連絡先交換は完全禁止。',
+        point: '店舗と街の知名度・個人営業一切不要',
+        badge: '個人営業一切不要'
+      },
+      tobita: {
+        text: '通りを歩く通行人による来店・街の圧倒的知名度・仲居の店頭呼び込み。キャスト個人が営業活動を行うことはない。',
+        point: '通行人の来店・個人営業なし'
+      },
+      mensEsthe: {
+        text: '店舗公式サイトやメンズエステ専門ポータルサイト（Web予約）。写メ日記や店舗SNSでのアピールを推奨される場合あり。',
+        point: 'ネット集客中心・写メ日記更新推奨'
+      },
+      cabaret: {
+        text: '看板・ネット・フリー客来店。ただし本指名を獲得するため、キャスト自身の営業LINE・同伴・アフター努力が必須。',
+        point: 'キャスト自身の営業連絡・同伴が不可欠'
+      },
+      soap: {
+        text: '大手風俗ポータルサイト、店舗公式HP、無料案内所。サイト上の口コミ・ランキング・指名獲得が集客の鍵。',
+        point: 'ポータルサイト集客・口コミ重視'
+      },
+      scout: {
+        text: '集客自体は配属先店舗が行う。スカウト個人が集客してくれるわけではなく、集客力は店舗の実力に依存。',
+        point: '集客は配属先店舗依存',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'quota-penalty',
+    name: 'ノルマ・罰金の有無',
+    icon: 'ShieldAlert',
+    summary: '売上ノルマ、指名義務、遅刻・当欠時のペナルティ',
+    values: {
+      shinodayama: {
+        text: 'ノルマ・罰金・ペナルティ一切なし。客数や売上目標の強制はなく、待機損や精神的プレッシャーゼロ。',
+        point: 'ノルマ・罰金・ペナルティ完全ゼロ',
+        badge: 'ペナルティゼロ'
+      },
+      tobita: {
+        text: '売上ノルマなしの店舗が主流だが、無断欠勤や当日キャンセルに対する店舗独自の規則・ペナルティが存在する場合あり。',
+        point: '売上ノルマなし・出勤規約あり'
+      },
+      mensEsthe: {
+        text: 'ノルマはない店舗が多いが、当日欠勤（当欠）の罰金や、指名本数に応じたバック率の変動がある店舗も。',
+        point: 'ノルマ基本なし・当欠罰金要確認'
+      },
+      cabaret: {
+        text: '指名ノルマ・同伴ノルマ・売上ノルマが存在する店舗が多く、未達成時の時給減額（スライド）や遅刻罰金あり。',
+        point: '各種ノルマ・時給スライド・罰金あり'
+      },
+      soap: {
+        text: '売上ノルマはない店舗が一般的だが、無断欠勤や当日キャンセルには高額なペナルティが設定されることが多い。',
+        point: '当日キャンセル時の高額罰金に注意'
+      },
+      scout: {
+        text: '店舗側の罰金とは別に、スカウトとの間で「早期退職時の違約金」などを不当に請求される悪質なトラブルに警戒が必要。',
+        point: 'スカウト独自の違約金トラブルに厳重警戒',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'privacy-protection',
+    name: '身バレ対策',
+    icon: 'EyeOff',
+    summary: '顔出し・写真露出・知り合い遭遇リスクへの対策体制',
+    values: {
+      shinodayama: {
+        text: '身バレ対策極めて強固。店先顔出し一切なし・ネットやSNSの写真掲載完全0％・完全源氏名・お酒なし・専用駐車場あり。',
+        point: '個室待機・写真ネット公開なし100%',
+        badge: '写真公開完全ゼロ'
+      },
+      tobita: {
+        text: '店先の上がり框に座るため、通行人や知り合いに見られるリスク・無断撮影リスクあり。ただしネット写真掲載はなし。',
+        point: '店頭顔出しによる対面身バレリスク'
+      },
+      mensEsthe: {
+        text: 'ネット上にパネル写真（顔隠し・首下写真・マスク姿等）が掲載される。マンション個室でお客様と1対1で対面。',
+        point: 'ネットパネル掲載あり（顔隠し可）'
+      },
+      cabaret: {
+        text: 'フロアでお客様と対面するため地元の知り合いに会う可能性あり。ネットやSNSに顔写真が掲載される場合も。',
+        point: '対面・SNS露出による身バレリスク高'
+      },
+      soap: {
+        text: '風俗ポータルサイトに写真（目線隠し・顔隠し可能）が掲載される。徹底した源氏名・私物管理が行われる。',
+        point: 'ネット掲載あり（顔隠し可能）'
+      },
+      scout: {
+        text: 'スカウトに本名・身分証・顔写真を送信するため、個人情報の流出や退職時の脅迫に悪用される危険性がある。',
+        point: 'スカウトへの個人情報流出リスク大',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'recruitment-channel',
+    name: '応募・採用方法',
+    icon: 'Send',
+    summary: '応募の窓口、面接・見学プロセス、仲介者の有無',
+    values: {
+      shinodayama: {
+        text: '旅館直営公式LINEまたはWebから直接応募。女性スタッフが直接対応、見学・相談後に安心して決められる。',
+        point: '旅館直営公式ルート（仲介料なし）',
+        badge: '旅館直営公式'
+      },
+      tobita: {
+        text: '各店舗の求人電話または公式HPから直接応募。面接で即日採用・即日勤務できる場合が多い。',
+        point: '店舗への直接電話・直接面接'
+      },
+      mensEsthe: {
+        text: '専門求人サイトや店舗LINEから応募。面接・簡単な手技チェックや適性確認を経て採用。',
+        point: '求人サイトや店舗LINEから直接応募'
+      },
+      cabaret: {
+        text: '求人サイトやSNSから応募。面接・ドレス着用での体入（体験入店）を経て本入店を決定。',
+        point: '面接・体験入店（体入）あり'
+      },
+      soap: {
+        text: '風俗求人サイトや店舗直通応募。面接・必要書類（本籍地記載の住民票等）の厳格な確認を経て採用。',
+        point: '書類確認・面接を経て採用'
+      },
+      scout: {
+        text: 'SNS（X/旧Twitter・Instagram）のDMや街頭での声かけ。スカウトが間に入って店舗を紹介する。',
+        point: '第三者（スカウト）を介した間接応募',
+        warning: true
+      }
+    }
+  },
+  {
+    id: 'check-before-work',
+    name: '働く前に確認したいこと',
+    icon: 'CheckSquare',
+    summary: '応募・面接時に必ず確認しておくべきチェック項目',
+    values: {
+      shinodayama: {
+        text: '待機個室の設備環境、日給保証の適用条件、個室寮や送迎の利用希望、希望のシフト時間帯など。',
+        point: '個室環境・日給保証条件・寮の有無',
+        badge: '安心の事前確認'
+      },
+      tobita: {
+        text: '上がり框（店頭）の座り位置・拘束時間、衣装貸与の有無、雑費天引きの内訳、身バレ対策の確認。',
+        point: '店頭座り時間・衣装代・天引き内訳'
+      },
+      mensEsthe: {
+        text: '施術範囲の境界線（抜き行為禁止の徹底度）、衣装規定、待機時給保証の有無、研修費用がかからないか。',
+        point: '施術範囲の明確さ・待機時給・研修費'
+      },
+      cabaret: {
+        text: 'ヘアメイク代・ドレスレンタル代の天引き額、ノルマや同伴のペナルティ、お酒が飲めない場合のサポート。',
+        point: '天引き額・ノルマ条件・お酒の要否'
+      },
+      soap: {
+        text: 'バック率の実質手取り・日払い上限、健康診断や検査の受診体制、断れるサービス範囲、客層。',
+        point: '手取りバック率・衛生検査・断れる範囲'
+      },
+      scout: {
+        text: '「給与から紹介料が引かれないか」「直営応募と待遇差がないか」「個人情報が安全か」（※直営応募を推奨）。',
+        point: '紹介料天引き・トラブル時の責任所在',
+        warning: true
+      }
+    }
+  }
+];
+

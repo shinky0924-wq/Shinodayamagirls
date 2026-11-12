@@ -39,7 +39,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
   }, []);
 
   const navLinks = [
-    { name: '新地・一般風俗・スカウト徹底比較', action: 'compare', target: '/compare' },
+    { name: '信太山新地・他業種・スカウト徹底比較', action: 'compare', target: '/compare' },
     { name: 'タイプ別の働き方ガイド', action: 'workstyle', target: '/types' },
     { name: '旅館求人・採用担当者インタビュー', action: 'interview', target: '/interview' },
     { name: '求人総合ガイド', action: 'section', target: '#hub' },
