@@ -160,14 +160,17 @@ export default function ComparisonGuidePage({
                 </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => onNavigateWorkstyleGuide()}
+            <a
+              href="/types"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateWorkstyleGuide();
+              }}
               className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm bg-white hover:bg-rose-50 text-[#E5004F] border border-[#E5004F]/30 shadow-xs transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
             >
               <span>タイプ別働き方ガイドを見る</span>
               <LucideIcon name="ChevronRight" size={15} />
-            </button>
+            </a>
           </div>
         )}
 
@@ -912,14 +915,17 @@ export default function ComparisonGuidePage({
               <span>LINEで無料相談する（24時間受付）</span>
             </a>
             {onNavigateWorkstyleGuide && (
-              <button
-                type="button"
-                onClick={() => onNavigateWorkstyleGuide()}
+              <a
+                href="/types"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateWorkstyleGuide();
+                }}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-[12px] font-bold text-xs sm:text-sm bg-white/20 hover:bg-white/30 text-white transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-xs"
               >
                 <LucideIcon name="Layers" size={16} />
                 <span>タイプ別働き方ガイドへ</span>
-              </button>
+              </a>
             )}
           </div>
           <span className="text-[11px] text-rose-200 block mt-3 font-medium">

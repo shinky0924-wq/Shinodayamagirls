@@ -422,14 +422,17 @@ export default function ExperiencedPageContent({
         </div>
 
         <div className="mt-6 text-center">
-          <button
-            type="button"
-            onClick={() => onNavigateTopic('salary')}
+          <a
+            href="/salary"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateTopic('salary');
+            }}
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#D8175D] hover:underline cursor-pointer"
           >
             <span>給料・待遇の詳細ページを見る</span>
             <LucideIcon name="ChevronRight" size={14} />
-          </button>
+          </a>
         </div>
       </section>
 
@@ -596,16 +599,18 @@ export default function ExperiencedPageContent({
               img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => {
+              href={item.topicId ? `/${item.topicId}` : `/blog/${item.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
                 if (item.topicId) {
                   onNavigateTopic(item.topicId);
                 } else if (item.slug && onNavigateBlog) {
                   onNavigateBlog(item.slug);
                 }
               }}
-              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between text-left"
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden bg-rose-50">
@@ -632,7 +637,7 @@ export default function ExperiencedPageContent({
                 <span>読む</span>
                 <LucideIcon name="ChevronRight" size={11} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

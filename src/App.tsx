@@ -28,7 +28,7 @@ import { getStoredSiteContent, SiteContent } from './siteContent';
 import { LINE_OFFICIAL_URL } from './data';
 import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch, loadFullBlogArticle } from './blogData';
 import { TOPIC_CLUSTERS } from './topicClusterData';
-import { updatePageSeo } from './seo';
+import { updatePageSeo, formatBlogSeoTitle, formatMetaDescription } from './seo';
 
 type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound';
 
@@ -165,6 +165,10 @@ export default function App() {
   };
 
   const handleNavigateTopic = (topicId: string) => {
+    if (topicId === 'interview') {
+      navigateTo('interview', '/interview');
+      return;
+    }
     const targetTopic = topicId === 'benefits' ? 'salary' : topicId;
     setSelectedTopicId(targetTopic);
     navigateTo('cluster', `/${targetTopic}`);
@@ -325,8 +329,11 @@ export default function App() {
     } else if (currentTab === 'blog') {
       if (currentArticle) {
         updatePageSeo({
-          title: `${currentArticle.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
-          description: currentArticle.summary || `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`,
+          title: formatBlogSeoTitle(currentArticle.title),
+          description: formatMetaDescription(
+            currentArticle.summary,
+            `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`
+          ),
           canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
           ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.webp',
           ogType: 'article',
@@ -1194,9 +1201,10 @@ export default function App() {
                           <LucideIcon name="MessageCircle" size={18} />
                           <span>当店へLINEで応募・無料相談する</span>
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => {
+                        <a
+                          href="/#consultation"
+                          onClick={(e) => {
+                            e.preventDefault();
                             navigateTo('recruit', '/');
                             setTimeout(() => {
                               const el = document.getElementById('consultation');
@@ -1207,7 +1215,7 @@ export default function App() {
                         >
                           <LucideIcon name="Calendar" size={15} />
                           <span>体験入店・店舗見学について見る</span>
-                        </button>
+                        </a>
                       </div>
                       <p className="text-[11px] text-rose-200 mt-4">
                         ※履歴書不要・私服のまま手ぶらでOK！女性専任スタッフ（あおい）が親身に対応いたします。
@@ -1317,9 +1325,10 @@ export default function App() {
       <div className="block sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-rose-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="grid grid-cols-12 gap-2 items-center">
           {/* 1. 求人トップ */}
-          <button
-            type="button"
-            onClick={() => {
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
               if (currentTab !== 'recruit') handleTabChange('recruit');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
@@ -1327,12 +1336,13 @@ export default function App() {
           >
             <LucideIcon name="Home" size={18} className="text-[#E5004F]" />
             <span className="text-[10px] font-bold mt-0.5">求人トップ</span>
-          </button>
+          </a>
 
           {/* 2. ガイド一覧 */}
-          <button
-            type="button"
-            onClick={() => {
+          <a
+            href="/#recruit-hub"
+            onClick={(e) => {
+              e.preventDefault();
               if (currentTab !== 'recruit') handleTabChange('recruit');
               handleScrollToSection('recruit-hub');
             }}
@@ -1340,7 +1350,7 @@ export default function App() {
           >
             <LucideIcon name="Compass" size={18} className="text-[#E5004F]" />
             <span className="text-[10px] font-bold mt-0.5">ガイド一覧</span>
-          </button>
+          </a>
 
           {/* 3. 応募・相談 (最も目立つボタン) */}
           <div className="col-span-6">

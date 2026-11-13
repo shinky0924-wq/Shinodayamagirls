@@ -685,14 +685,17 @@ export default function ComparisonPage({
                 <span>LINEで無料相談する</span>
               </a>
 
-              <button
-                type="button"
-                onClick={onNavigateHome}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
                 className="text-xs sm:text-sm font-bold text-[#E5004F] hover:underline flex items-center gap-1 cursor-pointer py-1.5"
               >
                 <span>信太山新地・当店の公式求人トップを見る</span>
                 <LucideIcon name="ChevronRight" size={14} />
-              </button>
+              </a>
             </div>
           </div>
         </section>

@@ -664,9 +664,13 @@ export default function FlowPageContent({
               img: '/images/cast_mai_snap_1794475286956.webp'
             }
           ].map((item, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => onNavigateTopic(item.topicId)}
+              href={`/${item.topicId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateTopic(item.topicId);
+              }}
               className="bg-[#FFFAFC] rounded-[16px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
             >
               <div>
@@ -691,7 +695,7 @@ export default function FlowPageContent({
                 <span>見る</span>
                 <LucideIcon name="ChevronRight" size={11} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

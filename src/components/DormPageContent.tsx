@@ -745,23 +745,30 @@ export default function DormPageContent({
             </h2>
           </div>
           {onNavigateBlog && (
-            <button
-              type="button"
-              onClick={() => onNavigateBlog()}
+            <a
+              href="/blog"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateBlog();
+              }}
               className="text-xs font-bold text-[#D8175D] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>コラム一覧へ</span>
               <LucideIcon name="ArrowRight" size={14} />
-            </button>
+            </a>
           )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {relatedArticles.map((art, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => onNavigateBlog && onNavigateBlog(art.slug)}
-              className="bg-[#FFFAFC] rounded-[16px] border border-[#F0DDE4] p-4 flex flex-col justify-between hover:border-[#D8175D]/40 transition-colors shadow-2xs cursor-pointer group"
+              href={`/blog/${art.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigateBlog) onNavigateBlog(art.slug);
+              }}
+              className="bg-[#FFFAFC] rounded-[16px] border border-[#F0DDE4] p-4 flex flex-col justify-between hover:border-[#D8175D]/40 transition-colors shadow-2xs cursor-pointer group text-left"
             >
               <div>
                 <span className="inline-block bg-[#FFF1F5] text-[#D8175D] text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-[#F0DDE4] mb-2">
@@ -778,7 +785,7 @@ export default function DormPageContent({
                 <span>詳しく読む</span>
                 <LucideIcon name="ChevronRight" size={12} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

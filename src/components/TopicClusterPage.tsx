@@ -3,24 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import LucideIcon from './LucideIcon';
-import { TOPIC_CLUSTERS, ALL_CLUSTER_NODES, TopicClusterData } from '../topicClusterData';
+import { TOPIC_CLUSTERS, TopicClusterData } from '../topicClusterData';
 import { BLOG_ARTICLES } from '../blogData';
-import SalaryPageContent from './SalaryPageContent';
-import BenefitsPageContent from './BenefitsPageContent';
-import JobPageContent from './JobPageContent';
-import SalaryBenefitsPageContent from './SalaryBenefitsPageContent';
-import BeginnerPageContent from './BeginnerPageContent';
-import ExperiencedPageContent from './ExperiencedPageContent';
-import RequirementsPageContent from './RequirementsPageContent';
-import FlowPageContent from './FlowPageContent';
-import WorkstyleFiveStylesSection from './WorkstyleFiveStylesSection';
-import WorkstylePageContent from './WorkstylePageContent';
-import ShopsPageContent from './ShopsPageContent';
-import DormPageContent from './DormPageContent';
-import SafetyPageContent from './SafetyPageContent';
+const SalaryPageContent = lazy(() => import('./SalaryPageContent'));
+const BenefitsPageContent = lazy(() => import('./BenefitsPageContent'));
+const JobPageContent = lazy(() => import('./JobPageContent'));
+const SalaryBenefitsPageContent = lazy(() => import('./SalaryBenefitsPageContent'));
+const BeginnerPageContent = lazy(() => import('./BeginnerPageContent'));
+const ExperiencedPageContent = lazy(() => import('./ExperiencedPageContent'));
+const RequirementsPageContent = lazy(() => import('./RequirementsPageContent'));
+const FlowPageContent = lazy(() => import('./FlowPageContent'));
+const WorkstyleFiveStylesSection = lazy(() => import('./WorkstyleFiveStylesSection'));
+const WorkstylePageContent = lazy(() => import('./WorkstylePageContent'));
+const ShopsPageContent = lazy(() => import('./ShopsPageContent'));
+const DormPageContent = lazy(() => import('./DormPageContent'));
+const SafetyPageContent = lazy(() => import('./SafetyPageContent'));
 import TopicClusterBottomNav from './TopicClusterBottomNav';
 import { getStoredSiteContent } from '../siteContent';
 import { updatePageSeo } from '../seo';
@@ -393,6 +392,13 @@ export default function TopicClusterPage({
         </nav>
       </div>
 
+      <Suspense
+        fallback={
+          <div className="min-h-[50vh] flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-rose-500 border-t-transparent rounded-full animate-spin" aria-label="読み込み中" />
+          </div>
+        }
+      >
       {topicId === 'job' ? (
         <div className="pb-8">
           <JobPageContent
@@ -1138,22 +1144,29 @@ export default function TopicClusterPage({
                   「{data.title}」をもっと詳しく知るおすすめ記事
                 </h2>
               </div>
-              <button
-                type="button"
-                onClick={() => onNavigateBlog()}
+              <a
+                href="/blog"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateBlog();
+                }}
                 className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-100 transition-colors shrink-0"
               >
                 <span>コラム全139件を見る</span>
                 <LucideIcon name="ChevronRight" size={13} />
-              </button>
+              </a>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {featuredArticles.map((art: any) => (
-                <div
+                <a
                   key={art.slug}
-                  onClick={() => onNavigateBlog(art.slug)}
-                  className="rounded-2xl border border-gray-100 hover:border-rose-300 bg-white overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-between group shadow-2xs hover:shadow-lg hover:-translate-y-0.5"
+                  href={`/blog/${art.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigateBlog(art.slug);
+                  }}
+                  className="rounded-2xl border border-gray-100 hover:border-rose-300 bg-white overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-between group shadow-2xs hover:shadow-lg hover:-translate-y-0.5 text-left"
                 >
                   <div>
                     {/* Article Thumbnail */}
@@ -1200,7 +1213,7 @@ export default function TopicClusterPage({
                       <LucideIcon name="ArrowRight" size={13} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -1218,14 +1231,17 @@ export default function TopicClusterPage({
                 「{data.title}」についての疑問を解決
               </h2>
             </div>
-            <button
-              type="button"
-              onClick={onNavigateFaq}
+            <a
+              href="/faq"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateFaq();
+              }}
               className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-100 transition-colors shrink-0"
             >
-              <span>FAQ全119問を見る</span>
+              <span>FAQ全66問を見る</span>
               <LucideIcon name="ChevronRight" size={13} />
-            </button>
+            </a>
           </div>
 
           <div className="space-y-3">
@@ -1326,6 +1342,7 @@ export default function TopicClusterPage({
         />
       </div>
     )}
+    </Suspense>
   </div>
 );
 }

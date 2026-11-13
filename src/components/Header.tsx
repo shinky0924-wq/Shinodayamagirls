@@ -258,9 +258,10 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                           総合ガイド（全12カテゴリー）
                         </span>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => {
+                      <a
+                        href="/#recruit-hub"
+                        onClick={(e) => {
+                          e.preventDefault();
                           setGuideDropdownOpen(false);
                           if (currentTab !== 'recruit') onChangeTab('recruit');
                           onScrollToSection('recruit-hub');
@@ -269,7 +270,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                       >
                         <span>ガイド全体を見る</span>
                         <LucideIcon name="ArrowRight" size={12} />
-                      </button>
+                      </a>
                     </div>
 
                     {/* 2-Column Grid of 10 Subcategories */}

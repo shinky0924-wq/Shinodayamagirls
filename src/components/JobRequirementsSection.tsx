@@ -147,16 +147,19 @@ export default function JobRequirementsSection({
             <LucideIcon name="MessageCircle" size={19} className="fill-white" />
             <span>【公式LINE】募集要項について質問・即日応募する</span>
           </button>
-          <button
-            type="button"
-            onClick={onNavigateDetail}
+          <a
+            href="/requirements"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateDetail?.();
+            }}
             className="w-full sm:w-auto px-6 py-4 rounded-full bg-white hover:bg-rose-50 text-rose-700 font-bold text-xs sm:text-sm border-2 border-rose-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
             id="job-requirements-detail-btn"
           >
             <LucideIcon name="FileText" size={16} />
             <span>募集要項・採用基準の詳しい解説を見る</span>
             <LucideIcon name="ArrowRight" size={14} />
-          </button>
+          </a>
         </div>
 
       </div>

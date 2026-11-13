@@ -19,6 +19,36 @@ export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/shinodayama_hero_banner
 const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 /**
+ * Formats blog article titles to stay concise for Google SERP rendering while preserving full headline in H1/JSON-LD.
+ */
+export function formatBlogSeoTitle(articleTitle: string): string {
+  const cleanTitle = (articleTitle || '').trim();
+  const suffix = '｜信太山ガールズ';
+  if (`${cleanTitle}${suffix}`.length <= 60) {
+    return `${cleanTitle}${suffix}`;
+  }
+  if (cleanTitle.length <= 60) {
+    return cleanTitle;
+  }
+  return `${cleanTitle.slice(0, 58)}…`;
+}
+
+/**
+ * Normalizes and trims meta description cleanly at sentence/phrase boundaries for optimal SERP snippet display.
+ */
+export function formatMetaDescription(rawDescription?: string, fallback: string = ''): string {
+  const normalized = (rawDescription || fallback).replace(/\s+/g, ' ').trim();
+  if (normalized.length <= 155) return normalized;
+  const sliced = normalized.slice(0, 140);
+  const lastPeriod = Math.max(sliced.lastIndexOf('。'), sliced.lastIndexOf('、'), sliced.lastIndexOf(' '));
+  if (lastPeriod >= 90) {
+    const candidate = sliced.slice(0, lastPeriod + (sliced[lastPeriod] === '。' ? 1 : 0));
+    return candidate.endsWith('。') ? candidate : `${candidate}…`;
+  }
+  return `${sliced}…`;
+}
+
+/**
  * Dynamically updates document metadata for SEO and Generative AI (LLMO) crawlers
  */
 export function updatePageSeo(config: SeoConfig) {
@@ -38,8 +68,9 @@ export function updatePageSeo(config: SeoConfig) {
   };
 
   // 2. Standard Meta
+  const robots = config.robots || DEFAULT_ROBOTS;
   setMeta('name', 'description', config.description);
-  setMeta('name', 'robots', config.robots || DEFAULT_ROBOTS);
+  setMeta('name', 'robots', robots);
 
   // 3. OpenGraph Meta
   setMeta('property', 'og:title', config.title);
@@ -55,21 +86,53 @@ export function updatePageSeo(config: SeoConfig) {
     ? (config.ogImage.startsWith('http') ? config.ogImage : `${BASE_SITE_URL}${config.ogImage}`)
     : DEFAULT_OG_IMAGE;
   setMeta('property', 'og:image', ogImage);
+  setMeta('property', 'og:image:width', '1200');
+  setMeta('property', 'og:image:height', '630');
+  setMeta('property', 'og:image:alt', config.title);
 
   // 4. Twitter Cards
   setMeta('name', 'twitter:card', 'summary_large_image');
   setMeta('name', 'twitter:title', config.title);
   setMeta('name', 'twitter:description', config.description);
   setMeta('name', 'twitter:image', ogImage);
+  setMeta('name', 'twitter:image:alt', config.title);
 
-  // 5. Canonical Link
+  // 5. Canonical & Hreflang Links
+  const isNoIndex = robots.includes('noindex');
   let canonicalLink = document.querySelector('link[rel="canonical"]');
-  if (!canonicalLink) {
-    canonicalLink = document.createElement('link');
-    canonicalLink.setAttribute('rel', 'canonical');
-    document.head.appendChild(canonicalLink);
+  if (isNoIndex && canonical === `${BASE_SITE_URL}${window.location.pathname}` && window.location.pathname !== '/admin') {
+    if (canonicalLink) canonicalLink.remove();
+  } else {
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonical);
   }
-  canonicalLink.setAttribute('href', canonical);
+
+  const syncHreflang = (lang: string, href: string | null) => {
+    let link = document.querySelector(`link[rel="alternate"][hreflang="${lang}"]`);
+    if (!href) {
+      if (link) link.remove();
+      return;
+    }
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', lang);
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', href);
+  };
+
+  if (isNoIndex) {
+    syncHreflang('ja', null);
+    syncHreflang('x-default', null);
+  } else {
+    syncHreflang('ja', canonical);
+    syncHreflang('x-default', canonical);
+  }
 
   // 6. Clean up stale route schemas during SPA navigation & inject updated JSON-LD
   const isHomeRoute = canonical === `${BASE_SITE_URL}/` || canonical === BASE_SITE_URL;

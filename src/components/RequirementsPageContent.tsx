@@ -849,9 +849,13 @@ export default function RequirementsPageContent({
               img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => onNavigateTopic(item.topicId)}
+              href={`/${item.topicId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateTopic(item.topicId);
+              }}
               className="bg-[#FFFAFC] rounded-[16px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
             >
               <div>
@@ -876,7 +880,7 @@ export default function RequirementsPageContent({
                 <span>見る</span>
                 <LucideIcon name="ChevronRight" size={11} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

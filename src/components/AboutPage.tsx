@@ -548,13 +548,17 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="MessageCircle" size={18} />
               <span>信太山新地の当店へLINEで無料相談・見学予約</span>
             </button>
-            <button
-              onClick={onNavigateBlog}
+            <a
+              href="/blog"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateBlog();
+              }}
               className="w-full sm:w-auto bg-rose-700/70 hover:bg-rose-700 text-white font-bold px-6 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-sm border border-rose-400/40"
             >
               <LucideIcon name="BookOpen" size={16} />
               <span>お仕事コラム一覧を見る</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -185,15 +185,18 @@ export default function WorkFlowSection({
 
           {onNavigateDetail && (
             <div className="mt-4 pt-3.5 border-t border-[#F0DDE4]/70">
-              <button
-                type="button"
-                onClick={onNavigateDetail}
+              <a
+                href="/flow"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateDetail();
+                }}
                 className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-[#D8175D] hover:text-[#b5124c] font-bold bg-white px-5 py-2.5 rounded-full border border-[#F0DDE4] shadow-2xs hover:shadow-xs transition-all cursor-pointer hover:scale-[1.01]"
                 id="flow-detail-link-btn"
               >
                 <span>詳しい採用の流れ・必要書類の解説を見る</span>
                 <LucideIcon name="ChevronRight" size={13} />
-              </button>
+              </a>
             </div>
           )}
         </div>

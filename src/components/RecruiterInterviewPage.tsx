@@ -217,14 +217,17 @@ export default function RecruiterInterviewPage({
 
         {/* パンくずリスト */}
         <div className="flex items-center gap-2 text-xs text-zinc-500 mb-6">
-          <button
-            type="button"
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="hover:text-[#D8175D] transition-colors flex items-center gap-1 cursor-pointer"
           >
             <LucideIcon name="Home" size={13} />
             <span>ホーム</span>
-          </button>
+          </a>
           <span>/</span>
           <span className="text-zinc-800 font-bold">採用担当者・女性相談員インタビュー</span>
         </div>
@@ -430,33 +433,42 @@ export default function RecruiterInterviewPage({
 
         {/* 関連リンクナビゲーション */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-[#F0DDE4]">
-          <button
-            type="button"
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="px-5 py-2.5 rounded-full bg-white hover:bg-rose-50 text-zinc-700 hover:text-[#D8175D] font-bold text-xs border border-[#F0DDE4] transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <LucideIcon name="Home" size={14} />
             <span>求人トップページへ戻る</span>
-          </button>
+          </a>
           {onNavigateFaq && (
-            <button
-              type="button"
-              onClick={onNavigateFaq}
+            <a
+              href="/faq"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateFaq();
+              }}
               className="px-5 py-2.5 rounded-full bg-white hover:bg-rose-50 text-zinc-700 hover:text-[#D8175D] font-bold text-xs border border-[#F0DDE4] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <LucideIcon name="HelpCircle" size={14} />
-              <span>よくある質問（FAQ 100選）を見る</span>
-            </button>
+              <span>よくある質問（FAQ 66問）を見る</span>
+            </a>
           )}
           {onNavigateBlog && (
-            <button
-              type="button"
-              onClick={onNavigateBlog}
+            <a
+              href="/blog"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateBlog();
+              }}
               className="px-5 py-2.5 rounded-full bg-white hover:bg-rose-50 text-zinc-700 hover:text-[#D8175D] font-bold text-xs border border-[#F0DDE4] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <LucideIcon name="BookOpen" size={14} />
               <span>お仕事コラム一覧を見る</span>
-            </button>
+            </a>
           )}
         </div>
 

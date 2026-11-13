@@ -73,10 +73,97 @@ function extractWorkstyleDetailsFromTs(filePath) {
   return map;
 }
 
+function formatBlogSeoTitle(articleTitle = '') {
+  const cleanTitle = String(articleTitle).trim();
+  const suffix = '｜信太山ガールズ';
+  if (`${cleanTitle}${suffix}`.length <= 60) {
+    return `${cleanTitle}${suffix}`;
+  }
+  if (cleanTitle.length <= 60) {
+    return cleanTitle;
+  }
+  return `${cleanTitle.slice(0, 58)}…`;
+}
+
+function formatMetaDescription(rawDescription = '', fallback = '') {
+  const normalized = String(rawDescription || fallback).replace(/\s+/g, ' ').trim();
+  if (normalized.length <= 155) return normalized;
+  const sliced = normalized.slice(0, 140);
+  const lastPeriod = Math.max(sliced.lastIndexOf('。'), sliced.lastIndexOf('、'), sliced.lastIndexOf(' '));
+  if (lastPeriod >= 90) {
+    const candidate = sliced.slice(0, lastPeriod + (sliced[lastPeriod] === '。' ? 1 : 0));
+    return candidate.endsWith('。') ? candidate : `${candidate}…`;
+  }
+  return `${sliced}…`;
+}
+
+function renderBlogParagraphWithLinks(text = '') {
+  const parts = String(text).split(/(\[[^\]]+\]\(\/[^\)]+\))/g);
+  return parts
+    .map((part) => {
+      const m = part.match(/^\[([^\]]+)\]\((\/[^\)]+)\)$/);
+      if (!m) return escapeHtml(part);
+      const label = escapeHtml(m[1]);
+      const href = escapeHtml(`${BASE_DOMAIN}${m[2]}`);
+      return `<a href="${href}" class="text-rose-600 font-bold underline">${label}</a>`;
+    })
+    .join('');
+}
+
+function renderBlogArticleContentHtml(article) {
+  if (!article) return '';
+  const chunks = [];
+  if (article.summary) {
+    chunks.push(`<section class="bg-rose-50/70 rounded-2xl p-4 sm:p-5 border border-rose-200 mb-6"><p id="llm-article-summary-text" class="text-sm text-zinc-700 leading-relaxed">${escapeHtml(article.summary)}</p></section>`);
+  }
+  const content = article.content;
+  if (Array.isArray(content)) {
+    for (const block of content) {
+      if (!block || !block.type) continue;
+      if (block.type === 'h2') {
+        chunks.push(`<h2 class="text-lg sm:text-xl font-bold text-zinc-900 mt-6 mb-3">${escapeHtml(block.text || '')}</h2>`);
+      } else if (block.type === 'h3') {
+        chunks.push(`<h3 class="text-base font-bold text-zinc-800 mt-5 mb-2">${escapeHtml(block.text || '')}</h3>`);
+      } else if (block.type === 'p') {
+        chunks.push(`<p class="text-sm sm:text-base text-zinc-700 leading-relaxed mb-4">${renderBlogParagraphWithLinks(block.text || '')}</p>`);
+      } else if (block.type === 'list' && Array.isArray(block.items)) {
+        const lis = block.items.map((item) => `<li>${renderBlogParagraphWithLinks(item)}</li>`).join('');
+        chunks.push(`<ul class="list-disc pl-5 space-y-1.5 text-sm text-zinc-700 mb-4">${lis}</ul>`);
+      } else if (block.type === 'qna') {
+        chunks.push(`<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100 mb-4"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(block.question || '')}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${renderBlogParagraphWithLinks(block.answer || block.text || '')}</p></div>`);
+      }
+    }
+  } else if (content && typeof content === 'object') {
+    if (content.intro) {
+      chunks.push(`<p class="text-sm sm:text-base text-zinc-700 leading-relaxed mb-4">${renderBlogParagraphWithLinks(content.intro)}</p>`);
+    }
+    if (Array.isArray(content.sections)) {
+      for (const sec of content.sections) {
+        if (sec.heading) {
+          chunks.push(`<h2 class="text-lg sm:text-xl font-bold text-zinc-900 mt-6 mb-3">${escapeHtml(sec.heading)}</h2>`);
+        }
+        if (sec.body) {
+          chunks.push(`<p class="text-sm sm:text-base text-zinc-700 leading-relaxed mb-4">${renderBlogParagraphWithLinks(sec.body)}</p>`);
+        }
+        if (Array.isArray(sec.points) && sec.points.length) {
+          chunks.push(`<ul class="list-disc pl-5 space-y-1.5 text-sm text-zinc-700 mb-4">${sec.points.map((pt) => `<li>${renderBlogParagraphWithLinks(pt)}</li>`).join('')}</ul>`);
+        }
+      }
+    }
+    if (Array.isArray(content.faqs) && content.faqs.length) {
+      for (const f of content.faqs) {
+        chunks.push(`<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100 mb-4"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(f.question || '')}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(f.answer || '')}</p></div>`);
+      }
+    }
+  }
+  return chunks.join('');
+}
+
 function buildSsrRootShell(routeMeta) {
   const heading = escapeHtml(routeMeta.heading || routeMeta.title);
-  const lead = escapeHtml(routeMeta.description || '');
-  return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1><p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>${routeMeta.noscriptBodyHtml || ''}</article></main></div></div></div>`;
+  const lead = escapeHtml(routeMeta.leadText || routeMeta.description || '');
+  const body = routeMeta.ssrBodyHtml || routeMeta.noscriptBodyHtml || '';
+  return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1>${routeMeta.hideLeadInSsr ? '' : `<p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>`}${body}</article></main></div></div></div>`;
 }
 
 function stripRootOnlyStructuredData(html) {
@@ -142,6 +229,21 @@ function buildRouteHtml(baseHtml, routeMeta) {
     html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>\s*/i, '');
   }
 
+  const isNoIndex = robotsDirective.includes('noindex') || !canonicalUrl;
+  if (isNoIndex) {
+    html = html.replace(/<link\s+rel="alternate"\s+hreflang="(?:ja|x-default)"\s+href="[^"]*"\s*\/?>\s*/gi, '');
+  } else {
+    html = html
+      .replace(
+        /<link\s+rel="alternate"\s+hreflang="ja"\s+href="[^"]*"\s*\/?>/i,
+        `<link rel="alternate" hreflang="ja" href="${escapeHtml(canonicalUrl)}" />`
+      )
+      .replace(
+        /<link\s+rel="alternate"\s+hreflang="x-default"\s+href="[^"]*"\s*\/?>/i,
+        `<link rel="alternate" hreflang="x-default" href="${escapeHtml(canonicalUrl)}" />`
+      );
+  }
+
   // OpenGraph & Twitter Card
   html = upsertMeta(html, 'property', 'og:title', title);
   html = upsertMeta(html, 'property', 'og:description', description);
@@ -149,6 +251,8 @@ function buildRouteHtml(baseHtml, routeMeta) {
   html = upsertMeta(html, 'property', 'og:url', canonicalUrl || `${BASE_DOMAIN}/`);
   html = upsertMeta(html, 'property', 'og:image', imageUrl);
   html = upsertMeta(html, 'property', 'og:image:secure_url', imageUrl);
+  html = upsertMeta(html, 'property', 'og:image:width', '1200');
+  html = upsertMeta(html, 'property', 'og:image:height', '630');
   html = upsertMeta(html, 'property', 'og:image:alt', title);
 
   html = upsertMeta(html, 'name', 'twitter:card', 'summary_large_image');
@@ -202,16 +306,17 @@ function buildRouteHtml(baseHtml, routeMeta) {
   // Populate <div id="root"> with styled SSR shell (createRoot cleanly replaces on client hydration/mount)
   html = html.replace(/<div\s+id="root"><\/div>/i, buildSsrRootShell(routeMeta));
 
-  // Replace generic root <noscript> with route-specific semantic content so non-JS crawlers see unique page HTML
+  // Replace ONLY body <noscript> fallback (leaving <head> font <noscript> untouched) and avoid duplicate <h1>
   const heading = escapeHtml(routeMeta.heading || title);
   const bodyHtml = routeMeta.noscriptBodyHtml || `<p>${escapeHtml(description)}</p>`;
-  const routeNoscript = `<noscript>
+  const routeNoscript = `<!-- BODY_NOSCRIPT_START -->
+    <noscript>
       <header>
         <p><a href="${BASE_DOMAIN}/">信太山新地求人サイト「信太山ガールズ」</a></p>
       </header>
       <main>
         <article>
-          <h1>${heading}</h1>
+          <p><strong>${heading}</strong></p>
           ${bodyHtml}
           <nav aria-label="関連ページ">
             <ul>
@@ -232,9 +337,10 @@ function buildRouteHtml(baseHtml, routeMeta) {
           </nav>
         </article>
       </main>
-    </noscript>`;
+    </noscript>
+    <!-- BODY_NOSCRIPT_END -->`;
 
-  html = html.replace(/<noscript>[\s\S]*?<\/noscript>/i, routeNoscript);
+  html = html.replace(/<!--\s*BODY_NOSCRIPT_START\s*-->[\s\S]*?<!--\s*BODY_NOSCRIPT_END\s*-->/i, routeNoscript);
   return html;
 }
 
@@ -566,16 +672,23 @@ function main() {
     articles.forEach((article) => {
       if (!article.slug) return;
       const articleUrl = `${BASE_DOMAIN}/blog/${article.slug}`;
+      const seoTitle = formatBlogSeoTitle(article.title);
+      const seoDescription = formatMetaDescription(
+        article.summary,
+        `${article.title}についての信太山新地公式解説記事です。`
+      );
+      const fullArticleHtml = renderBlogArticleContentHtml(article);
       routes.push({
         route: `blog/${article.slug}`,
-        title: `${article.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
-        description:
-          article.summary || `${article.title}についての信太山新地公式解説記事です。`,
+        title: seoTitle,
+        description: seoDescription,
         canonicalUrl: articleUrl,
         ogType: 'article',
         imagePath: article.eyeCatch,
         heading: article.title,
+        hideLeadInSsr: true,
         parentBreadcrumb: { name: 'お仕事コラム一覧', path: '/blog' },
+        ssrBodyHtml: fullArticleHtml,
         noscriptBodyHtml: `<p>${escapeHtml(article.summary || '')}</p>`,
         extraJsonLd: {
           '@context': 'https://schema.org',

@@ -613,22 +613,29 @@ export default function JobPageContent({
                 お仕事内容に関連する解説コラム
               </h2>
             </div>
-            <button
-              type="button"
-              onClick={() => onNavigateBlog()}
+            <a
+              href="/blog"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateBlog();
+              }}
               className="text-xs font-bold text-[#D8175D] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>コラム一覧を見る</span>
               <LucideIcon name="ChevronRight" size={13} />
-            </button>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {relatedArticles.map((art) => (
-              <div
+              <a
                 key={art.slug}
-                onClick={() => onNavigateBlog(art.slug)}
-                className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+                href={`/blog/${art.slug}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateBlog(art.slug);
+                }}
+                className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group text-left"
               >
                 <div>
                   <div className="relative aspect-[16/10] overflow-hidden bg-rose-50">
@@ -658,7 +665,7 @@ export default function JobPageContent({
                   <span>詳しく読む</span>
                   <LucideIcon name="ArrowRight" size={12} />
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>

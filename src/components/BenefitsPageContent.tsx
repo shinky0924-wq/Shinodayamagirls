@@ -178,14 +178,17 @@ export default function BenefitsPageContent({
             </h3>
           </div>
           {onNavigateCompare && (
-            <button
-              type="button"
-              onClick={onNavigateCompare}
+            <a
+              href="/compare"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateCompare();
+              }}
               className="self-start sm:self-auto text-xs font-bold text-rose-600 hover:text-rose-700 bg-white hover:bg-rose-50 border border-rose-200 px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
             >
               <span>全10項目の詳細比較表を見る</span>
               <LucideIcon name="ChevronRight" size={13} />
-            </button>
+            </a>
           )}
         </div>
 

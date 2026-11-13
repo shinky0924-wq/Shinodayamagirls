@@ -7,7 +7,6 @@ import { useState, useRef, useEffect } from 'react';
 import { HERO_IMAGE_URL, LINE_OFFICIAL_URL } from '../data';
 import LucideIcon from './LucideIcon';
 import { SiteContent } from '../siteContent';
-import { submitConsultation } from '../firebase';
 
 interface ConsultationFormProps {
   content: SiteContent['consultation'];
@@ -31,12 +30,16 @@ export default function ConsultationForm({ content, initialMessage, onClearIniti
   const handleCopy = () => {
     navigator.clipboard.writeText(defaultTemplate).then(() => {
       setCopied(true);
-      submitConsultation({
-        name: 'LINE相談希望者（メッセージコピー）',
-        contact: '公式LINE遷移',
-        message: defaultTemplate,
-        source: 'consultation_box'
-      }).catch(() => {});
+      import('../firebase')
+        .then(({ submitConsultation }) =>
+          submitConsultation({
+            name: 'LINE相談希望者（メッセージコピー）',
+            contact: '公式LINE遷移',
+            message: defaultTemplate,
+            source: 'consultation_box'
+          })
+        )
+        .catch(() => {});
       setTimeout(() => setCopied(false), 2000);
       if (onClearInitialMessage) {
         onClearInitialMessage();

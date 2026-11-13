@@ -484,14 +484,17 @@ export default function BeginnerPageContent({
 
         {/* インタビュー詳細へのリンク */}
         <div className="text-center">
-          <button
-            type="button"
-            onClick={() => onNavigateTopic('interview')}
+          <a
+            href="/interview"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateTopic('interview');
+            }}
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#D8175D] hover:text-[#b8124d] bg-[#FFF1F5] hover:bg-[#ffe4ed] px-5 py-2.5 rounded-full border border-[#F0DDE4] transition-colors cursor-pointer"
           >
             <span>働く女性のリアルなインタビュー記事一覧を見る</span>
             <LucideIcon name="ChevronRight" size={14} />
-          </button>
+          </a>
         </div>
       </section>
 
@@ -588,10 +591,14 @@ export default function BeginnerPageContent({
               img: '/images/cast_mai_snap_1794475286956.webp'
             }
           ].map((item, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => onNavigateTopic(item.topicId)}
-              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              href={`/${item.topicId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateTopic(item.topicId);
+              }}
+              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between text-left"
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden bg-rose-50">
@@ -618,7 +625,7 @@ export default function BeginnerPageContent({
                 <span>詳しく見る</span>
                 <LucideIcon name="ChevronRight" size={12} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

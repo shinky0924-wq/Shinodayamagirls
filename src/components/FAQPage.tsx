@@ -528,23 +528,30 @@ export default function FAQPage({
               </h2>
             </div>
             {onNavigateBlog && (
-              <button
-                type="button"
-                onClick={() => onNavigateBlog()}
+              <a
+                href="/blog"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateBlog();
+                }}
                 className="text-xs font-bold text-[#D8175D] hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <span>コラム一覧へ</span>
                 <LucideIcon name="ArrowRight" size={14} />
-              </button>
+              </a>
             )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {FAQ_RELATED_ARTICLES.map((article, idx) => (
-              <div
+              <a
                 key={idx}
-                onClick={() => onNavigateBlog && onNavigateBlog(article.slug)}
-                className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden flex flex-col justify-between hover:border-[#D8175D]/40 transition-colors shadow-2xs cursor-pointer group"
+                href={`/blog/${article.slug}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigateBlog) onNavigateBlog(article.slug);
+                }}
+                className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden flex flex-col justify-between hover:border-[#D8175D]/40 transition-colors shadow-2xs cursor-pointer group text-left"
               >
                 <div>
                   <div className="aspect-[16/9] w-full overflow-hidden bg-rose-50 relative">
@@ -575,7 +582,7 @@ export default function FAQPage({
                   <span>記事を読む</span>
                   <LucideIcon name="ChevronRight" size={12} />
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>

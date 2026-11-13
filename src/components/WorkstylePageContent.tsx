@@ -557,10 +557,14 @@ export default function WorkstylePageContent({
               img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
-            <div
+            <a
               key={idx}
-              onClick={() => onNavigateTopic(item.topicId)}
-              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              href={`/${item.topicId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateTopic(item.topicId);
+              }}
+              className="bg-[#FFFAFC] rounded-[18px] border border-[#F0DDE4] overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between text-left"
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden bg-rose-50">
@@ -587,7 +591,7 @@ export default function WorkstylePageContent({
                 <span>詳しく見る</span>
                 <LucideIcon name="ChevronRight" size={12} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
