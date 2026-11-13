@@ -18,21 +18,21 @@ export default function SalaryBenefitsPageContent({
   onCtaclick,
   onInjectedScroll,
 }: SalaryBenefitsPageContentProps) {
-  // 4. 収入シミュレーター State
-  const [rewardPerSession, setRewardPerSession] = useState<number>(7600); // 30分コース 7,600円
-  const [sessionsPerDay, setSessionsPerDay] = useState<number>(4);
+  // 4. 収入シミュレーター State（15分コース 3,800円中心）
+  const baseCourseReward = 3800;
+  const [sessionsPerDay, setSessionsPerDay] = useState<number>(20);
   const [daysPerWeek, setDaysPerWeek] = useState<number>(3);
   const weeksPerMonth = 4;
 
-  const dailyEarnings = rewardPerSession * sessionsPerDay;
+  const dailyEarnings = baseCourseReward * sessionsPerDay;
   const weeklyEarnings = dailyEarnings * daysPerWeek;
-  const monthlyEarnings = rewardPerSession * sessionsPerDay * daysPerWeek * weeksPerMonth;
+  const monthlyEarnings = dailyEarnings * daysPerWeek * weeksPerMonth;
 
   // 8. FAQ State
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const handleLineClick = (e: React.MouseEvent) => {
-    const msg = `【給料・待遇について相談】給与シミュレーション：1回${rewardPerSession.toLocaleString()}円・1日${sessionsPerDay}人・週${daysPerWeek}日（月収目安：約${monthlyEarnings.toLocaleString()}円）について詳しく聞いてみたいです。`;
+    const msg = `【給料・待遇について相談】給与シミュレーション：15分コース基準（3,800円）・1日${sessionsPerDay}本・週${daysPerWeek}日（月収目安：約${monthlyEarnings.toLocaleString()}円）について詳しく聞いてみたいです。`;
     if (onInjectedScroll) {
       e.preventDefault();
       onInjectedScroll(msg);
@@ -349,64 +349,36 @@ export default function SalaryBenefitsPageContent({
             あなたの希望する働き方で収入をシミュレーション
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            出勤日数や1日の接客人数を選ぶと、条件に応じた収入の目安を確認できます。
+            15分コース（受取額3,800円）が多めの実態に合わせて、1日の接客本数や週の出勤日数から収入の目安を確認できます。
           </p>
         </div>
 
         <div className="max-w-2xl mx-auto bg-[#FFFAFC] rounded-[20px] p-5 sm:p-7 border border-[#F0DDE4]">
           {/* コントロール項目 */}
           <div className="space-y-5 mb-7">
-            {/* 1回あたりの受取額 */}
-            <div>
-              <label className="block text-xs font-bold text-[#1F2432] mb-2 flex items-center justify-between">
-                <span>1回あたりの受取額（コース選択）:</span>
-                <span className="text-[#D8175D] font-black text-sm">{rewardPerSession.toLocaleString()}円</span>
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { label: '30分 (7,600円)', val: 7600 },
-                  { label: '45分 (11,400円)', val: 11400 },
-                  { label: '60分 (15,200円)', val: 15200 },
-                ].map((item) => (
-                  <button
-                    key={item.val}
-                    type="button"
-                    onClick={() => setRewardPerSession(item.val)}
-                    className={`py-2 px-2 rounded-[12px] text-xs font-bold border transition-all cursor-pointer ${
-                      rewardPerSession === item.val
-                        ? 'bg-[#D8175D] text-white border-[#D8175D] shadow-xs'
-                        : 'bg-white text-[#1F2432] border-[#F0DDE4] hover:bg-[#FFF1F5]'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 1日の接客人数 */}
+            {/* 1日の接客人数（15分コース中心） */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-bold text-[#1F2432]">
-                  1日の接客人数:
+                  1日の接客人数（15分コース中心）:
                 </label>
                 <span className="font-mono font-black text-[#D8175D] text-base">
-                  {sessionsPerDay}人
+                  {sessionsPerDay}本{sessionsPerDay > 30 ? '（30本超え）' : ''}
                 </span>
               </div>
               <input
                 type="range"
-                min={2}
-                max={8}
+                min={10}
+                max={35}
                 step={1}
                 value={sessionsPerDay}
                 onChange={(e) => setSessionsPerDay(parseInt(e.target.value, 10))}
                 className="w-full accent-[#D8175D] cursor-pointer h-2 bg-gray-200 rounded-lg"
               />
-              <div className="flex justify-between text-[10px] text-zinc-400 mt-1">
-                <span>2人（ゆったり）</span>
-                <span>4〜5人（標準）</span>
-                <span>8人（しっかり）</span>
+              <div className="flex justify-between text-[10px] text-zinc-500 mt-1">
+                <span>少なくて10本</span>
+                <span>普通で20本</span>
+                <span>多くて30本超え</span>
               </div>
             </div>
 
@@ -456,7 +428,7 @@ export default function SalaryBenefitsPageContent({
           <div className="mt-4 p-3 bg-white/60 rounded-[12px] border border-[#F0DDE4] text-[11px] text-[#777777] leading-relaxed">
             <p className="font-bold text-[#1F2432] mb-0.5">※ シミュレーションに関する注意事項：</p>
             <p>
-              ・上記は実際のコース受取額（15分3,800円・30分7,600円等）に基づいた計算上の目安です。接客人数や勤務機会を保証するものではありません。<br />
+              ・信太山新地では15分コース（受取額3,800円）が多いため、1本3,800円を基準に計算上の目安を表示しています（30分7,600円などのコースや延長・指名等も実際にはございます）。接客人数や勤務機会を保証するものではありません。<br />
               ・当店は雑費・待機料・紹介料などの天引き・控除は一切ありません（控除0円・手取り100%）。
             </p>
           </div>
