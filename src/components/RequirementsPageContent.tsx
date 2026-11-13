@@ -841,7 +841,7 @@ export default function RequirementsPageContent({
             {
               title: '女性インタビュー',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.webp'
+              img: '/images/cast_mai_snap_1794475286956.webp'
             },
             {
               title: 'お仕事までの流れ',
@@ -859,6 +859,9 @@ export default function RequirementsPageContent({
                   <img
                     src={item.img}
                     alt={item.title}
+                    width={1200}
+                    height={670}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />

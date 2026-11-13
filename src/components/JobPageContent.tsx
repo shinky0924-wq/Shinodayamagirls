@@ -635,6 +635,9 @@ export default function JobPageContent({
                     <img
                       src={art.eyeCatch || '/images/col_ryokan_manner_1792465891118.webp'}
                       alt={art.title}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />

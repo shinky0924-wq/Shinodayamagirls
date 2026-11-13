@@ -573,6 +573,9 @@ export default function ShopsPageContent({
                   <img
                     src={item.img}
                     alt={item.title}
+                    width={1200}
+                    height={670}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />

@@ -7,12 +7,29 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 const BASE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
+const today = new Date().toISOString().split('T')[0];
 
-// 1. Load blog articles
+function getFileLastMod(relPaths, fallback = today) {
+  let latestMs = 0;
+  for (const rel of relPaths) {
+    const full = path.join(rootDir, rel);
+    if (fs.existsSync(full)) {
+      const mtimeMs = fs.statSync(full).mtimeMs;
+      if (mtimeMs > latestMs) latestMs = mtimeMs;
+    }
+  }
+  return latestMs > 0 ? new Date(latestMs).toISOString().split('T')[0] : fallback;
+}
+
+// 1. Load blog articles & generate lightweight index (excludes heavy article bodies from initial JS bundle)
 const blogArticlesPath = path.join(rootDir, 'data', 'blogArticles.json');
+const blogArticlesIndexPath = path.join(rootDir, 'data', 'blogArticlesIndex.json');
 let blogArticles = [];
 if (fs.existsSync(blogArticlesPath)) {
   blogArticles = JSON.parse(fs.readFileSync(blogArticlesPath, 'utf8'));
+  const indexOnly = blogArticles.map(({ content, ...meta }) => meta);
+  fs.writeFileSync(blogArticlesIndexPath, JSON.stringify(indexOnly), 'utf8');
+  console.log(`[OK] blogArticlesIndex.json generated (${indexOnly.length} entries) at ${blogArticlesIndexPath}`);
 }
 
 // 2. Load topic clusters
@@ -40,14 +57,27 @@ const workstyleTypeSlugs = [
   'consultation'
 ];
 
-const today = new Date().toISOString().split('T')[0];
+// Accurate per-section lastmod derived from actual source/data mtimes
+const rootLastMod = getFileLastMod(['data/siteContent.json', 'src/components/Hero.tsx', 'index.html']);
+const topicClustersLastMod = getFileLastMod(['data/topicClusters.json', 'src/components/TopicClusterPage.tsx']);
+const compareLastMod = getFileLastMod(['src/components/ComparisonGuidePage.tsx']);
+const workstyleLastMod = getFileLastMod(['src/workstyleGuideData.ts', 'src/components/ComparisonPage.tsx']);
+const faqLastMod = getFileLastMod(['src/faq11CategoriesData.ts', 'src/components/FAQPage.tsx']);
+const interviewLastMod = getFileLastMod(['src/components/RecruiterInterviewPage.tsx']);
+const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
+const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
+
+const latestArticleDate = blogArticles.reduce((max, a) => {
+  const d = a.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(a.publishedAt) ? a.publishedAt.slice(0, 10) : '';
+  return d > max ? d : max;
+}, '2026-10-01');
 
 const urls = [];
 
 // Priority 1.0 - Root
 urls.push({
   loc: `${BASE_URL}/`,
-  lastmod: today,
+  lastmod: rootLastMod,
   changefreq: 'daily',
   priority: '1.0',
   image: {
@@ -61,7 +91,7 @@ clusterKeys.forEach((key) => {
   const cluster = topicClusters[key];
   urls.push({
     loc: `${BASE_URL}/${key}`,
-    lastmod: today,
+    lastmod: topicClustersLastMod,
     changefreq: 'weekly',
     priority: '0.9',
     image: cluster?.heroImage
@@ -76,14 +106,14 @@ clusterKeys.forEach((key) => {
 // Priority 0.88 - Comparison Guide & Work Style Guide (8 Types)
 urls.push({
   loc: `${BASE_URL}/compare`,
-  lastmod: today,
+  lastmod: compareLastMod,
   changefreq: 'weekly',
   priority: '0.88'
 });
 
 urls.push({
   loc: `${BASE_URL}/types`,
-  lastmod: today,
+  lastmod: workstyleLastMod,
   changefreq: 'weekly',
   priority: '0.88',
   image: {
@@ -95,7 +125,7 @@ urls.push({
 workstyleTypeSlugs.forEach((slug) => {
   urls.push({
     loc: `${BASE_URL}/types/${slug}`,
-    lastmod: today,
+    lastmod: workstyleLastMod,
     changefreq: 'weekly',
     priority: '0.85'
   });
@@ -104,14 +134,14 @@ workstyleTypeSlugs.forEach((slug) => {
 // Priority 0.88 - FAQ Hub & Recruiter Interview
 urls.push({
   loc: `${BASE_URL}/faq`,
-  lastmod: today,
+  lastmod: faqLastMod,
   changefreq: 'weekly',
   priority: '0.88'
 });
 
 urls.push({
   loc: `${BASE_URL}/interview`,
-  lastmod: today,
+  lastmod: interviewLastMod,
   changefreq: 'monthly',
   priority: '0.85'
 });
@@ -119,17 +149,24 @@ urls.push({
 // Priority 0.85 - Blog Column Hub
 urls.push({
   loc: `${BASE_URL}/blog`,
-  lastmod: today,
+  lastmod: latestArticleDate,
   changefreq: 'daily',
   priority: '0.85'
 });
 
-// Priority 0.80 - About / Company Profile
+// Priority 0.80 - About / Company Profile & Policy
 urls.push({
   loc: `${BASE_URL}/about`,
-  lastmod: today,
+  lastmod: aboutLastMod,
   changefreq: 'monthly',
   priority: '0.80'
+});
+
+urls.push({
+  loc: `${BASE_URL}/policy`,
+  lastmod: policyLastMod,
+  changefreq: 'monthly',
+  priority: '0.75'
 });
 
 // Priority 0.75 - Blog Detail Pages
@@ -137,7 +174,7 @@ blogArticles.forEach((article) => {
   if (article.slug) {
     const lastmod = article.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(article.publishedAt)
       ? article.publishedAt.slice(0, 10)
-      : today;
+      : latestArticleDate;
 
     urls.push({
       loc: `${BASE_URL}/blog/${article.slug}`,
@@ -314,6 +351,7 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [採用担当者インタビュー](${BASE_URL}/interview): 現場スタッフ・女性相談窓口のQ&Aインタビュー
 - [よくある質問集 FAQ（全66問）](${BASE_URL}/faq): 11カテゴリー別の疑問と回答
 - [運営者情報・店舗概要](${BASE_URL}/about): 運営主体・旅館組合所属・女性サポート体制
+- [掲載ポリシー・安全規約・個人情報保護](${BASE_URL}/policy): コンプライアンス・安全基準・身バレ対策規程
 - [お仕事コラム一覧](${BASE_URL}/blog): 全${blogArticles.length}本の公式解説コラム
 
 ## 詳細情報（llms-full.txt）
@@ -334,7 +372,7 @@ let llmsFullTxt = `${llmsTxt}
 `;
 
 blogArticles.forEach((article, idx) => {
-  const published = article.publishedAt || today;
+  const published = article.publishedAt || latestArticleDate;
   const summary = article.summary || '';
   const url = `${BASE_URL}/blog/${article.slug}`;
 

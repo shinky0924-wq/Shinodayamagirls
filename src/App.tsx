@@ -26,11 +26,11 @@ const AdminPanel = lazy(() => import('./components/AdminPanel'));
 
 import { getStoredSiteContent, SiteContent } from './siteContent';
 import { LINE_OFFICIAL_URL } from './data';
-import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch } from './blogData';
+import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch, loadFullBlogArticle } from './blogData';
 import { TOPIC_CLUSTERS } from './topicClusterData';
 import { updatePageSeo } from './seo';
 
-type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview';
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound';
 
 export default function App() {
   const [siteContent] = useState<SiteContent>(getStoredSiteContent());
@@ -49,8 +49,12 @@ export default function App() {
       const search = window.location.search;
       const params = new URLSearchParams(search);
 
-      if (pathname.startsWith('/about')) {
+      if (pathname === '/' || pathname === '' || pathname === '/index.html') {
+        setCurrentTab('recruit');
+      } else if (pathname.startsWith('/about')) {
         setCurrentTab('about');
+      } else if (pathname.startsWith('/policy') || pathname.startsWith('/privacy')) {
+        setCurrentTab('policy');
       } else if (pathname === '/compare' || pathname === '/compare/' || pathname.startsWith('/comparison')) {
         setCurrentTab('compare');
       } else if (pathname.startsWith('/compare/')) {
@@ -105,7 +109,7 @@ export default function App() {
           setCurrentTab('cluster');
           setSelectedTopicId(matchCluster === 'benefits' ? 'salary' : matchCluster);
         } else {
-          setCurrentTab('recruit');
+          setCurrentTab('notfound');
         }
       }
     };
@@ -136,6 +140,8 @@ export default function App() {
       navigateTo('recruit', '/');
     } else if (tab === 'about') {
       navigateTo('about', '/about');
+    } else if (tab === 'policy') {
+      navigateTo('policy', '/policy');
     } else if (tab === 'compare') {
       navigateTo('compare', '/compare');
     } else if (tab === 'workstyle') {
@@ -153,6 +159,8 @@ export default function App() {
     } else if (tab === 'cluster') {
       const topic = selectedTopicId === 'benefits' ? 'salary' : selectedTopicId;
       navigateTo('cluster', `/${topic}`);
+    } else if (tab === 'notfound') {
+      navigateTo('notfound', window.location.pathname);
     }
   };
 
@@ -220,13 +228,55 @@ export default function App() {
     }, 150);
   };
 
-  // Currently viewing blog article
+  // Lazy-loaded full article body cache
+  const [loadedFullArticle, setLoadedFullArticle] = useState<BlogArticle | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    if (currentTab === 'blog' && selectedBlogSlug) {
+      loadFullBlogArticle(selectedBlogSlug)
+        .then((full) => {
+          if (active) setLoadedFullArticle(full || null);
+        })
+        .catch(() => {
+          if (active) setLoadedFullArticle(null);
+        });
+    } else {
+      setLoadedFullArticle(null);
+    }
+    return () => {
+      active = false;
+    };
+  }, [currentTab, selectedBlogSlug]);
+
+  // Currently viewing blog article (merges instant summary index with lazy full content)
   const currentArticle = useMemo(() => {
     if (currentTab === 'blog' && selectedBlogSlug) {
+      if (loadedFullArticle && loadedFullArticle.slug === selectedBlogSlug) {
+        return loadedFullArticle;
+      }
       return BLOG_ARTICLES.find((a) => a.slug === selectedBlogSlug) || null;
     }
     return null;
-  }, [currentTab, selectedBlogSlug]);
+  }, [currentTab, selectedBlogSlug, loadedFullArticle]);
+
+  const relatedWorkstyleSlug = useMemo(() => {
+    if (!currentArticle) return 'inexperienced';
+    const mapping: Record<string, string> = {
+      salary: 'high-income',
+      beginner: 'inexperienced',
+      safety: 'privacy',
+      dorm: 'dormitory',
+      job: 'inexperienced',
+      workstyle: 'weekly-1',
+      experienced: 'high-income',
+      shops: 'consultation',
+      interview: 'female-staff',
+      beauty: 'inexperienced',
+      faq: 'consultation'
+    };
+    return mapping[currentArticle.category] || 'inexperienced';
+  }, [currentArticle]);
 
   // Contextual primary topic cluster for internal cross-linking
   const relatedClusterTopic = useMemo(() => {
@@ -342,6 +392,20 @@ export default function App() {
         description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答しました。店先顔見せなし、未経験率90%、給与・日払い、面接内容まで詳しく解説。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
         ogType: 'article'
+      });
+    } else if (currentTab === 'admin') {
+      updatePageSeo({
+        title: '管理者画面｜信太山ガールズ',
+        description: '信太山ガールズ管理用ページ',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/admin',
+        robots: 'noindex, nofollow'
+      });
+    } else if (currentTab === 'notfound') {
+      updatePageSeo({
+        title: 'ページが見つかりません（404）｜信太山ガールズ',
+        description: 'お探しのページは移動または削除された可能性があります。信太山新地求人公式サイトの主要ガイドからご覧ください。',
+        canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${window.location.pathname}`,
+        robots: 'noindex, nofollow'
       });
     }
   }, [currentTab, currentArticle]);
@@ -500,9 +564,10 @@ export default function App() {
             </div>
           }
         >
-          {/* About Page View */}
-          {currentTab === 'about' && (
+          {/* About / Policy Page View */}
+          {(currentTab === 'about' || currentTab === 'policy') && (
             <AboutPage
+              mode={currentTab === 'policy' ? 'policy' : 'about'}
               onNavigateHome={() => navigateTo('recruit', '/')}
               onNavigateBlog={() => handleNavigateBlog()}
               onCtaclick={handleCtaclick}
@@ -580,6 +645,40 @@ export default function App() {
             />
           )}
         </Suspense>
+
+        {/* 404 Not Found View (prevents Soft 404 indexing) */}
+        {currentTab === 'notfound' && (
+          <div className="bg-surface min-h-[70vh] py-16 px-4 flex items-center justify-center">
+            <div className="max-w-xl w-full bg-white rounded-3xl p-8 sm:p-10 border border-rose-100 shadow-sm text-center">
+              <div className="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4">
+                <LucideIcon name="AlertCircle" size={28} />
+              </div>
+              <p className="text-xs font-mono font-bold text-rose-500 tracking-widest mb-1">404 NOT FOUND</p>
+              <h1 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 mb-3">
+                お探しのページが見つかりません
+              </h1>
+              <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-6">
+                URLが変更されたか、ページが削除された可能性があります。下記の公式メニューから目的の情報をご覧ください。
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-bold mb-6">
+                <a href="/" onClick={(e) => { e.preventDefault(); navigateTo('recruit', '/'); }} className="p-3 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 transition-colors">トップページ</a>
+                <a href="/job" onClick={(e) => { e.preventDefault(); handleNavigateTopic('job'); }} className="p-3 rounded-xl bg-zinc-50 text-zinc-700 hover:bg-rose-50 transition-colors">仕事内容</a>
+                <a href="/salary" onClick={(e) => { e.preventDefault(); handleNavigateTopic('salary'); }} className="p-3 rounded-xl bg-zinc-50 text-zinc-700 hover:bg-rose-50 transition-colors">給料・待遇</a>
+                <a href="/types" onClick={(e) => { e.preventDefault(); handleNavigateWorkstyles(); }} className="p-3 rounded-xl bg-zinc-50 text-zinc-700 hover:bg-rose-50 transition-colors">働き方ガイド</a>
+                <a href="/compare" onClick={(e) => { e.preventDefault(); handleNavigateCompare(); }} className="p-3 rounded-xl bg-zinc-50 text-zinc-700 hover:bg-rose-50 transition-colors">徹底比較ガイド</a>
+                <a href="/faq" onClick={(e) => { e.preventDefault(); handleNavigateFaq(); }} className="p-3 rounded-xl bg-zinc-50 text-zinc-700 hover:bg-rose-50 transition-colors">よくある質問</a>
+              </div>
+              <a
+                href="/blog"
+                onClick={(e) => { e.preventDefault(); handleNavigateBlog(); }}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 hover:underline"
+              >
+                <LucideIcon name="BookOpen" size={14} />
+                <span>お仕事コラム一覧を見る</span>
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* Blog / Column View */}
         {currentTab === 'blog' && (
@@ -750,7 +849,13 @@ export default function App() {
                       </section>
                     )}
 
-                    {/* Article Body Content */}
+                    {/* Article Body Content (lazy-loaded full article body) */}
+                    {!currentArticle.content && (
+                      <div className="py-10 flex items-center justify-center gap-2 text-xs text-zinc-400">
+                        <div className="w-4 h-4 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+                        <span>記事本文を読み込み中...</span>
+                      </div>
+                    )}
                     {Array.isArray(currentArticle.content) && (
                       <div className="article-body-content space-y-2">
                         {currentArticle.content.map((block: any, idx: number) => {
@@ -898,6 +1003,10 @@ export default function App() {
                       <img
                         src="/images/shinodayama_cast_ayaka_1792486845624.webp"
                         alt="あおい（信太山新地 専任女性採用担当・相談役）"
+                        width={64}
+                        height={64}
+                        loading="lazy"
+                        decoding="async"
                         className="w-16 h-16 rounded-2xl object-cover shrink-0 border-2 border-white shadow-xs"
                       />
                       <div className="flex-1 text-center sm:text-left">
@@ -925,6 +1034,49 @@ export default function App() {
                             店先顔見せなし・完全個室待機公認
                           </span>
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Contextual Internal Links to Core Guides (/types, /compare, topic cluster) */}
+                    <div className="mt-8 p-5 rounded-2xl bg-rose-50/40 border border-rose-100">
+                      <p className="text-xs font-extrabold text-rose-800 mb-3 flex items-center gap-1.5">
+                        <LucideIcon name="Compass" size={14} className="text-rose-600" />
+                        <span>あわせて読みたい公式専門ガイド</span>
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-bold">
+                        <a
+                          href={`/types/${relatedWorkstyleSlug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateWorkstyles(relatedWorkstyleSlug);
+                          }}
+                          className="p-3 rounded-xl bg-white border border-rose-100 hover:border-rose-300 text-zinc-800 hover:text-rose-600 transition-colors flex items-center justify-between gap-2"
+                        >
+                          <span>タイプ別の働き方を見る</span>
+                          <LucideIcon name="ChevronRight" size={13} className="text-rose-400 shrink-0" />
+                        </a>
+                        <a
+                          href="/compare"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateCompare();
+                          }}
+                          className="p-3 rounded-xl bg-white border border-rose-100 hover:border-rose-300 text-zinc-800 hover:text-rose-600 transition-colors flex items-center justify-between gap-2"
+                        >
+                          <span>他業種との徹底比較を見る</span>
+                          <LucideIcon name="ChevronRight" size={13} className="text-rose-400 shrink-0" />
+                        </a>
+                        <a
+                          href={`/${relatedClusterTopic}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateTopic(relatedClusterTopic);
+                          }}
+                          className="p-3 rounded-xl bg-white border border-rose-100 hover:border-rose-300 text-zinc-800 hover:text-rose-600 transition-colors flex items-center justify-between gap-2"
+                        >
+                          <span>{TOPIC_CLUSTERS[relatedClusterTopic]?.title || '公式ガイド'}を見る</span>
+                          <LucideIcon name="ChevronRight" size={13} className="text-rose-400 shrink-0" />
+                        </a>
                       </div>
                     </div>
 

@@ -10,11 +10,13 @@ export interface SeoConfig {
   ogImage?: string;
   ogType?: 'website' | 'article';
   publishedTime?: string;
+  robots?: string;
   jsonLd?: object | object[];
 }
 
 export const BASE_SITE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
 export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/shinodayama_hero_banner_1792225964954.jpg`;
+const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 /**
  * Dynamically updates document metadata for SEO and Generative AI (LLMO) crawlers
@@ -37,12 +39,13 @@ export function updatePageSeo(config: SeoConfig) {
 
   // 2. Standard Meta
   setMeta('name', 'description', config.description);
-  setMeta('name', 'robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+  setMeta('name', 'robots', config.robots || DEFAULT_ROBOTS);
 
   // 3. OpenGraph Meta
   setMeta('property', 'og:title', config.title);
   setMeta('property', 'og:description', config.description);
   setMeta('property', 'og:type', config.ogType || 'website');
+  setMeta('property', 'og:locale', 'ja_JP');
   setMeta('property', 'og:site_name', '信太山ガールズ（信太山新地 旅館直営公式求人）');
 
   const canonical = config.canonicalUrl || (window.location.origin + window.location.pathname);
@@ -68,17 +71,21 @@ export function updatePageSeo(config: SeoConfig) {
   }
   canonicalLink.setAttribute('href', canonical);
 
-  // 6. Dynamic JSON-LD Structured Data
-  const DYNAMIC_SCHEMA_ID = 'dynamic-page-seo-schema';
-  const existing = document.getElementById(DYNAMIC_SCHEMA_ID);
-  if (existing) {
-    existing.remove();
+  // 6. Clean up stale route schemas during SPA navigation & inject updated JSON-LD
+  const isHomeRoute = canonical === `${BASE_SITE_URL}/` || canonical === BASE_SITE_URL;
+  const STALE_IDS = ['dynamic-page-seo-schema', 'prerender-breadcrumb-schema', 'prerender-entity-schema'];
+  if (!isHomeRoute) {
+    STALE_IDS.push('root-structured-data');
+  }
+  for (const id of STALE_IDS) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
   }
 
   if (config.jsonLd) {
     try {
       const script = document.createElement('script');
-      script.id = DYNAMIC_SCHEMA_ID;
+      script.id = 'dynamic-page-seo-schema';
       script.type = 'application/ld+json';
       script.text = JSON.stringify(config.jsonLd);
       document.head.appendChild(script);

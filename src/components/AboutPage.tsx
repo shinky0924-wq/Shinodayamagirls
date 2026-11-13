@@ -7,43 +7,71 @@ interface AboutPageProps {
   onNavigateHome: () => void;
   onNavigateBlog: () => void;
   onCtaclick: () => void;
+  mode?: 'about' | 'policy';
 }
 
-export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick }: AboutPageProps) {
+export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, mode = 'about' }: AboutPageProps) {
   const siteContent = getStoredSiteContent();
   const lastUpdated = getEffectiveLastUpdated(siteContent.lastUpdated);
+  const isPolicy = mode === 'policy';
 
   useEffect(() => {
-    updatePageSeo({
-      title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
-      description: '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報、グループ店舗概要、所在地、採用責任者、所属団体（信太山新地旅館組合）、事業内容、コンプライアンス就労憲章、個人情報保護規程を明示しています。',
-      canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
-      ogType: 'website',
-      jsonLd: {
-        '@context': 'https://schema.org',
-        '@type': 'AboutPage',
-        'name': '運営者情報・店舗概要',
-        'description': '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
-        'url': 'https://osaka-shinodayamashinchi-recruit.com/about'
-      }
-    });
-  }, []);
+    updatePageSeo(
+      isPolicy
+        ? {
+            title: '求人情報掲載ポリシー・安全規約・個人情報保護｜信太山ガールズ公式',
+            description: '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内します。',
+            canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/policy',
+            ogType: 'website',
+            jsonLd: {
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              'name': '求人情報掲載ポリシー・安全規約・個人情報保護方針',
+              'description': '信太山ガールズの求人掲載基準、コンプライアンス就労憲章、個人情報保護方針',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/policy'
+            }
+          }
+        : {
+            title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
+            description: '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報、グループ店舗概要、所在地、採用責任者、所属団体（信太山新地旅館組合）、事業内容、コンプライアンス就労憲章、個人情報保護規程を明示しています。',
+            canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
+            ogType: 'website',
+            jsonLd: {
+              '@context': 'https://schema.org',
+              '@type': 'AboutPage',
+              'name': '運営者情報・店舗概要',
+              'description': '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/about'
+            }
+          }
+    );
+  }, [isPolicy]);
 
   return (
     <div className="min-h-screen bg-surface py-8 sm:py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-zinc-500 mb-6">
-          <button 
-            onClick={onNavigateHome}
-            className="hover:text-rose-600 transition-colors flex items-center gap-1 cursor-pointer"
-          >
-            <LucideIcon name="Home" size={13} />
-            <span>ホーム</span>
-          </button>
-          <span>/</span>
-          <span className="text-zinc-800 font-bold">運営者情報・店舗概要</span>
-        </div>
+        <nav aria-label="Breadcrumb" className="mb-6 text-xs text-zinc-500">
+          <ol className="flex items-center gap-2">
+            <li>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
+                className="hover:text-rose-600 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <LucideIcon name="Home" size={13} />
+                <span>ホーム</span>
+              </a>
+            </li>
+            <li>/</li>
+            <li className="text-zinc-800 font-bold">
+              {isPolicy ? '掲載ポリシー・安全規約・個人情報保護' : '運営者情報・店舗概要'}
+            </li>
+          </ol>
+        </nav>
 
         {/* Hero Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-sm mb-8">
@@ -59,7 +87,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick }
           </div>
 
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-zinc-900 leading-tight mb-4 font-display">
-            運営者情報・グループ店舗概要
+            {isPolicy ? '求人情報掲載ポリシー・安全規約・個人情報保護方針' : '運営者情報・グループ店舗概要'}
           </h1>
 
           <p className="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">

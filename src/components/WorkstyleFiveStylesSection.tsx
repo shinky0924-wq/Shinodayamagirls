@@ -72,7 +72,7 @@ export default function WorkstyleFiveStylesSection({
       hours: '授業のない時間・休日など',
       days: '週1〜2日（モデル例）',
       desc: '学校やプライベートの予定を優先したい女性におすすめ。試験期間や長期休暇などの予定も考慮しながら、無理のない働き方を相談できます。',
-      image: '/images/col_student_study_jp_1792476715495.webp',
+      image: '/images/col_weekend_planner_1792475629264.webp',
       imageAlt: 'ノートや勉強に取り組む日本人女性イメージ',
       badge: '学業・予定優先',
       icon: 'GraduationCap',
@@ -137,6 +137,9 @@ export default function WorkstyleFiveStylesSection({
                     <img
                       src={item.image}
                       alt={item.imageAlt}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
@@ -194,6 +197,9 @@ export default function WorkstyleFiveStylesSection({
                     <img
                       src={item.image}
                       alt={item.imageAlt}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />

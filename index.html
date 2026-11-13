@@ -20,13 +20,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="format-detection" content="telephone=no" />
     
-    <!-- Preconnect for Google Fonts to prevent font flickering -->
+    <!-- Preload hero LCP WebP image & async Google Fonts loading -->
+    <link rel="preload" as="image" href="/images/shinodayama_hero_banner_1792225964954.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet" /></noscript>
     
-    <!-- Google Structured Data (JSON-LD) for JobPosting, WebSite, Organization, BreadcrumbList & FAQPage -->
-    <script type="application/ld+json">
+    <!-- Google Structured Data (JSON-LD) for LocalBusiness, JobPosting, WebSite, Organization, BreadcrumbList & FAQPage -->
+    <script id="root-structured-data" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -67,6 +69,42 @@
               "availableLanguage": ["Japanese"]
             }
           }
+        },
+        {
+          "@type": "LodgingBusiness",
+          "@id": "https://osaka-shinodayamashinchi-recruit.com/#localbusiness",
+          "name": "信太山ガールズ（信太山新地 老舗旅館直営グループ）",
+          "url": "https://osaka-shinodayamashinchi-recruit.com/",
+          "image": "https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_hero_banner_1792225964954.jpg",
+          "description": "大阪府和泉市・JR阪和線「信太山駅」徒歩5分の信太山新地旅館街における老舗旅館直営の女性向け公式求人・採用窓口。店先顔見せなし・完全個室待機。",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "幸二丁目（信太山新地 旅館街）",
+            "addressLocality": "和泉市",
+            "addressRegion": "大阪府",
+            "postalCode": "594-0003",
+            "addressCountry": "JP"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 34.4984,
+            "longitude": 135.4371
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "和泉市"
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "11:00",
+              "closes": "24:00"
+            }
+          ],
+          "sameAs": [
+            "https://lin.ee/phFZoea"
+          ]
         },
         {
           "@type": "JobPosting",
@@ -385,6 +423,7 @@
     <meta property="og:title" content="信太山新地求人・信太山求人【公式】未経験歓迎・顔出しなし｜信太山ガールズ" />
     <meta property="og:description" content="【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース・即日全額日払い。仕事内容・給料・寮・身バレ対策を詳しくご案内します。" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:url" content="https://osaka-shinodayamashinchi-recruit.com/" />
     <meta property="og:site_name" content="信太山ガールズ" />
     <meta property="og:image" content="https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_hero_banner_1792225964954.jpg" />

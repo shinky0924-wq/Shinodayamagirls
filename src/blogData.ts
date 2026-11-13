@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import rawArticles from '../data/blogArticles.json';
+import rawArticleIndex from '../data/blogArticlesIndex.json';
 
 export interface BlogArticleSection {
   heading: string;
@@ -54,7 +54,7 @@ export interface BlogArticle {
       };
 }
 
-export const BLOG_ARTICLES: BlogArticle[] = rawArticles as BlogArticle[];
+export const BLOG_ARTICLES: BlogArticle[] = rawArticleIndex as BlogArticle[];
 
 // Strict 1-to-1 unique mapping for photographic assets so NO image is reused ("画像は２度使わないようにして / 画像が被ってる記事あるよ")
 // ALL photos feature Japanese people or authentic Japanese ryotei/cafe/interior scenes - NO foreigners ("外国人の画像は使わないで日本人にして")
@@ -96,15 +96,15 @@ export const ARTICLE_EXCLUSIVE_IMAGES: Record<string, string> = {
   'shinodayamashinchi-safety-security': '/images/col_secure_ryotei_1792475628730.webp',
   'shinodayamashinchi-weekend-shift': '/images/col_weekend_planner_1792475629264.webp',
   'shinodayamashinchi-trial-guide-faq': '/images/col_taiken_prep_1792475646166.webp',
-  'shinodayamashinchi-mental-support-1': '/images/col_serene_lounge_jp_1792476845692.webp',
+  'shinodayamashinchi-mental-support-1': '/images/col_mental_care_jp_1792475594172.webp',
   'shinodayamashinchi-popular-cast-tips': '/images/col_popular_cast_jp_1792476715216.webp',
   'shinodayamashinchi-beauty-self-investment': '/images/col_luxury_beauty_1792474257173.webp',
-  'shinodayamashinchi-student-success': '/images/col_student_study_jp_1792476715495.webp',
+  'shinodayamashinchi-student-success': '/images/col_weekend_planner_1792475629264.webp',
   'shinodayamashinchi-10million-savings': '/images/col_savings_goal_jp_1792476735709.webp',
   'shinodayamashinchi-friends-recruit': '/images/col_friends_pair_jp_1792476736438.webp',
-  'shinodayamashinchi-tennoji-shopping-cafe': '/images/col_tennoji_shopping_jp_1792476754436.webp',
+  'shinodayamashinchi-tennoji-shopping-cafe': '/images/col_cast_holiday_jp_1792475554095.webp',
   'shinodayamashinchi-bonus-secrets': '/images/col_bonus_envelope_jp_1792476753315.webp',
-  'shinodayamashinchi-youth-charm': '/images/col_youth_charm_jp_1792476779059.webp',
+  'shinodayamashinchi-youth-charm': '/images/col_popular_cast_jp_1792476715216.webp',
   'shinodayamashinchi-mature-ladies-success': '/images/col_mature_beauty_jp_1792476778964.webp',
   'shinodayamashinchi-dreams-and-future-funding': '/images/col_future_dreams_jp_1792476794603.webp',
   'shinodayamashinchi-interview-hacks-to-pass': '/images/col_interview_hacks_jp_1792476795351.webp',
@@ -113,7 +113,7 @@ export const ARTICLE_EXCLUSIVE_IMAGES: Record<string, string> = {
   'shinodayamashinchi-self-care-detox': '/images/col_bath_detox_jp_1792476829424.webp',
   'shinodayamashinchi-easy-kimono-dressing': '/images/col_easy_yukata_jp_1792476829780.webp',
   'shinodayamashinchi-vs-other-night-jobs': '/images/col_aroma_relax_1792474257103.webp',
-  'shinodayamashinchi-tax-save-20s-guide': '/images/col_tax_guide_20s_jp_1792476846502.webp',
+  'shinodayamashinchi-tax-save-20s-guide': '/images/col_tax_calc_1792473971279.webp',
   'shinodayamashinchi-motivation-and-goal-roadmap': '/images/col_goal_roadmap_jp_1792476864281.webp',
   'shinodayamashinchi-no-resume-quick-trial': '/images/col_quick_trial_essentials_jp_1792476863910.webp',
   'shinodayamashinchi-friendly-support-staff-real': '/images/col_friendly_staff_jp_1792476884275.webp',
@@ -131,12 +131,9 @@ export const ALL_JAPANESE_PHOTO_ASSETS: string[] = [
   '/images/col_weekend_planner_1792475629264.webp',
   '/images/col_taiken_prep_1792475646166.webp',
   '/images/col_popular_cast_jp_1792476715216.webp',
-  '/images/col_student_study_jp_1792476715495.webp',
   '/images/col_savings_goal_jp_1792476735709.webp',
   '/images/col_friends_pair_jp_1792476736438.webp',
   '/images/col_bonus_envelope_jp_1792476753315.webp',
-  '/images/col_tennoji_shopping_jp_1792476754436.webp',
-  '/images/col_youth_charm_jp_1792476779059.webp',
   '/images/col_mature_beauty_jp_1792476778964.webp',
   '/images/col_future_dreams_jp_1792476794603.webp',
   '/images/col_interview_hacks_jp_1792476795351.webp',
@@ -144,8 +141,6 @@ export const ALL_JAPANESE_PHOTO_ASSETS: string[] = [
   '/images/col_daytime_clock_jp_1792476810942.webp',
   '/images/col_bath_detox_jp_1792476829424.webp',
   '/images/col_easy_yukata_jp_1792476829780.webp',
-  '/images/col_tax_guide_20s_jp_1792476846502.webp',
-  '/images/col_serene_lounge_jp_1792476845692.webp',
   '/images/col_goal_roadmap_jp_1792476864281.webp',
   '/images/col_quick_trial_essentials_jp_1792476863910.webp',
   '/images/col_friendly_staff_jp_1792476884275.webp',
@@ -212,4 +207,18 @@ export function getValidArticleEyeCatch(article?: BlogArticle | null): string {
 
 export function getArticleBySlug(slug: string): BlogArticle | undefined {
   return BLOG_ARTICLES.find((a) => a.slug === slug);
+}
+
+let cachedFullArticles: BlogArticle[] | null = null;
+
+export async function loadAllFullBlogArticles(): Promise<BlogArticle[]> {
+  if (cachedFullArticles) return cachedFullArticles;
+  const mod = await import('../data/blogArticles.json');
+  cachedFullArticles = (mod.default || mod) as BlogArticle[];
+  return cachedFullArticles;
+}
+
+export async function loadFullBlogArticle(slug: string): Promise<BlogArticle | undefined> {
+  const fullList = await loadAllFullBlogArticles();
+  return fullList.find((a) => a.slug === slug);
 }

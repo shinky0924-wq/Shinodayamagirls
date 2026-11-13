@@ -160,6 +160,9 @@ export default function DormPageContent({
               <img
                 src="/images/dorm_main_studio_1794374510330.webp"
                 alt="信太山駅近辺の寮の室内環境（生活に必要なベッド・テーブル・収納を備えた清潔な個室）"
+                width={1200}
+                height={896}
+                decoding="async"
                 className="w-full h-full object-cover"
                 loading="eager"
               />
@@ -327,6 +330,9 @@ export default function DormPageContent({
                 <img
                   src={room.img}
                   alt={room.title}
+                  width={1200}
+                  height={896}
+                  decoding="async"
                   className="w-full h-full object-cover hover:scale-103 transition-transform duration-300"
                   loading="lazy"
                 />
@@ -373,6 +379,9 @@ export default function DormPageContent({
                 <img
                   src="/images/relocation_suitcase_travel_1794374512087.webp"
                   alt="遠方からの出稼ぎ・荷造りの様子"
+                  width={1200}
+                  height={896}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />

@@ -307,12 +307,16 @@ export default function TopicClusterPage({
     };
 
     const canonicalPath = data.id === 'benefits' ? '/salary' : data.path;
+    const isBenefitsAlias =
+      data.id === 'benefits' ||
+      (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/benefits');
     updatePageSeo({
       title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド【信太山ガールズ】`,
       description: data.metaDescription || `${data.overview} 信太山新地の旅館直営公式求人情報。店先顔見せなし・完全個室待機・即日全額日払い。`,
       canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${canonicalPath}`,
       ogImage: data.heroImage || visualAsset.secondaryImage,
       ogType: 'article',
+      robots: isBenefitsAlias ? 'noindex, follow' : undefined,
       jsonLd: schemaData
     });
   }, [data, visualAsset]);
@@ -698,6 +702,8 @@ export default function TopicClusterPage({
                   <img
                     src={data.heroImage || visualAsset.secondaryImage}
                     alt={data.title}
+                    width={1200}
+                    height={670}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="eager"
                     decoding="async"
@@ -764,6 +770,9 @@ export default function TopicClusterPage({
               <img
                 src="/images/shinodayama_advisor_sakura_1792225964799.webp"
                 alt="女性アドバイザー あおい（元信太山新地キャスト）"
+                width={80}
+                height={80}
+                decoding="async"
                 className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-rose-300 shadow-md mx-auto"
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
@@ -822,6 +831,8 @@ export default function TopicClusterPage({
               <img
                 src={visualAsset.secondaryImage}
                 alt={visualAsset.imageCaption}
+                width={1200}
+                height={670}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
@@ -1150,6 +1161,8 @@ export default function TopicClusterPage({
                       <img
                         src={art.eyeCatch || '/images/shinodayama_hero_banner_1792225964954.webp'}
                         alt={art.title}
+                        width={1200}
+                        height={670}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         decoding="async"
@@ -1256,6 +1269,10 @@ export default function TopicClusterPage({
             <img
               src="/images/shinodayama_advisor_sakura_1792225964799.webp"
               alt="店舗採用担当 あおい"
+              width={80}
+              height={80}
+              loading="lazy"
+              decoding="async"
               className="w-20 h-20 rounded-full object-cover border-2 border-rose-300 shadow-md shrink-0"
               referrerPolicy="no-referrer"
               onError={(e) => {

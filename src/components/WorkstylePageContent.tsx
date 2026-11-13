@@ -79,7 +79,7 @@ export default function WorkstylePageContent({
       hours: '授業のない時間・休日など',
       days: '週1〜2日',
       desc: '学校やプライベートの予定を優先したい女性におすすめ。試験期間や長期休暇などの予定も考慮しながら、出勤について相談できる働き方です。',
-      image: '/images/col_student_study_jp_1792476715495.webp',
+      image: '/images/col_weekend_planner_1792475629264.webp',
       imageAlt: 'ノートや勉強に取り組む日本人女性イメージ',
       badge: '学業・予定優先',
     },
@@ -200,6 +200,9 @@ export default function WorkstylePageContent({
             <img
               src="/images/shinodayama_advisor_sakura_1792225964799.webp"
               alt="女性相談窓口 あおいスタッフ"
+              width={144}
+              height={144}
+              decoding="async"
               className="w-full h-full object-cover"
               loading="lazy"
             />
@@ -263,6 +266,9 @@ export default function WorkstylePageContent({
                     <img
                       src={item.image}
                       alt={item.imageAlt}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
@@ -320,6 +326,9 @@ export default function WorkstylePageContent({
                     <img
                       src={item.image}
                       alt={item.imageAlt}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
@@ -558,6 +567,9 @@ export default function WorkstylePageContent({
                   <img
                     src={item.img}
                     alt={item.title}
+                    width={1200}
+                    height={670}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />

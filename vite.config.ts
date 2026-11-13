@@ -34,8 +34,11 @@ export default defineConfig(() => {
               }
               return 'vendor';
             }
+            if (id.includes('blogArticlesIndex.json')) {
+              return 'data-articles-index';
+            }
             if (id.includes('blogArticles.json')) {
-              return 'data-articles';
+              return 'data-articles-full';
             }
             if (id.includes('topicClusters.json') || id.includes('faq11CategoriesData')) {
               return 'data-guides';

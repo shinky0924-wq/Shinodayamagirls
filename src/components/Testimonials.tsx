@@ -347,6 +347,8 @@ export default function Testimonials({ onCtaclick }: TestimonialsProps) {
                     <img 
                       src={cast.avatarUrl} 
                       alt={`${cast.name}さん (${cast.age})`} 
+                      width={1200}
+                      height={896}
                       className="w-full h-full object-cover object-center"
                       loading="lazy"
                       decoding="async"

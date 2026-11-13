@@ -424,8 +424,11 @@ export default function BeginnerPageContent({
             <div>
               <div className="flex items-center gap-3 mb-3 pb-3 border-b border-[#F0DDE4]">
                 <img
-                  src="/images/cast_mai_card_1792227181512.webp"
+                  src="/images/shinodayama_cast_mai_1792225964470.webp"
                   alt="まいさん"
+                  width={48}
+                  height={48}
+                  decoding="async"
                   className="w-12 h-12 rounded-full object-cover border border-[#F0DDE4] shadow-2xs"
                   loading="lazy"
                 />
@@ -452,8 +455,11 @@ export default function BeginnerPageContent({
             <div>
               <div className="flex items-center gap-3 mb-3 pb-3 border-b border-[#F0DDE4]">
                 <img
-                  src="/images/cast_ayaka_card_1792227230489.webp"
+                  src="/images/shinodayama_cast_ayaka_1792486845624.webp"
                   alt="あやかさん"
+                  width={48}
+                  height={48}
+                  decoding="async"
                   className="w-12 h-12 rounded-full object-cover border border-[#F0DDE4] shadow-2xs"
                   loading="lazy"
                 />
@@ -579,7 +585,7 @@ export default function BeginnerPageContent({
               title: '女性インタビュー',
               desc: '実際に働く女性のリアルな声',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.webp'
+              img: '/images/cast_mai_snap_1794475286956.webp'
             }
           ].map((item, idx) => (
             <div
@@ -592,6 +598,9 @@ export default function BeginnerPageContent({
                   <img
                     src={item.img}
                     alt={item.title}
+                    width={1200}
+                    height={670}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />

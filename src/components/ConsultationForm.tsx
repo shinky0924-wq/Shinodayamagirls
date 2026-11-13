@@ -55,6 +55,8 @@ export default function ConsultationForm({ content, initialMessage, onClearIniti
         <img 
           src={HERO_IMAGE_URL} 
           alt="信太山ガールズ 求人案内背景" 
+          width={1200}
+          height={670}
           className="w-full h-full object-cover opacity-15"
           loading="lazy"
           decoding="async"

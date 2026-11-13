@@ -84,11 +84,17 @@ export default function ComparisonPage({
       ? `https://osaka-shinodayamashinchi-recruit.com/types/${activeType.slug}`
       : 'https://osaka-shinodayamashinchi-recruit.com/types';
 
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+    const isAliasPath =
+      pathname.startsWith('/compare/') ||
+      ['double-work', 'age-20s', 'age-30s'].includes(initialCategorySlug || '');
+
     updatePageSeo({
       title,
       description,
       canonicalUrl,
-      ogType: 'website'
+      ogType: 'website',
+      robots: isAliasPath ? 'noindex, follow' : undefined
     });
   }, [activeType, initialCategorySlug]);
 
@@ -234,6 +240,9 @@ export default function ComparisonPage({
               <img
                 src={HERO_ILLUSTRATION_URL}
                 alt="スマートフォンで求人情報を見ながら、自分に合った働き方を探している女性のイラスト"
+                width={1200}
+                height={896}
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={() => setHeroImageError(true)}
                 className="w-full h-auto aspect-[4/3] object-cover block"

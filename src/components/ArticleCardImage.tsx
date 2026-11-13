@@ -231,6 +231,8 @@ export function ArticleCardImage({
         <img
           src={effectiveSrc}
           alt={alt || title}
+          width={1200}
+          height={670}
           loading="lazy"
           decoding="async"
           referrerPolicy="no-referrer"
@@ -251,6 +253,8 @@ export function ArticleCardImage({
       <img
         src={effectiveSrc}
         alt={alt || title}
+        width={1200}
+        height={670}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"

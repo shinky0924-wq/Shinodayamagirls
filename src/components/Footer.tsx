@@ -9,7 +9,7 @@ import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
 
 interface FooterProps {
   currentTab: string;
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview') => void;
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview') => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAdmin: () => void;
   onNavigateCompare?: (categorySlug?: string) => void;
@@ -241,10 +241,10 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
 
           {/* Col 2: Navigation Links */}
           <div className="space-y-4">
-            <h5 className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
+            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
               <LucideIcon name="Layers" size={15} className="text-secondary" />
               <span>サイト内リンク</span>
-            </h5>
+            </p>
             <ul className="space-y-2 font-sans text-xs md:text-sm">
               {navLinks.map((link) => (
                 <li key={link.name}>
@@ -262,7 +262,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
 
           {/* Col 3: タイプ別の働き方ガイド */}
           <div className="space-y-4">
-            <h5 className="font-display font-bold text-on-surface text-sm uppercase tracking-wider">
+            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider">
               <a
                 href="/types"
                 onClick={(e) => handleCategoryLinkClick(e)}
@@ -273,7 +273,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
                 <span className="group-hover:underline">タイプ別の働き方</span>
                 <LucideIcon name="ChevronRight" size={13} className="text-zinc-400 group-hover:text-secondary transition-transform group-hover:translate-x-0.5" />
               </a>
-            </h5>
+            </p>
             <ul className="space-y-2 font-sans text-xs md:text-sm">
               {targetCategoryLinks.map((cat) => (
                 <li key={cat.name}>
@@ -292,10 +292,10 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
 
           {/* Col 4: E-E-A-T & Editorial / Compliance Info */}
           <div className="space-y-4">
-            <h5 className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
+            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
               <LucideIcon name="ShieldCheck" size={15} className="text-secondary" />
               <span>求人掲載基準・運営方針</span>
-            </h5>
+            </p>
             <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
               当サイト「信太山ガールズ」は、外部の紹介所や仲介業者ではなく、信太山新地の老舗旅館が直接運営する公式求人窓口です。店先での顔見せがなく、完全個室待機でプライバシー保護を徹底。信太山新地の当店では15分単位の高単価設定、即日全額手渡し日払い、家具家電付き個室寮完備、毎月20日の一斉定休日など、女性が安心して高収入を稼げる環境を整えております。ぜひ信太山新地の当店へご応募ください。
             </p>
@@ -312,13 +312,18 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
                 <LucideIcon name="ShieldCheck" size={13} />
                 <span>運営者情報・店舗体制</span>
               </a>
-              <button
-                onClick={() => setActiveModal('policy')}
+              <a
+                href="/policy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onChangeTab('policy');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className="text-left text-secondary font-bold hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <LucideIcon name="FileCheck" size={13} />
-                <span>求人情報掲載ポリシーと安全規約（要約）</span>
-              </button>
+                <span>求人情報掲載ポリシーと安全規約</span>
+              </a>
             </div>
           </div>
 
@@ -328,9 +333,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
         <div className="py-6 border-t border-rose-100/60 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <LucideIcon name="Compass" size={15} className="text-secondary" />
-            <h5 className="font-display font-bold text-on-surface text-xs uppercase tracking-wider">
+            <p className="font-display font-bold text-on-surface text-xs uppercase tracking-wider">
               信太山新地求人 テーマ別お役立ちガイド（全13テーマ）
-            </h5>
+            </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 text-xs">
             {[

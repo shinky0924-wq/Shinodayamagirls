@@ -437,6 +437,8 @@ export default function RecruitHub({
                   <img
                     src={topic.image}
                     alt={`${topic.shortTitle}の解説イメージ - ${topic.title}`}
+                    width={1200}
+                    height={670}
                     className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                     decoding="async"

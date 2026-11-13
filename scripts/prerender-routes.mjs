@@ -9,6 +9,7 @@ const distDir = path.join(rootDir, 'dist');
 
 const BASE_DOMAIN = 'https://osaka-shinodayamashinchi-recruit.com';
 const DEFAULT_IMAGE = `${BASE_DOMAIN}/images/shinodayama_hero_banner_1792225964954.jpg`;
+const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 function escapeHtml(str = '') {
   return String(str)
@@ -48,10 +49,68 @@ function extractFaqQuestionsFromTs(filePath) {
   return results;
 }
 
+function extractWorkstyleDetailsFromTs(filePath) {
+  if (!fs.existsSync(filePath)) return {};
+  const src = fs.readFileSync(filePath, 'utf8');
+  const map = {};
+  const slugBlocks = src.split(/slug:\s*['"]([a-z0-9-]+)['"]/).slice(1);
+  for (let i = 0; i < slugBlocks.length; i += 2) {
+    const slug = slugBlocks[i];
+    const block = slugBlocks[i + 1] || '';
+    const leadMatch = block.match(/lead:\s*['"]([\s\S]*?)['"]/);
+    const suitableMatches = [...block.matchAll(/suitableFor:\s*\[([\s\S]*?)\]/g)]
+      .flatMap((m) => [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]))
+      .slice(0, 4);
+    const topicMatches = [...block.matchAll(/title:\s*['"]([^'"]+)['"]\s*,\s*description:\s*['"]([^'"]+)['"]/g)]
+      .map((m) => ({ title: m[1], description: m[2] }))
+      .slice(0, 5);
+    map[slug] = {
+      lead: leadMatch ? leadMatch[1] : '',
+      suitableFor: suitableMatches,
+      topics: topicMatches
+    };
+  }
+  return map;
+}
+
 function buildSsrRootShell(routeMeta) {
   const heading = escapeHtml(routeMeta.heading || routeMeta.title);
   const lead = escapeHtml(routeMeta.description || '');
   return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1><p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>${routeMeta.noscriptBodyHtml || ''}</article></main></div></div></div>`;
+}
+
+function stripRootOnlyStructuredData(html) {
+  return html.replace(
+    /<script\s+id="root-structured-data"\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
+    () => {
+      const subpageBaseGraph = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': `${BASE_DOMAIN}/#website`,
+            url: `${BASE_DOMAIN}/`,
+            name: '信太山ガールズ（信太山新地求人公式サイト）',
+            inLanguage: 'ja-JP',
+            publisher: {
+              '@id': `${BASE_DOMAIN}/#organization`
+            }
+          },
+          {
+            '@type': 'Organization',
+            '@id': `${BASE_DOMAIN}/#organization`,
+            name: '信太山ガールズ（旅館直営求人・女性採用サポート）',
+            url: `${BASE_DOMAIN}/`,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_DOMAIN}/favicon.png`
+            }
+          }
+        ]
+      };
+      return `<script id="subpage-base-schema" type="application/ld+json">${JSON.stringify(subpageBaseGraph)}</script>`;
+    }
+  );
 }
 
 function buildRouteHtml(baseHtml, routeMeta) {
@@ -61,20 +120,33 @@ function buildRouteHtml(baseHtml, routeMeta) {
   const canonicalUrl = routeMeta.canonicalUrl;
   const ogType = routeMeta.ogType || 'website';
   const imageUrl = toAbsoluteUrl(routeMeta.imagePath);
+  const robotsDirective = routeMeta.robots || DEFAULT_ROBOTS;
 
-  // Title & meta description & canonical
+  // Strip root-only JobPosting / root BreadcrumbList / root FAQPage to avoid duplicate JSON-LD on subpages
+  html = stripRootOnlyStructuredData(html);
+
+  // Avoid preloading the homepage hero banner on subpages that do not immediately display it
+  html = html.replace(/<link\s+rel="preload"\s+as="image"\s+href="\/images\/shinodayama_hero_banner_1792225964954\.webp"[^>]*\/?>\s*/i, '');
+
+  // Title, robots, meta description, canonical
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
   html = upsertMeta(html, 'name', 'description', description);
-  html = html.replace(
-    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
-    `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`
-  );
+  html = upsertMeta(html, 'name', 'robots', robotsDirective);
+
+  if (canonicalUrl) {
+    html = html.replace(
+      /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
+      `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`
+    );
+  } else {
+    html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>\s*/i, '');
+  }
 
   // OpenGraph & Twitter Card
   html = upsertMeta(html, 'property', 'og:title', title);
   html = upsertMeta(html, 'property', 'og:description', description);
   html = upsertMeta(html, 'property', 'og:type', ogType);
-  html = upsertMeta(html, 'property', 'og:url', canonicalUrl);
+  html = upsertMeta(html, 'property', 'og:url', canonicalUrl || `${BASE_DOMAIN}/`);
   html = upsertMeta(html, 'property', 'og:image', imageUrl);
   html = upsertMeta(html, 'property', 'og:image:secure_url', imageUrl);
   html = upsertMeta(html, 'property', 'og:image:alt', title);
@@ -85,42 +157,47 @@ function buildRouteHtml(baseHtml, routeMeta) {
   html = upsertMeta(html, 'name', 'twitter:image', imageUrl);
   html = upsertMeta(html, 'name', 'twitter:image:alt', title);
 
-  // Inject route-specific BreadcrumbList JSON-LD into <head> for immediate crawler parsing
-  const breadcrumbItems = [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: '信太山新地求人トップ',
-      item: `${BASE_DOMAIN}/`
+  // Inject route-specific BreadcrumbList JSON-LD (unless disabled for 404/admin)
+  let headScripts = '';
+  if (!routeMeta.skipBreadcrumb && canonicalUrl) {
+    const breadcrumbItems = [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: '信太山新地求人トップ',
+        item: `${BASE_DOMAIN}/`
+      }
+    ];
+    if (routeMeta.parentBreadcrumb) {
+      breadcrumbItems.push({
+        '@type': 'ListItem',
+        position: 2,
+        name: routeMeta.parentBreadcrumb.name,
+        item: `${BASE_DOMAIN}${routeMeta.parentBreadcrumb.path}`
+      });
     }
-  ];
-  if (routeMeta.parentBreadcrumb) {
     breadcrumbItems.push({
       '@type': 'ListItem',
-      position: 2,
-      name: routeMeta.parentBreadcrumb.name,
-      item: `${BASE_DOMAIN}${routeMeta.parentBreadcrumb.path}`
+      position: breadcrumbItems.length + 1,
+      name: routeMeta.heading || title,
+      item: canonicalUrl
     });
-  }
-  breadcrumbItems.push({
-    '@type': 'ListItem',
-    position: breadcrumbItems.length + 1,
-    name: routeMeta.heading || title,
-    item: canonicalUrl
-  });
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbItems
-  };
-  let headScripts = `  <script id="prerender-breadcrumb-schema" type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>\n`;
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbItems
+    };
+    headScripts += `  <script id="prerender-breadcrumb-schema" type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>\n`;
+  }
 
   if (routeMeta.extraJsonLd) {
     headScripts += `  <script id="prerender-entity-schema" type="application/ld+json">${JSON.stringify(routeMeta.extraJsonLd)}</script>\n`;
   }
 
-  html = html.replace('</head>', `${headScripts}  </head>`);
+  if (headScripts) {
+    html = html.replace('</head>', `${headScripts}  </head>`);
+  }
 
   // Populate <div id="root"> with styled SSR shell (createRoot cleanly replaces on client hydration/mount)
   html = html.replace(/<div\s+id="root"><\/div>/i, buildSsrRootShell(routeMeta));
@@ -148,6 +225,8 @@ function buildRouteHtml(baseHtml, routeMeta) {
               <li><a href="${BASE_DOMAIN}/compare">信太山新地 徹底比較ガイド</a></li>
               <li><a href="${BASE_DOMAIN}/types">タイプ別働き方ガイド（WORK STYLE GUIDE）</a></li>
               <li><a href="${BASE_DOMAIN}/faq">よくある質問 FAQ（66問）</a></li>
+              <li><a href="${BASE_DOMAIN}/about">運営者情報・店舗概要</a></li>
+              <li><a href="${BASE_DOMAIN}/policy">掲載ポリシー・安全規約・個人情報保護</a></li>
               <li><a href="${BASE_DOMAIN}/blog">お仕事コラム一覧</a></li>
             </ul>
           </nav>
@@ -188,8 +267,19 @@ function main() {
 
   const baseHtml = fs.readFileSync(indexPath, 'utf8');
 
-  // Copy SPA 404.html fallback & .htaccess before mutating subroutes
-  fs.writeFileSync(path.join(distDir, '404.html'), baseHtml, 'utf8');
+  // Build clean noindex, nofollow 404.html (prevents Soft-404 duplication against '/')
+  const notFoundHtml = buildRouteHtml(baseHtml, {
+    title: 'ページが見つかりません（404）｜信太山ガールズ',
+    description: 'お探しのページは移動または削除された可能性があります。信太山新地求人公式サイトの主要ガイドからご覧ください。',
+    canonicalUrl: '',
+    robots: 'noindex, nofollow',
+    skipBreadcrumb: true,
+    heading: 'お探しのページが見つかりません（404）',
+    noscriptBodyHtml:
+      '<p class="text-sm text-zinc-600 mb-4">指定されたURLのページは見つかりませんでした。トップページや各種公式ガイドからお探しの情報をご覧ください。</p>'
+  });
+  fs.writeFileSync(path.join(distDir, '404.html'), notFoundHtml, 'utf8');
+
   const htaccessSrc = path.join(rootDir, '.htaccess');
   if (fs.existsSync(htaccessSrc)) {
     fs.copyFileSync(htaccessSrc, path.join(distDir, '.htaccess'));
@@ -221,7 +311,8 @@ function main() {
       '<p>未経験から始めたい、高収入を目指したい、週1日から働きたい、顔出しなし・身バレ対策、短時間・短期で働きたい、女性スタッフに相談したい、出稼ぎ・寮付き希望、まずは話を聞きたいの8タイプ別に条件や確認ポイントをご案内します。</p>'
   });
 
-  // 2. 8 Workstyle Types + Legacy Aliases
+  // 2. 8 Workstyle Types (with rich SSR bullets) + Legacy Aliases (noindex, follow)
+  const workstyleDetails = extractWorkstyleDetailsFromTs(path.join(rootDir, 'src', 'workstyleGuideData.ts'));
   const workstyleMetaList = [
     {
       slug: 'inexperienced',
@@ -275,6 +366,27 @@ function main() {
 
   workstyleMetaList.forEach((item) => {
     const parentBreadcrumb = { name: 'タイプ別働き方ガイド', path: '/types' };
+    const detail = workstyleDetails[item.slug];
+    const detailHtmlParts = [];
+    if (detail?.lead) {
+      detailHtmlParts.push(`<p class="text-sm text-zinc-700 mb-4">${escapeHtml(detail.lead)}</p>`);
+    }
+    if (detail?.suitableFor?.length) {
+      detailHtmlParts.push(
+        `<h2 class="text-base font-bold text-zinc-900 mt-4 mb-2">こんな方に向いています</h2><ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-zinc-700 mb-4">${detail.suitableFor
+          .map((s) => `<li>${escapeHtml(s)}</li>`)
+          .join('')}</ul>`
+      );
+    }
+    if (detail?.topics?.length) {
+      detailHtmlParts.push(
+        `<h2 class="text-base font-bold text-zinc-900 mt-4 mb-2">主な確認テーマ</h2><ul class="space-y-2 text-xs sm:text-sm text-zinc-700">${detail.topics
+          .map((t) => `<li><strong>${escapeHtml(t.title)}：</strong>${escapeHtml(t.description)}</li>`)
+          .join('')}</ul>`
+      );
+    }
+    const richBody = detailHtmlParts.join('');
+
     routes.push({
       route: `types/${item.slug}`,
       title: item.title,
@@ -282,20 +394,23 @@ function main() {
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
       imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
       heading: item.title.split('｜')[0],
-      parentBreadcrumb
+      parentBreadcrumb,
+      noscriptBodyHtml: richBody
     });
     routes.push({
       route: `compare/${item.slug}`,
       title: item.title,
       description: item.description,
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
+      robots: 'noindex, follow',
       imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
       heading: item.title.split('｜')[0],
-      parentBreadcrumb
+      parentBreadcrumb,
+      noscriptBodyHtml: richBody
     });
   });
 
-  // Legacy type aliases
+  // Legacy type aliases -> noindex, follow pointing canonical to canonical /types/<to>
   const legacyTypeAliases = [
     { from: 'double-work', to: 'privacy' },
     { from: 'age-20s', to: 'consultation' },
@@ -310,6 +425,7 @@ function main() {
         title: target.title,
         description: target.description,
         canonicalUrl: `${BASE_DOMAIN}/types/${to}`,
+        robots: 'noindex, follow',
         imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
         heading: target.title.split('｜')[0],
         parentBreadcrumb: { name: 'タイプ別働き方ガイド', path: '/types' }
@@ -317,7 +433,7 @@ function main() {
     });
   });
 
-  // 3. FAQ, Interview, About
+  // 3. FAQ, Interview, About, Policy, Admin
   const faqEntries = extractFaqQuestionsFromTs(path.join(rootDir, 'src', 'faq11CategoriesData.ts'));
   routes.push({
     route: 'faq',
@@ -361,7 +477,40 @@ function main() {
     description:
       '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報、店舗概要、所在地（大阪府和泉市）、サポート体制、コンプライアンス方針、個人情報保護規程を明示しています。',
     canonicalUrl: `${BASE_DOMAIN}/about`,
-    heading: '運営者情報・店舗概要（信太山ガールズ）'
+    heading: '運営者情報・店舗概要（信太山ガールズ）',
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: '運営者情報・店舗概要',
+      url: `${BASE_DOMAIN}/about`
+    }
+  });
+
+  routes.push({
+    route: 'policy',
+    title: '求人情報掲載ポリシー・安全規約・個人情報保護｜信太山ガールズ公式',
+    description:
+      '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内します。',
+    canonicalUrl: `${BASE_DOMAIN}/policy`,
+    heading: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
+    noscriptBodyHtml:
+      '<p>満20歳以上の厳格な本人確認、虚偽・誇大表現の排除、ノルマ・天引き0円規程、身バレ防止・第三者提供禁止の個人情報保護方針を公開しています。</p>',
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
+      url: `${BASE_DOMAIN}/policy`
+    }
+  });
+
+  routes.push({
+    route: 'admin',
+    title: '管理者画面｜信太山ガールズ',
+    description: '信太山ガールズ管理用ページ',
+    canonicalUrl: `${BASE_DOMAIN}/admin`,
+    robots: 'noindex, nofollow',
+    skipBreadcrumb: true,
+    heading: '管理者画面'
   });
 
   // 4. Topic Clusters from data/topicClusters.json
@@ -369,7 +518,8 @@ function main() {
   if (fs.existsSync(topicClustersPath)) {
     const clusters = JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'));
     Object.entries(clusters).forEach(([key, data]) => {
-      const canonicalPath = key === 'benefits' ? '/salary' : data.path || `/${key}`;
+      const isBenefitsAlias = key === 'benefits';
+      const canonicalPath = isBenefitsAlias ? '/salary' : data.path || `/${key}`;
       const topicFaqs = Array.isArray(data.faqs) && data.faqs.length > 0
         ? {
             '@context': 'https://schema.org',
@@ -390,6 +540,7 @@ function main() {
         title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド`,
         description: data.metaDescription || data.overview || data.tagline || '',
         canonicalUrl: `${BASE_DOMAIN}${canonicalPath}`,
+        robots: isBenefitsAlias ? 'noindex, follow' : undefined,
         ogType: 'article',
         imagePath: data.heroImage,
         heading: data.title,
@@ -477,7 +628,7 @@ function main() {
     writeRouteFiles(meta.route, html);
   });
 
-  console.log(`[prerender] Successfully generated static HTTP-200 HTML for ${routes.length} routes + root SSR shell in dist/`);
+  console.log(`[prerender] Successfully generated static HTML for ${routes.length} routes + 404.html + root SSR shell in dist/`);
 }
 
 main();

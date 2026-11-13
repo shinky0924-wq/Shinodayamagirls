@@ -159,6 +159,9 @@ export default function SafetyPageContent({
               <img
                 src="/images/privacy_ryokan_room_1794375281070.webp"
                 alt="落ち着いた和風旅館の個室空間（通りから見られない完全個室待機環境）"
+                width={1200}
+                height={896}
+                decoding="async"
                 className="w-full h-full object-cover"
                 loading="eager"
               />
@@ -346,6 +349,9 @@ export default function SafetyPageContent({
                 <img
                   src="/images/privacy_phone_discreet_1794375281535.webp"
                   alt="スマートフォンのプライバシー管理や相談の様子"
+                  width={1200}
+                  height={896}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -579,6 +585,9 @@ export default function SafetyPageContent({
                 <img
                   src="/images/dorm_main_studio_1794374510330.webp"
                   alt="信太山駅近辺の寮の室内環境（生活に必要なベッド・テーブル・収納を備えた個室）"
+                  width={1200}
+                  height={896}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />

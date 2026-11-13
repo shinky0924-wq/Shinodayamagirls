@@ -243,6 +243,9 @@ export default function FAQPage({
                 <img
                   src="/images/safety_female_consultation_1794375281375.webp"
                   alt="専任女性スタッフが親身に質問・相談に対応している様子"
+                  width={1200}
+                  height={896}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
@@ -548,6 +551,9 @@ export default function FAQPage({
                     <img
                       src={article.image}
                       alt={article.title}
+                      width={1200}
+                      height={670}
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
                       loading="lazy"
                     />

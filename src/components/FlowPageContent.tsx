@@ -241,6 +241,9 @@ export default function FlowPageContent({
                 <img
                   src="/images/col_search_phone_jp_1792475574840.webp"
                   alt="スマホでLINE相談する様子"
+                  width={1200}
+                  height={670}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -278,6 +281,9 @@ export default function FlowPageContent({
                 <img
                   src="/images/col_trial_orient_jp_1792475594501.webp"
                   alt="落ち着いた雰囲気での相談風景"
+                  width={1200}
+                  height={670}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -315,6 +321,9 @@ export default function FlowPageContent({
                 <img
                   src="/images/col_interview_hacks_jp_1792476795351.webp"
                   alt="面接・条件説明をしている室内"
+                  width={1200}
+                  height={670}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -350,8 +359,11 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_serene_lounge_jp_1792476845692.webp"
+                  src="/images/col_dorm_interior_1792463651469.webp"
                   alt="清潔感のある待機スペース・旅館個室"
+                  width={1200}
+                  height={670}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -389,6 +401,9 @@ export default function FlowPageContent({
                 <img
                   src="/images/col_ryokan_manner_1792465891118.webp"
                   alt="落ち着いた旅館の室内"
+                  width={1200}
+                  height={670}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -514,6 +529,9 @@ export default function FlowPageContent({
               <img
                 src="/images/col_taiken_prep_1792475646166.webp"
                 alt="体験入店・店舗待機環境"
+                width={1200}
+                height={670}
+                decoding="async"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -643,7 +661,7 @@ export default function FlowPageContent({
             {
               title: '女性インタビュー',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.webp'
+              img: '/images/cast_mai_snap_1794475286956.webp'
             }
           ].map((item, idx) => (
             <div
@@ -656,6 +674,9 @@ export default function FlowPageContent({
                   <img
                     src={item.img}
                     alt={item.title}
+                    width={1200}
+                    height={670}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
