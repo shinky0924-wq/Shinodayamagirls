@@ -137,6 +137,9 @@ export default function App() {
       navigateTo('about', '/about');
     } else if (tab === 'compare') {
       navigateTo('compare', '/compare');
+    } else if (tab === 'workstyle') {
+      setSelectedCategorySlug('all');
+      navigateTo('workstyle', '/types');
     } else if (tab === 'faq') {
       navigateTo('faq', '/faq');
     } else if (tab === 'blog') {
