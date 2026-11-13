@@ -306,10 +306,11 @@ export default function TopicClusterPage({
       ]
     };
 
+    const canonicalPath = data.id === 'benefits' ? '/salary' : data.path;
     updatePageSeo({
-      title: data.seoTitle || `${data.title}｜信太山新地求人 公式分野別ガイド【信太山ガールズ】`,
+      title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド【信太山ガールズ】`,
       description: data.metaDescription || `${data.overview} 信太山新地の旅館直営公式求人情報。店先顔見せなし・完全個室待機・即日全額日払い。`,
-      canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${data.path}`,
+      canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${canonicalPath}`,
       ogImage: data.heroImage || visualAsset.secondaryImage,
       ogType: 'article',
       jsonLd: schemaData

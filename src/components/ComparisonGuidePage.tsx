@@ -59,8 +59,8 @@ export default function ComparisonGuidePage({
     window.scrollTo(0, 0);
 
     updatePageSeo({
-      title: '信太山新地 徹底比較ガイド｜飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違い',
-      description: '【2026年最新比較】信太山新地と飛田新地、メンズエステ、キャバクラ、ソープランド、スカウト・紹介経由の違いを全11項目で客観的に徹底比較。仕事内容、接客スタイル、給与体系（コース制・時給制・歩合制）、勤務時間、身バレ対策まで詳細解説。',
+      title: '信太山新地・他業種 徹底比較｜飛田新地・メンエス・キャバクラとの違い',
+      description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策まで詳しく解説します。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/compare',
       ogType: 'website'
     });

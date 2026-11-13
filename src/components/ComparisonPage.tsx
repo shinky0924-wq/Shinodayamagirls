@@ -75,8 +75,8 @@ export default function ComparisonPage({
   useEffect(() => {
     const isSpecific = initialCategorySlug && initialCategorySlug !== 'all';
     const title = isSpecific
-      ? `${activeType.title}｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）`
-      : 'WORK STYLE GUIDE｜あなたに合った働き方を見つけよう｜信太山新地 タイプ別ガイド';
+      ? `${activeType.title}｜信太山新地・信太山求人 働き方ガイド`
+      : '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】';
     const description = isSpecific
       ? activeType.lead
       : '未経験から始めたい方、収入を重視したい方、勤務日数やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい情報をタイプ別にご紹介します。';
@@ -267,10 +267,13 @@ export default function ComparisonPage({
             {WORKSTYLE_8_TYPES.map((typeItem) => {
               const isSelected = activeType.slug === typeItem.slug;
               return (
-                <button
+                <a
                   key={typeItem.slug}
-                  type="button"
-                  onClick={() => handleSelectType(typeItem.slug, true)}
+                  href={`/types/${typeItem.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSelectType(typeItem.slug, true);
+                  }}
                   aria-current={isSelected ? 'true' : undefined}
                   className={`w-full text-left rounded-2xl p-3.5 sm:p-5 border transition-all duration-200 flex flex-col justify-between cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5004F] ${
                     isSelected
@@ -315,7 +318,7 @@ export default function ComparisonPage({
                       className="shrink-0 group-hover:translate-x-0.5 transition-transform"
                     />
                   </div>
-                </button>
+                </a>
               );
             })}
           </div>

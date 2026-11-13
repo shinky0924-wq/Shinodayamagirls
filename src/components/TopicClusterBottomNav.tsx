@@ -42,26 +42,31 @@ export default function TopicClusterBottomNav({
             知りたいテーマを選んで、お仕事内容や待遇、お店選びなどを詳しくご確認いただけます。
           </p>
         </div>
-        <button
-          type="button"
-          onClick={onNavigateHome}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigateHome();
+          }}
           className="self-start sm:self-auto text-xs font-bold text-[#555555] hover:text-[#D8175D] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF5F8] border border-[#F0DDE4] hover:bg-[#FFE8F0] transition-all cursor-pointer shrink-0"
         >
           <LucideIcon name="Home" size={13} className="text-[#D8175D]" />
           <span>求人トップへ戻る</span>
-        </button>
+        </a>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
         {ALL_CLUSTER_NODES.map((node) => {
           const isRecruit = node.id === 'recruit';
           const isActive = node.id === currentTopicId;
+          const targetHref = node.path || (isRecruit ? '/' : `/${node.id}`);
 
           return (
-            <button
+            <a
               key={node.id}
-              type="button"
-              onClick={() => {
+              href={targetHref}
+              onClick={(e) => {
+                e.preventDefault();
                 if (isRecruit) {
                   onNavigateHome();
                 } else if (node.id === 'faq') {
@@ -102,7 +107,7 @@ export default function TopicClusterBottomNav({
                   </span>
                 )}
               </div>
-            </button>
+            </a>
           );
         })}
       </div>

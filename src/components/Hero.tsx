@@ -187,9 +187,13 @@ export default function Hero({ content, onCtaclick, onBlogClick, articles, onArt
               
               <div className="flex flex-col gap-2.5">
                 {randomArticles.map((art, index) => (
-                  <button
+                  <a
                     key={art.id}
-                    onClick={() => onArticleClick && onArticleClick(art.slug)}
+                    href={`/blog/${art.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (onArticleClick) onArticleClick(art.slug);
+                    }}
                     className="w-full text-left font-sans text-xs md:text-sm text-on-surface bg-white hover:bg-rose-50/50 p-2.5 sm:p-3 rounded-2xl border border-rose-100 hover:border-rose-300 transition-all flex items-center justify-between gap-3 cursor-pointer group shadow-[0_2px_8px_-3px_rgba(210,84,123,0.06)] hover:shadow-[0_4px_12px_-2px_rgba(210,84,123,0.12)] hover:-translate-y-0.5"
                     id={`hero-col-item-${art.id}`}
                   >
@@ -231,20 +235,24 @@ export default function Hero({ content, onCtaclick, onBlogClick, articles, onArt
                         </span>
                         <LucideIcon name="ChevronRight" className="text-secondary/40 group-hover:text-secondary group-hover:translate-x-0.5 transition-all shrink-0" size={16} />
                       </div>
-                  </button>
+                  </a>
                 ))}
               </div>
               
               {onBlogClick && (
                 <div className="mt-4 text-center border-t border-rose-100/50 pt-4">
-                  <button
-                    onClick={onBlogClick}
+                  <a
+                    href="/blog"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onBlogClick();
+                    }}
                     className="inline-flex items-center gap-2 text-xs md:text-sm font-extrabold text-white bg-gradient-to-r from-secondary to-[#e2628b] hover:from-[#c2446c] hover:to-[#d2547b] px-6 py-2.5 rounded-full shadow-md shadow-rose-200/50 hover:shadow-lg transition-all cursor-pointer group"
                     id="hero-all-columns-link"
                   >
                     <span>すべてのコラムを見る</span>
                     <LucideIcon name="ChevronRight" className="group-hover:translate-x-1 transition-transform" size={14} />
-                  </button>
+                  </a>
                 </div>
               )}
             </div>

@@ -495,9 +495,11 @@ export default function RecruitHub({
                   {topic.featuredArticles && topic.featuredArticles.length > 0 && (
                     <div className="space-y-1 mb-1">
                       {topic.featuredArticles.map((art) => (
-                        <div
+                        <a
                           key={art.slug}
-                          onClick={() => {
+                          href={`/blog/${art.slug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
                             if (onNavigateToArticle) onNavigateToArticle(art.slug);
                             else onScrollToSection('jobs');
                           }}
@@ -512,7 +514,7 @@ export default function RecruitHub({
                             </span>
                           </div>
                           <LucideIcon name="ChevronRight" size={12} className="text-zinc-300 group-hover/art:text-[#E5004F] shrink-0" />
-                        </div>
+                        </a>
                       ))}
                     </div>
                   )}
@@ -521,13 +523,16 @@ export default function RecruitHub({
 
               {/* 7. 最下部：詳しい解説を見るボタン (角丸10〜12px、幅100%) */}
               <div className="p-5 pt-0 bg-white">
-                <button
-                  type="button"
-                  onClick={() => handleCardClick(topic)}
+                <a
+                  href={topic.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCardClick(topic);
+                  }}
                   className="w-full py-2.5 px-4 rounded-[11px] font-bold text-xs sm:text-sm bg-[#E5004F] hover:bg-[#c90044] text-white transition-all flex items-center justify-center gap-1.5 shadow-xs hover:shadow-md cursor-pointer"
                 >
                   <span>{topic.buttonText}</span>
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
@@ -599,6 +604,7 @@ export default function RecruitHub({
                   {
                     id: 'beginner',
                     label: '未経験から始めたい',
+                    href: '/types/inexperienced',
                     icon: 'HeartHandshake',
                     onClick: () => {
                       try {
@@ -615,6 +621,7 @@ export default function RecruitHub({
                   {
                     id: 'salary',
                     label: '高収入を目指したい',
+                    href: '/types/high-income',
                     icon: 'Wallet',
                     onClick: () => {
                       try {
@@ -631,6 +638,7 @@ export default function RecruitHub({
                   {
                     id: 'weekly1',
                     label: '週1日から働きたい',
+                    href: '/types/weekly-1',
                     icon: 'CalendarDays',
                     onClick: () => {
                       try {
@@ -647,6 +655,7 @@ export default function RecruitHub({
                   {
                     id: 'privacy',
                     label: '顔出しなし・身バレ対策',
+                    href: '/types/privacy',
                     icon: 'ShieldCheck',
                     onClick: () => {
                       try {
@@ -655,7 +664,7 @@ export default function RecruitHub({
                         counts['privacy'] = (counts['privacy'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      if (onNavigateCompare) onNavigateCompare('double-work');
+                      if (onNavigateCompare) onNavigateCompare('privacy');
                       else if (onNavigateTopic) onNavigateTopic('safety');
                       else onScrollToSection('jobs');
                     }
@@ -663,6 +672,7 @@ export default function RecruitHub({
                   {
                     id: 'short-time',
                     label: '短時間・短期で働きたい',
+                    href: '/types/short-term',
                     icon: 'Clock',
                     onClick: () => {
                       try {
@@ -679,6 +689,7 @@ export default function RecruitHub({
                   {
                     id: 'staff-consult',
                     label: '女性スタッフに相談したい',
+                    href: '/types/female-staff',
                     icon: 'MessagesSquare',
                     onClick: () => {
                       try {
@@ -687,12 +698,14 @@ export default function RecruitHub({
                         counts['staff-consult'] = (counts['staff-consult'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      onScrollToSection('recruiter-interview');
+                      if (onNavigateCompare) onNavigateCompare('female-staff');
+                      else onScrollToSection('recruiter-interview');
                     }
                   },
                   {
                     id: 'dorm',
                     label: '出稼ぎ・寮付き希望',
+                    href: '/types/dormitory',
                     icon: 'House',
                     onClick: () => {
                       try {
@@ -709,6 +722,7 @@ export default function RecruitHub({
                   {
                     id: 'first-inquiry',
                     label: 'まずは話を聞きたい',
+                    href: '/types/consultation',
                     icon: 'MessageCircle',
                     onClick: () => {
                       try {
@@ -717,14 +731,18 @@ export default function RecruitHub({
                         counts['first-inquiry'] = (counts['first-inquiry'] || 0) + 1;
                         localStorage.setItem('workstyle_banner_tag_clicks', JSON.stringify(counts));
                       } catch {}
-                      onScrollToSection('consultation');
+                      if (onNavigateCompare) onNavigateCompare('consultation');
+                      else onScrollToSection('consultation');
                     }
                   }
                 ].map((tag) => (
-                  <button
+                  <a
                     key={tag.id}
-                    type="button"
-                    onClick={tag.onClick}
+                    href={tag.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      tag.onClick();
+                    }}
                     className="h-[42px] sm:h-[44px] px-2.5 sm:px-3.5 rounded-[12px] bg-[#FFF1F5] hover:bg-[#ffe3eb] active:scale-[0.98] border border-[#F0DDE4] hover:border-[#D8175D]/40 text-[#D8175D] font-bold text-[11px] sm:text-xs md:text-[13px] flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 transition-all cursor-pointer shadow-2xs group"
                     id={`workstyle-tag-${tag.id}`}
                     title={tag.label}
@@ -735,20 +753,24 @@ export default function RecruitHub({
                       className="text-[#D8175D] shrink-0 group-hover:scale-110 transition-transform" 
                     />
                     <span className="truncate">{tag.label}</span>
-                  </button>
+                  </a>
                 ))}
               </div>
 
               {/* CTAボタン & 補足文 */}
               <div className="flex flex-col items-center sm:items-start max-w-md">
-                <button
-                  type="button"
-                  onClick={() => onNavigateCompare ? onNavigateCompare() : onScrollToSection('compare')}
+                <a
+                  href="/types"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCompare) onNavigateCompare();
+                    else onScrollToSection('compare');
+                  }}
                   className="w-full sm:w-auto sm:min-w-[300px] h-[52px] sm:h-[54px] px-8 rounded-[12px] font-extrabold text-sm sm:text-base bg-[#D8175D] hover:bg-[#b5124c] text-white transition-all flex items-center justify-center gap-2 shadow-md shadow-[#D8175D]/20 hover:shadow-lg cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
                   id="recruit-hub-compare-btn"
                 >
                   <span>自分に合った働き方を探す →</span>
-                </button>
+                </a>
                 <p className="text-xs text-[#777777] text-center sm:text-left mt-2.5 w-full">
                   気になる条件から、あなたに合った情報をご覧いただけます。
                 </p>

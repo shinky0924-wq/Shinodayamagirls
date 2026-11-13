@@ -265,8 +265,8 @@ export default function App() {
   useEffect(() => {
     if (currentTab === 'recruit') {
       updatePageSeo({
-        title: '信太山新地求人｜店先顔見せなし・旅館個室待機・高収入｜信太山ガールズ',
-        description: '【信太山新地求人公式】店先顔見せなし・未経験歓迎・高収入（15分短時間コース・保証あり・日給5万〜10万円即日全額日払い）。大阪府和泉市の旅館直営、毎月20日定休日、家電付き個室寮・託児所完備。女性サポートスタッフによる無料相談受付中。',
+        title: '信太山新地求人・信太山求人【公式】未経験歓迎・顔出しなし｜信太山ガールズ',
+        description: '【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース3,800円〜・即日全額日払い・週1日〜相談可。仕事内容・給料・寮・身バレ対策を分かりやすくご案内します。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
         ogImage: '/images/hub_beginner_cast_1792485407920.jpg',
         ogType: 'website'
@@ -322,8 +322,8 @@ export default function App() {
         });
       } else {
         updatePageSeo({
-          title: '信太山新地求人 お仕事コラム一覧（全139記事）｜信太山ガールズ公式',
-          description: '信太山新地の仕事内容、給与計算、旅館個室待機、顔見せなしルール、未経験向けガイドなど現役キャスト・旅館求人担当者の生の声をお届けする公式コラム集。',
+          title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
+          description: '信太山新地の仕事内容、給料システム、旅館個室待機、顔出しなしルール、未経験向けガイドなど働く前に役立つ公式解説コラム一覧。',
           canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
           ogType: 'website'
         });

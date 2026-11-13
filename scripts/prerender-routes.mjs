@@ -67,6 +67,38 @@ function buildRouteHtml(baseHtml, routeMeta) {
   html = upsertMeta(html, 'name', 'twitter:image', imageUrl);
   html = upsertMeta(html, 'name', 'twitter:image:alt', title);
 
+  // Inject route-specific BreadcrumbList JSON-LD into <head> for immediate crawler parsing
+  const breadcrumbItems = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: '信太山新地求人トップ',
+      item: `${BASE_DOMAIN}/`
+    }
+  ];
+  if (routeMeta.parentBreadcrumb) {
+    breadcrumbItems.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: routeMeta.parentBreadcrumb.name,
+      item: `${BASE_DOMAIN}${routeMeta.parentBreadcrumb.path}`
+    });
+  }
+  breadcrumbItems.push({
+    '@type': 'ListItem',
+    position: breadcrumbItems.length + 1,
+    name: routeMeta.heading || title,
+    item: canonicalUrl
+  });
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems
+  };
+  const breadcrumbScript = `<script id="prerender-breadcrumb-schema" type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`;
+  html = html.replace('</head>', `  ${breadcrumbScript}\n  </head>`);
+
   // Replace generic root <noscript> with route-specific semantic content so crawlers see unique page HTML
   const heading = escapeHtml(routeMeta.heading || title);
   const bodyHtml = routeMeta.noscriptBodyHtml || `<p>${escapeHtml(description)}</p>`;
@@ -80,7 +112,13 @@ function buildRouteHtml(baseHtml, routeMeta) {
           ${bodyHtml}
           <nav aria-label="関連ページ">
             <ul>
-              <li><a href="${BASE_DOMAIN}/">信太山新地求人 トップページ</a></li>
+              <li><a href="${BASE_DOMAIN}/">信太山新地求人・信太山求人 トップページ</a></li>
+              <li><a href="${BASE_DOMAIN}/job">仕事内容（15分短時間・顔出しなし）</a></li>
+              <li><a href="${BASE_DOMAIN}/salary">給料・日払いシステム（15分3,800円〜）</a></li>
+              <li><a href="${BASE_DOMAIN}/beginner">未経験スタート安心ガイド</a></li>
+              <li><a href="${BASE_DOMAIN}/workstyle">働き方・自由出勤・週1日〜</a></li>
+              <li><a href="${BASE_DOMAIN}/dorm">寮・出稼ぎガイド</a></li>
+              <li><a href="${BASE_DOMAIN}/safety">身バレ対策・プライバシー配慮</a></li>
               <li><a href="${BASE_DOMAIN}/compare">信太山新地 徹底比較ガイド</a></li>
               <li><a href="${BASE_DOMAIN}/types">タイプ別働き方ガイド（WORK STYLE GUIDE）</a></li>
               <li><a href="${BASE_DOMAIN}/faq">よくある質問 FAQ（66問）</a></li>
@@ -136,9 +174,9 @@ function main() {
   // 1. Core static routes
   routes.push({
     route: 'compare',
-    title: '信太山新地 徹底比較ガイド｜飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違い',
+    title: '信太山新地・他業種 徹底比較｜飛田新地・メンエス・キャバクラとの違い',
     description:
-      '【2026年最新比較】信太山新地と飛田新地、メンズエステ、キャバクラ、ソープランド、スカウト・紹介経由の違いを全11項目で客観的に徹底比較。仕事内容、接客スタイル、給与体系（コース制・時給制・歩合制）、勤務時間、身バレ対策まで詳細解説。',
+      '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策まで詳しく解説します。',
     canonicalUrl: `${BASE_DOMAIN}/compare`,
     heading: '信太山新地 徹底比較ガイド（6種類の違いを11項目で比較）',
     noscriptBodyHtml:
@@ -147,7 +185,7 @@ function main() {
 
   routes.push({
     route: 'types',
-    title: 'WORK STYLE GUIDE｜あなたに合った働き方を見つけよう｜信太山新地 タイプ別ガイド',
+    title: '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】',
     description:
       '未経験から始めたい方、収入を重視したい方、勤務日数やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい情報を8つのタイプ別にご紹介します。',
     canonicalUrl: `${BASE_DOMAIN}/types`,
@@ -161,62 +199,64 @@ function main() {
   const workstyleMetaList = [
     {
       slug: 'inexperienced',
-      title: '未経験から始めたい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '未経験から始めたい｜信太山新地・信太山求人 働き方ガイド',
       description:
         '初めてのお仕事で不安がある方へ。仕事内容や接客の流れ、応募から面接までの流れ、事前に確認したいことをご紹介します。'
     },
     {
       slug: 'high-income',
-      title: '高収入を目指したい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '高収入を目指したい｜信太山新地・信太山求人 働き方ガイド',
       description:
         '報酬の仕組みやコース料金、収入に関係する条件について知りたい方へ。実際の報酬や控除、収入に影響するポイントを解説します。'
     },
     {
       slug: 'weekly-1',
-      title: '週1日から働きたい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '週1日から働きたい｜信太山新地・信太山求人 働き方ガイド',
       description:
         '毎日出勤するのは難しい方や、自分の予定に合わせて働きたい方へ。出勤日数やシフト、勤務条件の確認ポイントをご紹介します。'
     },
     {
       slug: 'privacy',
-      title: '顔出しなし・身バレ対策｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '顔出しなし・身バレ対策｜信太山新地・信太山求人 働き方ガイド',
       description:
         '知人や家族に知られたくない、プライバシーが気になる方へ。写真掲載・個人情報・SNSなど、応募前に確認しておきたいポイントをご紹介します。'
     },
     {
       slug: 'short-term',
-      title: '短時間・短期で働きたい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '短時間・短期で働きたい｜信太山新地・信太山求人 働き方ガイド',
       description:
         '長時間の勤務が難しい方や、働ける期間が限られている方へ。勤務時間・短時間勤務・期間などの相談ポイントを解説します。'
     },
     {
       slug: 'female-staff',
-      title: '女性スタッフに相談したい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '女性スタッフに相談したい｜信太山新地・信太山求人 働き方ガイド',
       description:
         '男性には相談しにくいことや、女性目線で聞いてみたいことがある方へ。応募前の疑問や不安を相談する方法をご案内します。'
     },
     {
       slug: 'dormitory',
-      title: '出稼ぎ・寮付き希望｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: '出稼ぎ・寮付き希望｜信太山新地・信太山求人 働き方ガイド',
       description:
         '遠方から働くことを検討している方へ。寮の有無・利用条件・交通費・滞在期間など、事前に確認したい内容をご紹介します。'
     },
     {
       slug: 'consultation',
-      title: 'まずは話を聞きたい｜WORK STYLE GUIDE（信太山新地 タイプ別働き方ガイド）',
+      title: 'まずは話を聞きたい｜信太山新地・信太山求人 働き方ガイド',
       description:
         'まだ応募するか決めていない方や、まずは情報収集から始めたい方へ。仕事内容や待遇、お店選びなど、気になることを相談する方法をご案内します。'
     }
   ];
 
   workstyleMetaList.forEach((item) => {
+    const parentBreadcrumb = { name: 'タイプ別働き方ガイド', path: '/types' };
     routes.push({
       route: `types/${item.slug}`,
       title: item.title,
       description: item.description,
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
       imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
-      heading: item.title.split('｜')[0]
+      heading: item.title.split('｜')[0],
+      parentBreadcrumb
     });
     routes.push({
       route: `compare/${item.slug}`,
@@ -224,7 +264,8 @@ function main() {
       description: item.description,
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
       imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
-      heading: item.title.split('｜')[0]
+      heading: item.title.split('｜')[0],
+      parentBreadcrumb
     });
   });
 
@@ -244,7 +285,8 @@ function main() {
         description: target.description,
         canonicalUrl: `${BASE_DOMAIN}/types/${to}`,
         imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
-        heading: target.title.split('｜')[0]
+        heading: target.title.split('｜')[0],
+        parentBreadcrumb: { name: 'タイプ別働き方ガイド', path: '/types' }
       });
     });
   });
@@ -252,9 +294,9 @@ function main() {
   // 3. FAQ, Interview, About
   routes.push({
     route: 'faq',
-    title: 'よくある質問 FAQ（66問）｜信太山新地求人【公式ガイド】',
+    title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
     description:
-      '信太山新地求人のよくある質問全66問を11カテゴリーで整理。店先顔見せなし・日払い給与・未経験の面接・寮・身バレ対策・シフト・半年ルールなど働く前の疑問に丁寧にお答えします。',
+      '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで整理。未経験の面接・顔出しなし・日払い給料・寮・身バレ対策・シフト・半年ルールなど働く前の疑問にお答えします。',
     canonicalUrl: `${BASE_DOMAIN}/faq`,
     heading: 'よくある質問 FAQ（全66問・11カテゴリー）',
     noscriptBodyHtml:
@@ -302,9 +344,9 @@ function main() {
   // 5. Blog Listing & All Articles
   routes.push({
     route: 'blog',
-    title: '信太山新地求人 お仕事コラム一覧｜信太山ガールズ公式',
+    title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
     description:
-      '信太山新地の仕事内容、給与システム、旅館個室待機、顔見せなしルール、未経験向けガイドなど役立つ公式解説コラム一覧。',
+      '信太山新地の仕事内容、給料システム、旅館個室待機、顔出しなしルール、未経験向けガイドなど働く前に役立つ公式解説コラム一覧。',
     canonicalUrl: `${BASE_DOMAIN}/blog`,
     heading: '信太山新地求人 お仕事コラム一覧'
   });
@@ -323,6 +365,7 @@ function main() {
         ogType: 'article',
         imagePath: article.eyeCatch,
         heading: article.title,
+        parentBreadcrumb: { name: 'お仕事コラム一覧', path: '/blog' },
         noscriptBodyHtml: `<p>${escapeHtml(article.summary || '')}</p>`
       });
     });

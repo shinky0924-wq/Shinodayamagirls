@@ -165,7 +165,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
         <div className="flex justify-between items-center w-full px-3.5 sm:px-6 lg:px-8 max-w-[1240px] mx-auto">
           {/* Logo: 信太山ガールズ */}
           <a 
-            href="#" 
+            href="/" 
             onClick={(e) => {
               e.preventDefault();
               onChangeTab('recruit');
@@ -201,7 +201,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
           <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" id="desktop-navigation">
             {/* 1. 求人トップ */}
             <a
-              href="#"
+              href="/"
               onClick={(e) => handleLinkClick(e, { action: 'recruit' })}
               className={`font-sans text-[13px] xl:text-[14px] px-2.5 xl:px-3 py-1.5 rounded-xl transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 currentTab === 'recruit'
@@ -274,11 +274,14 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
 
                     {/* 2-Column Grid of 10 Subcategories */}
                     <div className="grid grid-cols-2 gap-1.5">
-                      {guideCategories.map((cat, idx) => (
-                        <button
+                      {guideCategories.map((cat) => (
+                        <a
                           key={cat.id}
-                          type="button"
-                          onClick={() => handleGuideCategoryClick(cat.id)}
+                          href={`/${cat.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleGuideCategoryClick(cat.id);
+                          }}
                           className="w-full text-left p-2 rounded-xl hover:bg-rose-50/80 transition-all flex items-start gap-2.5 group cursor-pointer border border-transparent hover:border-rose-100"
                           id={`nav-guide-cat-${cat.id}`}
                         >
@@ -298,15 +301,16 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                               {cat.desc}
                             </span>
                           </div>
-                        </button>
+                        </a>
                       ))}
                     </div>
 
                     {/* Featured Special Guides */}
                     <div className="mt-2.5 pt-2 border-t border-rose-100 flex items-center justify-between gap-2 text-xs">
-                      <button
-                        type="button"
-                        onClick={() => {
+                      <a
+                        href="/types"
+                        onClick={(e) => {
+                          e.preventDefault();
                           setGuideDropdownOpen(false);
                           onChangeTab('workstyle');
                           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -315,10 +319,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                       >
                         <LucideIcon name="Target" size={14} />
                         <span>タイプ別働き方ガイド</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
+                      </a>
+                      <a
+                        href="/compare"
+                        onClick={(e) => {
+                          e.preventDefault();
                           setGuideDropdownOpen(false);
                           onChangeTab('compare');
                           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -327,7 +332,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                       >
                         <LucideIcon name="Scale" size={14} />
                         <span>新地・風俗徹底比較</span>
-                      </button>
+                      </a>
                     </div>
                   </motion.div>
                 )}
