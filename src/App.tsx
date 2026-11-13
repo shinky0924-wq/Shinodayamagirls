@@ -529,17 +529,7 @@ export default function App() {
               onNavigateDetail={() => handleNavigateTopic('flow')}
             />
 
-            {/* Section 13: 最終応募エリア */}
-            <div id="consultation">
-              <ConsultationForm
-                content={siteContent.consultation}
-                initialMessage={consultationMessage}
-                onClearInitialMessage={() => setConsultationMessage('')}
-                onScrollToRequirements={() => handleScrollToSection('jobs')}
-              />
-            </div>
-
-            {/* Section 14: 応募前に知っておきたい情報 (12テーマ詳細ページへの導線・下部移動) */}
+            {/* Section 13: 応募前に知っておきたい情報 (12テーマ詳細ページへの導線) */}
             <div id="hub">
               <RecruitHub
                 onScrollToSection={handleScrollToSection}
@@ -550,6 +540,14 @@ export default function App() {
                 onNavigateFaq={() => handleNavigateFaq()}
               />
             </div>
+
+            {/* Section 14: 最終応募・LINE相談エリア */}
+            <ConsultationForm
+              content={siteContent.consultation}
+              initialMessage={consultationMessage}
+              onClearInitialMessage={() => setConsultationMessage('')}
+              onScrollToRequirements={() => handleScrollToSection('jobs')}
+            />
           </div>
         )}
 
