@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
 import LucideIcon from './LucideIcon';
 
 interface WorkFlowSectionProps {
@@ -14,7 +13,6 @@ interface WorkFlowSectionProps {
 interface StepItem {
   step: string;
   title: string;
-  badge: string;
   desc: string;
   icon: string;
 }
@@ -26,181 +24,127 @@ export default function WorkFlowSection({
   const steps: StepItem[] = [
     {
       step: '01',
-      title: 'まずはLINEで相談',
-      badge: '匿名での相談もOK',
-      desc: '気になることや不安なことを、LINEや電話でお気軽にご相談ください。応募を決めていなくても、質問だけで大丈夫です。',
-      icon: 'message-circle',
+      title: 'LINEでお問い合わせ',
+      desc: 'まずは公式LINEから、気になる点やご希望（曜日・時間帯・質問のみでも可）をお送りください。',
+      icon: 'MessageCircle',
     },
     {
       step: '02',
-      title: '希望条件の確認・お店見学',
-      badge: '見学だけでも歓迎',
-      desc: '希望する働き方や収入、出勤日数などを確認します。実際のお店や待機場所を見てから検討することもできます。',
-      icon: 'building-2',
+      title: '仕事内容・条件のご説明',
+      desc: 'お仕事の内容、報酬の仕組み、待機環境やルールについて事前に分かりやすくご案内します。',
+      icon: 'FileText',
     },
     {
       step: '03',
-      title: '面接・仕事内容の説明',
-      badge: '履歴書不要',
-      desc: 'お仕事内容・給与・待遇・ルールを一つずつ説明します。疑問や不安は面接時に何でも質問してください。',
-      icon: 'clipboard-check',
+      title: '面接・相談',
+      desc: '実際のお店にお越しいただき（履歴書不要・私服OK）、ご希望を伺いながら館内の雰囲気もご確認いただけます。',
+      icon: 'Coffee',
     },
     {
       step: '04',
-      title: '希望者は体験入店',
-      badge: '希望する方のみ',
-      desc: 'お店の雰囲気や仕事の流れを実際に確認できます。体験するかどうかはご自身で決められます。',
-      icon: 'door-open',
+      title: '条件の確認・意思確認',
+      desc: '勤務条件や待遇に納得いただいたうえで働くかどうかをご判断ください。体験入店のご相談も可能です。',
+      icon: 'ClipboardCheck',
     },
     {
       step: '05',
-      title: '納得したらお仕事スタート',
-      badge: '自分のペースで開始',
-      desc: '働き方や出勤日を相談してスタート。お給料の受け取り方法や勤務ルールも事前に確認できます。',
-      icon: 'check-circle',
+      title: '勤務開始',
+      desc: 'ご希望のペースに合わせてお仕事スタート。初日も仲居さん・女性スタッフが近くでサポートします。',
+      icon: 'CheckCircle2',
     },
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-[#FFFAFC] relative overflow-hidden" id="flow">
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* 1. メインタイトル */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
-            HOW TO START
-          </span>
-
-          <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-            応募からお仕事開始まで
-          </h2>
-
-          <p className="text-base sm:text-lg font-bold text-[#D8175D] mb-3">
-            はじめてでも安心の5ステップ
+    <section className="py-16 sm:py-20 bg-white" id="flow">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+          <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
+            FLOW
           </p>
-
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
-            まずは相談だけでも大丈夫。お店の見学や条件の確認をしてから、働くかどうかを決められます。
+          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+            応募からお仕事開始までの流れ
+          </h2>
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+            まずは相談や見学だけでも大丈夫です。納得してから始められます。
           </p>
         </div>
 
-        {/* 2 & 3. 5ステップ（PC版：横一列5枚 / スマホ版：縦一列タイムライン） */}
-
-        {/* --- PC版（md以上：5枚横一列） --- */}
-        <div className="hidden md:grid md:grid-cols-5 gap-3 lg:gap-4 mb-10 items-stretch relative">
+        {/* 5 Steps: PC 5-column cards, Mobile clean vertical timeline */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
           {steps.map((st, idx) => (
-            <div key={st.step} className="relative flex flex-col h-full group">
-              {/* カード本体 */}
-              <div className="h-full bg-white rounded-[18px] border border-[#F0DDE4] p-4 lg:p-5 flex flex-col justify-between shadow-[0_2px_12px_rgba(216,23,93,0.03)] hover:shadow-[0_6px_20px_rgba(216,23,93,0.08)] transition-all">
-                <div>
-                  {/* 上部：STEP番号 & 補助タグ */}
-                  <div className="flex items-center justify-between gap-1 mb-3">
-                    <span className="font-mono font-black text-2xl lg:text-3xl text-[#E5829D]/70 leading-none">
-                      {st.step}
-                    </span>
-                    <span className="text-[10px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded-full border border-[#F0DDE4] whitespace-nowrap">
-                      {st.badge}
-                    </span>
+            <div
+              key={st.step}
+              className="relative bg-[#FFF6F8]/60 rounded-2xl border border-[#EFE2E7] p-5 flex md:flex-col gap-4 md:gap-0 items-start"
+            >
+              {/* Step & Icon */}
+              <div className="flex md:w-full items-center justify-between gap-2 md:mb-4 shrink-0">
+                <div className="flex flex-col md:flex-row md:items-center gap-2">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-[#EFE2E7] text-[#A65D79] flex items-center justify-center shrink-0">
+                    <LucideIcon name={st.icon} size={18} />
                   </div>
-
-                  {/* アイコン（ピンクの薄い円形背景） */}
-                  <div className="w-11 h-11 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] flex items-center justify-center text-[#D8175D] mb-3.5 group-hover:scale-105 transition-transform">
-                    <LucideIcon name={st.icon} size={20} />
-                  </div>
-
-                  {/* タイトル（濃いネイビー） */}
-                  <h3 className="font-bold text-[13px] lg:text-sm text-[#1F2432] mb-2 leading-snug min-h-[38px] flex items-center">
-                    {st.title}
-                  </h3>
-
-                  {/* 説明文（濃いグレー） */}
-                  <p className="text-[11.5px] lg:text-xs text-[#555555] leading-relaxed">
-                    {st.desc}
-                  </p>
+                  <span className="font-display font-bold text-sm text-[#E85B91] text-center md:text-left">
+                    STEP {st.step}
+                  </span>
                 </div>
               </div>
 
-              {/* PC版ステップ間のコネクト矢印（最後のカード以外） */}
+              <div className="flex-1">
+                <h3 className="font-display font-bold text-sm sm:text-base text-[#333333] mb-2 leading-snug">
+                  {st.title}
+                </h3>
+                <p className="text-xs sm:text-[13px] text-[#4A4A4A] leading-relaxed">
+                  {st.desc}
+                </p>
+              </div>
+
               {idx < steps.length - 1 && (
                 <div
-                  className="hidden lg:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] text-[#D8175D] items-center justify-center shadow-2xs pointer-events-none"
+                  className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-white border border-[#EFE2E7] text-[#A65D79] items-center justify-center shadow-2xs"
                   aria-hidden="true"
                 >
-                  <LucideIcon name="ChevronRight" size={12} />
+                  <LucideIcon name="ChevronRight" size={13} />
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        {/* --- スマートフォン版（md未満：縦一列タイムライン） --- */}
-        <div className="md:hidden space-y-3.5 mb-8">
-          {steps.map((st, idx) => (
-            <div
-              key={st.step}
-              className="bg-white rounded-[18px] border border-[#F0DDE4] p-4 shadow-[0_2px_10px_rgba(216,23,93,0.03)] flex gap-3.5 relative"
-            >
-              {/* 左側：STEP番号とアイコン */}
-              <div className="flex flex-col items-center shrink-0 w-12">
-                <span className="font-mono font-black text-xl text-[#E5829D]/80 leading-none mb-1">
-                  {st.step}
-                </span>
-                <div className="w-10 h-10 rounded-full bg-[#FFF1F5] border border-[#F0DDE4] flex items-center justify-center text-[#D8175D]">
-                  <LucideIcon name={st.icon} size={18} />
-                </div>
-                {/* 縦のガイドライン（最後のステップ以外） */}
-                {idx < steps.length - 1 && (
-                  <div className="w-[1.5px] bg-[#F0DDE4] flex-1 my-1.5" />
-                )}
-              </div>
-
-              {/* 右側：コンテンツ */}
-              <div className="flex-1 min-w-0 pt-0.5">
-                <div className="inline-block text-[10px] font-bold text-[#D8175D] bg-[#FFF1F5] px-2 py-0.5 rounded-full border border-[#F0DDE4] mb-1.5">
-                  {st.badge}
-                </div>
-                <h3 className="font-bold text-sm text-[#1F2432] mb-1.5 leading-snug">
-                  {st.title}
-                </h3>
-                <p className="text-xs text-[#555555] leading-relaxed">
-                  {st.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 安心の約束エリア */}
-        <div className="bg-[#FFF5F8] border border-[#F0DDE4] rounded-[18px] p-6 sm:p-7 text-center max-w-2xl mx-auto shadow-2xs">
-          <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#D8175D] mb-2">
-            <LucideIcon name="ShieldCheck" size={17} />
-            <span>安心の約束</span>
-          </div>
-          <h3 className="font-bold text-base sm:text-lg text-[#1F2432] mb-1.5">
-            応募したからといって、働くことを強制されません。
+        {/* Reassurance Box & Links */}
+        <div className="bg-[#F7F2EC] border border-[#E9DFD4] rounded-2xl p-6 text-center max-w-2xl mx-auto">
+          <h3 className="font-display font-bold text-base sm:text-lg text-[#333333] mb-2">
+            話を聞いたうえで、お断りいただいても構いません
           </h3>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed max-w-xl mx-auto">
-            見学・面接・体験を通して、お店や条件に納得してから決めてください。無理な勧誘は行いません。
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-5">
+            見学や説明を聞いたあとに「少し考えたい」という場合は、その場で無理に決める必要はありません。
           </p>
-
-          {onNavigateDetail && (
-            <div className="mt-4 pt-3.5 border-t border-[#F0DDE4]/70">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            {onCtaclick && (
+              <button
+                type="button"
+                onClick={onCtaclick}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <LucideIcon name="MessageCircle" size={16} className="fill-white" />
+                <span>LINEで流れや持ち物を聞く</span>
+              </button>
+            )}
+            {onNavigateDetail && (
               <a
                 href="/flow"
                 onClick={(e) => {
                   e.preventDefault();
                   onNavigateDetail();
                 }}
-                className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-[#D8175D] hover:text-[#b5124c] font-bold bg-white px-5 py-2.5 rounded-full border border-[#F0DDE4] shadow-2xs hover:shadow-xs transition-all cursor-pointer hover:scale-[1.01]"
                 id="flow-detail-link-btn"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-[#FFF6F8] text-[#A65D79] font-bold text-xs sm:text-sm border border-[#E2CED6] transition-colors inline-flex items-center justify-center gap-1.5"
               >
-                <span>詳しい採用の流れ・必要書類の解説を見る</span>
-                <LucideIcon name="ChevronRight" size={13} />
+                <span>面接・体験の流れを詳しく見る</span>
+                <LucideIcon name="ChevronRight" size={14} />
               </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-
       </div>
     </section>
   );

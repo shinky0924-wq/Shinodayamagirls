@@ -726,11 +726,11 @@ function main() {
 
   // Also inject styled SSR shell into root dist/index.html for instant first paint & initial HTML content
   const rootSsrShell = buildSsrRootShell({
-    heading: '信太山新地でお仕事を探す女性へ。信太山新地求人・信太山求人なら信太山ガールズ',
+    heading: '信太山新地でお仕事を探す女性へ。自分に合った働き方を、信太山ガールズで見つけませんか？',
     description:
-      '【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース3,800円〜・即日全額日払い・週1日〜相談可。',
+      '未経験の方も、経験のある方も歓迎。仕事内容・お給料・待遇・働く環境まで、応募前に分かりやすくご案内します。週1日からの勤務や短時間勤務など、希望の働き方もお気軽にご相談ください。',
     noscriptBodyHtml:
-      '<p>未経験から始めたい方、プライバシーを守りながら働きたい方のために、仕事内容・給料システム・面接の流れ・身バレ対策・寮について分かりやすくご案内しています。</p>'
+      '<p>未経験の方も相談OK・週1日から相談OK・働き方の相談OK・LINEで事前相談OK。仕事内容・報酬・募集条件・応募の流れを分かりやすくご案内しています。</p>'
   });
   const updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
   fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');

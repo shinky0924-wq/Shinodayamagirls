@@ -18,240 +18,131 @@ interface FooterProps {
   isAdminMode?: boolean;
 }
 
-export default function Footer({ currentTab, onChangeTab, onScrollToSection, onOpenAdmin, onNavigateCompare, onNavigateWorkstyle, onNavigateTopic, isAdminMode }: FooterProps) {
+export default function Footer({
+  currentTab,
+  onChangeTab,
+  onScrollToSection,
+  onOpenAdmin,
+  onNavigateCompare,
+  onNavigateWorkstyle,
+  onNavigateTopic,
+}: FooterProps) {
   const [showAdminLink, setShowAdminLink] = useState(false);
-  const [activeModal, setActiveModal] = useState<'policy' | 'company' | null>(null);
   const siteContent = getStoredSiteContent();
   const lastUpdated = getEffectiveLastUpdated(siteContent.lastUpdated);
 
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('creator') === 'shinodayama' || params.get('creator') === 'tobita' || params.get('admin') === 'true') {
+      if (params.get('creator') === 'shinodayama' || params.get('admin') === 'true') {
         localStorage.setItem('show_admin_portal', 'true');
         setShowAdminLink(true);
       } else if (localStorage.getItem('show_admin_portal') === 'true') {
         setShowAdminLink(true);
       }
-    } catch (e) {
-      console.warn('localStorage or window.location not accessible', e);
-    }
+    } catch {}
   }, []);
 
-  const navLinks = [
-    { name: '信太山新地・他業種・スカウト徹底比較', action: 'compare', target: '/compare' },
-    { name: 'タイプ別の働き方ガイド', action: 'workstyle', target: '/types' },
-    { name: '旅館求人・採用担当者インタビュー', action: 'interview', target: '/interview' },
-    { name: '求人総合ガイド', action: 'section', target: '#recruit-hub' },
-    { name: 'お仕事コラム一覧', action: 'blog', target: '/blog' },
-    { name: '運営者情報・グループ店舗概要', action: 'about', target: '/about' },
-    { name: '選ばれる理由', action: 'section', target: '#reasons' },
-    { name: 'よくある質問 FAQ（66問）', action: 'faq', target: '/faq' },
-    { name: '女性の声・体験談', action: 'section', target: '#voice' },
-    { name: '給料（報酬・日払い）', action: 'topic', target: '/salary', topicId: 'salary' },
-    { name: '寮・出稼ぎ（住み込み）', action: 'topic', target: '/dorm', topicId: 'dorm' },
-    { name: '応募・面接の流れ', action: 'section', target: '#flow' },
+  const sectionLinks = [
+    { name: '求人トップ', action: 'section', target: '#hero' },
+    { name: '大切にしている6つのこと', action: 'section', target: '#reasons' },
+    { name: '仕事内容の紹介', action: 'section', target: '#job-intro' },
+    { name: 'お給料・報酬について', action: 'section', target: '#salary-overview' },
+    { name: '働く環境・設備', action: 'section', target: '#environment' },
+    { name: '実際に働く女性の声', action: 'section', target: '#voice' },
+    { name: '募集要項一覧', action: 'section', target: '#jobs' },
+    { name: '応募からの流れ', action: 'section', target: '#flow' },
   ];
 
-  interface CategoryLinkItem {
-    name: string;
-    icon: string;
-    slug?: string;
-    action: string;
-    target: string;
-    sectionId?: string;
-    topicId?: string;
-  }
-
-  const targetCategoryLinks: CategoryLinkItem[] = [
-    { 
-      name: '未経験から始めたい', 
-      icon: 'HeartHandshake',
-      slug: 'inexperienced', 
-      action: 'workstyle',
-      target: '/types/inexperienced' 
-    },
-    { 
-      name: '高収入を目指したい', 
-      icon: 'Wallet',
-      slug: 'high-income', 
-      action: 'workstyle',
-      target: '/types/high-income' 
-    },
-    { 
-      name: '週1日から働きたい', 
-      icon: 'CalendarDays',
-      slug: 'weekly-1', 
-      action: 'workstyle',
-      target: '/types/weekly-1' 
-    },
-    { 
-      name: '顔出しなし・身バレ対策', 
-      icon: 'ShieldCheck',
-      slug: 'privacy', 
-      action: 'workstyle',
-      target: '/types/privacy' 
-    },
-    { 
-      name: '短時間・短期で働きたい', 
-      icon: 'Clock',
-      slug: 'short-term', 
-      action: 'workstyle',
-      target: '/types/short-term' 
-    },
-    { 
-      name: '女性スタッフに相談したい', 
-      icon: 'MessagesSquare',
-      slug: 'female-staff',
-      action: 'workstyle',
-      target: '/types/female-staff' 
-    },
-    { 
-      name: '出稼ぎ・寮付き希望', 
-      icon: 'House',
-      slug: 'dormitory', 
-      action: 'workstyle',
-      target: '/types/dormitory' 
-    },
-    { 
-      name: 'まずは話を聞きたい', 
-      icon: 'MessageCircle',
-      slug: 'consultation',
-      action: 'workstyle',
-      target: '/types/consultation' 
-    },
+  const workstyleLinks = [
+    { name: '未経験から始めたい', slug: 'inexperienced', target: '/types/inexperienced' },
+    { name: '高収入を目指したい', slug: 'high-income', target: '/types/high-income' },
+    { name: '週1日から働きたい', slug: 'weekly-1', target: '/types/weekly-1' },
+    { name: '顔出しなし・身バレ対策', slug: 'privacy', target: '/types/privacy' },
+    { name: '短時間・短期で働きたい', slug: 'short-term', target: '/types/short-term' },
+    { name: '女性スタッフに相談したい', slug: 'female-staff', target: '/types/female-staff' },
+    { name: '出稼ぎ・寮付き希望', slug: 'dormitory', target: '/types/dormitory' },
+    { name: 'まずは話を聞きたい', slug: 'consultation', target: '/types/consultation' },
   ];
 
-  const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+  const comprehensiveGuideLinks = [
+    { id: 'job', name: '01 仕事内容', path: '/job' },
+    { id: 'salary', name: '02 給料・待遇', path: '/salary' },
+    { id: 'beginner', name: '03 未経験ガイド', path: '/beginner' },
+    { id: 'experienced', name: '04 経験者ガイド', path: '/experienced' },
+    { id: 'requirements', name: '05 募集要項・応募条件', path: '/requirements' },
+    { id: 'flow', name: '06 面接・体験入店の流れ', path: '/flow' },
+    { id: 'workstyle', name: '07 自由な働き方', path: '/workstyle' },
+    { id: 'shops', name: '08 お店選び', path: '/shops' },
+    { id: 'dorm', name: '09 寮・出稼ぎ', path: '/dorm' },
+    { id: 'safety', name: '10 身バレ・安全対策', path: '/safety' },
+    { id: 'faq', name: '11 よくある質問 FAQ（66問）', path: '/faq' },
+    { id: 'blog', name: '12 お仕事コラム', path: '/blog' },
+  ];
+
+  const handleSectionLink = (e: MouseEvent<HTMLAnchorElement>, target: string) => {
     e.preventDefault();
-
-    if (link.action === 'compare') {
-      onChangeTab('compare');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'workstyle') {
-      onChangeTab('workstyle');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'blog') {
-      onChangeTab('blog');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'about') {
-      onChangeTab('about');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'faq') {
-      onChangeTab('faq');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'interview') {
-      onChangeTab('interview');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'topic' && (link.topicId || link.target)) {
-      if (onNavigateTopic) {
-        onNavigateTopic(link.topicId || link.target.replace(/^\//, ''));
-      }
-    } else if (link.action === 'section' && link.target) {
-      const sectionId = link.target.startsWith('#') ? link.target.substring(1) : link.target;
-      onScrollToSection(sectionId);
+    const id = target.replace(/^#/, '');
+    if (currentTab !== 'recruit') {
+      onChangeTab('recruit');
+      setTimeout(() => onScrollToSection(id), 100);
+    } else {
+      onScrollToSection(id);
     }
   };
 
-  const handleCategoryLinkClick = (e: MouseEvent<HTMLAnchorElement>, item?: typeof targetCategoryLinks[0]) => {
+  const handleWorkstyleLink = (e: MouseEvent<HTMLAnchorElement>, slug?: string) => {
     e.preventDefault();
-    if (!item) {
-      if (onNavigateWorkstyle) {
-        onNavigateWorkstyle();
-      } else if (onNavigateCompare) {
-        onNavigateCompare();
-      } else {
-        onChangeTab('workstyle');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      return;
-    }
-
-    if (item.action === 'section' && item.sectionId) {
-      if (currentTab !== 'recruit') {
-        onChangeTab('recruit');
-      }
-      setTimeout(() => {
-        onScrollToSection(item.sectionId!);
-      }, 50);
-      return;
-    }
-
-    if (item.action === 'topic' && item.topicId && onNavigateTopic) {
-      onNavigateTopic(item.topicId);
-      return;
-    }
-
-    if (item.slug) {
-      if (onNavigateWorkstyle) {
-        onNavigateWorkstyle(item.slug);
-      } else if (onNavigateCompare) {
-        onNavigateCompare(item.slug);
-      } else {
-        if (typeof window !== 'undefined') {
-          const targetUrl = `/types/${item.slug}`;
-          window.history.pushState({}, '', targetUrl);
-        }
-        onChangeTab('workstyle');
-      }
+    if (onNavigateWorkstyle) {
+      onNavigateWorkstyle(slug);
     } else {
-      if (onNavigateWorkstyle) {
-        onNavigateWorkstyle();
-      } else {
-        onChangeTab('workstyle');
-      }
+      onChangeTab('workstyle');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   return (
-    <footer className="bg-surface-container-low border-t border-rose-100/40 pt-16 pb-8" id="app-footer">
-      <div className="max-w-[1100px] mx-auto px-6">
-        
-        {/* Upper footer grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          
-          {/* Col 1: Logo & Operational Info */}
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <div className="text-xs font-bold text-on-surface-variant/80 uppercase tracking-wider">
-                信太山新地 旅館直営求人・公式採用窓口
-              </div>
-              <div className="font-display font-extrabold text-xl text-secondary flex items-center gap-2.5 pb-2">
-                <img
-                  src="/images/shinodayama_logo.svg"
-                  alt="Shinodayama Girls Logo"
-                  className="w-7 h-7 rounded-full object-cover border border-rose-200 shadow-xs bg-white"
-                  width={28}
-                  height={28}
-                  decoding="async"
-                />
-                <span>信太山ガールズ</span>
-              </div>
+    <footer className="bg-[#F7F2EC] border-t border-[#E9DFD4] pt-14 pb-24 sm:pb-10" id="app-footer">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Upper Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          {/* Col 1: Brand Info */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/images/shinodayama_logo.svg"
+                alt="信太山ガールズ"
+                className="w-8 h-8 rounded-full object-cover border border-[#E5D4DC] bg-white"
+                width={32}
+                height={32}
+                decoding="async"
+              />
+              <span className="font-display font-bold text-lg text-[#A65D79]">
+                信太山ガールズ
+              </span>
             </div>
-            <p className="font-sans text-xs text-on-surface-variant leading-loose">
-              受付時間：24時間年中無休<br />
-              活動拠点：大阪府和泉市（信太山新地 旅館直営）<br />
-              採用窓口：旅館現場スタッフ・女性専任サポート常駐
+            <p className="text-xs text-[#555555] leading-relaxed">
+              信太山新地の女性向け公式求人案内サイトです。仕事内容・お給料・待遇・働く環境を応募前に分かりやすくご案内しています。
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-gray-500 font-mono bg-white p-2.5 rounded-xl border border-rose-100/60 inline-flex">
-              <LucideIcon name="CalendarCheck" size={13} className="text-secondary" />
-              <span>サイト最終更新日：{lastUpdated}</span>
+            <div className="text-xs text-[#555555] space-y-1">
+              <p>活動拠点：大阪府和泉市 幸二丁目（信太山新地）</p>
+              <p>受付：公式LINEにて24時間相談受付中</p>
+              <p className="text-[11px] text-[#666666]">最終更新日：{lastUpdated}</p>
             </div>
           </div>
 
-          {/* Col 2: Navigation Links */}
-          <div className="space-y-4">
-            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
-              <LucideIcon name="Layers" size={15} className="text-secondary" />
-              <span>サイト内リンク</span>
+          {/* Col 2: Top Page Sections */}
+          <div className="space-y-3">
+            <p className="font-display font-bold text-sm text-[#333333]">
+              求人案内メニュー
             </p>
-            <ul className="space-y-2 font-sans text-xs md:text-sm">
-              {navLinks.map((link) => (
+            <ul className="space-y-2 text-xs sm:text-[13px]">
+              {sectionLinks.map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.target || '#'}
-                    onClick={(e) => handleLinkClick(e, link)}
-                    className="text-on-surface-variant hover:text-secondary hover:underline transition-all block"
+                  <a
+                    href={link.target}
+                    onClick={(e) => handleSectionLink(e, link.target)}
+                    className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline transition-colors"
                   >
                     {link.name}
                   </a>
@@ -260,100 +151,107 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
             </ul>
           </div>
 
-          {/* Col 3: タイプ別の働き方ガイド */}
-          <div className="space-y-4">
-            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider">
+          {/* Col 3: Workstyle Links */}
+          <div className="space-y-3">
+            <p className="font-display font-bold text-sm text-[#333333]">
               <a
                 href="/types"
-                onClick={(e) => handleCategoryLinkClick(e)}
-                className="hover:text-secondary flex items-center gap-1.5 transition-colors group cursor-pointer"
-                title="タイプ別の働き方ガイドへ"
+                onClick={(e) => handleWorkstyleLink(e)}
+                className="hover:text-[#A65D79] transition-colors inline-flex items-center gap-1"
               >
-                <LucideIcon name="Target" size={15} className="text-secondary" />
-                <span className="group-hover:underline">タイプ別の働き方</span>
-                <LucideIcon name="ChevronRight" size={13} className="text-zinc-400 group-hover:text-secondary transition-transform group-hover:translate-x-0.5" />
+                <span>タイプ別の働き方</span>
+                <LucideIcon name="ChevronRight" size={14} />
               </a>
             </p>
-            <ul className="space-y-2 font-sans text-xs md:text-sm">
-              {targetCategoryLinks.map((cat) => (
-                <li key={cat.name}>
-                  <a 
+            <ul className="space-y-2 text-xs sm:text-[13px]">
+              {workstyleLinks.map((cat) => (
+                <li key={cat.slug}>
+                  <a
                     href={cat.target}
-                    onClick={(e) => handleCategoryLinkClick(e, cat)}
-                    className="text-on-surface-variant hover:text-secondary hover:underline transition-all flex items-center gap-1.5 group"
+                    onClick={(e) => handleWorkstyleLink(e, cat.slug)}
+                    className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline transition-colors"
                   >
-                    <LucideIcon name={cat.icon} size={13} className="text-rose-400 group-hover:text-secondary shrink-0 transition-colors" />
-                    <span>{cat.name}</span>
+                    {cat.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Col 4: E-E-A-T & Editorial / Compliance Info */}
-          <div className="space-y-4">
-            <p className="font-display font-bold text-on-surface text-sm uppercase tracking-wider flex items-center gap-1.5">
-              <LucideIcon name="ShieldCheck" size={15} className="text-secondary" />
-              <span>求人掲載基準・運営方針</span>
+          {/* Col 4: Store Info & Policies */}
+          <div className="space-y-3">
+            <p className="font-display font-bold text-sm text-[#333333]">
+              運営方針・関連ページ
             </p>
-            <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
-              当サイト「信太山ガールズ」は、外部の紹介所や仲介業者ではなく、信太山新地の老舗旅館が直接運営する公式求人窓口です。店先での顔見せがなく、完全個室待機でプライバシー保護を徹底。信太山新地の当店では15分単位の高単価設定、即日全額手渡し日払い、家具家電付き個室寮完備、毎月20日の一斉定休日など、女性が安心して高収入を稼げる環境を整えております。ぜひ信太山新地の当店へご応募ください。
-            </p>
-            <div className="flex flex-col gap-2 pt-1 text-xs">
-              <a
-                href="/about"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onChangeTab('about');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="text-left text-secondary font-bold hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                <LucideIcon name="ShieldCheck" size={13} />
-                <span>運営者情報・店舗体制</span>
-              </a>
-              <a
-                href="/policy"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onChangeTab('policy');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="text-left text-secondary font-bold hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                <LucideIcon name="FileCheck" size={13} />
-                <span>求人情報掲載ポリシーと安全規約</span>
-              </a>
-            </div>
+            <ul className="space-y-2 text-xs sm:text-[13px]">
+              <li>
+                <a
+                  href="/compare"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCompare) onNavigateCompare();
+                    else onChangeTab('compare');
+                  }}
+                  className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline"
+                >
+                  他業種・他エリアとの徹底比較
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/interview"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onChangeTab('interview');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline"
+                >
+                  採用担当者・女性スタッフ対談
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onChangeTab('about');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline font-medium"
+                >
+                  運営者情報・店舗概要
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/policy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onChangeTab('policy');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline font-medium"
+                >
+                  求人情報掲載ポリシー・個人情報保護
+                </a>
+              </li>
+            </ul>
           </div>
-
         </div>
 
-        {/* Topic Cluster Spoke Directory (SEO & LLMO Core Reciprocal Linking) */}
-        <div className="py-6 border-t border-rose-100/60 mb-8">
-          <div className="flex items-center gap-2 mb-3">
-            <LucideIcon name="Compass" size={15} className="text-secondary" />
-            <p className="font-display font-bold text-on-surface text-xs uppercase tracking-wider">
-              信太山新地求人 テーマ別お役立ちガイド（全13テーマ）
+        {/* Dedicated Footer Hub Directory: 信太山新地求人 総合ガイド（12テーマ一覧リンク） */}
+        <div className="bg-white rounded-2xl border border-[#E9DFD4] p-5 sm:p-6 mb-8">
+          <div className="mb-3">
+            <p className="font-display font-bold text-sm sm:text-base text-[#333333]">
+              信太山新地求人 総合ガイド（テーマ一覧リンク）
+            </p>
+            <p className="text-xs text-[#666666] mt-0.5">
+              仕事内容・お給料・待遇・未経験者向け情報・採用条件・働き方・お店選びなど、全12テーマの詳細ページをご覧いただけます。
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 text-xs">
-            {[
-              { id: 'job', name: '🍵 お仕事内容・待機', path: '/job' },
-              { id: 'salary', name: '💰 給料（報酬・日払い）', path: '/salary' },
-              { id: 'compare', name: '⚖️ 徹底比較ガイド', path: '/compare' },
-              { id: 'beginner', name: '🔰 未経験スタート', path: '/beginner' },
-              { id: 'experienced', name: '👑 経験者・移籍', path: '/experienced' },
-              { id: 'requirements', name: '📋 採用基準・書類', path: '/requirements' },
-              { id: 'flow', name: '🌸 面接・体入の流れ', path: '/flow' },
-              { id: 'workstyle', name: '⏰ 自由な働き方', path: '/workstyle' },
-              { id: 'shops', name: '🏮 お店選び・半年ルール', path: '/shops' },
-              { id: 'dorm', name: '🏠 個室寮・出稼ぎ', path: '/dorm' },
-              { id: 'safety', name: '🤫 身バレ・顔見せなし', path: '/safety' },
-              { id: 'faq', name: '💡 よくある質問 (66問)', path: '/faq' },
-              { id: 'interview', name: '🎤 採用担当者インタビュー', path: '/interview' },
-              { id: 'blog', name: '📚 お仕事コラム', path: '/blog' },
-            ].map((topic) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 text-xs">
+            {comprehensiveGuideLinks.map((topic) => (
               <a
                 key={topic.id}
                 href={topic.path}
@@ -362,23 +260,14 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
                   if (topic.id === 'faq') {
                     onChangeTab('faq');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else if (topic.id === 'compare') {
-                    onChangeTab('compare');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else if (topic.id === 'interview') {
-                    onChangeTab('interview');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (topic.id === 'blog') {
                     onChangeTab('blog');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (onNavigateTopic) {
                     onNavigateTopic(topic.id);
-                  } else {
-                    onChangeTab('recruit');
-                    onScrollToSection('recruit-hub');
                   }
                 }}
-                className="p-2 rounded-xl bg-white hover:bg-rose-50 border border-gray-200/70 hover:border-rose-300 text-zinc-700 hover:text-rose-700 font-medium transition-colors block text-center truncate"
+                className="px-3 py-2 rounded-xl bg-[#FFF6F8] hover:bg-[#A65D79] text-[#333333] hover:text-white border border-[#EFE2E7] font-bold transition-colors text-center truncate"
               >
                 {topic.name}
               </a>
@@ -386,70 +275,24 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
           </div>
         </div>
 
-
-        {/* Lower copyright & Admin link */}
-        <div className="pt-8 border-t border-rose-100/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
-          <p className="font-sans text-xs text-on-surface-variant opacity-60">
-            © Shinodayama Girls All Rights Reserved. 信太山新地求人なら信太山ガールズ
+        {/* Copyright */}
+        <div className="pt-6 border-t border-[#E9DFD4] flex flex-col sm:flex-row justify-between items-center gap-3 text-center">
+          <p className="font-sans text-xs text-[#666666]">
+            © 信太山ガールズ All Rights Reserved. 信太山新地 公式女性求人案内
           </p>
-          <button 
-            onClick={onOpenAdmin}
-            className="text-xs text-on-surface-variant opacity-50 hover:opacity-100 hover:text-secondary transition-all cursor-pointer flex items-center gap-1 font-mono"
-            id="footer-admin-btn"
-          >
-            <LucideIcon name="Lock" size={12} />
-            管理者画面（コラム追加・管理）
-          </button>
+          {showAdminLink && (
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="text-xs text-[#666666] hover:text-[#A65D79] transition-colors cursor-pointer flex items-center gap-1"
+              id="footer-admin-btn"
+            >
+              <LucideIcon name="Lock" size={12} />
+              <span>管理者画面</span>
+            </button>
+          )}
         </div>
-
       </div>
-
-      {/* Policy Modal */}
-      {activeModal === 'policy' && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl border border-rose-100">
-            <div className="flex items-center justify-between pb-4 border-b border-rose-100 mb-4">
-              <h4 className="font-display font-bold text-base text-gray-900 flex items-center gap-2">
-                <LucideIcon name="FileCheck" className="text-secondary" size={18} />
-                求人情報掲載ポリシーと安全規約
-              </h4>
-              <button onClick={() => setActiveModal(null)} className="text-gray-400 hover:text-gray-600 p-1">
-                <LucideIcon name="X" size={18} />
-              </button>
-            </div>
-            <div className="text-xs text-gray-700 space-y-3 leading-relaxed font-sans">
-              <p><strong>1. 法令遵守と健全性の徹底（20歳以上完全限定）</strong><br />信太山新地の規約およびコンプライアンス管理に基づき、20歳未満の就労を固く禁じております。顔写真付き身分証原本（免許証・パスポート等）による厳正な本人確認・年齢確認・日本国籍確認を行い、違法行為・反社会的勢力との関わりを一切排除しています。</p>
-              <p><strong>2. 虚偽・誇大広告の禁止と正確な情報の明示</strong><br />当サイトの掲載情報は、旅館の現場スタッフへの直接ヒアリングと実際の募集条件をもとに作成しています。15分単位の明確な給料体系（15分3,800円、30分7,600円、45分11,400円、60分15,200円、時給1万円保証・日給保証）と実態に即した正確な情報を掲載し、条件変更時は随時更新を行っています。</p>
-              <p><strong>3. ノルマ・天引きの禁止</strong><br />指名ノルマ・罰金・雑費引き・講習などの天引きを行う店舗の掲載は一切認めておりません。</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Company / Privacy Modal */}
-      {activeModal === 'company' && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl border border-rose-100">
-            <div className="flex items-center justify-between pb-4 border-b border-rose-100 mb-4">
-              <h4 className="font-display font-bold text-base text-gray-900 flex items-center gap-2">
-                <LucideIcon name="ShieldCheck" className="text-secondary" size={18} />
-                運営者情報・プライバシー保護体制
-              </h4>
-              <button onClick={() => setActiveModal(null)} className="text-gray-400 hover:text-gray-600 p-1">
-                <LucideIcon name="X" size={18} />
-              </button>
-            </div>
-            <div className="text-xs text-gray-700 space-y-3 leading-relaxed font-sans">
-              <p><strong>運営組織：</strong>信太山新地 旅館 店舗採用・女性サポートチーム（直営公式窓口）</p>
-              <p><strong>店舗所在地：</strong>大阪府和泉市（信太山新地 旅館街）</p>
-              <p><strong>求人責任者：</strong>女性サポート統括担当 あおい / 採用マネージャー 松本</p>
-              <p><strong>個人情報保護：</strong>ご相談・ご応募時のLINE情報や個人情報は、店舗見学・面接連絡にのみ厳重に使用し、第三者への開示・販売は一切行いません。</p>
-              <p><strong>身バレ防止対策：</strong>店先での顔見せは一切なく、個室や専用スタンド待機です。Webサイト・SNS等への写真掲載も行いません。</p>
-            </div>
-          </div>
-        </div>
-      )}
     </footer>
   );
 }
-

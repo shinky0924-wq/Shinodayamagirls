@@ -1,15 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: "Plus Jakarta Sans", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-sans: "Noto Sans JP", "Plus Jakarta Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --color-primary-rose: #A65D79;
+  --color-primary-rose-dark: #85465F;
+  --color-accent-pink: #E85B91;
+  --color-accent-pink-hover: #D4477D;
+  --color-soft-pink: #FFF6F8;
+  --color-warm-beige: #F7F2EC;
+  --color-charcoal: #333333;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: #333333;
+    background-color: #FFFFFF;
   }
 
   body {
-    background-color: #FAFAFB;
-    color: #1F2432;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: #FFFFFF;
+    color: #333333;
+    font-family: "Noto Sans JP", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    line-height: 1.75;
   }
 }
+

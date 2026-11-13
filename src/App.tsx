@@ -7,11 +7,16 @@ import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import WorkstyleFinderSection from './components/WorkstyleFinderSection';
+import JobIntroSection from './components/JobIntroSection';
+import SalaryOverviewSection from './components/SalaryOverviewSection';
+import EnvironmentSection from './components/EnvironmentSection';
 import Testimonials from './components/Testimonials';
-import RecruitHub from './components/RecruitHub';
 import JobRequirementsSection from './components/JobRequirementsSection';
+import TopFaqSection from './components/TopFaqSection';
 import WorkFlowSection from './components/WorkFlowSection';
 import ConsultationForm from './components/ConsultationForm';
+import RecruitHub from './components/RecruitHub';
 import Footer from './components/Footer';
 import LucideIcon from './components/LucideIcon';
 import ArticleCardImage from './components/ArticleCardImage';
@@ -320,8 +325,8 @@ export default function App() {
   useEffect(() => {
     if (currentTab === 'recruit') {
       updatePageSeo({
-        title: '信太山新地求人・信太山求人【公式】未経験歓迎・顔出しなし｜信太山ガールズ',
-        description: '【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース3,800円〜・即日全額日払い・週1日〜相談可。仕事内容・給料・寮・身バレ対策を分かりやすくご案内します。',
+        title: '信太山新地の求人なら信太山ガールズ｜女性向け募集・お仕事内容・待遇案内',
+        description: '信太山新地でお仕事を探している女性へ。信太山ガールズの公式求人案内です。仕事内容・お給料・待遇・勤務条件・働く環境をご紹介。未経験の方も、勤務日数や働き方についてのご相談も歓迎しています。LINEからお気軽にお問い合わせください。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
         ogImage: '/images/shinodayama_hero_banner_1792225964954.jpg',
         ogType: 'website'
@@ -418,7 +423,7 @@ export default function App() {
   }, [currentTab, currentArticle]);
 
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans text-slate-800 antialiased selection:bg-rose-200 selection:text-rose-900">
+    <div className="min-h-screen bg-white flex flex-col font-sans text-[#333333] antialiased selection:bg-[#FCE8EF] selection:text-[#85465F]">
       {/* Top Header */}
       <Header
         currentTab={currentTab}
@@ -429,19 +434,112 @@ export default function App() {
       />
 
       {/* Main Content Router */}
-      <main className="flex-1 pt-16 sm:pt-20 pb-28 sm:pb-12">
+      <main className="flex-1 pt-14 sm:pt-16 pb-20 sm:pb-12">
         {currentTab === 'recruit' && (
           <div>
-            {/* Hero Section */}
+            {/* Section 3: First View */}
             <Hero
               content={siteContent.hero}
               onCtaclick={handleCtaclick}
-              onBlogClick={() => handleNavigateBlog()}
-              articles={BLOG_ARTICLES}
-              onArticleClick={(slug) => handleNavigateBlog(slug)}
+              onScrollToRequirements={() => handleScrollToSection('jobs')}
             />
 
-            {/* Recruit Hub Section (知りたい専門テーマから探す 公式分野別ガイド) */}
+            {/* Section 4: 信太山ガールズが大切にしている6つのこと */}
+            <section className="py-16 sm:py-20 bg-white" id="reasons">
+              <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+                  <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
+                    {siteContent.reasons.subtitle || 'OUR VALUES'}
+                  </p>
+                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+                    {siteContent.reasons.title}
+                  </h2>
+                  <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+                    {siteContent.reasons.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {siteContent.reasons.items.map((reason) => (
+                    <div
+                      key={reason.number}
+                      className="bg-[#FFF6F8]/60 rounded-2xl p-6 border border-[#EFE2E7] shadow-[0_2px_10px_rgba(166,93,121,0.04)] flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="font-display font-bold text-xl text-[#A65D79]">
+                            {reason.number}
+                          </span>
+                          <div className="w-10 h-10 rounded-xl bg-white border border-[#EFE2E7] text-[#E85B91] flex items-center justify-center shrink-0">
+                            <LucideIcon name={reason.iconName} size={19} />
+                          </div>
+                        </div>
+                        <h3 className="font-display font-bold text-base sm:text-lg text-[#333333] mb-2 leading-snug">
+                          {reason.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
+                          {reason.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Section 5: あなたに合った働き方を見つけましょう (7 Cards) */}
+            <WorkstyleFinderSection
+              onSelectWorkstyle={(slug) => handleNavigateWorkstyles(slug)}
+              onViewAllWorkstyles={() => handleNavigateWorkstyles('all')}
+            />
+
+            {/* Section 6: 初めての方にも分かる、お仕事内容 */}
+            <JobIntroSection
+              onNavigateJobDetail={() => handleNavigateTopic('job')}
+              onCtaclick={handleCtaclick}
+            />
+
+            {/* Section 7: 気になるお給料について、分かりやすくご説明します */}
+            <SalaryOverviewSection
+              onNavigateSalaryDetail={() => handleNavigateTopic('salary')}
+              onCtaclick={handleCtaclick}
+            />
+
+            {/* Section 8: 実際に働く場所や環境をご紹介します */}
+            <EnvironmentSection onCtaclick={handleCtaclick} />
+
+            {/* Section 9: 実際に働く女性の声をご紹介 */}
+            <Testimonials onCtaclick={handleCtaclick} />
+
+            {/* Section 10: 信太山ガールズの募集条件 */}
+            <JobRequirementsSection
+              onCtaclick={handleCtaclick}
+              onNavigateDetail={() => handleNavigateTopic('requirements')}
+            />
+
+            {/* Section 11: 応募前によくいただく質問 (10 FAQs) */}
+            <TopFaqSection
+              onNavigateFullFaq={() => handleNavigateFaq()}
+              onCtaclick={handleCtaclick}
+            />
+
+            {/* Section 12: 応募からお仕事開始までの流れ (5 Steps) */}
+            <WorkFlowSection
+              onCtaclick={handleCtaclick}
+              onNavigateDetail={() => handleNavigateTopic('flow')}
+            />
+
+            {/* Section 13: 最終応募エリア */}
+            <div id="consultation">
+              <ConsultationForm
+                content={siteContent.consultation}
+                initialMessage={consultationMessage}
+                onClearInitialMessage={() => setConsultationMessage('')}
+                onScrollToRequirements={() => handleScrollToSection('jobs')}
+              />
+            </div>
+
+            {/* Section 14: 応募前に知っておきたい情報 (12テーマ詳細ページへの導線・下部移動) */}
             <div id="hub">
               <RecruitHub
                 onScrollToSection={handleScrollToSection}
@@ -450,115 +548,6 @@ export default function App() {
                 onNavigateCompare={handleNavigateWorkstyles}
                 onNavigateTopic={handleNavigateTopic}
                 onNavigateFaq={() => handleNavigateFaq()}
-              />
-            </div>
-
-            {/* Reasons Why Shinodayama Is Chosen (信太山新地で、当店が選ばれる6つの理由) */}
-            <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-[#FFFAFC] to-white relative overflow-hidden" id="reasons">
-              <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
-                {/* 見出しブロック */}
-                <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                  <div className="inline-block text-[11px] font-bold tracking-[0.2em] text-[#D8175D] uppercase bg-[#FFF1F5] px-3.5 py-1 rounded-full border border-[#F0DDE4] mb-3">
-                    OUR ADVANTAGES
-                  </div>
-                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-[32px] text-[#222228] leading-tight">
-                    信太山新地で、当店が選ばれる6つの理由
-                  </h2>
-                  {/* 短いピンクのアクセントライン */}
-                  <div className="w-12 h-0.5 bg-[#D8175D] mx-auto mt-4 mb-4 rounded-full" />
-                  <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
-                    お店選びで大切なのは、お給料だけではありません。働く環境・プライバシーへの配慮・スタッフのサポートまで、女性が安心して働ける環境を大切にしています。
-                  </p>
-                </div>
-
-                {/* 6つのカード（PC：横3列×縦2段、スマホ：縦1列） */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                  {siteContent.reasons.items.map((reason) => (
-                    <div
-                      key={reason.number}
-                      className="bg-white rounded-[18px] p-6 sm:p-7 border border-[#F3E5EB] shadow-[0_4px_20px_-4px_rgba(216,23,93,0.05)] hover:shadow-[0_8px_30px_-6px_rgba(216,23,93,0.12)] hover:border-[#D8175D]/30 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
-                    >
-                      <div>
-                        {/* 上部：左に淡いピンクの番号、右に上品なアイコンバッジ */}
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="font-display font-black text-2xl sm:text-[28px] text-[#F3A5BE] group-hover:text-[#D8175D] transition-colors tracking-wider">
-                            {reason.number}
-                          </span>
-                          <div className="w-11 h-11 rounded-[14px] bg-[#FFF1F5] text-[#D8175D] flex items-center justify-center border border-[#F0DDE4] group-hover:bg-[#D8175D] group-hover:text-white transition-all shadow-2xs group-hover:scale-105">
-                            <LucideIcon name={reason.iconName} size={20} />
-                          </div>
-                        </div>
-
-                        {/* 見出し（濃いネイビー・チャコール系） */}
-                        <h3 className="font-bold text-base sm:text-lg text-[#222228] mb-2.5 leading-snug">
-                          {reason.title}
-                        </h3>
-
-                        {/* 説明文（落ち着いた濃いグレー、左揃え） */}
-                        <p className="text-xs sm:text-[13px] text-[#555555] leading-relaxed text-left">
-                          {reason.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* セクション下部：自然な応募・LINE相談への導線 */}
-                <div className="mt-12 sm:mt-16 max-w-2xl mx-auto bg-white rounded-[20px] p-6 sm:p-8 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.06)] text-center">
-                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-3">
-                    <LucideIcon name="MessageCircle" size={13} />
-                    <span>24時間いつでも受付中</span>
-                  </div>
-                  <h3 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#222228] mb-2.5">
-                    まずは、気になることを聞いてみませんか？
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#666666] leading-relaxed mb-6 max-w-lg mx-auto">
-                    応募するかどうかは、話を聞いてから決めても大丈夫です。お仕事内容・お給料・働き方など、気になることは女性スタッフにお気軽にご相談ください。
-                  </p>
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <a
-                      href={LINE_OFFICIAL_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleCtaclick();
-                      }}
-                      className="w-full sm:w-auto sm:min-w-[320px] h-[52px] sm:h-[54px] px-8 rounded-[12px] font-extrabold text-sm sm:text-base bg-[#06C755] hover:bg-[#05b34c] text-white transition-all flex items-center justify-center gap-2.5 shadow-md shadow-[#06C755]/20 hover:shadow-lg cursor-pointer hover:scale-[1.01] active:scale-[0.98]"
-                      id="reasons-line-cta-btn"
-                    >
-                      <LucideIcon name="MessageCircle" size={20} className="fill-white text-white" />
-                      <span>LINEで気軽に相談する</span>
-                    </a>
-                    <span className="text-xs text-[#888888] font-medium mt-1">
-                      相談だけでも大歓迎です
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Testimonials / Real Interviews (信太山新地で働いた女性インタビュー: リアル体験談) */}
-            <Testimonials onCtaclick={handleCtaclick} />
-
-            {/* Job Requirements Section (募集要項・採用条件一覧) */}
-            <JobRequirementsSection
-              onCtaclick={handleCtaclick}
-              onNavigateDetail={() => handleNavigateTopic('requirements')}
-            />
-
-            {/* WorkFlow Section (応募からお仕事開始までの流れ) */}
-            <WorkFlowSection
-              onCtaclick={handleCtaclick}
-              onNavigateDetail={() => handleNavigateTopic('flow')}
-            />
-
-            {/* Consultation / LINE Section */}
-            <div id="consultation">
-              <ConsultationForm
-                content={siteContent.consultation}
-                initialMessage={consultationMessage}
-                onClearInitialMessage={() => setConsultationMessage('')}
               />
             </div>
           </div>
@@ -1321,50 +1310,32 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Sticky Bottom Dock Bar (Section 8: 3 Items Navigation) */}
-      <div className="block sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-rose-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="grid grid-cols-12 gap-2 items-center">
-          {/* 1. 求人トップ */}
+      {/* Mobile Sticky Bottom Dock Bar (2 Essential Actions: 募集要項 / LINEで相談) */}
+      <div className="block sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EFE2E7] shadow-[0_-4px_16px_rgba(0,0,0,0.06)] px-3 pt-2 pb-[max(0.65rem,env(safe-area-inset-bottom))]">
+        <div className="grid grid-cols-12 gap-2.5 items-center">
           <a
-            href="/"
+            href="/#jobs"
             onClick={(e) => {
               e.preventDefault();
-              if (currentTab !== 'recruit') handleTabChange('recruit');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              handleScrollToSection('jobs');
             }}
-            className="col-span-3 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-zinc-700 hover:text-[#E5004F] transition-colors cursor-pointer"
+            id="mobile-sticky-requirements-btn"
+            className="col-span-5 py-2.5 px-3 rounded-xl bg-[#FFF6F8] hover:bg-[#FCE8EF] text-[#A65D79] border border-[#E2CED6] font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
           >
-            <LucideIcon name="Home" size={18} className="text-[#E5004F]" />
-            <span className="text-[10px] font-bold mt-0.5">求人トップ</span>
+            <LucideIcon name="ClipboardList" size={15} className="shrink-0" />
+            <span>募集要項</span>
           </a>
 
-          {/* 2. ガイド一覧 */}
           <a
-            href="/#recruit-hub"
-            onClick={(e) => {
-              e.preventDefault();
-              if (currentTab !== 'recruit') handleTabChange('recruit');
-              handleScrollToSection('recruit-hub');
-            }}
-            className="col-span-3 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-zinc-700 hover:text-[#E5004F] transition-colors cursor-pointer"
+            href={LINE_OFFICIAL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="col-span-7 bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-[0_3px_10px_rgba(6,199,85,0.28)] cursor-pointer"
+            id="mobile-sticky-line-cta"
           >
-            <LucideIcon name="Compass" size={18} className="text-[#E5004F]" />
-            <span className="text-[10px] font-bold mt-0.5">ガイド一覧</span>
+            <LucideIcon name="MessageCircle" size={16} className="fill-white text-white shrink-0" />
+            <span>LINEで相談</span>
           </a>
-
-          {/* 3. 応募・相談 (最も目立つボタン) */}
-          <div className="col-span-6">
-            <a
-              href={LINE_OFFICIAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full bg-[#06C755] hover:bg-[#05b34c] active:bg-[#049b42] text-white py-2.5 px-3 rounded-xl font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-[#06C755]/30 cursor-pointer"
-              id="mobile-sticky-line-cta"
-            >
-              <LucideIcon name="MessageCircle" size={16} className="fill-white text-white shrink-0" />
-              <span>LINEで応募・相談</span>
-            </a>
-          </div>
         </div>
       </div>
 
