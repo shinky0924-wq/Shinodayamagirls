@@ -501,7 +501,7 @@ export default function ComparisonPage({
                 <span>応募・相談前に確認したい条件</span>
               </h3>
               <p className="text-xs text-zinc-500 mb-4">
-                ※実際の採用条件・待遇・受け入れ枠はお店によって異なります。相談時に以下の点を確かめておくとスムーズです。
+                ※当店（お店直接採用）の公式条件・シフト枠は、ご希望の勤務スタイルにあわせて丁寧にご案内しています。ご相談時に以下の点を確認しておくとスムーズです。
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-zinc-700">
                 {activeType.preCheckList.map((item) => (
@@ -690,7 +690,7 @@ export default function ComparisonPage({
                 onClick={onNavigateHome}
                 className="text-xs sm:text-sm font-bold text-[#E5004F] hover:underline flex items-center gap-1 cursor-pointer py-1.5"
               >
-                <span>信太山新地の求人一覧を見る</span>
+                <span>信太山新地・当店の公式求人トップを見る</span>
                 <LucideIcon name="ChevronRight" size={14} />
               </button>
             </div>
