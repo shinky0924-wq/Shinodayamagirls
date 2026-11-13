@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -8,66 +9,110 @@
     <lastmod>2026-11-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_hero_banner_1792225964954.jpg</image:loc>
+      <image:title>信太山新地求人・信太山求人公式サイト「信太山ガールズ」</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/job</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/ryokan_working_woman_1792485020272.webp</image:loc>
+      <image:title>信太山新地・信太山求人の仕事内容｜15分短時間・顔出しなし【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/salary</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_salary_yen_1792463652387.webp</image:loc>
+      <image:title>信太山新地・信太山求人の給料・日払い｜15分3,800円〜【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/beginner</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/hub_beginner_cast_1792485407920.webp</image:loc>
+      <image:title>信太山新地 未経験からの求人ガイド｜初心者9割・安心サポート【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/experienced</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/hub_experienced_cast_1792485405837.webp</image:loc>
+      <image:title>信太山新地求人 経験者・移籍ガイド｜営業LINE・顔出しなし【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/requirements</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_official_documents_1792465890547.webp</image:loc>
+      <image:title>信太山新地・信太山求人の募集要項・採用条件｜20歳以上歓迎【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/flow</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_trial_orient_jp_1792475594501.webp</image:loc>
+      <image:title>信太山新地求人の面接・体験入店の流れ｜履歴書不要・即日日払い【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/workstyle</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_double_work_jp_1792475554864.webp</image:loc>
+      <image:title>信太山新地求人の働き方・自由出勤｜週1日・短時間OK【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/shops</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_secure_ryotei_1792475628730.webp</image:loc>
+      <image:title>信太山新地求人のお店選び｜旅館直営の集客力と半年ルール【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/dorm</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/dorm_main_studio_1794374510330.webp</image:loc>
+      <image:title>信太山新地求人の寮・出稼ぎガイド｜信太山駅近く・交通費相談【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/safety</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/privacy_ryokan_room_1794375281070.webp</image:loc>
+      <image:title>信太山新地求人の身バレ対策・顔出しなし｜プライバシー配慮【公式】</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/compare</loc>
@@ -80,6 +125,10 @@
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/workstyle_guide_hero_1794546577303.webp</image:loc>
+      <image:title>信太山新地 タイプ別働き方ガイド</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/types/inexperienced</loc>
@@ -158,833 +207,1389 @@
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_cast_mai_1792225964470.webp</image:loc>
+      <image:title>【リアル体験談】信太山新地で働いた女性インタビュー！年齢・前職・勤務歴・未経験からの対話記録</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/recruiter-direct-interview</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_advisor_sakura_1792225964799.webp</image:loc>
+      <image:title>【信太山新地 公式インタビュー】旅館の求人担当者に本音直撃！未経験の割合・初日の不安・面接・給与計算まで完全回答</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-beginner-guide</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_hero_banner_1792225964954.webp</image:loc>
+      <image:title>【未経験者必読】信太山新地のお仕事とは？業界一わかりやすい初心者ガイド</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-salary-system</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_salary_yen_1792463652387.webp</image:loc>
+      <image:title>【給料システム公開】信太山新地って本当に稼げる？日給10万円超えの仕組みとコース別支給額</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-privacy-guide</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_safe_1792463653857.webp</image:loc>
+      <image:title>【信太山新地の身バレ対策】友達・家族に100%バレずに働く5つの「秘密厳守」ルール</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-housing-support</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_dorm_interior_1792463651469.webp</image:loc>
+      <image:title>【信太山新地 地方出身者歓迎】個室寮完備・託児所補助あり！1人暮らしを始めるあなたへの全力サポート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-interview-guide</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_interview_counseling_jp_1792475575633.webp</image:loc>
+      <image:title>【信太山新地 面接ガイド】面接の服装は？持ち物は？採用担当者がチェックする3つのポイント</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-trial-guide</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_trial_orient_jp_1792475594501.webp</image:loc>
+      <image:title>【信太山新地 体験入店の手順】まずは1日だけお試し！体験入店（体入）のメリットと当日の流れ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-age-and-looks</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_cast_yuri_1792225965491.webp</image:loc>
+      <image:title>【年齢・容姿の不安】20代後半や30代・未経験からでも高収入！信太山新地で愛される女性の共通点</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-tax-guide</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tax_calc_1792473971279.webp</image:loc>
+      <image:title>【信太山新地の税金対策】Wワークや副業の女の子必見！会社にバレないための税金・確定申告対策</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-non-alcoholic</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_non_alcohol_1792473970240.webp</image:loc>
+      <image:title>【信太山新地 ノンアルでOK】お酒が一切飲めなくても大丈夫！笑顔と気配りだけでガッツリ稼ぐ接客のコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-cast-holiday</loc>
     <lastmod>2026-05-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cast_holiday_jp_1792475554095.webp</image:loc>
+      <image:title>【信太山新地 当店キャストの休日】オンとオフを賢く両立！信太山新地の当店で稼ぐ女の子たちのリアルなプライベートライフ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-short-term-work</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_short_term_1792473989733.webp</image:loc>
+      <image:title>【信太山新地で短期集中】最短1ヶ月からがっつり貯金！「今すぐお金が必要」を叶える短期稼働のススメ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-safety-and-security</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_safety_gate_1792474007202.webp</image:loc>
+      <image:title>【旅館の安全管理】信太山新地の客層が良い理由！お店のスタッフが徹底する「女の子最優先」の警備体制</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-kimono-and-makeup</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_beauty_kimono_1792463653258.webp</image:loc>
+      <image:title>【信太山新地 和装・メイク術】自分に一番似合うスタイルは？無料レンタル浴衣・着物とお仕事メイクのコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-double-work-lifestyle</loc>
     <lastmod>2026-05-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_double_work_jp_1792475554864.webp</image:loc>
+      <image:title>【信太山新地 週1日・週末だけOK】OL・会社員や学生さん必見！お昼だけ・週末だけの掛け持ちシフト例</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-mental-support</loc>
     <lastmod>2026-05-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mental_care_jp_1792475594172.webp</image:loc>
+      <image:title>【信太山新地 女性サポート】悩みは一人で抱え込まないで！現役キャストが教える女性スタッフの頼り方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-search-keywords</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_search_phone_jp_1792475574840.webp</image:loc>
+      <image:title>【徹底分析】信太山新地で働きたい女性が検索するワードとは？不安と疑問を先回り解決！</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-one-day-flow</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_one_day_flow_1792474096539.webp</image:loc>
+      <image:title>【完全密着】信太山新地の1日！出勤からお仕事、退勤までのリアルな流れをレポート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-obachan-role</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_obachan_tea_1792474118271.webp</image:loc>
+      <image:title>おばちゃんは怖い？味方？信太山新地「売り子さん」の本当の役割と良好な関係作りのコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-kimono-makeup</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_kimono_fabrics_1792474118565.webp</image:loc>
+      <image:title>【信太山新地 和装マジック】自分史上いちばん可愛くなれる！貸出衣装（着物・浴衣）とヘアメイクのこだわり</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-privacy-tips</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_discretion_1792475612461.webp</image:loc>
+      <image:title>【信太山新地 身バレ対策の極意】家族・友達・会社に100%知られずに働き続けるための5つの鉄則</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-age-looks-real</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ageless_beauty_1792475612676.webp</image:loc>
+      <image:title>【年齢・ルックスのリアル】20代から40代まで！信太山新地で求められるキャストの条件とは？</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-safety-security</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_secure_ryotei_1792475628730.webp</image:loc>
+      <image:title>【防犯・安全マニュアル】お酒不要でトラブルなし！女の子を守り抜く信太山新地の鉄壁セキュリティ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-weekend-shift</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_weekend_planner_1792475629264.webp</image:loc>
+      <image:title>【信太山新地 副業・OL・学生さんへ】週1日・短時間勤務でも効率的に高収入を稼ぐ賢いシフト設計テクニック</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-trial-guide-faq</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_taiken_prep_1792475646166.webp</image:loc>
+      <image:title>【信太山新地 体験入店の完全ガイド】面接の服装から必要な持ち物、当日の流れまでを徹底解説！</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-mental-support-1</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_serene_lounge_jp_1792476845692.webp</image:loc>
+      <image:title>【メンタルケア】ストレスを溜めない！信太山新地で心穏やかに＆笑顔で働き続けるためのマインドハック</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-popular-cast-tips</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_popular_cast_jp_1792476715216.webp</image:loc>
+      <image:title>【信太山新地 未経験から人気キャストへ】指名・リピートが途切れない！誰でもすぐに実践できる3つの極秘接客術</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-beauty-self-investment</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_luxury_beauty_1792474257173.webp</image:loc>
+      <image:title>【憧れの美容代に！】信太山新地バイトで叶える「自分磨き」＆ハイブランド購入計画</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-student-success</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_student_study_jp_1792476715495.webp</image:loc>
+      <image:title>【信太山新地 女子大生・専門学生必見】親に内緒で卒業旅行＆奨学金返済！学業と両立するスマートな働き方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-10million-savings</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_savings_goal_jp_1792476735709.webp</image:loc>
+      <image:title>【信太山新地 お給料の使い道】20代で1000万円貯めた女の子の貯金術とモチベーション維持の秘訣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-friends-recruit</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_friends_pair_jp_1792476736438.webp</image:loc>
+      <image:title>【信太山新地 友達同士の応募もOK】1人じゃ不安なあなたへ！友達と一緒に面接・体験入店するメリット</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-tennoji-shopping-cafe</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tennoji_shopping_jp_1792476754436.webp</image:loc>
+      <image:title>【信太山新地×大阪・天王寺エリア魅力】お仕事前後に楽しめる！女子に大人気のおしゃれカフェ＆お買い物スポット</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-bonus-secrets</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_bonus_envelope_jp_1792476753315.webp</image:loc>
+      <image:title>【信太山新地 入店祝い金・各種手当】求人サイトでよく見る「入店お祝い金」って本当にもらえる？お得な待遇の裏側</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-youth-charm</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_youth_charm_jp_1792476779059.webp</image:loc>
+      <image:title>【信太山新地 20代前半の強み】未経験から最速で稼ぎ頭になるための、愛され笑顔と愛嬌の磨き方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-mature-ladies-success</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mature_beauty_jp_1792476778964.webp</image:loc>
+      <image:title>【信太山新地 20代後半からのリスタート】「今さら遅い？」なんてない！大人の色気と落ち着きで稼ぐノウハウ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-dreams-and-future-funding</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_future_dreams_jp_1792476794603.webp</image:loc>
+      <image:title>【自立した女性へ】信太山新地のバイトをステップアップに！将来起業・独立したい夢を叶える資金作り</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-interview-hacks-to-pass</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_interview_hacks_jp_1792476795351.webp</image:loc>
+      <image:title>【信太山新地 面接の裏ワザ】不採用にならないために！面接官が思わず「明日から来てほしい！」と惹かれるアピール方法</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-dormitory-life-real</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cozy_apartment_jp_1792476810515.webp</image:loc>
+      <image:title>【寮生活のリアル】信太山新地周辺の「マンション寮」はどんな感じ？家具・家電付きで即入居可能な秘密</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-daytime-shift-advantage</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_daytime_clock_jp_1792476810942.webp</image:loc>
+      <image:title>【信太山新地の昼シフトがアツい！】12:00〜18:00の昼勤務で効率よく稼げる理由とメリット</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-self-care-detox</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_bath_detox_jp_1792476829424.webp</image:loc>
+      <image:title>【信太山新地 心と体のセルフケア】お仕事の疲れを翌日に残さない！現役キャスト愛用のデトックス＆リラックス法</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-easy-kimono-dressing</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_easy_yukata_jp_1792476829780.webp</image:loc>
+      <image:title>【信太山新地 和装が初めてでも安心】5分でパッと着こなせる！お店で用意している簡単で可愛い着物・浴衣の仕組み</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-vs-other-night-jobs</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_aroma_relax_1792474257103.webp</image:loc>
+      <image:title>【キャバクラ・風俗との違い】夜職未経験者が「信太山新地が一番働きやすい」と口を揃える納得の理由</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-tax-save-20s-guide</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tax_guide_20s_jp_1792476846502.webp</image:loc>
+      <image:title>【信太山新地の税金対策】年間いくらから納税が必要？税務署からお尋ねが来ないための基礎知識</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-motivation-and-goal-roadmap</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_goal_roadmap_jp_1792476864281.webp</image:loc>
+      <image:title>【信太山新地 モチベーションを保つコツ】「なんとなく勤務」はもったいない！夢を最速で叶える目標金額のロードマップ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-no-resume-quick-trial</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_quick_trial_essentials_jp_1792476863910.webp</image:loc>
+      <image:title>【信太山新地 履歴書不要・即日体験】持ち物はスマホと身分証だけ！今週末にでもスタートできる超スピード体験入店</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-friendly-support-staff-real</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_friendly_staff_jp_1792476884275.webp</image:loc>
+      <image:title>【信太山新地のスタッフって怖いの？】「信太山ガールズ」旅館直営のスタッフがとにかく優しくてアットホームな理由</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-resort-style-work-holiday</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_resort_work_jp_1792476884003.webp</image:loc>
+      <image:title>【短期でサクッと！】リゾートバイト感覚で大阪・信太山新地へ！1ヶ月限定で賢く稼ぐ地方女子の選択肢</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-privacy-protection-tips-1</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_official_documents_1792465890547.webp</image:loc>
+      <image:title>【これで安心】信太山新地で身バレせずに働く！徹底したプライバシー保護の秘訣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-mibare-taisaku-guide-1</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_aroma_relax_1792474257103.webp</image:loc>
+      <image:title>【安心】信太山新地で身バレが不安なあなたへ！プロが教える徹底対策4選</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-privacy-protection-tips</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_weekend_planner_1792475629264.webp</image:loc>
+      <image:title>【身バレ防止の秘訣】信太山新地で安心して働く！プライバシーを守る5つの方法</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-salary-system-explained</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_quick_trial_essentials_jp_1792476863910.webp</image:loc>
+      <image:title>【日給10万円も夢じゃない！】信太山新地の給料システムとコース別支給額を徹底解説！稼ぎの秘密を大公開</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-daily-work-flow-for-beginners</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_night_sky_relax_1792465892144.webp</image:loc>
+      <image:title>信太山新地のお仕事ってどんな感じ？未経験さんが知っておきたい「お仕事の一日の流れ」</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-privacy-security</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_savings_goal_jp_1792476735709.webp</image:loc>
+      <image:title>【身バレ徹底ガード】信太山新地で安心して働く！プライバシー保護の秘訣とお店のサポート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-salary-guide</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_non_alcohol_1792473970240.webp</image:loc>
+      <image:title>【日払いOK？】信太山新地の給料システムと日給待遇を徹底解説！未経験でも高収入の秘密とは？</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-beginner-workday</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_dorm_interior_1792463651469.webp</image:loc>
+      <image:title>【初めてでも大丈夫】信太山新地のお仕事ってどんな感じ？未経験さん向け1日の流れと安心ポイント</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-mibare-taisaku-guide</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_youth_charm_jp_1792476779059.webp</image:loc>
+      <image:title>「もしかしてバレる？」信太山新地で安心して働く！身バレ防止の徹底ガイド</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-salary-system-guide</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_trial_orient_jp_1792475594501.webp</image:loc>
+      <image:title>信太山新地のお給料システム徹底解説！コース別支給額で見る高収入の秘訣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-beginner-work-flow-taiken</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_advisor_sakura_1792225964799.webp</image:loc>
+      <image:title>【完全ガイド】信太山新地未経験者が安心する、お仕事の流れと「体入」のすべて</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/cafe-line-counseling-support-guide</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cozy_apartment_jp_1792476810515.webp</image:loc>
+      <image:title>【カフェで気軽に相談】対面・LINEでOK！信太山新地の不安を全部解消する個別カウンセリング</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/free-makeup-costume-rental-support</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_one_day_flow_1792474096539.webp</image:loc>
+      <image:title>【信太山新地 完全無料】手ぶらでOK！お店で借りられるメイク道具＆ドレス・和装の充実サポート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/commute-access-tennoji-namba-guide</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_discretion_1792475612461.webp</image:loc>
+      <image:title>【通勤・アクセス快適】天王寺・難波からすぐ！信太山新地のお仕事への通いやすさをチェック</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/fast-savings-plan-goal-sheet-guide</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tax_guide_20s_jp_1792476846502.webp</image:loc>
+      <image:title>【信太山新地で貯金スピード10倍？】短期間で目標額を達成するための目標設定と資金計画シート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/beauty-salon-support-self-care</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_luxury_beauty_1792474257173.webp</image:loc>
+      <image:title>【信太山新地 美容代手当】働くだけで綺麗になれる！美容サロン提携＆自分投資の極意</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/mental-care-after-work-refresh-guide</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_taiken_prep_1792475646166.webp</image:loc>
+      <image:title>【信太山新地で心穏やかに働く】お仕事後のリフレッシュ法と無理なく長く続けるメンタルコンディショニング</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/night-shift-taxi-pickup-safety-system</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_friendly_staff_jp_1792476884275.webp</image:loc>
+      <image:title>【信太山新地 深夜タクシー代支給・送りあり】終電後も安全帰宅！夜シフトの女の子を守る送迎システム</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/sns-privacy-protection-rules</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_skincare_cosmetics_1792465892294.webp</image:loc>
+      <image:title>【信太山新地 SNS・身バレ対策完璧】Instagram・TikTokの鍵アカウント運用とお顔非公開徹底ルール</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/local-travel-work-hotel-support</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_friends_pair_jp_1792476736438.webp</image:loc>
+      <image:title>【信太山新地 地方出稼ぎ・短期集中】往復交通費全額支給＆快適ホテル・個室寮でサクッと稼ぐ出張スタイル</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/flexible-shift-work-style-guide</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cast_holiday_jp_1792475554095.webp</image:loc>
+      <image:title>【信太山新地 完全自由シフト制】週1日・3時間〜OK！自分のライフスタイルを崩さずに高収入を得るコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/osaka-gourmet-spot-after-work-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_safe_1792463653857.webp</image:loc>
+      <image:title>【信太山新地周辺 大阪グルメ＆観光スポット】お仕事終わりに立ち寄りたい！天王寺・新世界・難波のおすすめスポット</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/seasonal-kimono-yukata-coordination-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mature_beauty_jp_1792476778964.webp</image:loc>
+      <image:title>【信太山新地 季節のおすすめ着物スタイル】春夏秋冬で楽しむ旅館のお着物・和装コーディネート術</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shift-schedule-app-management-tips</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_double_work_jp_1792475554864.webp</image:loc>
+      <image:title>【信太山新地 シフト管理アプリ＆スケジュール管理】学業・本業と両立する賢いスケジュール帳の作り方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/friends-pair-apply-support-system</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_cast_mai_1792225964470.webp</image:loc>
+      <image:title>【信太山新地 友達同士の応募大歓迎】一緒にお店を選べる「友達ペア紹介」と安心サポート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/self-reward-motivation-savings-habit</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_daytime_clock_jp_1792476810942.webp</image:loc>
+      <image:title>【信太山新地 キャストのご褒美習慣】目標達成ごとに自分を褒める「プチご褒美」習慣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/night-relax-sleep-quality-home-time</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_obachan_tea_1792474118271.webp</image:loc>
+      <image:title>【信太山新地 夜のプライベート時間】お仕事後の上質な睡眠＆おうち時間の過ごし方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/skincare-glowing-skin-makeup-lesson</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ageless_beauty_1792475612676.webp</image:loc>
+      <image:title>【信太山新地 接客メイク講座】ノーファンデでも美肌見え！接客で映えるスキンケア＆ツヤ肌づくり徹底講座</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/self-confidence-growth-story-cast-voice</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_serene_lounge_jp_1792476845692.webp</image:loc>
+      <image:title>【自己肯定感がアップする】信太山新地のお仕事で変わった「私の自信と将来の夢」</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/overseas-travel-study-abroad-savings-plan</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ryokan_manner_1792465891118.webp</image:loc>
+      <image:title>【信太山新地で海外旅行・留学資金】短期間で目標額を貯めて海外へ羽ばたくキャストの資金活用術</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/bath-time-relaxation-reset-care</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_popular_cast_jp_1792476715216.webp</image:loc>
+      <image:title>【信太山新地 休日至福ケア】バスタイムで疲れをリセット！バスソルト＆泡風呂の癒やし習慣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/cafe-sweets-holiday-enjoyment-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_resort_work_jp_1792476884003.webp</image:loc>
+      <image:title>【信太山新地 キャストの休日】カフェ巡り＆映えスイーツ！天王寺・心斎橋のおすすめカフェ5選</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/morning-routine-coffee-mindfulness-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_discretion_1792475612461.webp</image:loc>
+      <image:title>【信太山新地 キャストの朝時間】出勤前や休日の朝を優雅に過ごすモーニングルーティン</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/room-interior-flowers-good-luck-tips</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_seasonal_flowers_1792465893097.webp</image:loc>
+      <image:title>【信太山新地 寮生活インテリア】季節のお花でお部屋を飾る！運気を上げるプチインテリア術</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/bank-account-hand-cash-safe-management</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_short_term_1792473989733.webp</image:loc>
+      <image:title>【信太山新地 日払い現金の管理】銀行口座・手渡し徹底比較！安全に保管・口座管理するコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/night-routine-starry-sky-reset-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_night_sky_relax_1792465892144.webp</image:loc>
+      <image:title>【信太山新地 ナイトルーティン】出勤後の心を落ち着かせる夜の過ごし方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/ryokan-culture-japanese-manner-elegance</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ryokan_manner_1792465891118.webp</image:loc>
+      <image:title>【信太山新地 旅館文化の奥深さ】伝統と品格を感じる「和の所作・マナー」が自然と身につく理由</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/room-wear-relaxation-home-care</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mental_care_jp_1792475594172.webp</image:loc>
+      <image:title>【信太山新地 快適おうち時間】お仕事の疲れを癒やすルームウェア＆おうちリラクゼーション</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/mirror-smile-self-love-cast-story</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_cast_yuri_1792225965491.webp</image:loc>
+      <image:title>【信太山新地 キャストの自信】お仕事を通して「自分の顔や雰囲気が好きになれた」秘密</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/photo-travel-hobby-lifestyle-cast</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_bath_detox_jp_1792476829424.webp</image:loc>
+      <image:title>【信太山新地 キャストのライフスタイル】カメラや旅行趣味を楽しむ現役キャストの休日</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/aroma-diffuser-scent-relaxation-care</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_kimono_fabrics_1792474118565.webp</image:loc>
+      <image:title>【信太山新地 キャストのリフレッシュ】アロマで心身リラックス！お仕事終わりのお部屋を満たす香り習慣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/pancake-cafe-holiday-reward-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_secure_ryotei_1792475628730.webp</image:loc>
+      <image:title>【信太山新地 キャストのご褒美カフェ】ふわふわパンケーキで極上カフェタイム！休日に味わう甘いご褒美</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/yukata-obi-ribbon-elegance-styling</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_goal_roadmap_jp_1792476864281.webp</image:loc>
+      <image:title>【信太山新地 和装の帯結び・アレンジ】旅館で一目置かれる上品な和装コーディネート</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/savings-jar-step-by-step-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_official_documents_1792465890547.webp</image:loc>
+      <image:title>【信太山新地で100万円貯金】半年で100万円貯めるための現実的なステップ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/herbal-tea-relaxation-night-care</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_student_study_jp_1792476715495.webp</image:loc>
+      <image:title>【信太山新地 キャストの温活習慣】ハーブティーでほっと一息！お仕事終わりに試したいオーガニック習慣</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/skincare-beauty-routine-clear-skin</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_skincare_cosmetics_1792465892294.webp</image:loc>
+      <image:title>【信太山新地 スキンケア見直し術】毎日のメイク映えを叶える透明感美肌のつくり方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/cozy-blanket-room-interior-comfort</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_salary_yen_1792463652387.webp</image:loc>
+      <image:title>【信太山新地 寮生活お部屋づくり】ふんわり毛布と間接照明で最高の癒やし空間</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/stationery-planner-goal-setting-guide</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tennoji_shopping_jp_1792476754436.webp</image:loc>
+      <image:title>【信太山新地 夢を叶える手帳術】目標額・欲しいものリストを書いてモチベーションUP</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/non-alcoholic-juice-smart-hospitality</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_safety_gate_1792474007202.webp</image:loc>
+      <image:title>【信太山新地 お酒不要！ノンアル接客】乾杯シーンでも可愛くスマートに魅せるコツ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/foot-bath-care-relax-refreshment</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_interview_counseling_jp_1792475575633.webp</image:loc>
+      <image:title>【信太山新地 キャストのフットケア】足湯＆マッサージで一日頑張った足を労わるセルフリフレッシュ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/star-pendant-jewelry-confidence-charm</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_interview_hacks_jp_1792476795351.webp</image:loc>
+      <image:title>【信太山新地 アクセサリー選び】首元でキラリと光るシンプルジュエリーの魅力</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-salary-calculation-system</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_search_phone_jp_1792475574840.webp</image:loc>
+      <image:title>【2026年最新】信太山新地の給与システムとコース別支給額｜時間別バック額と日給目安を徹底解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-street-differences-recruitment</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_hero_banner_1792225964954.webp</image:loc>
+      <image:title>【信太山新地 お店選びの真実】店舗ごとの集客力格差と他店へ移籍できない「半年ルール」を徹底解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-work-rules-hygiene-safety-standards</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_easy_yukata_jp_1792476829780.webp</image:loc>
+      <image:title>【信太山新地の就業ルール】キス禁止・ゴム着用必須・短時間受け身接客と衛生管理対策</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-job-guide</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/ryokan_working_woman_1792485020272.webp</image:loc>
+      <image:title>信太山新地求人の仕事内容とは？接客サービスの流れ・安全対策・1日の流れを完全解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-work-flow-simulation</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/ryokan_working_woman_1792485020272.webp</image:loc>
+      <image:title>【信太山新地 1日の仕事の流れ完全シミュレーション】個室待機・仲居マッチングから接客・退勤までの全手順</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-salary-system</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_quick_trial_essentials_jp_1792476863910.webp</image:loc>
+      <image:title>信太山新地の給料システムとコース別支給額｜時間別バック額と日給目安を解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-interview-requirements-documents</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_official_documents_1792465890547.webp</image:loc>
+      <image:title>【信太山新地 面接・応募資格と必要書類】顔写真付き身分証で即日面接・体験入店OK！持ち物と採用基準</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-first-guide</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_savings_goal_jp_1792476735709.webp</image:loc>
+      <image:title>信太山新地求人の応募資格と必要書類｜顔写真付き公的身分証明書で即日面接・体入可能</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-dorm-life-support-truth</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_non_alcohol_1792473970240.webp</image:loc>
+      <image:title>【信太山新地のマンション寮と生活支援】即日入居・家具家電付き・家賃相場と家族・ペット可の真実</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-beginner-guide</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_dorm_interior_1792463651469.webp</image:loc>
+      <image:title>信太山新地求人は未経験でも働ける？研修内容と初心者が安心できる理由を解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-tax-sole-proprietor-guide</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_youth_charm_jp_1792476779059.webp</image:loc>
+      <image:title>【税金と確定申告ガイド】信太山新地で働く個人事業主の納税義務・経費計上と扶養対策</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-w-work-secret</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_trial_orient_jp_1792475594501.webp</image:loc>
+      <image:title>信太山新地求人で会社にバレない副業ノウハウ｜住民税の普通徴収と身バレ防止策</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-identity-alibi-safety-measures</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_advisor_sakura_1792225964799.webp</image:loc>
+      <image:title>【信太山新地 身バレ・アリバイ対策】昼職用のアリバイ会社・源泉徴収票・在籍確認の仕組みと秘密保持</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-weekend-shift</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cozy_apartment_jp_1792476810515.webp</image:loc>
+      <image:title>信太山新地求人のシフトと勤務時間｜短時間・週末のみの働き方を解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-recruitment-scout-fraud-prevention</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_one_day_flow_1792474096539.webp</image:loc>
+      <image:title>【信太山新地 求人詐欺・悪質スカウトの見分け方】「時給2万円・入店祝い金」の罠と安全な店舗選び</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-street-compare</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_discretion_1792475612461.webp</image:loc>
+      <image:title>信太山新地のお店選び・集客力と半年ルールの真実｜失敗しない店舗の見極め方</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-stamina-mental-care-100k</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_tax_guide_20s_jp_1792476846502.webp</image:loc>
+      <image:title>【信太山新地 体力・メンタル管理と現実】日給10万円（15〜20人接客）を無理なく達成するセルフケア術</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-trial-guide</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_luxury_beauty_1792474257173.webp</image:loc>
+      <image:title>信太山新地の体験入店と面接の流れ｜当日の手順と即日全額日払いの仕組み</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-official-salary-formula-breakdown</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_taiken_prep_1792475646166.webp</image:loc>
+      <image:title>【公式給与システム】信太山新地のコース別支給額・手取り額を全暴露！15分〜60分の実収入と日給10万円の内訳</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-luxury-dorm</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/dorm_main_studio_1794374510330.webp</image:loc>
+      <image:title>信太山新地のマンション寮と生活支援｜家具家電付き個室寮・出稼ぎサポートを解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-street-recruitment-standards-comparison</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_skincare_cosmetics_1792465892294.webp</image:loc>
+      <image:title>【信太山新地 お店選びの採用基準】店舗による集客力の違いと半年ルールを完全比較</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayama-safe-recruitment</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_friends_pair_jp_1792476736438.webp</image:loc>
+      <image:title>信太山新地求人の安全管理とよくある質問｜衛生ルールと悪質求人の見分け方を解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-resident-record-requirement-checklist</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_cast_holiday_jp_1792475554095.webp</image:loc>
+      <image:title>信太山新地 面接時の必要書類チェックリスト｜顔写真付き身分証と即日面接・体入の流れ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-work-rules-hygiene-no-bath-washing-reality</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_privacy_safe_1792463653857.webp</image:loc>
+      <image:title>【信太山新地の現場ルール徹底解説】キス禁止・ゴム必須・お風呂洗い不要の理由と衛生管理のリアル</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-daily-schedule-work-flow-detail</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mature_beauty_jp_1792476778964.webp</image:loc>
+      <image:title>信太山新地の1日の流れ完全密着！出勤から旅館個室待機・接客・即日全額日払いまでのタイムスケジュール</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-apartment-dorm-support-guide</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_double_work_jp_1792475554864.webp</image:loc>
+      <image:title>【信太山新地の家具家電付き個室寮】1日1000円からの生活支援サポート！即入居・ペット可・家族入居の仕組み</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-scout-fraud-avoidance-safe-recruitment</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/shinodayama_cast_mai_1792225964470.webp</image:loc>
+      <image:title>【信太山新地】悪質スカウト・求人詐欺の見分け方！「横文字の偽店名」「高額保証」の罠と安全な直営店選び</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-tax-return-sole-proprietor-expenses-guide</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_daytime_clock_jp_1792476810942.webp</image:loc>
+      <image:title>信太山新地の確定申告と税金マニュアル｜個人事業主の経費計上・住民税普通徴収で副業バレを防ぐ方法</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-training-lecture-no-practical-exam</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_obachan_tea_1792474118271.webp</image:loc>
+      <image:title>【研修の実態】信太山新地の新人講習は口頭のみ？実技や裸になる研修が一切ない安心の理由</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-stamina-management-tips-earning-guide</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ageless_beauty_1792475612676.webp</image:loc>
+      <image:title>【信太山新地】1日15〜20人接客の体力管理と稼ぐコツ｜仲居さんとの連携・笑顔・愛嬌が日給を左右する理由</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/is-shinodayamashinchi-scary-safety-truth</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_serene_lounge_jp_1792476845692.webp</image:loc>
+      <image:title>信太山新地って怖い？治安・ヤクザ・店内の安全対策を現役女性目線で本音解説</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/shinodayamashinchi-customer-demographics-types</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_ryokan_manner_1792465891118.webp</image:loc>
+      <image:title>信太山新地の客層は？年齢層・紳士度・泥酔客への対策まとめ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/first-day-at-shinodayamashinchi-schedule-flow</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_popular_cast_jp_1792476715216.webp</image:loc>
+      <image:title>【信太山新地】初日は何をする？集合から挨拶・着替え・初接客・日払い退勤までの1日全スケジュール</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/interview-questions-and-pass-points-guide</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_resort_work_jp_1792476884003.webp</image:loc>
+      <image:title>【信太山新地 面接ガイド】面接では何を聞かれる？志望動機不要・落ちる理由と面接官が見ているポイント</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/what-to-wear-interview-trial-fashion-guide</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_seasonal_flowers_1792465893097.webp</image:loc>
+      <image:title>【信太山新地 面接の服装】どんな服装で行く？私服でOK？NGな服や靴・メイクの正解ルール</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/what-to-bring-first-day-belongings-checklist</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_bonus_envelope_jp_1792476753315.webp</image:loc>
+      <image:title>【信太山新地 初出勤の持ち物】面接・体入の持ち物チェックリストと女子力アップの便利グッズ一覧</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/service-time-minutes-table-turning-mechanism</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_short_term_1792473989733.webp</image:loc>
+      <image:title>【信太山新地 接客時間のリアル】仕事は何分？1コース15分〜60分の接客時間と疲れない仕組み</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/can-i-work-once-a-week-freedom-shift-truth</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_beauty_kimono_1792463653258.webp</image:loc>
+      <image:title>【信太山新地の自由出勤】週1でも本当に働ける？罰金・ノルマなしの自由出勤と月収シミュレーション</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/can-i-do-double-work-without-getting-caught</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_future_dreams_jp_1792476794603.webp</image:loc>
+      <image:title>【信太山新地でWワーク】会社や彼氏にバレずに副業OL・学生が両立する鉄則</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://osaka-shinodayamashinchi-recruit.com/blog/how-to-quit-penalty-truth-smooth-exit</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://osaka-shinodayamashinchi-recruit.com/images/col_mental_care_jp_1792475594172.webp</image:loc>
+      <image:title>【信太山新地を辞めるとき】1日だけで辞めても大丈夫？ペナルティ・違約金・引き止めの真相</image:title>
+    </image:image>
   </url>
 </urlset>

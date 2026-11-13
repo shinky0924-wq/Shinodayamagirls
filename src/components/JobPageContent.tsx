@@ -119,7 +119,7 @@ export default function JobPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_ryokan_manner_1792465891118.jpg"
+                src="/images/col_ryokan_manner_1792465891118.webp"
                 alt="信太山新地 当店のお仕事環境・清潔な旅館個室"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -633,7 +633,7 @@ export default function JobPageContent({
                 <div>
                   <div className="relative aspect-[16/10] overflow-hidden bg-rose-50">
                     <img
-                      src={art.eyeCatch || '/images/col_ryokan_manner_1792465891118.jpg'}
+                      src={art.eyeCatch || '/images/col_ryokan_manner_1792465891118.webp'}
                       alt={art.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"

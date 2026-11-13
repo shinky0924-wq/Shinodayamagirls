@@ -158,7 +158,7 @@ export default function DormPageContent({
           <div className="w-full md:w-[420px] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-[#FFF5F8]/40 aspect-[4/3]">
               <img
-                src="/images/dorm_main_studio_1794374510330.jpg"
+                src="/images/dorm_main_studio_1794374510330.webp"
                 alt="信太山駅近辺の寮の室内環境（生活に必要なベッド・テーブル・収納を備えた清潔な個室）"
                 className="w-full h-full object-cover"
                 loading="eager"
@@ -306,17 +306,17 @@ export default function DormPageContent({
             {
               title: '寝室・ベッド周辺',
               desc: '清潔なリネンと心地よいベッドで、お仕事後もゆっくり身体を休められます。',
-              img: '/images/dorm_bed_area_1794374510713.jpg'
+              img: '/images/dorm_bed_area_1794374510713.webp'
             },
             {
               title: '室内全体',
               desc: '明るく落ち着いた個室空間。プライベートがしっかり守られる一人部屋です。',
-              img: '/images/dorm_main_studio_1794374510330.jpg'
+              img: '/images/dorm_main_studio_1794374510330.webp'
             },
             {
               title: '収納や生活設備',
               desc: '衣類や荷物をすっきり収納できるスペースや、テーブルなどの生活家具を完備。',
-              img: '/images/dorm_storage_desk_1794374512351.jpg'
+              img: '/images/dorm_storage_desk_1794374512351.webp'
             }
           ].map((room, idx) => (
             <div
@@ -371,7 +371,7 @@ export default function DormPageContent({
             <div className="w-full md:w-[260px] shrink-0">
               <div className="rounded-[18px] overflow-hidden border border-[#F0DDE4] shadow-xs aspect-[4/3]">
                 <img
-                  src="/images/relocation_suitcase_travel_1794374512087.jpg"
+                  src="/images/relocation_suitcase_travel_1794374512087.webp"
                   alt="遠方からの出稼ぎ・荷造りの様子"
                   className="w-full h-full object-cover"
                   loading="lazy"

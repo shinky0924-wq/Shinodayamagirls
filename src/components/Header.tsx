@@ -434,8 +434,8 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
               {/* Navigation Tree list */}
               <div className="flex flex-col space-y-1">
               {/* ├─ 求人トップ */}
-              <button
-                type="button"
+              <a
+                href="/"
                 onClick={(e) => handleLinkClick(e, { action: 'recruit' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-top"
@@ -449,7 +449,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* ├─ 総合ガイド (Expandable Tree) */}
               <div className="rounded-xl border border-rose-200/80 bg-rose-50/30 overflow-hidden">
@@ -489,10 +489,13 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                     {guideCategories.map((cat, i) => {
                       const isLast = i === guideCategories.length - 1;
                       return (
-                        <button
+                        <a
                           key={cat.id}
-                          type="button"
-                          onClick={() => handleGuideCategoryClick(cat.id)}
+                          href={`/${cat.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleGuideCategoryClick(cat.id);
+                          }}
                           className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-rose-50 transition-colors flex items-center justify-between group cursor-pointer border border-transparent hover:border-rose-100"
                           id={`mobile-guide-${cat.id}`}
                         >
@@ -510,7 +513,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                           <span className="text-[10px] text-zinc-400 group-hover:text-rose-600">
                             {cat.badge}
                           </span>
-                        </button>
+                        </a>
                       );
                     })}
                   </div>
@@ -518,8 +521,8 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
               </div>
 
               {/* ├─ 新地・風俗徹底比較 */}
-              <button
-                type="button"
+              <a
+                href="/compare"
                 onClick={(e) => handleLinkClick(e, { action: 'compare' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-compare"
@@ -533,11 +536,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* ├─ タイプ別働き方ガイド */}
-              <button
-                type="button"
+              <a
+                href="/types"
                 onClick={(e) => handleLinkClick(e, { action: 'workstyle' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-workstyle"
@@ -551,11 +554,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* ├─ 選ばれる理由 */}
-              <button
-                type="button"
+              <a
+                href="#reasons"
                 onClick={(e) => handleLinkClick(e, { action: 'section', target: '#reasons' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-reasons"
@@ -569,11 +572,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* ├─ リアル体験談 */}
-              <button
-                type="button"
+              <a
+                href="#voice"
                 onClick={(e) => handleLinkClick(e, { action: 'section', target: '#voice' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-voice"
@@ -587,11 +590,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* ├─ 募集要項 */}
-              <button
-                type="button"
+              <a
+                href="#jobs"
                 onClick={(e) => handleLinkClick(e, { action: 'section', target: '#jobs' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-requirements"
@@ -605,11 +608,11 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
 
               {/* └─ お仕事までの流れ */}
-              <button
-                type="button"
+              <a
+                href="#flow"
                 onClick={(e) => handleLinkClick(e, { action: 'section', target: '#flow' })}
                 className="w-full text-left px-3 py-2.5 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/60 transition-all flex items-center justify-between group cursor-pointer bg-white"
                 id="mobile-link-flow"
@@ -623,33 +626,33 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                   </span>
                 </div>
                 <LucideIcon name="ChevronRight" size={16} className="text-zinc-400 group-hover:text-rose-600" />
-              </button>
+              </a>
             </div>
 
-            {/* Supplementary Links (コラム・比較・運営者情報) */}
+            {/* Supplementary Links (働き方ガイド・お仕事コラム・運営者情報) */}
             <div className="pt-2 border-t border-rose-100">
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                <button
-                  type="button"
-                  onClick={(e) => handleLinkClick(e, { action: 'compare' })}
-                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors"
+                <a
+                  href="/types"
+                  onClick={(e) => handleLinkClick(e, { action: 'workstyle' })}
+                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors block"
                 >
                   働き方ガイド
-                </button>
-                <button
-                  type="button"
+                </a>
+                <a
+                  href="/blog"
                   onClick={(e) => handleLinkClick(e, { action: 'blog' })}
-                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors"
+                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors block"
                 >
                   お仕事コラム
-                </button>
-                <button
-                  type="button"
+                </a>
+                <a
+                  href="/about"
                   onClick={(e) => handleLinkClick(e, { action: 'about' })}
-                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors"
+                  className="py-2 px-1 rounded-lg bg-gray-50 hover:bg-rose-50 text-zinc-600 hover:text-rose-600 font-bold border border-gray-100 transition-colors block"
                 >
                   運営者情報
-                </button>
+                </a>
               </div>
             </div>
 

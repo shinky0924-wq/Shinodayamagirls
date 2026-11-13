@@ -85,13 +85,16 @@ export default function ComparisonGuidePage({
         <nav aria-label="Breadcrumb" className="mb-6 text-xs text-zinc-500 font-sans">
           <ol className="flex items-center flex-wrap gap-2">
             <li>
-              <button
-                type="button"
-                onClick={onNavigateHome}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
                 className="hover:text-secondary transition-colors underline cursor-pointer"
               >
                 トップ（求人総合）
-              </button>
+              </a>
               <span className="ml-2">/</span>
             </li>
             <li className="text-zinc-800 font-bold">

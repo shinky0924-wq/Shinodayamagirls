@@ -62,7 +62,7 @@ export default function ConsultationForm({ content, initialMessage, onClearIniti
           onError={(e) => {
             const target = e.currentTarget;
             target.onerror = null;
-            target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+            target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-surface via-transparent to-surface" />

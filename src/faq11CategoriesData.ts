@@ -611,41 +611,41 @@ export const FAQ_RELATED_ARTICLES: FAQRelatedArticle[] = [
     summary: '応募から私服面接、当日の即日体験入店、お給料の手渡しまでの具体的なステップを分かりやすく解説します。',
     slug: 'shinodayama-flow',
     tag: '初めての方へ',
-    image: '/images/col_taiken_prep_1792475646166.jpg'
+    image: '/images/col_taiken_prep_1792475646166.webp'
   },
   {
     title: '信太山新地のお給料の仕組みを分かりやすく解説',
     summary: '15分3,800円からのコースバックや日払い手渡し、引かれ物ゼロの明朗会計システムについて詳しくご案内します。',
     slug: 'shinodayama-salary-system',
     tag: '給与システム',
-    image: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+    image: '/images/col_bonus_envelope_jp_1792476753315.webp'
   },
   {
     title: '未経験から始める方が知っておきたい仕事内容',
     summary: '通りに座らない個室待機やお茶出し接客など、信太山新地ならではの安心できる業務内容を解説。',
     slug: 'shinodayama-job-guide',
     tag: '仕事内容',
-    image: '/images/col_ryokan_manner_1792465891118.jpg'
+    image: '/images/col_ryokan_manner_1792465891118.webp'
   },
   {
     title: '身バレを防ぐために確認したいプライバシー対策',
     summary: '顔写真のネット非公開、源氏名管理、生活圏と重ならない通勤方法など、身バレ対策の具体策を整理しました。',
     slug: 'shinodayamashinchi-privacy-guide',
     tag: '身バレ対策',
-    image: '/images/privacy_phone_discreet_1794375281535.jpg'
+    image: '/images/privacy_phone_discreet_1794375281535.webp'
   },
   {
     title: '信太山新地の寮・出稼ぎについて',
     summary: '信太山駅近辺の寮や家具家電の生活設備、遠方からの交通費相談など、住まいに関する安心情報。',
     slug: 'shinodayamashinchi-housing-support',
     tag: '寮・出稼ぎ',
-    image: '/images/dorm_main_studio_1794374510330.jpg'
+    image: '/images/dorm_main_studio_1794374510330.webp'
   },
   {
     title: '後悔しないお店選びのチェックポイント',
     summary: '信太山新地全体の「半年ルール」や店舗による集客力の違いなど、入店前に知っておくべき重要事項を解説。',
     slug: 'shinodayama-ryokan-guide',
     tag: 'お店選び',
-    image: '/images/col_secure_ryotei_1792475628730.jpg'
+    image: '/images/col_secure_ryotei_1792475628730.webp'
   }
 ];

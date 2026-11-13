@@ -26,7 +26,7 @@ interface ComparisonPageProps {
   onNavigateComparisonGuide?: () => void;
 }
 
-const HERO_ILLUSTRATION_URL = '/images/workstyle_guide_hero_1794546577303.jpg';
+const HERO_ILLUSTRATION_URL = '/images/workstyle_guide_hero_1794546577303.webp';
 
 function resolveTypeBySlug(slug?: string | null): WorkstyleTypeItem {
   if (!slug || slug === 'all') {
@@ -181,13 +181,16 @@ export default function ComparisonPage({
         <nav aria-label="パンくずリスト" className="mb-6 sm:mb-8">
           <ol className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
             <li>
-              <button
-                type="button"
-                onClick={onNavigateHome}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
                 className="hover:text-[#E5004F] transition-colors underline cursor-pointer"
               >
                 トップ（求人総合）
-              </button>
+              </a>
             </li>
             <li aria-hidden="true">/</li>
             <li className="text-zinc-800 font-semibold">

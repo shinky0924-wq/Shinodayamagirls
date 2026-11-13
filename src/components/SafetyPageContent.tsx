@@ -157,7 +157,7 @@ export default function SafetyPageContent({
           <div className="w-full md:w-[420px] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-[#FFF5F8]/40 aspect-[4/3]">
               <img
-                src="/images/privacy_ryokan_room_1794375281070.jpg"
+                src="/images/privacy_ryokan_room_1794375281070.webp"
                 alt="落ち着いた和風旅館の個室空間（通りから見られない完全個室待機環境）"
                 className="w-full h-full object-cover"
                 loading="eager"
@@ -344,7 +344,7 @@ export default function SafetyPageContent({
             <div className="w-full md:w-[260px] shrink-0">
               <div className="rounded-[18px] overflow-hidden border border-[#F0DDE4] shadow-xs aspect-[4/3] bg-white">
                 <img
-                  src="/images/privacy_phone_discreet_1794375281535.jpg"
+                  src="/images/privacy_phone_discreet_1794375281535.webp"
                   alt="スマートフォンのプライバシー管理や相談の様子"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -577,7 +577,7 @@ export default function SafetyPageContent({
             <div className="w-full md:w-[320px] shrink-0">
               <div className="rounded-[18px] overflow-hidden border border-[#F0DDE4] shadow-xs aspect-[4/3] bg-rose-50">
                 <img
-                  src="/images/dorm_main_studio_1794374510330.jpg"
+                  src="/images/dorm_main_studio_1794374510330.webp"
                   alt="信太山駅近辺の寮の室内環境（生活に必要なベッド・テーブル・収納を備えた個室）"
                   className="w-full h-full object-cover"
                   loading="lazy"

@@ -142,7 +142,7 @@ export default function ExperiencedPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/hub_experienced_cast_1792485405837.jpg"
+                src="/images/hub_experienced_cast_1792485405837.webp"
                 alt="信太山新地 経験者・移籍のご案内"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -448,7 +448,7 @@ export default function ExperiencedPageContent({
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6">
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-[#D8175D]/30 shrink-0 shadow-sm bg-rose-50">
               <img
-                src="/images/shinodayama_advisor_sakura_1792225964799.jpg"
+                src="/images/shinodayama_advisor_sakura_1792225964799.webp"
                 alt="女性相談窓口 あおいスタッフ"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -566,31 +566,31 @@ export default function ExperiencedPageContent({
               title: '仕事内容について',
               desc: '接客の流れ・旅館環境',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: '給料・待遇について',
               desc: 'コース別給与・支払い',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: '信太山新地で働くメリット',
               desc: '他業種との違い・働きやすさ',
               slug: 'shinodayamashinchi-vs-other-night-jobs',
-              img: '/images/col_aroma_relax_1792474257103.jpg'
+              img: '/images/col_aroma_relax_1792474257103.webp'
             },
             {
               title: '女性インタビュー',
               desc: '実際に働く女性のリアルな声',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.jpg'
+              img: '/images/cast_mai_card_1792227181512.webp'
             },
             {
               title: 'お仕事までの流れ',
               desc: '相談から勤務開始まで',
               topicId: 'flow',
-              img: '/images/col_taiken_prep_1792475646166.jpg'
+              img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
             <div

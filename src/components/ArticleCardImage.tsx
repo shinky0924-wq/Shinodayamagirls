@@ -211,14 +211,14 @@ export function ArticleCardImage({
 
   // Fallback Japanese photo pool in case an asset fails or is not provided
   const FALLBACK_JAPANESE_PHOTOS = [
-    '/images/shinodayama_hero_banner_1792225964954.jpg',
-    '/images/col_secure_ryotei_1792475628730.jpg',
-    '/images/col_ryokan_manner_1792465891118.jpg',
-    '/images/col_privacy_safe_1792463653857.jpg',
-    '/images/col_kimono_fabrics_1792474118565.jpg',
-    '/images/col_beauty_kimono_1792463653258.jpg',
-    '/images/col_luxury_beauty_1792474257173.jpg',
-    '/images/col_dorm_interior_1792463651469.jpg'
+    '/images/shinodayama_hero_banner_1792225964954.webp',
+    '/images/col_secure_ryotei_1792475628730.webp',
+    '/images/col_ryokan_manner_1792465891118.webp',
+    '/images/col_privacy_safe_1792463653857.webp',
+    '/images/col_kimono_fabrics_1792474118565.webp',
+    '/images/col_beauty_kimono_1792463653258.webp',
+    '/images/col_luxury_beauty_1792474257173.webp',
+    '/images/col_dorm_interior_1792463651469.webp'
   ];
 
   const fallbackPhoto = FALLBACK_JAPANESE_PHOTOS[hash % FALLBACK_JAPANESE_PHOTOS.length];

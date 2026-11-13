@@ -5,11 +5,11 @@
 
 import { ConcernItem, ReasonItem, FAQItem, TestimonialItem, JobFactItem, FlowStep } from './types';
 
-const castMai = '/images/shinodayama_cast_mai_1792225964470.jpg';
-const castYuri = '/images/shinodayama_cast_yuri_1792225965491.jpg';
-const castAyaka = '/images/shinodayama_cast_ayaka_1792486845624.jpg';
-const dreamHeroBanner = '/images/shinodayama_hero_banner_1792225964954.jpg';
-const advisorAvatar = '/images/shinodayama_advisor_sakura_1792225964799.jpg';
+const castMai = '/images/shinodayama_cast_mai_1792225964470.webp';
+const castYuri = '/images/shinodayama_cast_yuri_1792225965491.webp';
+const castAyaka = '/images/shinodayama_cast_ayaka_1792486845624.webp';
+const dreamHeroBanner = '/images/shinodayama_hero_banner_1792225964954.webp';
+const advisorAvatar = '/images/shinodayama_advisor_sakura_1792225964799.webp';
 
 // ==========================================
 // 【LINE公式アカウント連携用設定】

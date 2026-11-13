@@ -57,7 +57,7 @@ export default function WorkstylePageContent({
       hours: '10:00〜16:00',
       days: '週2〜3日',
       desc: '夜は自宅でゆっくり過ごしたい、明るい時間帯を中心に働きたいという女性におすすめ。昼間の時間を活用して、自分の生活リズムに合わせた働き方を目指せます。',
-      image: '/images/col_daytime_clock_jp_1792476810942.jpg',
+      image: '/images/col_daytime_clock_jp_1792476810942.webp',
       imageAlt: '自然光が入る部屋で過ごす日本人女性イメージ',
       badge: 'お昼シフト人気',
     },
@@ -68,7 +68,7 @@ export default function WorkstylePageContent({
       hours: '18:00〜22:00',
       days: '週1〜2日',
       desc: '本業を続けながら、仕事終わりや休日の時間を活用したい女性におすすめ。今の仕事や生活を大切にしながら、副業として働くスタイルです。',
-      image: '/images/col_double_work_jp_1792475554864.jpg',
+      image: '/images/col_double_work_jp_1792475554864.webp',
       imageAlt: '仕事帰りにカフェなどで過ごす日本人女性イメージ',
       badge: '副業・Wワーク',
     },
@@ -79,7 +79,7 @@ export default function WorkstylePageContent({
       hours: '授業のない時間・休日など',
       days: '週1〜2日',
       desc: '学校やプライベートの予定を優先したい女性におすすめ。試験期間や長期休暇などの予定も考慮しながら、出勤について相談できる働き方です。',
-      image: '/images/col_student_study_jp_1792476715495.jpg',
+      image: '/images/col_student_study_jp_1792476715495.webp',
       imageAlt: 'ノートや勉強に取り組む日本人女性イメージ',
       badge: '学業・予定優先',
     },
@@ -90,7 +90,7 @@ export default function WorkstylePageContent({
       hours: '10:00〜18:00',
       days: '週4〜5日',
       desc: 'ある程度まとまった日数で働きたい女性におすすめ。毎月の収入目標や生活リズムに合わせて、計画的に働きたい方に向いています。',
-      image: '/images/col_ryokan_manner_1792465891118.jpg',
+      image: '/images/col_ryokan_manner_1792465891118.webp',
       imageAlt: '落ち着いた和室で笑顔を見せる日本人女性イメージ',
       badge: 'レギュラー安定',
     },
@@ -101,7 +101,7 @@ export default function WorkstylePageContent({
       hours: '相談可能（フル稼働可）',
       days: '1週間〜2週間',
       desc: '引っ越し費用や旅行資金など、具体的な目標がある女性におすすめ。あらかじめ働く期間を決めて、短期間で集中して働くスタイルです。',
-      image: '/images/col_cozy_apartment_jp_1792476810515.jpg',
+      image: '/images/col_cozy_apartment_jp_1792476810515.webp',
       imageAlt: '旅行バッグや個室寮のある上品な部屋で過ごす日本人女性イメージ',
       badge: '短期集中・個室寮',
     },
@@ -176,7 +176,7 @@ export default function WorkstylePageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_ryokan_manner_1792465891118.jpg"
+                src="/images/col_ryokan_manner_1792465891118.webp"
                 alt="落ち着いた和室で過ごす日本人女性"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -198,7 +198,7 @@ export default function WorkstylePageContent({
           {/* 左側：女性スタッフの写真 */}
           <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-[#D8175D]/30 shrink-0 shadow-sm bg-rose-50">
             <img
-              src="/images/shinodayama_advisor_sakura_1792225964799.jpg"
+              src="/images/shinodayama_advisor_sakura_1792225964799.webp"
               alt="女性相談窓口 あおいスタッフ"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -527,25 +527,25 @@ export default function WorkstylePageContent({
               title: 'お仕事内容',
               desc: '接客の流れ・旅館環境',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: '給料・待遇',
               desc: 'コース別給料・即日日払い',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: '募集要項',
               desc: '応募資格・採用基準一覧',
               topicId: 'requirements',
-              img: '/images/col_official_documents_1792465890547.jpg'
+              img: '/images/col_official_documents_1792465890547.webp'
             },
             {
               title: 'お仕事までの流れ',
               desc: '面接・見学・体験入店',
               topicId: 'flow',
-              img: '/images/col_taiken_prep_1792475646166.jpg'
+              img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
             <div

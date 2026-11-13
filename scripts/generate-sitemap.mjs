@@ -49,16 +49,27 @@ urls.push({
   loc: `${BASE_URL}/`,
   lastmod: today,
   changefreq: 'daily',
-  priority: '1.0'
+  priority: '1.0',
+  image: {
+    loc: `${BASE_URL}/images/shinodayama_hero_banner_1792225964954.jpg`,
+    title: '信太山新地求人・信太山求人公式サイト「信太山ガールズ」'
+  }
 });
 
 // Priority 0.9 - Topic Clusters
 clusterKeys.forEach((key) => {
+  const cluster = topicClusters[key];
   urls.push({
     loc: `${BASE_URL}/${key}`,
     lastmod: today,
     changefreq: 'weekly',
-    priority: '0.9'
+    priority: '0.9',
+    image: cluster?.heroImage
+      ? {
+          loc: `${BASE_URL}${cluster.heroImage.startsWith('/') ? cluster.heroImage : `/${cluster.heroImage}`}`,
+          title: cluster.seoTitle || cluster.title || '信太山新地求人ガイド'
+        }
+      : undefined
   });
 });
 
@@ -74,7 +85,11 @@ urls.push({
   loc: `${BASE_URL}/types`,
   lastmod: today,
   changefreq: 'weekly',
-  priority: '0.88'
+  priority: '0.88',
+  image: {
+    loc: `${BASE_URL}/images/workstyle_guide_hero_1794546577303.webp`,
+    title: '信太山新地 タイプ別働き方ガイド'
+  }
 });
 
 workstyleTypeSlugs.forEach((slug) => {
@@ -128,24 +143,48 @@ blogArticles.forEach((article) => {
       loc: `${BASE_URL}/blog/${article.slug}`,
       lastmod,
       changefreq: 'monthly',
-      priority: '0.75'
+      priority: '0.75',
+      image: article.eyeCatch
+        ? {
+            loc: `${BASE_URL}${article.eyeCatch.startsWith('/') ? article.eyeCatch : `/${article.eyeCatch}`}`,
+            title: article.title
+          }
+        : undefined
     });
   }
 });
 
+function escapeXml(str = '') {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 // Generate Sitemap XML
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 ${urls
   .map(
     (u) => `  <url>
-    <loc>${u.loc}</loc>
+    <loc>${escapeXml(u.loc)}</loc>
     <lastmod>${u.lastmod}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
+    <priority>${u.priority}</priority>${
+      u.image
+        ? `
+    <image:image>
+      <image:loc>${escapeXml(u.image.loc)}</image:loc>
+      <image:title>${escapeXml(u.image.title)}</image:title>
+    </image:image>`
+        : ''
+    }
   </url>`
   )
   .join('\n')}

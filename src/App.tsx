@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -11,17 +11,18 @@ import Testimonials from './components/Testimonials';
 import RecruitHub from './components/RecruitHub';
 import JobRequirementsSection from './components/JobRequirementsSection';
 import WorkFlowSection from './components/WorkFlowSection';
-import RecruiterInterviewPage from './components/RecruiterInterviewPage';
 import ConsultationForm from './components/ConsultationForm';
 import Footer from './components/Footer';
-import AboutPage from './components/AboutPage';
-import ComparisonPage from './components/ComparisonPage';
-import ComparisonGuidePage from './components/ComparisonGuidePage';
-import FAQPage from './components/FAQPage';
-import TopicClusterPage from './components/TopicClusterPage';
-import AdminPanel from './components/AdminPanel';
 import LucideIcon from './components/LucideIcon';
 import ArticleCardImage from './components/ArticleCardImage';
+
+const RecruiterInterviewPage = lazy(() => import('./components/RecruiterInterviewPage'));
+const AboutPage = lazy(() => import('./components/AboutPage'));
+const ComparisonPage = lazy(() => import('./components/ComparisonPage'));
+const ComparisonGuidePage = lazy(() => import('./components/ComparisonGuidePage'));
+const FAQPage = lazy(() => import('./components/FAQPage'));
+const TopicClusterPage = lazy(() => import('./components/TopicClusterPage'));
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
 
 import { getStoredSiteContent, SiteContent } from './siteContent';
 import { LINE_OFFICIAL_URL } from './data';
@@ -268,7 +269,7 @@ export default function App() {
         title: '信太山新地求人・信太山求人【公式】未経験歓迎・顔出しなし｜信太山ガールズ',
         description: '【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース3,800円〜・即日全額日払い・週1日〜相談可。仕事内容・給料・寮・身バレ対策を分かりやすくご案内します。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
-        ogImage: '/images/hub_beginner_cast_1792485407920.jpg',
+        ogImage: '/images/shinodayama_hero_banner_1792225964954.jpg',
         ogType: 'website'
       });
     } else if (currentTab === 'blog') {
@@ -277,7 +278,7 @@ export default function App() {
           title: `${currentArticle.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
           description: currentArticle.summary || `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`,
           canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
-          ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.jpg',
+          ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.webp',
           ogType: 'article',
           publishedTime: currentArticle.publishedAt,
           jsonLd: {
@@ -492,85 +493,93 @@ export default function App() {
           </div>
         )}
 
-        {/* About Page View */}
-        {currentTab === 'about' && (
-          <AboutPage
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateBlog={() => handleNavigateBlog()}
-            onCtaclick={handleCtaclick}
-          />
-        )}
+        <Suspense
+          fallback={
+            <div className="min-h-[60vh] flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-rose-500 border-t-transparent rounded-full animate-spin" aria-label="読み込み中" />
+            </div>
+          }
+        >
+          {/* About Page View */}
+          {currentTab === 'about' && (
+            <AboutPage
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateBlog={() => handleNavigateBlog()}
+              onCtaclick={handleCtaclick}
+            />
+          )}
 
-        {/* Dedicated Comparison Guide Page View (徹底比較ページ) */}
-        {currentTab === 'compare' && (
-          <ComparisonGuidePage
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateWorkstyleGuide={(slug) => handleNavigateWorkstyles(slug)}
-            onCtaclick={handleCtaclick}
-            onInjectedScroll={handleInjectedScroll}
-          />
-        )}
+          {/* Dedicated Comparison Guide Page View (徹底比較ページ) */}
+          {currentTab === 'compare' && (
+            <ComparisonGuidePage
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateWorkstyleGuide={(slug) => handleNavigateWorkstyles(slug)}
+              onCtaclick={handleCtaclick}
+              onInjectedScroll={handleInjectedScroll}
+            />
+          )}
 
-        {/* Workstyle & Reasons Guide View (当店が選ばれる理由＆タイプ別働き方ガイド) */}
-        {currentTab === 'workstyle' && (
-          <ComparisonPage
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateBlog={() => handleNavigateBlog()}
-            onNavigateTopic={handleNavigateTopic}
-            onNavigateFaq={(cat) => handleNavigateFaq(cat)}
-            onCtaclick={handleCtaclick}
-            onInjectedScroll={handleInjectedScroll}
-            initialCategorySlug={selectedCategorySlug}
-            onSelectCategorySlug={(slug) => {
-              setSelectedCategorySlug(slug);
-              window.history.pushState({}, '', slug === 'all' ? '/types' : `/types/${slug}`);
-            }}
-            onNavigateComparisonGuide={() => handleNavigateCompare()}
-          />
-        )}
+          {/* Workstyle & Reasons Guide View (当店が選ばれる理由＆タイプ別働き方ガイド) */}
+          {currentTab === 'workstyle' && (
+            <ComparisonPage
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateBlog={() => handleNavigateBlog()}
+              onNavigateTopic={handleNavigateTopic}
+              onNavigateFaq={(cat) => handleNavigateFaq(cat)}
+              onCtaclick={handleCtaclick}
+              onInjectedScroll={handleInjectedScroll}
+              initialCategorySlug={selectedCategorySlug}
+              onSelectCategorySlug={(slug) => {
+                setSelectedCategorySlug(slug);
+                window.history.pushState({}, '', slug === 'all' ? '/types' : `/types/${slug}`);
+              }}
+              onNavigateComparisonGuide={() => handleNavigateCompare()}
+            />
+          )}
 
-        {/* FAQ Page View */}
-        {currentTab === 'faq' && (
-          <FAQPage
-            initialCategory={initialFaqCategory}
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateTopic={handleNavigateTopic}
-            onCtaclick={handleCtaclick}
-            onNavigateBlog={handleNavigateBlog}
-          />
-        )}
+          {/* FAQ Page View */}
+          {currentTab === 'faq' && (
+            <FAQPage
+              initialCategory={initialFaqCategory}
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateTopic={handleNavigateTopic}
+              onCtaclick={handleCtaclick}
+              onNavigateBlog={handleNavigateBlog}
+            />
+          )}
 
-        {/* Topic Cluster Page View */}
-        {currentTab === 'cluster' && (
-          <TopicClusterPage
-            topicId={selectedTopicId}
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateTopic={handleNavigateTopic}
-            onNavigateBlog={handleNavigateBlog}
-            onNavigateFaq={() => handleNavigateFaq()}
-            onCtaclick={handleCtaclick}
-            onInjectedScroll={handleInjectedScroll}
-            onNavigateCompare={() => handleNavigateCompare()}
-          />
-        )}
+          {/* Topic Cluster Page View */}
+          {currentTab === 'cluster' && (
+            <TopicClusterPage
+              topicId={selectedTopicId}
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateTopic={handleNavigateTopic}
+              onNavigateBlog={handleNavigateBlog}
+              onNavigateFaq={() => handleNavigateFaq()}
+              onCtaclick={handleCtaclick}
+              onInjectedScroll={handleInjectedScroll}
+              onNavigateCompare={() => handleNavigateCompare()}
+            />
+          )}
 
-        {/* Recruiter & Staff Interview Page View */}
-        {currentTab === 'interview' && (
-          <RecruiterInterviewPage
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onCtaclick={handleCtaclick}
-            onNavigateBlog={() => handleNavigateBlog()}
-            onNavigateFaq={() => handleNavigateFaq()}
-          />
-        )}
+          {/* Recruiter & Staff Interview Page View */}
+          {currentTab === 'interview' && (
+            <RecruiterInterviewPage
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onCtaclick={handleCtaclick}
+              onNavigateBlog={() => handleNavigateBlog()}
+              onNavigateFaq={() => handleNavigateFaq()}
+            />
+          )}
 
-        {/* Admin Panel View */}
-        {currentTab === 'admin' && (
-          <AdminPanel
-            onNavigateHome={() => navigateTo('recruit', '/')}
-            onNavigateBlog={(slug) => handleNavigateBlog(slug)}
-          />
-        )}
+          {/* Admin Panel View */}
+          {currentTab === 'admin' && (
+            <AdminPanel
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateBlog={(slug) => handleNavigateBlog(slug)}
+            />
+          )}
+        </Suspense>
 
         {/* Blog / Column View */}
         {currentTab === 'blog' && (
@@ -592,14 +601,17 @@ export default function App() {
                         itemType="https://schema.org/ListItem"
                         className="flex items-center gap-1.5"
                       >
-                        <button
-                          type="button"
-                          onClick={() => navigateTo('recruit', '/')}
+                        <a
+                          href="/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo('recruit', '/');
+                          }}
                           className="hover:text-secondary transition-colors cursor-pointer flex items-center gap-1"
                         >
                           <LucideIcon name="Home" size={12} className="text-rose-500" />
                           <span itemProp="name">信太山新地求人トップ</span>
-                        </button>
+                        </a>
                         <meta itemProp="position" content="1" />
                         <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
                         <span>/</span>
@@ -610,13 +622,16 @@ export default function App() {
                         itemType="https://schema.org/ListItem"
                         className="flex items-center gap-1.5"
                       >
-                        <button
-                          type="button"
-                          onClick={() => handleNavigateBlog()}
+                        <a
+                          href="/blog"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateBlog();
+                          }}
                           className="hover:text-secondary transition-colors cursor-pointer"
                         >
                           <span itemProp="name">お仕事コラム一覧</span>
-                        </button>
+                        </a>
                         <meta itemProp="position" content="2" />
                         <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/blog" />
                         <span>/</span>
@@ -627,13 +642,16 @@ export default function App() {
                         itemType="https://schema.org/ListItem"
                         className="flex items-center gap-1.5"
                       >
-                        <button
-                          type="button"
-                          onClick={() => handleNavigateTopic(relatedClusterTopic)}
+                        <a
+                          href={`/${relatedClusterTopic}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateTopic(relatedClusterTopic);
+                          }}
                           className="hover:text-secondary transition-colors cursor-pointer text-rose-600 font-medium"
                         >
                           <span itemProp="name">{TOPIC_CLUSTERS[relatedClusterTopic]?.title || currentArticle.categoryLabel}</span>
-                        </button>
+                        </a>
                         <meta itemProp="position" content="3" />
                         <meta itemProp="item" content={`https://osaka-shinodayamashinchi-recruit.com/${relatedClusterTopic}`} />
                         <span>/</span>
@@ -878,7 +896,7 @@ export default function App() {
                     {/* E-E-A-T Author & Supervisor Profile Card */}
                     <div className="mt-12 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-rose-50/80 via-pink-50/40 to-amber-50/30 border border-rose-100 flex flex-col sm:flex-row items-center sm:items-start gap-4 shadow-2xs">
                       <img
-                        src="/images/shinodayama_cast_ayaka_1792486845624.jpg"
+                        src="/images/shinodayama_cast_ayaka_1792486845624.webp"
                         alt="あおい（信太山新地 専任女性採用担当・相談役）"
                         className="w-16 h-16 rounded-2xl object-cover shrink-0 border-2 border-white shadow-xs"
                       />
@@ -919,21 +937,28 @@ export default function App() {
                             <LucideIcon name="BookOpen" size={17} className="text-rose-600" />
                             <span>この記事を読んだ人におすすめの公式コラム</span>
                           </h3>
-                          <button
-                            type="button"
-                            onClick={() => handleNavigateBlog()}
+                          <a
+                            href="/blog"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavigateBlog();
+                            }}
                             className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1 cursor-pointer"
                           >
                             <span>コラム一覧へ</span>
                             <LucideIcon name="ArrowRight" size={13} />
-                          </button>
+                          </a>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                           {relatedArticles.map((rel) => (
-                            <div
+                            <a
                               key={rel.id}
-                              onClick={() => handleNavigateBlog(rel.slug)}
-                              className="bg-zinc-50/70 hover:bg-white rounded-2xl border border-zinc-200/80 hover:border-rose-300 overflow-hidden shadow-2xs hover:shadow-sm transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5"
+                              href={`/blog/${rel.slug}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleNavigateBlog(rel.slug);
+                              }}
+                              className="bg-zinc-50/70 hover:bg-white rounded-2xl border border-zinc-200/80 hover:border-rose-300 overflow-hidden shadow-2xs hover:shadow-sm transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5 text-left"
                             >
                               <div className="relative h-28 w-full overflow-hidden bg-rose-50">
                                 <ArticleCardImage
@@ -959,7 +984,7 @@ export default function App() {
                                   <span>📅 {rel.publishedAt}</span>
                                 </div>
                               </div>
-                            </div>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -1007,14 +1032,17 @@ export default function App() {
                     </div>
 
                     <div className="mt-8 text-center">
-                      <button
-                        type="button"
-                        onClick={() => handleNavigateBlog()}
+                      <a
+                        href="/blog"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigateBlog();
+                        }}
                         className="text-xs font-bold text-zinc-500 hover:text-zinc-800 inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <LucideIcon name="ArrowLeft" size={14} />
                         <span>コラム一覧に戻る</span>
-                      </button>
+                      </a>
                     </div>
                   </article>
                 </div>
@@ -1037,10 +1065,14 @@ export default function App() {
                   {/* Grid of Articles */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {BLOG_ARTICLES.map((article) => (
-                      <div
+                      <a
                         key={article.id}
-                        onClick={() => handleNavigateBlog(article.slug)}
-                        className="bg-white rounded-3xl overflow-hidden border border-rose-100/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
+                        href={`/blog/${article.slug}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigateBlog(article.slug);
+                        }}
+                        className="bg-white rounded-3xl overflow-hidden border border-rose-100/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1 text-left"
                       >
                         <div>
                           <div className="w-full h-48 bg-rose-50 overflow-hidden relative">
@@ -1070,7 +1102,7 @@ export default function App() {
                             続きを読む →
                           </span>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>

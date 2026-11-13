@@ -119,7 +119,7 @@ export default function SalaryBenefitsPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_bonus_envelope_jp_1792476753315.jpg"
+                src="/images/col_bonus_envelope_jp_1792476753315.webp"
                 alt="信太山新地 当店の給与・全額即日日払い"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"

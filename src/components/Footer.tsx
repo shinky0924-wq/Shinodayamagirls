@@ -42,14 +42,14 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     { name: '信太山新地・他業種・スカウト徹底比較', action: 'compare', target: '/compare' },
     { name: 'タイプ別の働き方ガイド', action: 'workstyle', target: '/types' },
     { name: '旅館求人・採用担当者インタビュー', action: 'interview', target: '/interview' },
-    { name: '求人総合ガイド', action: 'section', target: '#hub' },
-    { name: 'お仕事コラム一覧', action: 'blog' },
+    { name: '求人総合ガイド', action: 'section', target: '#recruit-hub' },
+    { name: 'お仕事コラム一覧', action: 'blog', target: '/blog' },
     { name: '運営者情報・グループ店舗概要', action: 'about', target: '/about' },
     { name: '選ばれる理由', action: 'section', target: '#reasons' },
-    { name: 'よくある質問 FAQ（100選）', action: 'faq', target: '/faq' },
+    { name: 'よくある質問 FAQ（66問）', action: 'faq', target: '/faq' },
     { name: '女性の声・体験談', action: 'section', target: '#voice' },
-    { name: '給料（報酬・日払い）', action: 'topic', target: 'salary' },
-    { name: '待遇（寮・交通費・環境）', action: 'topic', target: 'benefits' },
+    { name: '給料（報酬・日払い）', action: 'topic', target: '/salary', topicId: 'salary' },
+    { name: '寮・出稼ぎ（住み込み）', action: 'topic', target: '/dorm', topicId: 'dorm' },
     { name: '応募・面接の流れ', action: 'section', target: '#flow' },
   ];
 
@@ -88,9 +88,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     { 
       name: '顔出しなし・身バレ対策', 
       icon: 'ShieldCheck',
-      slug: 'double-work', 
+      slug: 'privacy', 
       action: 'workstyle',
-      target: '/types/double-work' 
+      target: '/types/privacy' 
     },
     { 
       name: '短時間・短期で働きたい', 
@@ -102,9 +102,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     { 
       name: '女性スタッフに相談したい', 
       icon: 'MessagesSquare',
-      action: 'section',
-      sectionId: 'recruiter-interview',
-      target: '#recruiter-interview' 
+      slug: 'female-staff',
+      action: 'workstyle',
+      target: '/types/female-staff' 
     },
     { 
       name: '出稼ぎ・寮付き希望', 
@@ -116,9 +116,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     { 
       name: 'まずは話を聞きたい', 
       icon: 'MessageCircle',
-      action: 'section',
-      sectionId: 'consultation',
-      target: '#consultation' 
+      slug: 'consultation',
+      action: 'workstyle',
+      target: '/types/consultation' 
     },
   ];
 
@@ -143,9 +143,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
     } else if (link.action === 'interview') {
       onChangeTab('interview');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.action === 'topic' && link.target) {
+    } else if (link.action === 'topic' && (link.topicId || link.target)) {
       if (onNavigateTopic) {
-        onNavigateTopic(link.target);
+        onNavigateTopic(link.topicId || link.target.replace(/^\//, ''));
       }
     } else if (link.action === 'section' && link.target) {
       const sectionId = link.target.startsWith('#') ? link.target.substring(1) : link.target;
@@ -336,7 +336,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
             {[
               { id: 'job', name: '🍵 お仕事内容・待機', path: '/job' },
               { id: 'salary', name: '💰 給料（報酬・日払い）', path: '/salary' },
-              { id: 'benefits', name: '🌸 待遇（寮・環境）', path: '/benefits' },
+              { id: 'compare', name: '⚖️ 徹底比較ガイド', path: '/compare' },
               { id: 'beginner', name: '🔰 未経験スタート', path: '/beginner' },
               { id: 'experienced', name: '👑 経験者・移籍', path: '/experienced' },
               { id: 'requirements', name: '📋 採用基準・書類', path: '/requirements' },
@@ -345,7 +345,7 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
               { id: 'shops', name: '🏮 お店選び・半年ルール', path: '/shops' },
               { id: 'dorm', name: '🏠 個室寮・出稼ぎ', path: '/dorm' },
               { id: 'safety', name: '🤫 身バレ・顔見せなし', path: '/safety' },
-              { id: 'faq', name: '💡 よくある質問 (100選)', path: '/faq' },
+              { id: 'faq', name: '💡 よくある質問 (66問)', path: '/faq' },
               { id: 'interview', name: '🎤 採用担当者インタビュー', path: '/interview' },
               { id: 'blog', name: '📚 お仕事コラム', path: '/blog' },
             ].map((topic) => (
@@ -356,6 +356,9 @@ export default function Footer({ currentTab, onChangeTab, onScrollToSection, onO
                   e.preventDefault();
                   if (topic.id === 'faq') {
                     onChangeTab('faq');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else if (topic.id === 'compare') {
+                    onChangeTab('compare');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else if (topic.id === 'interview') {
                     onChangeTab('interview');

@@ -160,15 +160,18 @@ export default function FAQPage({
               itemScope
               itemType="https://schema.org/ListItem"
             >
-              <button
-                type="button"
-                onClick={onNavigateHome}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
                 className="hover:text-rose-600 transition-colors flex items-center gap-1 cursor-pointer font-medium"
                 itemProp="item"
               >
                 <LucideIcon name="Home" size={12} className="text-zinc-400" />
                 <span itemProp="name">信太山新地求人TOP</span>
-              </button>
+              </a>
               <meta itemProp="position" content="1" />
             </li>
             <li className="text-zinc-300">/</li>
@@ -238,7 +241,7 @@ export default function FAQPage({
             <div className="w-full md:w-[400px] shrink-0">
               <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-[#FFF5F8]/40 aspect-[4/3]">
                 <img
-                  src="/images/safety_female_consultation_1794375281375.jpg"
+                  src="/images/safety_female_consultation_1794375281375.webp"
                   alt="専任女性スタッフが親身に質問・相談に対応している様子"
                   className="w-full h-full object-cover"
                   loading="eager"

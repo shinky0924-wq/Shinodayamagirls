@@ -72,7 +72,7 @@ export default function RecruitHub({
         "事前に確認したい注意点"
       ],
       buttonText: "仕事内容を詳しく見る →",
-      image: "/images/ryokan_working_woman_1792485020272.jpg",
+      image: "/images/ryokan_working_woman_1792485020272.webp",
       icon: "HeartHandshake",
       featuredArticles: [
         { slug: "shinodayama-job-guide", title: "信太山新地のお仕事内容と1回の接客の流れ", tag: "お仕事ガイド" },
@@ -93,7 +93,7 @@ export default function RecruitHub({
         "控除や交通費などの確認事項"
       ],
       buttonText: "給料・待遇を詳しく見る →",
-      image: "/images/col_salary_yen_1792463652387.jpg",
+      image: "/images/col_salary_yen_1792463652387.webp",
       icon: "Coins",
       featuredArticles: [
         { slug: "shinodayama-salary-system", title: "給与システムと高収入の仕組み", tag: "給料明細" },
@@ -114,7 +114,7 @@ export default function RecruitHub({
         "不安や疑問の相談方法"
       ],
       buttonText: "未経験向けガイドを見る →",
-      image: "/images/hub_beginner_cast_1792485407920.jpg",
+      image: "/images/hub_beginner_cast_1792485407920.webp",
       icon: "Sparkles",
       featuredArticles: [
         { slug: "shinodayama-beginner-guide", title: "未経験の女性が知っておくべきこと", tag: "初心者向け" },
@@ -135,7 +135,7 @@ export default function RecruitHub({
         "移籍前の確認事項"
       ],
       buttonText: "経験者向け情報を見る →",
-      image: "/images/hub_experienced_cast_1792485405837.jpg",
+      image: "/images/hub_experienced_cast_1792485405837.webp",
       icon: "Award",
       featuredArticles: [
         { slug: "shinodayama-vs-other-night-jobs", title: "他エリア・他業種との徹底比較", tag: "比較解説" },
@@ -156,7 +156,7 @@ export default function RecruitHub({
         "採用基準と注意点"
       ],
       buttonText: "募集要項を詳しく見る →",
-      image: "/images/col_official_documents_1792465890547.jpg",
+      image: "/images/col_official_documents_1792465890547.webp",
       icon: "ClipboardList",
       featuredArticles: [
         { slug: "shinodayama-safe-recruitment", title: "採用基準と安心の安全管理ルール", tag: "採用基準" },
@@ -177,7 +177,7 @@ export default function RecruitHub({
         "体験時の確認事項"
       ],
       buttonText: "面接・体験の流れを見る →",
-      image: "/images/col_trial_orient_jp_1792475594501.jpg",
+      image: "/images/col_trial_orient_jp_1792475594501.webp",
       icon: "Calendar",
       featuredArticles: [
         { slug: "shinodayama-interview-guide", title: "面接から体験入店までの詳しい手順", tag: "応募手順" },
@@ -198,7 +198,7 @@ export default function RecruitHub({
         "働き方を決める際の注意点"
       ],
       buttonText: "働き方を詳しく見る →",
-      image: "/images/col_double_work_jp_1792475554864.jpg",
+      image: "/images/col_double_work_jp_1792475554864.webp",
       icon: "Clock",
       featuredArticles: [
         { slug: "shinodayama-double-work-lifestyle", title: "主婦・OLのWワーク掛け持ち成功術", tag: "Wワーク" },
@@ -219,7 +219,7 @@ export default function RecruitHub({
         "契約や勤務条件の比較"
       ],
       buttonText: "お店選びのポイントを見る →",
-      image: "/images/col_secure_ryotei_1792475628730.jpg",
+      image: "/images/col_secure_ryotei_1792475628730.webp",
       icon: "Store",
       featuredArticles: [
         { slug: "shinodayama-ryokan-guide", title: "信太山新地のお店選び・集客力と半年ルールの真実", tag: "お店選び" },
@@ -240,7 +240,7 @@ export default function RecruitHub({
         "交通費や移動に関する確認事項"
       ],
       buttonText: "寮・出稼ぎ情報を見る →",
-      image: "/images/dorm_main_studio_1794374510330.jpg",
+      image: "/images/dorm_main_studio_1794374510330.webp",
       icon: "Home",
       featuredArticles: [
         { slug: "shinodayama-housing-support", title: "個室寮の設備・セキュリティと入居手順", tag: "個室寮" },
@@ -261,7 +261,7 @@ export default function RecruitHub({
         "待機環境と安全対策"
       ],
       buttonText: "身バレ・安全対策を見る →",
-      image: "/images/col_privacy_safe_1792463653857.jpg",
+      image: "/images/col_privacy_safe_1792463653857.webp",
       icon: "EyeOff",
       featuredArticles: [
         { slug: "shinodayama-privacy-guide", title: "誰にも知られずに働くための身バレ防止策", tag: "身バレ対策" },
@@ -282,7 +282,7 @@ export default function RecruitHub({
         "面接・体験について"
       ],
       buttonText: "よくある質問を見る →",
-      image: "/images/shinodayama_advisor_sakura_1792225964799.jpg",
+      image: "/images/shinodayama_advisor_sakura_1792225964799.webp",
       icon: "HelpCircle",
       featuredArticles: [
         { slug: "shinodayama-safe-recruitment", title: "安全管理とよくある質問総まとめ", tag: "よくある質問" },
@@ -303,7 +303,7 @@ export default function RecruitHub({
         "お店選びに役立つ情報"
       ],
       buttonText: "お仕事コラムを見る →",
-      image: "/images/col_ryokan_manner_1792465891118.jpg",
+      image: "/images/col_ryokan_manner_1792465891118.webp",
       icon: "BookOpen",
       featuredArticles: [
         { slug: "shinodayama-job-guide", title: "信太山新地求人の総合解説ガイド", tag: "人気コラム" },
@@ -444,7 +444,7 @@ export default function RecruitHub({
                     onError={(e) => {
                       const target = e.currentTarget as HTMLImageElement;
                       target.onerror = null;
-                      target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+                      target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
                     }}
                   />
                   {/* 黒の半透明グラデーションを下部だけ適用 */}
@@ -782,7 +782,7 @@ export default function RecruitHub({
               <div className="relative w-full max-w-[280px] rounded-[16px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-white p-2.5">
                 <div className="relative rounded-[12px] overflow-hidden aspect-[4/5] bg-[#FFF1F5]">
                   <img
-                    src="/images/col_search_phone_jp_1792475574840.jpg"
+                    src="/images/col_search_phone_jp_1792475574840.webp"
                     alt="自分に合った働き方を探す女性"
                     className="w-full h-full object-cover object-center"
                     loading="lazy"

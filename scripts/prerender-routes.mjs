@@ -36,6 +36,24 @@ function upsertMeta(html, attrName, attrVal, content) {
   return html.replace('</head>', `  ${tag}\n  </head>`);
 }
 
+function extractFaqQuestionsFromTs(filePath) {
+  if (!fs.existsSync(filePath)) return [];
+  const src = fs.readFileSync(filePath, 'utf8');
+  const results = [];
+  const itemRegex = /q:\s*(['"])((?:\\.|(?!\1).)*)\1\s*,\s*a:\s*(['"])((?:\\.|(?!\3).)*)\3/gs;
+  let m;
+  while ((m = itemRegex.exec(src)) !== null) {
+    results.push({ q: m[2], a: m[4] });
+  }
+  return results;
+}
+
+function buildSsrRootShell(routeMeta) {
+  const heading = escapeHtml(routeMeta.heading || routeMeta.title);
+  const lead = escapeHtml(routeMeta.description || '');
+  return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1><p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>${routeMeta.noscriptBodyHtml || ''}</article></main></div></div></div>`;
+}
+
 function buildRouteHtml(baseHtml, routeMeta) {
   let html = baseHtml;
   const title = routeMeta.title;
@@ -96,10 +114,18 @@ function buildRouteHtml(baseHtml, routeMeta) {
     '@type': 'BreadcrumbList',
     itemListElement: breadcrumbItems
   };
-  const breadcrumbScript = `<script id="prerender-breadcrumb-schema" type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`;
-  html = html.replace('</head>', `  ${breadcrumbScript}\n  </head>`);
+  let headScripts = `  <script id="prerender-breadcrumb-schema" type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>\n`;
 
-  // Replace generic root <noscript> with route-specific semantic content so crawlers see unique page HTML
+  if (routeMeta.extraJsonLd) {
+    headScripts += `  <script id="prerender-entity-schema" type="application/ld+json">${JSON.stringify(routeMeta.extraJsonLd)}</script>\n`;
+  }
+
+  html = html.replace('</head>', `${headScripts}  </head>`);
+
+  // Populate <div id="root"> with styled SSR shell (createRoot cleanly replaces on client hydration/mount)
+  html = html.replace(/<div\s+id="root"><\/div>/i, buildSsrRootShell(routeMeta));
+
+  // Replace generic root <noscript> with route-specific semantic content so non-JS crawlers see unique page HTML
   const heading = escapeHtml(routeMeta.heading || title);
   const bodyHtml = routeMeta.noscriptBodyHtml || `<p>${escapeHtml(description)}</p>`;
   const routeNoscript = `<noscript>
@@ -189,7 +215,7 @@ function main() {
     description:
       '未経験から始めたい方、収入を重視したい方、勤務日数やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい情報を8つのタイプ別にご紹介します。',
     canonicalUrl: `${BASE_DOMAIN}/types`,
-    imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
+    imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
     heading: 'あなたに合った働き方を見つけよう。（信太山新地 タイプ別ガイド）',
     noscriptBodyHtml:
       '<p>未経験から始めたい、高収入を目指したい、週1日から働きたい、顔出しなし・身バレ対策、短時間・短期で働きたい、女性スタッフに相談したい、出稼ぎ・寮付き希望、まずは話を聞きたいの8タイプ別に条件や確認ポイントをご案内します。</p>'
@@ -254,7 +280,7 @@ function main() {
       title: item.title,
       description: item.description,
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
-      imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
+      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
       heading: item.title.split('｜')[0],
       parentBreadcrumb
     });
@@ -263,7 +289,7 @@ function main() {
       title: item.title,
       description: item.description,
       canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
-      imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
+      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
       heading: item.title.split('｜')[0],
       parentBreadcrumb
     });
@@ -284,7 +310,7 @@ function main() {
         title: target.title,
         description: target.description,
         canonicalUrl: `${BASE_DOMAIN}/types/${to}`,
-        imagePath: '/images/workstyle_guide_hero_1794546577303.jpg',
+        imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
         heading: target.title.split('｜')[0],
         parentBreadcrumb: { name: 'タイプ別働き方ガイド', path: '/types' }
       });
@@ -292,6 +318,7 @@ function main() {
   });
 
   // 3. FAQ, Interview, About
+  const faqEntries = extractFaqQuestionsFromTs(path.join(rootDir, 'src', 'faq11CategoriesData.ts'));
   routes.push({
     route: 'faq',
     title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
@@ -300,7 +327,22 @@ function main() {
     canonicalUrl: `${BASE_DOMAIN}/faq`,
     heading: 'よくある質問 FAQ（全66問・11カテゴリー）',
     noscriptBodyHtml:
-      '<p>未経験からの始め方、仕事内容、給与・日払い、シフト・働き方、身バレ対策・プライバシー、寮・出稼ぎ、面接・体験入店、店舗選び・半年ルールなど全66問のQ&Aを掲載しています。</p>'
+      '<p>未経験からの始め方、仕事内容、給与・日払い、シフト・働き方、身バレ対策・プライバシー、寮・出稼ぎ、面接・体験入店、店舗選び・半年ルールなど全66問のQ&Aを掲載しています。</p>',
+    extraJsonLd: faqEntries.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          '@id': `${BASE_DOMAIN}/faq#faqpage`,
+          mainEntity: faqEntries.slice(0, 20).map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.a
+            }
+          }))
+        }
+      : undefined
   });
 
   routes.push({
@@ -328,6 +370,21 @@ function main() {
     const clusters = JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'));
     Object.entries(clusters).forEach(([key, data]) => {
       const canonicalPath = key === 'benefits' ? '/salary' : data.path || `/${key}`;
+      const topicFaqs = Array.isArray(data.faqs) && data.faqs.length > 0
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            '@id': `${BASE_DOMAIN}${canonicalPath}#faq`,
+            mainEntity: data.faqs.map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.a
+              }
+            }))
+          }
+        : undefined;
       routes.push({
         route: key,
         title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド`,
@@ -336,7 +393,8 @@ function main() {
         ogType: 'article',
         imagePath: data.heroImage,
         heading: data.title,
-        noscriptBodyHtml: `<p>${escapeHtml(data.overview || data.metaDescription || '')}</p>`
+        noscriptBodyHtml: `<p>${escapeHtml(data.overview || data.metaDescription || '')}</p>`,
+        extraJsonLd: topicFaqs
       });
     });
   }
@@ -356,20 +414,62 @@ function main() {
     const articles = JSON.parse(fs.readFileSync(articlesPath, 'utf8'));
     articles.forEach((article) => {
       if (!article.slug) return;
+      const articleUrl = `${BASE_DOMAIN}/blog/${article.slug}`;
       routes.push({
         route: `blog/${article.slug}`,
         title: `${article.title}｜信太山新地お仕事コラム【信太山ガールズ公式】`,
         description:
           article.summary || `${article.title}についての信太山新地公式解説記事です。`,
-        canonicalUrl: `${BASE_DOMAIN}/blog/${article.slug}`,
+        canonicalUrl: articleUrl,
         ogType: 'article',
         imagePath: article.eyeCatch,
         heading: article.title,
         parentBreadcrumb: { name: 'お仕事コラム一覧', path: '/blog' },
-        noscriptBodyHtml: `<p>${escapeHtml(article.summary || '')}</p>`
+        noscriptBodyHtml: `<p>${escapeHtml(article.summary || '')}</p>`,
+        extraJsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: article.title,
+          description: article.summary || `${article.title}についての信太山新地公式解説記事です。`,
+          datePublished: article.publishedAt,
+          dateModified: article.publishedAt,
+          inLanguage: 'ja-JP',
+          isAccessibleForFree: true,
+          keywords: Array.isArray(article.tags) ? article.tags.join(', ') : '信太山新地, 信太山求人, 未経験, 個室待機',
+          image: article.eyeCatch ? toAbsoluteUrl(article.eyeCatch) : DEFAULT_IMAGE,
+          author: {
+            '@type': 'Person',
+            name: article.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
+            jobTitle: '女性採用アドバイザー・現場サポート責任者'
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: '信太山ガールズ（旅館直営求人・女性採用サポート）',
+            url: `${BASE_DOMAIN}/`,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_DOMAIN}/favicon.png`
+            }
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': articleUrl
+          }
+        }
       });
     });
   }
+
+  // Also inject styled SSR shell into root dist/index.html for instant first paint & initial HTML content
+  const rootSsrShell = buildSsrRootShell({
+    heading: '信太山新地でお仕事を探す女性へ。信太山新地求人・信太山求人なら信太山ガールズ',
+    description:
+      '【信太山新地求人・信太山求人公式】未経験から始めやすい信太山新地の旅館直営求人。店先顔出しなし・個室待機・15分短時間コース3,800円〜・即日全額日払い・週1日〜相談可。',
+    noscriptBodyHtml:
+      '<p>未経験から始めたい方、プライバシーを守りながら働きたい方のために、仕事内容・給料システム・面接の流れ・身バレ対策・寮について分かりやすくご案内しています。</p>'
+  });
+  const updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
+  fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');
 
   // Render all routes
   routes.forEach((meta) => {
@@ -377,7 +477,7 @@ function main() {
     writeRouteFiles(meta.route, html);
   });
 
-  console.log(`[prerender] Successfully generated static HTTP-200 HTML for ${routes.length} routes in dist/`);
+  console.log(`[prerender] Successfully generated static HTTP-200 HTML for ${routes.length} routes + root SSR shell in dist/`);
 }
 
 main();

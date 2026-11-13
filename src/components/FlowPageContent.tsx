@@ -126,7 +126,7 @@ export default function FlowPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_interview_counseling_jp_1792475575633.jpg"
+                src="/images/col_interview_counseling_jp_1792475575633.webp"
                 alt="女性スタッフとの面接・相談風景"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -239,7 +239,7 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_search_phone_jp_1792475574840.jpg"
+                  src="/images/col_search_phone_jp_1792475574840.webp"
                   alt="スマホでLINE相談する様子"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -276,7 +276,7 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_trial_orient_jp_1792475594501.jpg"
+                  src="/images/col_trial_orient_jp_1792475594501.webp"
                   alt="落ち着いた雰囲気での相談風景"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -313,7 +313,7 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_interview_hacks_jp_1792476795351.jpg"
+                  src="/images/col_interview_hacks_jp_1792476795351.webp"
                   alt="面接・条件説明をしている室内"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -350,7 +350,7 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_serene_lounge_jp_1792476845692.jpg"
+                  src="/images/col_serene_lounge_jp_1792476845692.webp"
                   alt="清潔感のある待機スペース・旅館個室"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -387,7 +387,7 @@ export default function FlowPageContent({
             <div className="w-full md:w-[38%] shrink-0">
               <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
                 <img
-                  src="/images/col_ryokan_manner_1792465891118.jpg"
+                  src="/images/col_ryokan_manner_1792465891118.webp"
                   alt="落ち着いた旅館の室内"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -512,7 +512,7 @@ export default function FlowPageContent({
           <div className="w-full lg:w-[42%] shrink-0">
             <div className="rounded-[16px] overflow-hidden aspect-[4/3] border border-[#F0DDE4]">
               <img
-                src="/images/col_taiken_prep_1792475646166.jpg"
+                src="/images/col_taiken_prep_1792475646166.webp"
                 alt="体験入店・店舗待機環境"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -618,32 +618,32 @@ export default function FlowPageContent({
             {
               title: '募集要項',
               topicId: 'requirements',
-              img: '/images/col_official_documents_1792465890547.jpg'
+              img: '/images/col_official_documents_1792465890547.webp'
             },
             {
               title: '仕事内容',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: '給料・待遇',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: '未経験の方へ',
               topicId: 'beginner',
-              img: '/images/col_friendly_staff_jp_1792476884275.jpg'
+              img: '/images/col_friendly_staff_jp_1792476884275.webp'
             },
             {
               title: '経験者の方へ',
               topicId: 'experienced',
-              img: '/images/hub_experienced_cast_1792485405837.jpg'
+              img: '/images/hub_experienced_cast_1792485405837.webp'
             },
             {
               title: '女性インタビュー',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.jpg'
+              img: '/images/cast_mai_card_1792227181512.webp'
             }
           ].map((item, idx) => (
             <div

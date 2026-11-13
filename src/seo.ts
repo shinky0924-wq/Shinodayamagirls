@@ -14,7 +14,7 @@ export interface SeoConfig {
 }
 
 export const BASE_SITE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
-export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/hub_beginner_cast_1792485407920.jpg`;
+export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/shinodayama_hero_banner_1792225964954.jpg`;
 
 /**
  * Dynamically updates document metadata for SEO and Generative AI (LLMO) crawlers

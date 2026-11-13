@@ -125,7 +125,7 @@ export default function ShopsPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_secure_ryotei_1792475628730.jpg"
+                src="/images/col_secure_ryotei_1792475628730.webp"
                 alt="上品で落ち着いた和風の料亭旅館外観"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -542,25 +542,25 @@ export default function ShopsPageContent({
               title: '信太山新地でお店を選ぶときに確認したいポイント',
               desc: '後悔しないための環境・客層・サポート体制の見極め方',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: 'お給料の仕組みと実際の受取金額について',
               desc: 'コース別報酬・日払い・天引きゼロの計算方法',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: '半年ルールとは？入店前に確認したい移籍条件',
               desc: '組合規約の仕組みとトラブルを防ぐための事前確認',
               topicId: 'experienced',
-              img: '/images/col_official_documents_1792465890547.jpg'
+              img: '/images/col_official_documents_1792465890547.webp'
             },
             {
               title: '初めてのお店選びで失敗しないためのチェックリスト',
               desc: '面接や見学で聞いておくべき必須の10項目まとめ',
               topicId: 'flow',
-              img: '/images/col_taiken_prep_1792475646166.jpg'
+              img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
             <div

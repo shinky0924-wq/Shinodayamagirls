@@ -147,7 +147,7 @@ export default function Hero({ content, onCtaclick, onBlogClick, articles, onArt
               onError={(e) => {
                 const target = e.currentTarget;
                 target.onerror = null;
-                target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+                target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
               }}
             />
             

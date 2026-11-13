@@ -130,7 +130,7 @@ export default function RequirementsPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/col_ryokan_manner_1792465891118.jpg"
+                src="/images/col_ryokan_manner_1792465891118.webp"
                 alt="信太山新地 老舗旅館の客室・完全個室待機"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -821,32 +821,32 @@ export default function RequirementsPageContent({
             {
               title: '仕事内容',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: '給料・待遇',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: '未経験の方へ',
               topicId: 'beginner',
-              img: '/images/col_friendly_staff_jp_1792476884275.jpg'
+              img: '/images/col_friendly_staff_jp_1792476884275.webp'
             },
             {
               title: '経験者の方へ',
               topicId: 'experienced',
-              img: '/images/hub_experienced_cast_1792485405837.jpg'
+              img: '/images/hub_experienced_cast_1792485405837.webp'
             },
             {
               title: '女性インタビュー',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.jpg'
+              img: '/images/cast_mai_card_1792227181512.webp'
             },
             {
               title: 'お仕事までの流れ',
               topicId: 'flow',
-              img: '/images/col_taiken_prep_1792475646166.jpg'
+              img: '/images/col_taiken_prep_1792475646166.webp'
             }
           ].map((item, idx) => (
             <div

@@ -45,77 +45,77 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
   accentBg: string;
 }> = {
   job: {
-    secondaryImage: '/images/col_ryokan_manner_1792465891118.jpg',
+    secondaryImage: '/images/col_ryokan_manner_1792465891118.webp',
     imageCaption: '落ち着いた旅館客室・店先顔見せなし・完全個室待機',
     reassuranceTags: ['店先顔見せ一切なし', '完全個室待機', '15分〜短時間接客', '絶対ゴム着用厳守', '部屋掃除不要'],
     icon: 'HeartHandshake',
     accentBg: 'from-emerald-50 via-white to-teal-50/30',
   },
   salary: {
-    secondaryImage: '/images/col_bonus_envelope_jp_1792476753315.jpg',
+    secondaryImage: '/images/col_bonus_envelope_jp_1792476753315.webp',
     imageCaption: '全額即日現金手渡し・引かれ物一切ゼロ・安心の厚待遇',
     reassuranceTags: ['15分3,800円〜高額支給', '退勤時全額現金手渡し', '天引き・雑費完全ゼロ', '時給1万円保証完備', '家具家電付き個室寮・交通費全額'],
     icon: 'Coins',
     accentBg: 'from-amber-50 via-white to-orange-50/30',
   },
   benefits: {
-    secondaryImage: '/images/col_ryokan_manner_1792465891118.jpg',
+    secondaryImage: '/images/col_ryokan_manner_1792465891118.webp',
     imageCaption: '手ぶら出勤OK・衣装無料レンタル・完全個室待機',
     reassuranceTags: ['雑費天引き完全0円', '家具家電付き個室寮', '新幹線・飛行機代全額支給', '提携託児所完備', '店先顔出しなし'],
     icon: 'HeartHandshake',
     accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   beginner: {
-    secondaryImage: '/images/col_friendly_staff_jp_1792476884275.jpg',
+    secondaryImage: '/images/col_friendly_staff_jp_1792476884275.webp',
     imageCaption: '在籍の約90%が夜職未経験スタート・女性スタッフが親身に伴走',
     reassuranceTags: ['未経験率約90%', '履歴書不要・私服手ぶら面接', '営業活動・写真公開一切なし', '20代〜40代幅広く歓迎'],
     icon: 'Sparkles',
     accentBg: 'from-rose-50 via-white to-pink-50/30',
   },
   experienced: {
-    secondaryImage: '/images/col_popular_cast_jp_1792476715216.jpg',
+    secondaryImage: '/images/col_popular_cast_jp_1792476715216.webp',
     imageCaption: '他業種からの移籍人気No.1・営業連絡や写真公開のストレスから解放',
     reassuranceTags: ['Webパネル写真なし', '営業LINE一切不要', 'お風呂掃除などの肉体労働ゼロ', '即戦力高日給'],
     icon: 'Award',
     accentBg: 'from-purple-50 via-white to-indigo-50/30',
   },
   requirements: {
-    secondaryImage: '/images/col_official_documents_1792465890547.jpg',
+    secondaryImage: '/images/col_official_documents_1792465890547.webp',
     imageCaption: '顔写真付き身分証明書1点のみでOK・住民票は必須ではありません',
     reassuranceTags: ['20歳以上の女性限定', '履歴書一切不要', '顔写真付き身分証のみでOK', '私服で手ぶら見学OK'],
     icon: 'ClipboardList',
     accentBg: 'from-blue-50 via-white to-cyan-50/30',
   },
   flow: {
-    secondaryImage: '/images/col_taiken_prep_1792475646166.jpg',
+    secondaryImage: '/images/col_taiken_prep_1792475646166.webp',
     imageCaption: '応募〜面接・即日体験入店〜お給料手渡しまで最短当日に完結',
     reassuranceTags: ['公式LINEで即予約', '駅までお迎え送迎あり', '衣装・アメニティ完全無料', '体入終了後に全額日払い'],
     icon: 'Calendar',
     accentBg: 'from-rose-50 via-white to-amber-50/30',
   },
   workstyle: {
-    secondaryImage: '/images/col_daytime_clock_jp_1792476810942.jpg',
+    secondaryImage: '/images/col_daytime_clock_jp_1792476810942.webp',
     imageCaption: '10:00〜24:00完全自由出勤制・週1日・短時間・週末のみ自由自在',
     reassuranceTags: ['完全自由シフト制', '週1日・短時間OK', '昼シフト・夜シフト選択自由', '長期休暇・旅行OK'],
     icon: 'Clock',
     accentBg: 'from-orange-50 via-white to-rose-50/30',
   },
   shops: {
-    secondaryImage: '/images/col_secure_ryotei_1792475628730.jpg',
+    secondaryImage: '/images/col_secure_ryotei_1792475628730.webp',
     imageCaption: '信太山新地屈指の直営老舗旅館・清潔な個室待機室と設備完備',
     reassuranceTags: ['老舗旅館直営店', 'オートロック・警備万全', 'Wi-Fi・冷暖房完備の個室待機', '無料レンタル衣装充実'],
     icon: 'Building2',
     accentBg: 'from-emerald-50 via-white to-cyan-50/30',
   },
   dorm: {
-    secondaryImage: '/images/dorm_main_studio_1794374510330.jpg',
+    secondaryImage: '/images/dorm_main_studio_1794374510330.webp',
     imageCaption: '信太山駅近辺の寮・清潔な生活環境・出稼ぎ・遠方からの応募歓迎',
     reassuranceTags: ['信太山駅近辺の寮', '家具・家電・生活設備完備', '遠方からの応募歓迎', '交通費・移動費相談可能'],
     icon: 'Home',
     accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   safety: {
-    secondaryImage: '/images/privacy_ryokan_room_1794375281070.jpg',
+    secondaryImage: '/images/privacy_ryokan_room_1794375281070.webp',
     imageCaption: '落ち着いた和風個室・店先顔見せなし・プライバシーに配慮した環境',
     reassuranceTags: ['店先顔見せなし', '完全個室待機', '源氏名管理', '女性スタッフ相談窓口'],
     icon: 'ShieldCheck',
@@ -227,7 +227,7 @@ export default function TopicClusterPage({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const visualAsset = TOPIC_VISUAL_ASSETS[topicId] || {
-    secondaryImage: '/images/shinodayama_hero_banner_1792225964954.jpg',
+    secondaryImage: '/images/shinodayama_hero_banner_1792225964954.webp',
     imageCaption: '信太山新地 直営老舗旅館グループ',
     reassuranceTags: ['店先顔見せなし', '完全個室待機', '即日全額日払い', '履歴書不要'],
     icon: 'Sparkles',
@@ -357,15 +357,18 @@ export default function TopicClusterPage({
               itemType="https://schema.org/ListItem"
               className="flex items-center gap-1"
             >
-              <button
-                type="button"
-                onClick={onNavigateHome}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateHome();
+                }}
                 className="hover:text-rose-600 font-bold flex items-center gap-1 text-zinc-700 hover:underline cursor-pointer"
                 id="breadcrumb-hub-home"
               >
                 <LucideIcon name="Home" size={13} className="text-rose-500" />
                 <span itemProp="name">信太山新地求人（トップ）</span>
-              </button>
+              </a>
               <meta itemProp="position" content="1" />
               <meta itemProp="item" content="https://osaka-shinodayamashinchi-recruit.com/" />
             </li>
@@ -701,7 +704,7 @@ export default function TopicClusterPage({
                     onError={(e) => {
                       const target = e.currentTarget as HTMLImageElement;
                       target.onerror = null;
-                      target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+                      target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
@@ -759,7 +762,7 @@ export default function TopicClusterPage({
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
             <div className="relative shrink-0 text-center">
               <img
-                src="/images/shinodayama_advisor_sakura_1792225964799.jpg"
+                src="/images/shinodayama_advisor_sakura_1792225964799.webp"
                 alt="女性アドバイザー あおい（元信太山新地キャスト）"
                 className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-rose-300 shadow-md mx-auto"
                 onError={(e) => {
@@ -825,7 +828,7 @@ export default function TopicClusterPage({
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+                  target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -1145,7 +1148,7 @@ export default function TopicClusterPage({
                     {/* Article Thumbnail */}
                     <div className="relative h-36 overflow-hidden bg-rose-50">
                       <img
-                        src={art.eyeCatch || '/images/shinodayama_hero_banner_1792225964954.jpg'}
+                        src={art.eyeCatch || '/images/shinodayama_hero_banner_1792225964954.webp'}
                         alt={art.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
@@ -1153,7 +1156,7 @@ export default function TopicClusterPage({
                         onError={(e) => {
                           const target = e.currentTarget as HTMLImageElement;
                           target.onerror = null;
-                          target.src = '/images/shinodayama_hero_banner_1792225964954.jpg';
+                          target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -1251,7 +1254,7 @@ export default function TopicClusterPage({
         <div className="bg-gradient-to-r from-rose-100/70 via-white to-rose-100/70 rounded-3xl p-6 sm:p-8 border border-rose-200 shadow-md flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
             <img
-              src="/images/shinodayama_advisor_sakura_1792225964799.jpg"
+              src="/images/shinodayama_advisor_sakura_1792225964799.webp"
               alt="店舗採用担当 あおい"
               className="w-20 h-20 rounded-full object-cover border-2 border-rose-300 shadow-md shrink-0"
               referrerPolicy="no-referrer"

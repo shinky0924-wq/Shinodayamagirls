@@ -119,7 +119,7 @@ export default function BeginnerPageContent({
           <div className="w-full md:w-[42%] lg:w-[40%] shrink-0">
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
-                src="/images/shinodayama_advisor_sakura_1792225964799.jpg"
+                src="/images/shinodayama_advisor_sakura_1792225964799.webp"
                 alt="信太山新地 女性相談窓口 あおいスタッフ"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -424,7 +424,7 @@ export default function BeginnerPageContent({
             <div>
               <div className="flex items-center gap-3 mb-3 pb-3 border-b border-[#F0DDE4]">
                 <img
-                  src="/images/cast_mai_card_1792227181512.jpg"
+                  src="/images/cast_mai_card_1792227181512.webp"
                   alt="まいさん"
                   className="w-12 h-12 rounded-full object-cover border border-[#F0DDE4] shadow-2xs"
                   loading="lazy"
@@ -452,7 +452,7 @@ export default function BeginnerPageContent({
             <div>
               <div className="flex items-center gap-3 mb-3 pb-3 border-b border-[#F0DDE4]">
                 <img
-                  src="/images/cast_ayaka_card_1792227230489.jpg"
+                  src="/images/cast_ayaka_card_1792227230489.webp"
                   alt="あやかさん"
                   className="w-12 h-12 rounded-full object-cover border border-[#F0DDE4] shadow-2xs"
                   loading="lazy"
@@ -561,25 +561,25 @@ export default function BeginnerPageContent({
               title: '仕事内容',
               desc: '接客の流れ・待機環境',
               topicId: 'job',
-              img: '/images/col_ryokan_manner_1792465891118.jpg'
+              img: '/images/col_ryokan_manner_1792465891118.webp'
             },
             {
               title: '給料・待遇',
               desc: 'コース別給料・シミュレーター',
               topicId: 'salary',
-              img: '/images/col_bonus_envelope_jp_1792476753315.jpg'
+              img: '/images/col_bonus_envelope_jp_1792476753315.webp'
             },
             {
               title: 'お仕事までの流れ',
               desc: '応募から開始までの5ステップ',
               topicId: 'flow',
-              img: '/images/col_taiken_prep_1792475646166.jpg'
+              img: '/images/col_taiken_prep_1792475646166.webp'
             },
             {
               title: '女性インタビュー',
               desc: '実際に働く女性のリアルな声',
               topicId: 'interview',
-              img: '/images/cast_mai_card_1792227181512.jpg'
+              img: '/images/cast_mai_card_1792227181512.webp'
             }
           ].map((item, idx) => (
             <div
