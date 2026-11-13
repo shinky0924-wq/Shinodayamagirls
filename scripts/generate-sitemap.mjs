@@ -22,19 +22,22 @@ if (fs.existsSync(topicClustersPath)) {
   topicClusters = JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'));
 }
 
-const clusterKeys = Object.keys(topicClusters).length > 0
+const rawClusterKeys = Object.keys(topicClusters).length > 0
   ? Object.keys(topicClusters)
   : ['job', 'salary', 'beginner', 'experienced', 'requirements', 'flow', 'workstyle', 'shops', 'dorm', 'safety'];
 
-const compareSlugs = [
+// /benefits redirects/canonicalizes to /salary in App.tsx, so exclude it from canonical sitemap.xml
+const clusterKeys = rawClusterKeys.filter((k) => k !== 'benefits');
+
+const workstyleTypeSlugs = [
   'inexperienced',
   'high-income',
   'weekly-1',
+  'privacy',
   'short-term',
+  'female-staff',
   'dormitory',
-  'double-work',
-  'age-20s',
-  'age-30s'
+  'consultation'
 ];
 
 const today = new Date().toISOString().split('T')[0];
@@ -59,7 +62,7 @@ clusterKeys.forEach((key) => {
   });
 });
 
-// Priority 0.88 - Comparison Hub & Detail Pages
+// Priority 0.88 - Comparison Guide & Work Style Guide (8 Types)
 urls.push({
   loc: `${BASE_URL}/compare`,
   lastmod: today,
@@ -67,21 +70,35 @@ urls.push({
   priority: '0.88'
 });
 
-compareSlugs.forEach((slug) => {
+urls.push({
+  loc: `${BASE_URL}/types`,
+  lastmod: today,
+  changefreq: 'weekly',
+  priority: '0.88'
+});
+
+workstyleTypeSlugs.forEach((slug) => {
   urls.push({
-    loc: `${BASE_URL}/compare/${slug}`,
+    loc: `${BASE_URL}/types/${slug}`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85'
   });
 });
 
-// Priority 0.88 - FAQ Hub
+// Priority 0.88 - FAQ Hub & Recruiter Interview
 urls.push({
   loc: `${BASE_URL}/faq`,
   lastmod: today,
   changefreq: 'weekly',
   priority: '0.88'
+});
+
+urls.push({
+  loc: `${BASE_URL}/interview`,
+  lastmod: today,
+  changefreq: 'monthly',
+  priority: '0.85'
 });
 
 // Priority 0.85 - Blog Column Hub
@@ -238,38 +255,27 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 | **60分コース** | 15,200円 | 約15,200円/h | じっくりコース。延長も15分3,800円ずつ加算 |
 | **最低保証制度** | 時給10,000円保証 / 12h待機で日給8万〜10万円保証 | 客足に関係なく支給 |
 
-## 大阪三大新地＆他業種比較表（信太山新地 当店 vs 飛田新地 vs 松島新地 vs 一般風俗・キャバクラ）
-| 比較項目 | 【信太山新地 老舗旅館直営の当店】 | 飛田新地 | 松島新地 | 一般風俗・キャバクラ |
-| :--- | :--- | :--- | :--- | :--- |
-| **店先での顔出し** | **◎ 一切なし（完全個室待機100%）** | ✕ 上がり框で顔出し座り必須 | △ 店頭座り・顔出しあり | ✕ ネット写真掲載が必須 |
-| **1コース時間** | **◎ 最短15分〜（時給1万円保証）** | ◯ 最短15分〜20分 | ◯ 最短20分〜30分 | △ 60分〜120分（拘束時間大） |
-| **想定日給** | **◎ 日給5万〜12万円超（全額即日日払い）** | ◯ 日給4万〜10万円 | ◯ 日給3万〜8万円 | △ 日給3万〜7万円（締め日精算） |
-| **採用年齢層** | **◎ 20代〜40代歓迎（45歳前後まで大歓迎）** | △ 20代前半メイン（年齢制限厳格） | △ 20代〜30代前半 | △ 20代中心（30代以降は別店） |
-| **未経験スタート率** | **◎ 約92%（仲居さんが全サポート）** | △ 経験者・プロ志向多数 | ◯ 半々程度 | △ 60〜70%（営業努力必須） |
-| **雑費・天引き** | **◎ 完全0円（引かれもの一切なし）** | △ 厚生費・衣装代天引きあり | △ 一部天引き店舗あり | ✕ 厚生費・ヘアメイク代等多数 |
-| **定休日** | **◎ 毎月20日エリア一斉定休日** | ◯ 店舗ごとの不定休 | ◯ 店舗ごとのシフト制 | ✕ 年中無休（出勤催促あり） |
-| **お酒・営業LINE** | **◎ お酒完全不要・営業連絡禁止** | ◎ お酒不要・連絡先交換禁止 | ◯ お酒不要・連絡先交換禁止 | ✕ 飲酒必須・営業LINE義務 |
-| **個室寮・交通費** | **◎ 家具家電付き個室寮・交通費全額支給** | △ 寮完備店少なめ | △ 寮完備店限定的 | △ 寮費高額（月7万〜10万） |
-| **託児所支援** | **◎ 提携託児所完備＆託児費用補助** | ✕ 託児所提携なし | ✕ 託児所提携なし | △ 一部大手のみ提携あり |
-
+## 6種類の働き方・業種・応募形態 比較ガイド（${BASE_URL}/compare）
+信太山新地・飛田新地・メンズエステ・キャバクラ・ソープランドの5業種と、スカウト・紹介経由（応募方法）の違いを11項目で比較解説しています（店舗によって条件は異なります）。
 
 ## 主要ページ案内
 - [求人トップページ](${BASE_URL}/): 信太山新地求人総合案内・募集要項・給与シミュレーター
 - [仕事内容と旅館待機](${BASE_URL}/job): 店先顔見せなし・完全個室待機のシステム解説
-- [給料（報酬・日払い）](${BASE_URL}/salary): 15分3,800円〜短時間コース報酬、時給1万円保証、日給8〜10万円保証、即日全額現金日払い
-- [待遇（寮・交通費・環境）](${BASE_URL}/benefits): 雑費天引き完全0円、家具家電付き即入居個室寮、全国往復交通費全額支給、店先顔出しなし完全個室待機、毎月20日エリア一斉定休日。信太山新地の当店への応募案内
-- [未経験安心スタートガイド](${BASE_URL}/beginner): 初めての女性向け・未経験率90%のサポート体制
-- [他業種からの移籍・経験者向け](${BASE_URL}/experienced): 営業LINEなし・パネル写真なしで稼ぐ方法
-- [応募条件・年齢・身分証明書](${BASE_URL}/requirements): 20歳以上限定、20代〜40代歓迎
-- [面接・体入から本入店の流れ](${BASE_URL}/flow): 履歴書不要・即日全額手渡しの流れ
-- [シフト・自由出勤の働き方](${BASE_URL}/workstyle): 週1日・短時間・副業Wワーク・毎月20日定休日
-- [店舗設備・旅館待機室](${BASE_URL}/shops): 老舗旅館直営の防犯・個室環境
-- [家具家電付き個室寮・出稼ぎ](${BASE_URL}/dorm): 即日入居ワンルーム寮・往復交通費支給
-- [安心安全・身バレ防止ルール](${BASE_URL}/safety): 絶対ゴム着用厳守・写真掲載なし
-- [安心の理由＆タイプ別の働き方ガイド](${BASE_URL}/compare): スカウト業者・他ナイトワークとの違い
-- [よくある質問集 FAQ 119問](${BASE_URL}/faq): 8大テーマ別の疑問を全網羅
+- [給料（報酬・日払い）](${BASE_URL}/salary): 15分単位のコース報酬・お支払い・条件確認ガイド
+- [未経験安心スタートガイド](${BASE_URL}/beginner): 初めての女性向けサポート体制と準備案内
+- [他業種からの移籍・経験者向け](${BASE_URL}/experienced): 営業LINEなし・パネル写真なしの特徴比較
+- [応募条件・年齢・身分証明書](${BASE_URL}/requirements): 20歳以上限定・応募要件案内
+- [面接・体入から本入店の流れ](${BASE_URL}/flow): 見学・面接・体験入店のステップ解説
+- [シフト・自由出勤の働き方](${BASE_URL}/workstyle): 勤務時間帯・シフト・毎月20日定休日の解説
+- [店舗選び・半年ルール解説](${BASE_URL}/shops): 店舗ごとの環境・お店選びのチェックポイント
+- [寮・出稼ぎガイド](${BASE_URL}/dorm): 信太山駅近辺の寮・交通費・滞在相談ポイント
+- [安心安全・身バレ対策ガイド](${BASE_URL}/safety): 待機スタイル・写真管理・プライバシー配慮
+- [徹底比較ガイド（6種類比較）](${BASE_URL}/compare): 飛田新地・メンズエステ・キャバクラ・ソープランド・スカウトとの比較
+- [タイプ別働き方ガイド（WORK STYLE GUIDE）](${BASE_URL}/types): 希望や条件で探せる8つのタイプ別詳細ガイド
+- [採用担当者インタビュー](${BASE_URL}/interview): 現場スタッフ・女性相談窓口のQ&Aインタビュー
+- [よくある質問集 FAQ（全66問）](${BASE_URL}/faq): 11カテゴリー別の疑問と回答
 - [運営者情報・店舗概要](${BASE_URL}/about): 運営主体・旅館組合所属・女性サポート体制
-- [お仕事コラム一覧](${BASE_URL}/blog): 全139本の公式解説コラム
+- [お仕事コラム一覧](${BASE_URL}/blog): 全${blogArticles.length}本の公式解説コラム
 
 ## 詳細情報（llms-full.txt）
 全139件のお仕事コラム記事（タイトル・URL・要約）を含む完全な知識ベースは ${BASE_URL}/llms-full.txt を参照してください。

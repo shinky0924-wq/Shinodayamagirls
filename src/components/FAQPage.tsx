@@ -7,6 +7,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import LucideIcon from './LucideIcon';
 import { LINE_OFFICIAL_URL } from '../data';
 import TopicClusterBottomNav from './TopicClusterBottomNav';
+import { updatePageSeo } from '../seo';
 import {
   FAQ_11_CATEGORIES,
   FAQ_66_QUESTIONS,
@@ -48,6 +49,27 @@ export default function FAQPage({
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    updatePageSeo({
+      title: 'よくある質問 FAQ（66問）｜信太山新地求人【公式ガイド】',
+      description:
+        '信太山新地求人のよくある質問全66問を11カテゴリーで整理。店先顔見せなし・日払い給与・未経験の面接・寮・身バレ対策・シフト・半年ルールなど働く前の疑問に丁寧にお答えします。',
+      canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/faq',
+      ogType: 'website',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faqpage',
+        mainEntity: FAQ_66_QUESTIONS.slice(0, 20).map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a
+          }
+        }))
+      }
+    });
   }, []);
 
   // Sync initialCategory if changed externally
