@@ -860,9 +860,40 @@ export default function App() {
                       <div className="article-body-content space-y-2">
                         {currentArticle.content.map((block: any, idx: number) => {
                           if (block.type === 'p') {
+                            const rawText = String(block.text || '');
+                            const parts = rawText.split(/(\[[^\]]+\]\(\/[^\)]+\))/g);
                             return (
-                              <p key={idx} className="text-sm sm:text-base text-zinc-700 leading-relaxed mb-6 font-normal">
-                                {block.text}
+                              <p key={idx} className="text-sm sm:text-base text-zinc-700 leading-relaxed mb-6 font-normal whitespace-pre-line">
+                                {parts.map((part, pIdx) => {
+                                  const match = part.match(/^\[([^\]]+)\]\((\/[^\)]+)\)$/);
+                                  if (!match) return <span key={pIdx}>{part}</span>;
+                                  const [, linkLabel, linkHref] = match;
+                                  return (
+                                    <a
+                                      key={pIdx}
+                                      href={linkHref}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        if (linkHref.startsWith('/blog/')) {
+                                          handleNavigateBlog(linkHref.replace('/blog/', ''));
+                                        } else if (linkHref === '/blog') {
+                                          handleNavigateBlog();
+                                        } else if (linkHref.startsWith('/types')) {
+                                          handleNavigateWorkstyles(linkHref === '/types' ? undefined : linkHref.replace('/types/', ''));
+                                        } else if (linkHref === '/compare') {
+                                          handleNavigateCompare();
+                                        } else if (linkHref === '/faq') {
+                                          handleNavigateFaq();
+                                        } else {
+                                          navigateTo('recruit', '/');
+                                        }
+                                      }}
+                                      className="text-rose-600 font-bold underline underline-offset-2 hover:text-rose-700 transition-colors"
+                                    >
+                                      {linkLabel}
+                                    </a>
+                                  );
+                                })}
                               </p>
                             );
                           }
