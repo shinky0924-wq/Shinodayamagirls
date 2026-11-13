@@ -325,8 +325,8 @@ export default function App() {
   useEffect(() => {
     if (currentTab === 'recruit') {
       updatePageSeo({
-        title: '信太山新地の求人なら信太山ガールズ｜女性向け募集・お仕事内容・待遇案内',
-        description: '信太山新地でお仕事を探している女性へ。信太山ガールズの公式求人案内です。仕事内容・お給料・待遇・勤務条件・働く環境をご紹介。未経験の方も、勤務日数や働き方についてのご相談も歓迎しています。LINEからお気軽にお問い合わせください。',
+        title: '信太山新地の求人なら信太山ガールズ｜お店直接募集・仕事内容・待遇案内',
+        description: '信太山新地にあるお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仲介なし・天引き0円で、仕事内容・お給料・待遇・働く環境・週1日や短時間勤務のご案内をしています。LINEからお気軽にご相談ください。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
         ogImage: '/images/shinodayama_hero_banner_1792225964954.jpg',
         ogType: 'website'

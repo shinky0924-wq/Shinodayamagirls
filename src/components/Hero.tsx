@@ -74,13 +74,13 @@ export default function Hero({
           id="hero-description"
         >
           <p className="font-bold text-[#333333]">
-            未経験の方も、経験のある方も歓迎。
+            仲介業者を通さない、信太山新地にあるお店の公式直接求人サイトです。
           </p>
           <p>
-            仕事内容・お給料・待遇・働く環境まで、応募前に分かりやすくご案内します。
+            未経験の方も、経験のある方も歓迎。仕事内容・お給料・待遇・働く環境まで、当店の条件を応募前に分かりやすくご案内します。
           </p>
           <p>
-            週1日からの勤務や短時間勤務など、希望の働き方もお気軽にご相談ください。
+            週1日からの勤務や1日3〜4時間の短時間勤務など、ご希望の働き方もお気軽にご相談ください。
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export default function Hero({
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#F7F2EC]">
               <img
                 src={HERO_IMAGE_URL}
-                alt="信太山新地 信太山ガールズ 公式求人イメージ"
+                alt="信太山新地 お店直接求人 信太山ガールズ 公式求人イメージ"
                 className="w-full h-auto object-cover aspect-[16/9] sm:aspect-[16/8.5] object-center"
                 decoding="async"
                 fetchPriority="high"
@@ -128,10 +128,10 @@ export default function Hero({
             {/* Integrated Clear Recruitment Bar Below Image (never ambiguous) */}
             <div className="px-3 sm:px-5 pt-2.5 pb-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-left">
               <p className="font-display font-bold text-xs sm:text-sm text-[#333333]">
-                信太山ガールズ 公式女性求人｜店先顔出しなし・個室待機・女性スタッフ対応
+                信太山新地・老舗旅館直営のお店直接募集｜天引き0円・店先顔出しなし・個室待機
               </p>
               <span className="text-[11px] text-[#666666] shrink-0">
-                ※雰囲気イメージ・見学受付中
+                ※雰囲気イメージ・店舗見学受付中
               </span>
             </div>
           </div>

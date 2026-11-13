@@ -92,9 +92,9 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     id: 'shops',
     path: '/shops',
     number: '08',
-    title: '後悔しないお店選びを見る',
+    title: '当店が選ばれる理由・半年ルールを見る',
     shortTitle: 'お店選び',
-    description: '直営店舗と紹介経由の違いや、働きやすいお店を見極める際に確認したいポイントを紹介します。',
+    description: 'お店直接応募と紹介経由の違いや、信太山新地の「半年ルール」を踏まえた当店ならではの安心ポイントを紹介します。',
     image: '/images/col_secure_ryotei_1792475628730.webp',
   },
   {
@@ -103,7 +103,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     number: '09',
     title: '寮・出稼ぎ情報を見る',
     shortTitle: '寮・出稼ぎ',
-    description: '信太山駅周辺の個室寮の設備・費用目安や、遠方から応募する際の交通費相談をご案内します。',
+    description: 'JR信太山駅周辺に当店がご用意する個室寮の設備・費用目安や、往復交通費の全額支給条件をご案内します。',
     image: '/images/dorm_main_studio_1794374510330.webp',
   },
   {
@@ -112,7 +112,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     number: '10',
     title: '身バレ・安全対策を見る',
     shortTitle: '身バレ・安全',
-    description: '店先顔出しなし・Web写真非掲載・個人情報の厳格管理など、プライバシー保護への取り組みです。',
+    description: '店先顔出しなし・Web写真非掲載・個人情報の厳格管理など、当店のプライバシー保護への取り組みです。',
     image: '/images/col_privacy_safe_1792463653857.webp',
   },
   {
@@ -121,7 +121,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     number: '11',
     title: 'よくある質問（全66問）を見る',
     shortTitle: 'よくある質問',
-    description: 'お仕事内容・給料・年齢・面接・寮・プライバシーなど、応募前に多い疑問を網羅しています。',
+    description: 'お仕事内容・給料・年齢・面接・寮・プライバシーなど、当店への応募前に多い疑問を網羅しています。',
     image: '/images/shinodayama_advisor_sakura_1792225964799.webp',
   },
   {
@@ -130,7 +130,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     number: '12',
     title: 'お役立ち情報・コラムを見る',
     shortTitle: 'お仕事コラム',
-    description: '信太山新地の働き方や業界の知識、先輩スタッフのQ&Aなど役立つ解説記事を掲載しています。',
+    description: '信太山新地の働き方や業界の知識、当店スタッフのQ&Aなど役立つ解説記事を掲載しています。',
     image: '/images/col_ryokan_manner_1792465891118.webp',
   },
 ];
@@ -167,7 +167,7 @@ export default function RecruitHub({
             応募前に知っておきたい情報
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            気になる内容から詳しく確認できます。分からないことはLINEでもご相談いただけます。
+            気になるテーマから当店の募集情報を詳しく確認できます。分からないことはLINEでも当店スタッフが直接お答えします。
           </p>
         </div>
 

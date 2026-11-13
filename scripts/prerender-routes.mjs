@@ -728,9 +728,9 @@ function main() {
   const rootSsrShell = buildSsrRootShell({
     heading: '信太山新地でお仕事を探す女性へ。自分に合った働き方を、信太山ガールズで見つけませんか？',
     description:
-      '未経験の方も、経験のある方も歓迎。仕事内容・お給料・待遇・働く環境まで、応募前に分かりやすくご案内します。週1日からの勤務や短時間勤務など、希望の働き方もお気軽にご相談ください。',
+      '仲介業者や紹介所を通さない、信太山新地にあるお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仕事内容・お給料・待遇・働く環境まで分かりやすくご案内します。',
     noscriptBodyHtml:
-      '<p>未経験の方も相談OK・週1日から相談OK・働き方の相談OK・LINEで事前相談OK。仕事内容・報酬・募集条件・応募の流れを分かりやすくご案内しています。</p>'
+      '<p>未経験の方も相談OK・週1日から相談OK・働き方の相談OK・LINEで事前相談OK。お店直接の募集条件・仕事内容・報酬・応募の流れを分かりやすくご案内しています。</p>'
   });
   const updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
   fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');

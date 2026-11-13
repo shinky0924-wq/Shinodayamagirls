@@ -62,7 +62,7 @@ export default function JobIntroSection({
             初めての方にも分かる、お仕事内容
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            実際にどのようなお仕事をするのか、応募前に確認しておきましょう。
+            信太山新地にある当店（老舗旅館直営）で実際にお願いしているお仕事内容をご案内します。
           </p>
         </div>
 
@@ -101,16 +101,16 @@ export default function JobIntroSection({
 
           <div className="md:col-span-7 space-y-3">
             <p className="text-xs font-bold text-[#A65D79]">
-              信太山新地・旅館営業ならではのポイント
+              信太山新地・当店（旅館直営）ならではのポイント
             </p>
             <h3 className="font-display font-bold text-lg sm:text-xl text-[#333333] leading-snug">
-              店先での顔見せなし。仲居さんの案内で進める短時間個室接客です。
+              店先での顔見せなし。当店の仲居さんの案内で進める短時間個室接客です。
             </h3>
             <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
-              街頭や店先に座ってお客様を待つ必要がないため、初めての方でも落ち着いて勤務できます。お客様のご案内やお部屋の用意、時間の管理は専任の仲居さんが行うため、一人で無理に対応することはありません。
+              街頭や店先に座ってお客様を待つ必要がないため、初めての方でも落ち着いて勤務できます。お客様のご案内やお部屋の用意、時間の管理は当店の仲居さんが行うため、一人で無理に対応することはありません。
             </p>
             <p className="text-[11px] text-[#666666]">
-              ※掲載写真は雰囲気をお伝えするためのイメージです。実際の館内・個室・待機場所は面接・見学時に直接ご覧いただけます。
+              ※掲載写真は雰囲気をお伝えするためのイメージです。当店の実際の館内・個室・待機場所は面接・見学時に直接ご覧いただけます。
             </p>
           </div>
         </div>

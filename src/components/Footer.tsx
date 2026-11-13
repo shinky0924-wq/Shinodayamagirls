@@ -122,11 +122,11 @@ export default function Footer({
               </span>
             </div>
             <p className="text-xs text-[#555555] leading-relaxed">
-              信太山新地の女性向け公式求人案内サイトです。仕事内容・お給料・待遇・働く環境を応募前に分かりやすくご案内しています。
+              信太山新地にある老舗旅館直営店が女性を直接募集する公式求人サイトです。仲介や紹介所を介さない直接採用のため、仕事内容・お給料・待遇・働く環境をそのままご案内しています。
             </p>
             <div className="text-xs text-[#555555] space-y-1">
-              <p>活動拠点：大阪府和泉市 幸二丁目（信太山新地）</p>
-              <p>受付：公式LINEにて24時間相談受付中</p>
+              <p>店舗所在地：大阪府和泉市 幸二丁目（信太山新地）</p>
+              <p>応募窓口：当店公式LINEにて24時間相談受付中</p>
               <p className="text-[11px] text-[#666666]">最終更新日：{lastUpdated}</p>
             </div>
           </div>
@@ -278,7 +278,7 @@ export default function Footer({
         {/* Copyright */}
         <div className="pt-6 border-t border-[#E9DFD4] flex flex-col sm:flex-row justify-between items-center gap-3 text-center">
           <p className="font-sans text-xs text-[#666666]">
-            © 信太山ガールズ All Rights Reserved. 信太山新地 公式女性求人案内
+            © 信太山ガールズ All Rights Reserved. 信太山新地 お店直接公式女性求人サイト
           </p>
           {showAdminLink && (
             <button

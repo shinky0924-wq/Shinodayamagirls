@@ -46,18 +46,18 @@ const ENVIRONMENT_ITEMS: EnvironmentItem[] = [
       'シャワー・空調・タオル類・アメニティを完備した個室を用意しています。衛生面や設備の使い方も初日に分かりやすくご案内します。',
   },
   {
-    title: '寮（ワンルーム個室）',
+    title: '当店の寮（ワンルーム個室）',
     image: '/images/dorm_main_studio_1794374510330.webp',
-    captionLabel: '※寮環境の参考イメージ（要空き状況確認）',
+    captionLabel: '※当店ご用意の個室寮参考イメージ',
     description:
-      '信太山駅周辺に家具・家電付きの個室寮を用意しています（費用目安：日額0〜2,000円／条件により異なるため事前確認が必要です）。',
+      'JR信太山駅周辺に家具・家電付きのワンルーム個室寮をご用意しています（日額0〜2,000円目安）。入居時期や滞在期間のご希望もお気軽にお伝えください。',
   },
   {
-    title: '送迎・車通勤サポート',
+    title: '当店の送迎・車通勤サポート',
     image: '/images/col_safety_gate_1792474007202.webp',
     captionLabel: '※送迎・アクセス案内イメージ',
     description:
-      'JR信太山駅など指定駅からの送迎や、お車でお越しの方のための駐車場についてご相談いただけます（対応時間帯・台数は事前にご確認ください）。',
+      'JR信太山駅や指定場所からの無料送迎に対応しており、マイカー通勤向けの専用駐車場も完備しています。送迎希望のお時間もお知らせください。',
   },
 ];
 
@@ -74,7 +74,7 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
             実際に働く場所や環境をご紹介します
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            応募前に、お店の雰囲気や設備を確認できるようにしています。
+            信太山新地にある当店の雰囲気や働く環境・設備を、応募前にご確認いただけます。
           </p>
         </div>
 
@@ -117,10 +117,10 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
         <div className="bg-[#F7F2EC] rounded-2xl p-5 sm:p-6 border border-[#E9DFD4] flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <p className="font-display font-bold text-sm sm:text-base text-[#333333] mb-1">
-              働く前に、実際の店舗や待機環境を見学いただけます
+              働く前に、当店の館内や待機個室を実際に見学いただけます
             </p>
             <p className="text-xs sm:text-sm text-[#555555]">
-              ※掲載画像は施設・設備の雰囲気をお伝えするための参考イメージを含みます。ご希望の方は面接時に実際のお部屋・待機場所をご案内します。
+              ※掲載画像は施設・設備の雰囲気をお伝えするためのイメージです。ご希望の方は面接時に当店のお部屋・待機スペースをご案内します。
             </p>
           </div>
           <button

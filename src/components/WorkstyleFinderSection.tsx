@@ -97,7 +97,7 @@ export default function WorkstyleFinderSection({
             あなたに合った働き方を見つけましょう
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            希望や状況に合わせて、気になる働き方から確認できます。
+            当店での働き方や募集条件について、ご希望や状況に合う項目からご確認いただけます。
           </p>
         </div>
 

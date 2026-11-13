@@ -96,7 +96,7 @@ export default function ConsultationForm({
               className="w-full font-display font-bold py-4 px-6 rounded-2xl shadow-[0_4px_16px_rgba(6,199,85,0.28)] hover:shadow-[0_6px_20px_rgba(6,199,85,0.36)] transition-all flex items-center justify-center gap-2.5 text-white bg-[#06C755] hover:bg-[#05b34c] text-base sm:text-lg"
             >
               <LucideIcon name="MessageCircle" className="fill-white text-white shrink-0" size={22} />
-              <span>LINEで気軽に相談する</span>
+              <span>当店の女性スタッフにLINEで相談する</span>
             </a>
 
             <button
@@ -106,7 +106,7 @@ export default function ConsultationForm({
               className="w-full font-display font-bold py-3.5 px-6 rounded-2xl bg-[#FFF6F8] hover:bg-[#FCE8EF] text-[#A65D79] border border-[#E2CED6] transition-colors flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
             >
               <LucideIcon name="ClipboardList" size={18} />
-              <span>募集要項をもう一度確認する</span>
+              <span>当店の募集要項をもう一度確認する</span>
             </button>
           </div>
 
