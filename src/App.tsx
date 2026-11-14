@@ -444,12 +444,12 @@ export default function App() {
               onScrollToRequirements={() => handleScrollToSection('jobs')}
             />
 
-            {/* Section 4: 信太山ガールズが大切にしている6つのこと */}
+            {/* Section 4: 信太山ガールズの5つの魅力 */}
             <section className="py-16 sm:py-20 bg-white" id="reasons">
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
                   <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
-                    {siteContent.reasons.subtitle || 'OUR VALUES'}
+                    {siteContent.reasons.subtitle || 'OUR STRENGTHS'}
                   </p>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
                     {siteContent.reasons.title}
@@ -459,30 +459,82 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {siteContent.reasons.items.map((reason) => (
-                    <div
-                      key={reason.number}
-                      className="bg-[#FFF6F8]/60 rounded-2xl p-6 border border-[#EFE2E7] shadow-[0_2px_10px_rgba(166,93,121,0.04)] flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="font-display font-bold text-xl text-[#A65D79]">
-                            {reason.number}
-                          </span>
-                          <div className="w-10 h-10 rounded-xl bg-white border border-[#EFE2E7] text-[#E85B91] flex items-center justify-center shrink-0">
-                            <LucideIcon name={reason.iconName} size={19} />
+                {/* 5 uniform cards: Mobile 1 col, Tablet 2 cols, PC 3 cols top + 2 centered bottom */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
+                  {siteContent.reasons.items.map((reason, idx) => {
+                    const isFeatured = Boolean(reason.featured);
+                    const gridPlacementClass =
+                      idx === 3
+                        ? 'lg:col-span-2 lg:col-start-2'
+                        : idx === 4
+                          ? 'sm:col-span-2 sm:w-[calc(50%-0.625rem)] sm:mx-auto lg:w-full lg:col-span-2 lg:col-start-4 lg:mx-0'
+                          : 'lg:col-span-2';
+
+                    return (
+                      <article
+                        key={reason.number}
+                        id={`charm-card-${reason.number}`}
+                        className={`${gridPlacementClass} rounded-2xl overflow-hidden flex flex-col transition-all ${
+                          isFeatured
+                            ? 'bg-[#FFF6F8] border-2 border-[#E85B91]/55 shadow-[0_6px_20px_rgba(232,91,145,0.1)]'
+                            : 'bg-[#FFF6F8]/45 border border-[#EFE2E7] shadow-[0_2px_10px_rgba(166,93,121,0.04)]'
+                        }`}
+                      >
+                        {reason.image && (
+                          <div className="aspect-[16/9] bg-[#F7F2EC] overflow-hidden border-b border-[#EFE2E7]">
+                            <img
+                              src={reason.image}
+                              alt={`${reason.title}のイメージ`}
+                              width={640}
+                              height={360}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover object-center"
+                            />
                           </div>
+                        )}
+
+                        <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                          <div className="flex items-center justify-between gap-2 mb-3.5">
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`font-display font-bold text-xl leading-none ${
+                                  isFeatured ? 'text-[#E85B91]' : 'text-[#A65D79]'
+                                }`}
+                              >
+                                {reason.number}
+                              </span>
+                              {isFeatured && (
+                                <span className="text-[11px] font-bold tracking-wider text-[#E85B91]">
+                                  ｜当店の強み
+                                </span>
+                              )}
+                            </div>
+                            <div
+                              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
+                                isFeatured
+                                  ? 'bg-[#E85B91] border-[#E85B91] text-white'
+                                  : 'bg-white border-[#EFE2E7] text-[#A65D79]'
+                              }`}
+                            >
+                              <LucideIcon name={reason.iconName} size={19} />
+                            </div>
+                          </div>
+
+                          <h3
+                            className={`font-display font-bold text-base sm:text-lg leading-snug mb-2 ${
+                              isFeatured ? 'text-[#85465F]' : 'text-[#333333]'
+                            }`}
+                          >
+                            {reason.title}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
+                            {reason.description}
+                          </p>
                         </div>
-                        <h3 className="font-display font-bold text-base sm:text-lg text-[#333333] mb-2 leading-snug">
-                          {reason.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
-                          {reason.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                      </article>
+                    );
+                  })}
                 </div>
               </div>
             </section>

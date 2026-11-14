@@ -57,45 +57,46 @@
     ]
   },
   "reasons": {
-    "title": "信太山ガールズが大切にしている6つのこと",
-    "subtitle": "OUR VALUES",
-    "description": "信太山新地のお店直接の公式求人として、女性が安心して働き方を考えられるよう環境とサポートを大切にしています。",
+    "title": "信太山ガールズの5つの魅力",
+    "subtitle": "OUR STRENGTHS",
+    "description": "お店選びで大切にしたいポイントをご紹介します。",
     "items": [
       {
         "number": "01",
-        "iconName": "CalendarDays",
-        "title": "自分のペースで働ける",
-        "description": "当店は完全自由出勤制のため、週1日・短時間などご希望に合わせてシフトを直接ご相談いただけます。"
+        "iconName": "Sparkles",
+        "image": "/images/hub_beginner_cast_1792485407920.webp",
+        "title": "未経験から始めやすい",
+        "description": "初めての方にも仕事内容や勤務の流れを分かりやすくご案内します。"
       },
       {
         "number": "02",
-        "iconName": "Sparkles",
-        "title": "未経験から始めやすい",
-        "description": "初めての方にもお仕事内容や流れを当店スタッフが分かりやすくご説明します。"
+        "iconName": "TrendingUp",
+        "image": "/images/col_popular_cast_jp_1792476715216.webp",
+        "featured": true,
+        "title": "トップクラスの集客力・回転率",
+        "description": "常連様やフリーのご来店が多く、集客力と回転率の高さが強み。安定した集客を目指せる環境を整えています。"
       },
       {
         "number": "03",
-        "iconName": "Building2",
-        "title": "当店の環境を事前に確認できる",
-        "description": "実際のお部屋や待機スペースを、応募前の店舗見学で直接ご確認いただけます。"
+        "iconName": "CalendarDays",
+        "image": "/images/col_weekend_planner_1792475629264.webp",
+        "title": "自分のペースで働ける",
+        "description": "勤務日数や時間など、希望に合わせた働き方を相談できます。"
       },
       {
         "number": "04",
-        "iconName": "Coins",
-        "title": "お給料の条件が分かりやすい",
-        "description": "当店のお給料システムや即日日払い条件を事前に明確にお伝えし、雑費等の天引きは行いません。"
+        "iconName": "HeartHandshake",
+        "image": "/images/col_friendly_staff_jp_1792476884275.webp",
+        "featured": true,
+        "title": "いじめ・派閥のない働きやすい環境",
+        "description": "女性同士のいじめや派閥などがなく、人間関係のストレスを感じにくい職場環境を大切にしています。"
       },
       {
         "number": "05",
-        "iconName": "MessagesSquare",
-        "title": "女性スタッフに相談できる",
-        "description": "不安や疑問を当店の女性専任スタッフへ直接ご相談いただける窓口を設けています。"
-      },
-      {
-        "number": "06",
-        "iconName": "MessageCircle",
-        "title": "応募前の見学・相談も歓迎",
-        "description": "働くかどうか決める前に、質問やお店見学だけでもお気軽にご相談いただけます。"
+        "iconName": "ShieldCheck",
+        "image": "/images/safety_female_consultation_1794375281375.webp",
+        "title": "サポート体制万全",
+        "description": "仕事のことや困ったことなど、働く女性をしっかりサポートできる体制を整えています。"
       }
     ]
   },

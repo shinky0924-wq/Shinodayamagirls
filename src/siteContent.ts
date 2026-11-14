@@ -36,6 +36,8 @@ export interface SiteContent {
     items: {
       number: string;
       iconName: string;
+      image?: string;
+      featured?: boolean;
       title: string;
       description: string;
     }[];
@@ -82,7 +84,7 @@ export interface SiteContent {
 
 declare const __BUILD_DATE__: string | undefined;
 
-const STORAGE_KEY = 'shinodayama_site_content_v21';
+const STORAGE_KEY = 'shinodayama_site_content_v22';
 
 export function getEffectiveLastUpdated(configuredDate?: string): string {
   if (typeof __BUILD_DATE__ !== 'undefined' && __BUILD_DATE__) {

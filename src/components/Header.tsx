@@ -27,7 +27,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
 
   const pageSectionLinks = [
     { id: 'hero', desktopLabel: 'トップ', mobileLabel: '求人トップ', href: '/', action: 'recruit', target: '#hero' },
-    { id: 'reasons', desktopLabel: '6つの魅力', mobileLabel: '大切にしている6つのこと', href: '#reasons', action: 'section', target: '#reasons' },
+    { id: 'reasons', desktopLabel: '5つの魅力', mobileLabel: '信太山ガールズの5つの魅力', href: '#reasons', action: 'section', target: '#reasons' },
     { id: 'workstyle-finder', desktopLabel: '働き方', mobileLabel: 'あなたに合った働き方', href: '#workstyle-finder', action: 'section', target: '#workstyle-finder' },
     { id: 'job-intro', desktopLabel: '仕事内容', mobileLabel: '仕事内容の紹介', href: '#job-intro', action: 'section', target: '#job-intro' },
     { id: 'salary-overview', desktopLabel: 'お給料', mobileLabel: 'お給料・報酬について', href: '#salary-overview', action: 'section', target: '#salary-overview' },

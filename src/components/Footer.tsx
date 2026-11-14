@@ -45,7 +45,7 @@ export default function Footer({
 
   const sectionLinks = [
     { name: '求人トップ', action: 'section', target: '#hero' },
-    { name: '大切にしている6つのこと', action: 'section', target: '#reasons' },
+    { name: '信太山ガールズの5つの魅力', action: 'section', target: '#reasons' },
     { name: 'あなたに合った働き方', action: 'section', target: '#workstyle-finder' },
     { name: '仕事内容の紹介', action: 'section', target: '#job-intro' },
     { name: 'お給料・報酬について', action: 'section', target: '#salary-overview' },
