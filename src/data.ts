@@ -14,7 +14,7 @@ const advisorAvatar = '/images/shinodayama_advisor_sakura_1792225964799.webp';
 // ==========================================
 // 【LINE公式アカウント連携用設定】
 // ==========================================
-export const LINE_OFFICIAL_URL = 'https://lin.ee/phFZoea';
+export const LINE_OFFICIAL_URL = 'https://lin.ee/Z70RRKH';
 
 export const HERO_IMAGE_URL = dreamHeroBanner;
 export const CONSULTANT_AVATAR_URL = advisorAvatar;
