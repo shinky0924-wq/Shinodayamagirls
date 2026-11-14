@@ -46,12 +46,16 @@ export default function Footer({
   const sectionLinks = [
     { name: '求人トップ', action: 'section', target: '#hero' },
     { name: '大切にしている6つのこと', action: 'section', target: '#reasons' },
+    { name: 'あなたに合った働き方', action: 'section', target: '#workstyle-finder' },
     { name: '仕事内容の紹介', action: 'section', target: '#job-intro' },
     { name: 'お給料・報酬について', action: 'section', target: '#salary-overview' },
     { name: '働く環境・設備', action: 'section', target: '#environment' },
     { name: '実際に働く女性の声', action: 'section', target: '#voice' },
-    { name: '募集要項一覧', action: 'section', target: '#jobs' },
+    { name: '信太山ガールズの募集条件', action: 'section', target: '#jobs' },
+    { name: 'よくある質問', action: 'section', target: '#top-faq' },
     { name: '応募からの流れ', action: 'section', target: '#flow' },
+    { name: '応募前に知っておきたい情報', action: 'section', target: '#recruit-hub' },
+    { name: 'LINE相談・お問い合わせ', action: 'section', target: '#consultation' },
   ];
 
   const workstyleLinks = [
