@@ -53,21 +53,42 @@ export default function FAQPage({
     updatePageSeo({
       title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
       description:
-        '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで整理。未経験の面接・顔出しなし・日払い給料・寮・身バレ対策・シフト・半年ルールなど働く前の疑問にお答えします。',
+        '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/faq',
       ogType: 'website',
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faqpage',
-        mainEntity: FAQ_66_QUESTIONS.slice(0, 20).map((item) => ({
-          '@type': 'Question',
-          name: item.q,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.a
+        '@graph': [
+          {
+            '@type': 'FAQPage',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faqpage',
+            mainEntity: FAQ_66_QUESTIONS.slice(0, 20).map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.a
+              }
+            }))
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: '信太山新地求人トップ',
+                item: 'https://osaka-shinodayamashinchi-recruit.com/'
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'よくある質問 FAQ（全66問）',
+                item: 'https://osaka-shinodayamashinchi-recruit.com/faq'
+              }
+            ]
           }
-        }))
+        ]
       }
     });
   }, []);

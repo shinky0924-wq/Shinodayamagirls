@@ -112,6 +112,7 @@ export default function Hero({
                 alt="信太山新地 お店直接求人 信太山ガールズ 公式求人イメージ"
                 className="w-full h-auto object-cover aspect-[16/9] sm:aspect-[16/8.5] object-center"
                 decoding="async"
+                loading="eager"
                 fetchPriority="high"
                 width={820}
                 height={435}

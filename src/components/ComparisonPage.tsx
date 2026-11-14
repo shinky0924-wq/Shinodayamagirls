@@ -71,15 +71,15 @@ export default function ComparisonPage({
     return undefined;
   }, [initialCategorySlug]);
 
-  // Update SEO metadata cleanly
+  // Update SEO metadata & structured data cleanly via updatePageSeo
   useEffect(() => {
-    const isSpecific = initialCategorySlug && initialCategorySlug !== 'all';
+    const isSpecific = Boolean(initialCategorySlug && initialCategorySlug !== 'all');
     const title = isSpecific
       ? `${activeType.title}｜信太山新地・信太山求人 働き方ガイド`
       : '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】';
-    const description = isSpecific
-      ? activeType.lead
-      : '未経験から始めたい方、収入を重視したい方、勤務日数やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい情報をタイプ別にご紹介します。';
+    const rawDesc = isSpecific
+      ? `${activeType.lead} 信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。`
+      : '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。';
     const canonicalUrl = isSpecific
       ? `https://osaka-shinodayamashinchi-recruit.com/types/${activeType.slug}`
       : 'https://osaka-shinodayamashinchi-recruit.com/types';
@@ -89,57 +89,87 @@ export default function ComparisonPage({
       pathname.startsWith('/compare/') ||
       ['double-work', 'age-20s', 'age-30s'].includes(initialCategorySlug || '');
 
-    updatePageSeo({
-      title,
-      description,
-      canonicalUrl,
-      ogType: 'website',
-      robots: isAliasPath ? 'noindex, follow' : undefined
-    });
-  }, [activeType, initialCategorySlug]);
-
-  // Inject clean structured data matching actual page content
-  useEffect(() => {
-    const existingScript = document.getElementById('workstyle-guide-schema');
-    if (existingScript) existingScript.remove();
-
-    try {
-      const script = document.createElement('script');
-      script.id = 'workstyle-guide-schema';
-      script.type = 'application/ld+json';
-
-      const schemaData = {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        '@id': 'https://osaka-shinodayamashinchi-recruit.com/types',
-        name: 'あなたに合った働き方を見つけよう｜信太山新地 タイプ別働き方ガイド',
-        description:
-          '未経験から始めたい方、収入を重視したい方、勤務日数やプライバシーが気になる方まで、希望や条件から探せる信太山新地のタイプ別ガイド。',
-        url: 'https://osaka-shinodayamashinchi-recruit.com/types',
-        mainEntity: {
-          '@type': 'ItemList',
-          name: '信太山新地 タイプ別働き方ガイド 8選',
-          itemListElement: WORKSTYLE_8_TYPES.map((item, idx) => ({
-            '@type': 'ListItem',
-            position: idx + 1,
-            name: item.title,
-            description: item.cardDescription,
-            url: `https://osaka-shinodayamashinchi-recruit.com/types/${item.slug}`
-          }))
-        }
-      };
-
-      script.textContent = JSON.stringify(schemaData);
-      document.head.appendChild(script);
-    } catch {
-      // ignore json-ld injection failure
+    const breadcrumbItems = [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': '信太山新地求人トップ',
+        'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'タイプ別働き方ガイド',
+        'item': 'https://osaka-shinodayamashinchi-recruit.com/types'
+      }
+    ];
+    if (isSpecific) {
+      breadcrumbItems.push({
+        '@type': 'ListItem',
+        'position': 3,
+        'name': activeType.title,
+        'item': canonicalUrl
+      });
     }
 
-    return () => {
-      const script = document.getElementById('workstyle-guide-schema');
-      if (script) script.remove();
-    };
-  }, []);
+    const visibleFaqs = [
+      ...WORKSTYLE_OVERVIEW_FAQS,
+      ...(activeType.faqs || [])
+    ];
+
+    updatePageSeo({
+      title,
+      description: rawDesc,
+      canonicalUrl,
+      ogImage: HERO_ILLUSTRATION_URL,
+      ogType: 'website',
+      robots: isAliasPath ? 'noindex, follow' : undefined,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebPage',
+            '@id': `${canonicalUrl}#webpage`,
+            'name': title,
+            'description': rawDesc,
+            'url': canonicalUrl,
+            'inLanguage': 'ja-JP',
+            'mainEntity': {
+              '@type': 'ItemList',
+              'name': '信太山新地 タイプ別働き方ガイド 8選',
+              'itemListElement': WORKSTYLE_8_TYPES.map((item, idx) => ({
+                '@type': 'ListItem',
+                'position': idx + 1,
+                'name': item.title,
+                'description': item.cardDescription,
+                'url': `https://osaka-shinodayamashinchi-recruit.com/types/${item.slug}`
+              }))
+            }
+          },
+          {
+            '@type': 'BreadcrumbList',
+            'itemListElement': breadcrumbItems
+          },
+          ...(visibleFaqs.length > 0
+            ? [
+                {
+                  '@type': 'FAQPage',
+                  '@id': `${canonicalUrl}#faq`,
+                  'mainEntity': visibleFaqs.map((f) => ({
+                    '@type': 'Question',
+                    'name': f.q,
+                    'acceptedAnswer': {
+                      '@type': 'Answer',
+                      'text': f.a
+                    }
+                  }))
+                }
+              ]
+            : [])
+        ]
+      }
+    });
+  }, [activeType, initialCategorySlug]);
 
   const handleSelectType = (slug: string, shouldScroll = true) => {
     setActiveSlug(slug);

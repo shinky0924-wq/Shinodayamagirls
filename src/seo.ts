@@ -85,13 +85,21 @@ export function updatePageSeo(config: SeoConfig) {
   const ogImage = config.ogImage
     ? (config.ogImage.startsWith('http') ? config.ogImage : `${BASE_SITE_URL}${config.ogImage}`)
     : DEFAULT_OG_IMAGE;
+  const ogImageType = ogImage.endsWith('.webp')
+    ? 'image/webp'
+    : ogImage.endsWith('.png')
+      ? 'image/png'
+      : 'image/jpeg';
   setMeta('property', 'og:image', ogImage);
+  setMeta('property', 'og:image:secure_url', ogImage);
+  setMeta('property', 'og:image:type', ogImageType);
   setMeta('property', 'og:image:width', '1200');
   setMeta('property', 'og:image:height', '630');
   setMeta('property', 'og:image:alt', config.title);
 
   // 4. Twitter Cards
   setMeta('name', 'twitter:card', 'summary_large_image');
+  setMeta('name', 'twitter:url', canonical);
   setMeta('name', 'twitter:title', config.title);
   setMeta('name', 'twitter:description', config.description);
   setMeta('name', 'twitter:image', ogImage);
@@ -136,13 +144,47 @@ export function updatePageSeo(config: SeoConfig) {
 
   // 6. Clean up stale route schemas during SPA navigation & inject updated JSON-LD
   const isHomeRoute = canonical === `${BASE_SITE_URL}/` || canonical === BASE_SITE_URL;
-  const STALE_IDS = ['dynamic-page-seo-schema', 'prerender-breadcrumb-schema', 'prerender-entity-schema'];
+  const STALE_IDS = ['dynamic-page-seo-schema', 'prerender-breadcrumb-schema', 'prerender-entity-schema', 'subpage-base-schema'];
   if (!isHomeRoute) {
     STALE_IDS.push('root-structured-data');
   }
   for (const id of STALE_IDS) {
     const el = document.getElementById(id);
     if (el) el.remove();
+  }
+
+  if (!isHomeRoute && !isNoIndex) {
+    try {
+      const baseScript = document.createElement('script');
+      baseScript.id = 'subpage-base-schema';
+      baseScript.type = 'application/ld+json';
+      baseScript.text = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': `${BASE_SITE_URL}/#website`,
+            url: `${BASE_SITE_URL}/`,
+            name: '信太山ガールズ（信太山新地求人公式サイト）',
+            inLanguage: 'ja-JP',
+            publisher: { '@id': `${BASE_SITE_URL}/#organization` }
+          },
+          {
+            '@type': 'Organization',
+            '@id': `${BASE_SITE_URL}/#organization`,
+            name: '信太山ガールズ（旅館直営求人・女性採用サポート）',
+            url: `${BASE_SITE_URL}/`,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_SITE_URL}/favicon.png`
+            }
+          }
+        ]
+      });
+      document.head.appendChild(baseScript);
+    } catch {
+      // ignore base schema injection error
+    }
   }
 
   if (config.jsonLd) {

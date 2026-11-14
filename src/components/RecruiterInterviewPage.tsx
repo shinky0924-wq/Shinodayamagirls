@@ -176,11 +176,65 @@ export default function RecruiterInterviewPage({
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     updatePageSeo({
       title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
-      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答しました。店先顔見せなし、未経験率90%、給与・日払い、面接内容まで詳しく解説。',
+      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験率90%・給与や日払い・面接内容まで詳しく解説します。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
-      ogType: 'article'
+      ogType: 'article',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Article',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/interview#article',
+            'headline': '旅館の求人・採用担当者へのインタビュー',
+            'description': '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
+            'inLanguage': 'ja-JP',
+            'author': {
+              '@type': 'Organization',
+              'name': '信太山ガールズ（信太山新地 旅館直営公式採用窓口）'
+            },
+            'publisher': {
+              '@type': 'Organization',
+              'name': '信太山ガールズ',
+              'logo': {
+                '@type': 'ImageObject',
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
+              }
+            }
+          },
+          {
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': '信太山新地求人トップ',
+                'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+              },
+              {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': '採用担当者インタビュー',
+                'item': 'https://osaka-shinodayamashinchi-recruit.com/interview'
+              }
+            ]
+          },
+          {
+            '@type': 'FAQPage',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/interview#faq',
+            'mainEntity': INTERVIEW_QUESTIONS.map((item) => ({
+              '@type': 'Question',
+              'name': item.question.replace(/^Q\.\s*/, ''),
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': item.answer.replace(/\n+/g, ' ')
+              }
+            }))
+          }
+        ]
+      }
     });
   }, []);
 

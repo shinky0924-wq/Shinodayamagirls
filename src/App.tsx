@@ -326,7 +326,7 @@ export default function App() {
     if (currentTab === 'recruit') {
       updatePageSeo({
         title: '信太山新地の求人なら信太山ガールズ｜お店直接募集・仕事内容・待遇案内',
-        description: '信太山新地にあるお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仲介なし・天引き0円で、仕事内容・お給料・待遇・働く環境・週1日や短時間勤務のご案内をしています。LINEからお気軽にご相談ください。',
+        description: '信太山新地にあるお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仲介なし・天引き0円で、店先顔出しなしの待機環境・15分単位のコース報酬・即日全額日払い・週1日や短時間勤務・寮や託児所の条件まで応募前に分かりやすくご案内。LINE相談歓迎。',
         canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/',
         ogImage: '/images/shinodayama_hero_banner_1792225964954.jpg',
         ogType: 'website'
@@ -337,7 +337,7 @@ export default function App() {
           title: formatBlogSeoTitle(currentArticle.title),
           description: formatMetaDescription(
             currentArticle.summary,
-            `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい現場のリアルをお届けします。`
+            `${currentArticle.title}についての信太山新地公式解説記事です。未経験女性が知りたい仕事内容・給料・待機環境・安全ルールまで詳しくお届けします。`
           ),
           canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`,
           ogImage: currentArticle.eyeCatch || '/images/hub_beginner_cast_1792485407920.webp',
@@ -345,66 +345,108 @@ export default function App() {
           publishedTime: currentArticle.publishedAt,
           jsonLd: {
             '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            'headline': currentArticle.title,
-            'description': currentArticle.summary,
-            'datePublished': currentArticle.publishedAt,
-            'dateModified': currentArticle.publishedAt,
-            'inLanguage': 'ja-JP',
-            'isAccessibleForFree': true,
-            'keywords': Array.isArray(currentArticle.tags) ? currentArticle.tags.join(', ') : '信太山新地, 信太山ガールズ, 求人, 旅館個室待機, 即日全額日払い',
-            'image': currentArticle.eyeCatch ? `https://osaka-shinodayamashinchi-recruit.com${currentArticle.eyeCatch}` : undefined,
-            'author': {
-              '@type': 'Person',
-              'name': currentArticle.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
-              'jobTitle': '女性採用アドバイザー・現場サポート責任者',
-              'worksFor': {
-                '@type': 'Organization',
-                'name': '信太山新地 老舗旅館直営グループ（信太山ガールズ）',
-                'url': 'https://osaka-shinodayamashinchi-recruit.com/'
+            '@graph': [
+              {
+                '@type': 'BlogPosting',
+                'headline': currentArticle.title,
+                'description': currentArticle.summary,
+                'datePublished': currentArticle.publishedAt,
+                'dateModified': currentArticle.publishedAt,
+                'inLanguage': 'ja-JP',
+                'isAccessibleForFree': true,
+                'keywords': Array.isArray(currentArticle.tags) ? currentArticle.tags.join(', ') : '信太山新地, 信太山ガールズ, 求人, 待機所, 即日全額日払い',
+                'image': currentArticle.eyeCatch ? `https://osaka-shinodayamashinchi-recruit.com${currentArticle.eyeCatch}` : undefined,
+                'author': {
+                  '@type': 'Person',
+                  'name': currentArticle.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
+                  'jobTitle': '女性採用アドバイザー・現場サポート責任者',
+                  'worksFor': {
+                    '@type': 'Organization',
+                    'name': '信太山新地 老舗旅館直営グループ（信太山ガールズ）',
+                    'url': 'https://osaka-shinodayamashinchi-recruit.com/'
+                  }
+                },
+                'publisher': {
+                  '@type': 'Organization',
+                  'name': '信太山ガールズ（旅館直営求人・女性採用サポート）',
+                  'url': 'https://osaka-shinodayamashinchi-recruit.com/',
+                  'logo': {
+                    '@type': 'ImageObject',
+                    'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
+                  }
+                },
+                'speakable': {
+                  '@type': 'SpeakableSpecification',
+                  'cssSelector': ['#llm-article-summary-text', 'h1']
+                },
+                'mainEntityOfPage': {
+                  '@type': 'WebPage',
+                  '@id': `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
+                }
+              },
+              {
+                '@type': 'BreadcrumbList',
+                'itemListElement': [
+                  {
+                    '@type': 'ListItem',
+                    'position': 1,
+                    'name': '信太山新地求人トップ',
+                    'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+                  },
+                  {
+                    '@type': 'ListItem',
+                    'position': 2,
+                    'name': 'お仕事コラム一覧',
+                    'item': 'https://osaka-shinodayamashinchi-recruit.com/blog'
+                  },
+                  {
+                    '@type': 'ListItem',
+                    'position': 3,
+                    'name': currentArticle.title,
+                    'item': `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
+                  }
+                ]
               }
-            },
-            'publisher': {
-              '@type': 'Organization',
-              'name': '信太山ガールズ（旅館直営求人・女性採用サポート）',
-              'url': 'https://osaka-shinodayamashinchi-recruit.com/',
-              'logo': {
-                '@type': 'ImageObject',
-                'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
-              }
-            },
-            'speakable': {
-              '@type': 'SpeakableSpecification',
-              'cssSelector': ['#llm-article-summary-text', 'h1']
-            },
-            'mainEntityOfPage': {
-              '@type': 'WebPage',
-              '@id': `https://osaka-shinodayamashinchi-recruit.com/blog/${currentArticle.slug}`
-            }
+            ]
           }
         });
       } else {
         updatePageSeo({
           title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
-          description: '信太山新地の仕事内容、給料システム、旅館個室待機、顔出しなしルール、未経験向けガイドなど働く前に役立つ公式解説コラム一覧。',
+          description: '信太山新地の仕事内容、15分単位の給料システム、待機所での個室待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
           canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
-          ogType: 'website'
+          ogType: 'website',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'CollectionPage',
+                'name': '信太山新地求人 お仕事コラム一覧',
+                'description': '信太山新地の仕事内容、給料システム、顔出しなしルール、未経験向けガイドなどの公式解説コラム一覧',
+                'url': 'https://osaka-shinodayamashinchi-recruit.com/blog',
+                'inLanguage': 'ja-JP'
+              },
+              {
+                '@type': 'BreadcrumbList',
+                'itemListElement': [
+                  {
+                    '@type': 'ListItem',
+                    'position': 1,
+                    'name': '信太山新地求人トップ',
+                    'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+                  },
+                  {
+                    '@type': 'ListItem',
+                    'position': 2,
+                    'name': 'お仕事コラム一覧',
+                    'item': 'https://osaka-shinodayamashinchi-recruit.com/blog'
+                  }
+                ]
+              }
+            ]
+          }
         });
       }
-    } else if (currentTab === 'about') {
-      updatePageSeo({
-        title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
-        description: '信太山新地の老舗旅館直営求人窓口「信太山ガールズ」の運営者情報、所在地（大阪府和泉市）、理念、女性サポート体制についてご紹介します。',
-        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
-        ogType: 'website'
-      });
-    } else if (currentTab === 'interview') {
-      updatePageSeo({
-        title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
-        description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答しました。店先顔見せなし、未経験率90%、給与・日払い、面接内容まで詳しく解説。',
-        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
-        ogType: 'article'
-      });
     } else if (currentTab === 'admin') {
       updatePageSeo({
         title: '管理者画面｜信太山ガールズ',

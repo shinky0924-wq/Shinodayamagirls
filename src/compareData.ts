@@ -880,7 +880,7 @@ export const SHINODAYAMA_KEY_METRICS = [
  */
 export const COURSE_REWARD_SCHEDULE = [
   { courseTime: '15分', reward: 3800, hourlyEquivalent: 15200, note: '最短短時間コース。サクッと効率的に高収入' },
-  { courseTime: '30分', reward: 7600, hourlyEquivalent: 15200, note: '定番人気コース。ゆったり世間話とおもてなし' },
+  { courseTime: '30分', reward: 7600, hourlyEquivalent: 15200, note: '定番人気コース。ゆったり接客' },
   { courseTime: '45分', reward: 11400, hourlyEquivalent: 15200, note: 'リラックス接客。仲居さんが時間管理' },
   { courseTime: '60分', reward: 15200, hourlyEquivalent: 15200, note: 'じっくりコース。延長時も15分3,800円ずつ加算' }
 ];

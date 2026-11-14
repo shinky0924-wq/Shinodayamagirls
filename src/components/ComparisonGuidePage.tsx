@@ -60,9 +60,51 @@ export default function ComparisonGuidePage({
 
     updatePageSeo({
       title: '信太山新地・他業種 徹底比較｜飛田新地・メンエス・キャバクラとの違い',
-      description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策まで詳しく解説します。',
+      description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策、直営ならではの応募条件まで詳しく解説します。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/compare',
-      ogType: 'website'
+      ogType: 'website',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebPage',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/compare#webpage',
+            'name': '信太山新地・他業種 徹底比較ガイド',
+            'description': '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違いを11項目で比較解説。',
+            'url': 'https://osaka-shinodayamashinchi-recruit.com/compare',
+            'inLanguage': 'ja-JP'
+          },
+          {
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': '信太山新地求人トップ',
+                'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+              },
+              {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': '信太山新地 徹底比較ガイド',
+                'item': 'https://osaka-shinodayamashinchi-recruit.com/compare'
+              }
+            ]
+          },
+          {
+            '@type': 'FAQPage',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/compare#faq',
+            'mainEntity': COMPARISON_FAQS.map((item) => ({
+              '@type': 'Question',
+              'name': item.q,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': item.a
+              }
+            }))
+          }
+        ]
+      }
     });
   }, []);
 

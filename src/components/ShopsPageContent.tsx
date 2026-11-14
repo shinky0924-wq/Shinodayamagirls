@@ -126,7 +126,7 @@ export default function ShopsPageContent({
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
                 src="/images/col_secure_ryotei_1792475628730.webp"
-                alt="上品で落ち着いた和風の料亭旅館外観"
+                alt="上品で落ち着いた和風の旅館外観"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
                 width={480}
