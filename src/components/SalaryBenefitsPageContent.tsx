@@ -267,7 +267,7 @@ export default function SalaryBenefitsPageContent({
               <tr className="hover:bg-[#FFFAFC] transition-colors">
                 <th scope="row" className="py-4 px-4 font-bold text-[#1F2432] text-left">
                   45分コース
-                  <span className="block text-[10px] text-[#777777] font-normal">ゆったり歓談</span>
+                  <span className="block text-[10px] text-[#777777] font-normal">ゆったり接客</span>
                 </th>
                 <td className="py-4 px-4">
                   <span className="font-display font-black text-lg sm:text-xl text-[#D8175D]">11,400円</span>
@@ -599,7 +599,7 @@ export default function SalaryBenefitsPageContent({
             },
             {
               title: '⑧ 未経験者へのサポート',
-              desc: 'お茶出しの手順や接客マナーを先輩スタッフが丁寧に付き添い指導。約90%が未経験スタートです。',
+              desc: '入室の流れや安全ルール・接客マナーを女性スタッフや仲居さんが丁寧に付き添い指導。約90%が未経験スタートです。',
               icon: 'Sparkles'
             }
           ].map((item, idx) => (

@@ -53,7 +53,7 @@ function detectTopicFromContent(title: string, category: string, catLabel?: stri
       gradient: 'from-teal-700 via-emerald-600 to-rose-700',
       icon: 'Coffee',
       tag: 'ノンアル・お酒不要',
-      subtext: 'ソフトドリンクOK・お茶接客で高収入'
+      subtext: '飲酒接客なし・お酒が飲めなくてもOK'
     };
   }
 

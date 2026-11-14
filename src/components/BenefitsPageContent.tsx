@@ -148,7 +148,7 @@ export default function BenefitsPageContent({
               お酒完全不要＆営業連絡禁止
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
-              ソフトドリンク（お茶・水）でおもてなしするため飲酒は不要。客との連絡先交換・営業LINEも禁止でプライベートを守ります。
+              キャバクラ等と違いお酒を飲む接客ではないため飲酒は一切不要。客との連絡先交換・営業LINEも禁止でプライベートを守ります。
             </p>
           </div>
         </div>

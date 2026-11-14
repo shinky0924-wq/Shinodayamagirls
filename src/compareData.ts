@@ -172,7 +172,7 @@ export const SITE_COMPARISON_ROWS: ComparisonRow[] = [
   {
     criteria: 'お酒の飲酒・ノルマ',
     ourShop: {
-      text: 'お酒一切不要（お茶やソフトドリンクのみ）／売上・指名ノルマ・罰金完全なし',
+      text: 'お酒・飲酒接客一切不要／売上・指名ノルマ・罰金完全なし',
       grade: 'excellent',
       highlight: true
     },
@@ -469,7 +469,7 @@ export const TARGET_JOB_CATEGORIES: TargetJobCategory[] = [
     supportFeatures: [
       '会社バレ防止・住民税「普通徴収」税務ガイドの進呈',
       '平日夜からの遅出出勤（18時・19時〜OK）',
-      'お酒の完全NG保証（お茶・ソフトドリンクでのおもてなし）',
+      'お酒の席・飲酒が完全不要（翌日の本業に響かない）',
       '車・バイク通勤可（専用駐車場完備）で人目につかず通勤可能'
     ],
     faqs: [
@@ -730,7 +730,7 @@ export const AREA_COMPARISON_ROWS: AreaComparisonRow[] = [
   {
     criteria: 'お酒・営業LINE・同伴',
     shinodayama: {
-      text: 'お酒完全不要（ソフトドリンクのみ）。客との連絡先交換・営業LINE・同伴一切禁止',
+      text: 'お酒・飲酒接客一切不要。客との連絡先交換・営業LINE・同伴一切禁止',
       grade: 'excellent',
       badge: '営業連絡禁止'
     },
@@ -1002,12 +1002,12 @@ export const MAIN_11_COMPARISON_ITEMS: MainComparisonItem[] = [
     summary: '接客の実質的な業務内容と身体的負担の度合い',
     values: {
       shinodayama: {
-        text: '料亭個室でのお茶出し・談笑などのおもてなし接客。1回あたり15分〜の短時間接客が基本。浴衣または私服ドレス着用。',
-        point: '15分短時間・身体的負担が少ない',
+        text: '旅館個室でのマンツーマン密着接客（スキンシップ・フェラ・ゴム着用厳守での本番行為など）。1回15分〜の短時間コースが基本。お茶出しや飲酒なし。',
+        point: '15分短時間・ゴム着用厳守',
         badge: '短時間接客'
       },
       tobita: {
-        text: '玄関先（上がり框）での顔見せ座り、料亭2階個室でのお茶出し・談笑等。1回あたり15〜20分の短時間接客が基本。',
+        text: '玄関先（上がり框）での顔見せ座り、料亭2階個室での短時間密着接客・本番対応等。1回あたり15〜20分の短時間接客が基本。',
         point: '店先での顔見せ座り必須'
       },
       mensEsthe: {
@@ -1036,7 +1036,7 @@ export const MAIN_11_COMPARISON_ITEMS: MainComparisonItem[] = [
     summary: 'お客様との対面環境、サポート体制、待機場所',
     values: {
       shinodayama: {
-        text: '完全個室での1対1接客。店先での顔出しは一切なく、専属の仲居さんが客室案内・お茶出し・時間管理を全面サポート。',
+        text: '完全個室での1対1接客。店先での顔出しは一切なく、専属の仲居さんがお客様の受付案内・内線呼び出し・時間管理・客室清掃を全面サポート。',
         point: '完全個室・専属仲居サポート付き',
         badge: '顔出し完全なし'
       },

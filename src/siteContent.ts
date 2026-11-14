@@ -84,7 +84,7 @@ export interface SiteContent {
 
 declare const __BUILD_DATE__: string | undefined;
 
-const STORAGE_KEY = 'shinodayama_site_content_v22';
+const STORAGE_KEY = 'shinodayama_site_content_v23';
 
 export function getEffectiveLastUpdated(configuredDate?: string): string {
   if (typeof __BUILD_DATE__ !== 'undefined' && __BUILD_DATE__) {
