@@ -32,7 +32,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: '仕事内容を詳しく見る',
     shortTitle: '仕事内容',
     description: '接客の手順、待機スペースでの過ごし方、仲居さんのフォロー体制などを解説しています。',
-    image: '/images/ryokan_working_woman_1792485020272.webp',
+    image: '/images/col_aroma_relax_1792474257103.webp',
   },
   {
     id: 'salary',
@@ -41,7 +41,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: 'お給料・報酬の仕組みを見る',
     shortTitle: '給料・待遇',
     description: '15分ごとのコース報酬や保証制度、日払い条件、控除の有無について分かりやすく説明しています。',
-    image: '/images/col_salary_yen_1792463652387.webp',
+    image: '/images/col_bonus_envelope_jp_1792476753315.webp',
   },
   {
     id: 'beginner',
@@ -50,7 +50,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: '未経験者向けガイドを見る',
     shortTitle: '未経験',
     description: '初めてお仕事を探す方が安心して始められるよう、事前準備やよくある不安にお答えします。',
-    image: '/images/hub_beginner_cast_1792485407920.webp',
+    image: '/images/col_easy_yukata_jp_1792476829780.webp',
   },
   {
     id: 'experienced',
@@ -95,7 +95,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: '当店が選ばれる理由・半年ルールを見る',
     shortTitle: 'お店選び',
     description: 'お店直接応募と紹介経由の違いや、信太山新地の「半年ルール」を踏まえた当店ならではの安心ポイントを紹介します。',
-    image: '/images/col_secure_ryotei_1792475628730.webp',
+    image: '/images/col_friendly_staff_jp_1792476884275.webp',
   },
   {
     id: 'dorm',
@@ -104,7 +104,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: '寮・出稼ぎ情報を見る',
     shortTitle: '寮・出稼ぎ',
     description: 'JR信太山駅周辺に当店がご用意する個室寮の設備・費用目安や、往復交通費の全額支給条件をご案内します。',
-    image: '/images/dorm_main_studio_1794374510330.webp',
+    image: '/images/dorm_bed_area_1794374510713.webp',
   },
   {
     id: 'safety',
@@ -131,7 +131,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: 'お役立ち情報・コラムを見る',
     shortTitle: 'お仕事コラム',
     description: '信太山新地の働き方や業界の知識、当店スタッフのQ&Aなど役立つ解説記事を掲載しています。',
-    image: '/images/col_ryokan_manner_1792465891118.webp',
+    image: '/images/col_search_phone_jp_1792475574840.webp',
   },
 ];
 

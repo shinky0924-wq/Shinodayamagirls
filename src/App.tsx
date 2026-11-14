@@ -493,7 +493,7 @@ export default function App() {
                   <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
                     {siteContent.reasons.subtitle || 'OUR STRENGTHS'}
                   </p>
-                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
                     {siteContent.reasons.title}
                   </h2>
                   <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
@@ -501,83 +501,77 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* 5 uniform cards: Mobile 1 col, Tablet 2 cols, PC 3 cols top + 2 centered bottom */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
-                  {siteContent.reasons.items.map((reason, idx) => {
-                    const isFeatured = Boolean(reason.featured);
-                    const gridPlacementClass =
-                      idx === 3
-                        ? 'lg:col-span-2 lg:col-start-2'
-                        : idx === 4
-                          ? 'sm:col-span-2 sm:w-[calc(50%-0.625rem)] sm:mx-auto lg:w-full lg:col-span-2 lg:col-start-4 lg:mx-0'
-                          : 'lg:col-span-2';
-
-                    return (
-                      <article
-                        key={reason.number}
-                        id={`charm-card-${reason.number}`}
-                        className={`${gridPlacementClass} rounded-2xl overflow-hidden flex flex-col transition-all ${
-                          isFeatured
-                            ? 'bg-[#FFF6F8] border-2 border-[#E85B91]/55 shadow-[0_6px_20px_rgba(232,91,145,0.1)]'
-                            : 'bg-[#FFF6F8]/45 border border-[#EFE2E7] shadow-[0_2px_10px_rgba(166,93,121,0.04)]'
-                        }`}
-                      >
-                        {reason.image && (
-                          <div className="aspect-[16/9] bg-[#F7F2EC] overflow-hidden border-b border-[#EFE2E7]">
-                            <img
-                              src={reason.image}
-                              alt={`${reason.title}のイメージ`}
-                              width={640}
-                              height={360}
-                              loading="lazy"
-                              decoding="async"
-                              className="w-full h-full object-cover object-center"
-                            />
-                          </div>
-                        )}
-
-                        <div className="p-5 sm:p-6 flex-1 flex flex-col">
-                          <div className="flex items-center justify-between gap-2 mb-3.5">
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`font-display font-bold text-xl leading-none ${
-                                  isFeatured ? 'text-[#E85B91]' : 'text-[#A65D79]'
-                                }`}
-                              >
-                                {reason.number}
-                              </span>
-                              {isFeatured && (
-                                <span className="text-[11px] font-bold tracking-wider text-[#E85B91]">
-                                  ｜当店の強み
-                                </span>
-                              )}
-                            </div>
-                            <div
-                              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
-                                isFeatured
-                                  ? 'bg-[#E85B91] border-[#E85B91] text-white'
-                                  : 'bg-white border-[#EFE2E7] text-[#A65D79]'
-                              }`}
-                            >
-                              <LucideIcon name={reason.iconName} size={19} />
-                            </div>
-                          </div>
-
-                          <h3
-                            className={`font-display font-bold text-base sm:text-lg leading-snug mb-2 ${
-                              isFeatured ? 'text-[#85465F]' : 'text-[#333333]'
-                            }`}
+                {/* Top Tier: 3 Highlighted Store-Unique Strengths (Large Icon Cards) */}
+                {(() => {
+                  const featuredReasons = siteContent.reasons.items.filter((item) => item.featured);
+                  const standardReasons = siteContent.reasons.items.filter((item) => !item.featured);
+                  return (
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+                        {featuredReasons.map((reason) => (
+                          <article
+                            key={reason.number}
+                            id={`charm-card-${reason.number}`}
+                            className="rounded-3xl bg-gradient-to-b from-[#FFF6F8] to-white border-2 border-[#E85B91]/45 p-6 sm:p-7 shadow-[0_10px_28px_rgba(232,91,145,0.09)] flex flex-col justify-between"
                           >
-                            {reason.title}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
-                            {reason.description}
-                          </p>
+                            <div>
+                              <div className="flex items-start justify-between gap-4 mb-5">
+                                <div className="w-14 h-14 rounded-2xl bg-[#E85B91] text-white flex items-center justify-center shrink-0 shadow-[0_6px_16px_rgba(232,91,145,0.28)]">
+                                  <LucideIcon name={reason.iconName} size={28} />
+                                </div>
+                                <div className="text-right">
+                                  <span className="block font-display font-bold text-2xl leading-none text-[#E85B91] tabular-nums">
+                                    {reason.number}
+                                  </span>
+                                  <span className="block text-[11px] font-bold tracking-wide text-[#A65D79] mt-1">
+                                    お店独自の強み
+                                  </span>
+                                </div>
+                              </div>
+
+                              <h3 className="font-display font-bold text-lg sm:text-xl text-[#85465F] leading-snug mb-3">
+                                {reason.title}
+                              </h3>
+                              <p className="text-sm text-[#4A4A4A] leading-relaxed">
+                                {reason.description}
+                              </p>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+
+                      {/* Bottom Tier: 2 Supporting Points (Balanced 2-Column Row) */}
+                      {standardReasons.length > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+                          {standardReasons.map((reason) => (
+                            <article
+                              key={reason.number}
+                              id={`charm-card-${reason.number}`}
+                              className="rounded-2xl bg-[#FAF6F8] border border-[#EFE2E7] p-5 sm:p-6 flex items-start gap-4"
+                            >
+                              <div className="w-11 h-11 rounded-xl bg-white border border-[#EFE2E7] text-[#A65D79] flex items-center justify-center shrink-0 mt-0.5">
+                                <LucideIcon name={reason.iconName} size={21} />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-2 text-xs font-bold text-[#A65D79] mb-1 tabular-nums">
+                                  <span>{reason.number}</span>
+                                  <span aria-hidden="true">·</span>
+                                  <span>安心ポイント</span>
+                                </div>
+                                <h3 className="font-display font-bold text-base sm:text-lg text-[#333333] leading-snug mb-1.5">
+                                  {reason.title}
+                                </h3>
+                                <p className="text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
+                                  {reason.description}
+                                </p>
+                              </div>
+                            </article>
+                          ))}
                         </div>
-                      </article>
-                    );
-                  })}
-                </div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </section>
 

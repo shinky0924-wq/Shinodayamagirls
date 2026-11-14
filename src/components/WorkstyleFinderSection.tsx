@@ -49,7 +49,7 @@ const WORKSTYLE_CARDS: WorkstyleCardItem[] = [
     slug: 'privacy',
     title: '顔出しなし・身バレ対策を重視したい',
     description: 'プライバシーについて事前に相談したい方へ。',
-    image: '/images/col_privacy_safe_1792463653857.webp',
+    image: '/images/privacy_phone_discreet_1794375281535.webp',
     icon: 'EyeOff',
   },
   {
@@ -73,7 +73,7 @@ const WORKSTYLE_CARDS: WorkstyleCardItem[] = [
     slug: 'dormitory',
     title: '出稼ぎ・寮付き希望',
     description: '遠方から働きたい方や住まいについて相談したい方へ。',
-    image: '/images/dorm_main_studio_1794374510330.webp',
+    image: '/images/relocation_suitcase_travel_1794374512087.webp',
     icon: 'Home',
   },
 ];

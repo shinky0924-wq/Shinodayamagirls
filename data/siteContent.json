@@ -59,44 +59,42 @@
   "reasons": {
     "title": "信太山ガールズの5つの魅力",
     "subtitle": "OUR STRENGTHS",
-    "description": "お店選びで大切にしたいポイントをご紹介します。",
+    "description": "お店選びで大切にしたい、信太山ガールズならではの強みと環境をご紹介します。",
     "items": [
       {
         "number": "01",
-        "iconName": "Sparkles",
-        "image": "/images/hub_beginner_cast_1792485407920.webp",
-        "title": "未経験から始めやすい",
-        "description": "初めての方にも仕事内容や勤務の流れを分かりやすくご案内します。"
+        "iconName": "TrendingUp",
+        "featured": true,
+        "title": "トップクラスの集客力・回転率",
+        "description": "常連様やご紹介に加えて新規のご来店も多く、仲居さんが順にお部屋へご案内するため待機が長引きにくいのが当店の強み。15分からのショートコースを効率よく回せる環境を整えています。"
       },
       {
         "number": "02",
-        "iconName": "TrendingUp",
-        "image": "/images/col_popular_cast_jp_1792476715216.webp",
+        "iconName": "HeartHandshake",
         "featured": true,
-        "title": "トップクラスの集客力・回転率",
-        "description": "常連様やフリーのご来店が多く、集客力と回転率の高さが強み。安定した集客を目指せる環境を整えています。"
+        "title": "いじめや派閥のない働きやすい環境",
+        "description": "年齢や経験にかかわらずお互いを尊重する雰囲気を大切にしており、女性同士のいじめや派閥・厳しい上下関係はありません。マイペースに過ごせる待機環境でストレスなく続けられます。"
       },
       {
         "number": "03",
-        "iconName": "CalendarDays",
-        "image": "/images/col_weekend_planner_1792475629264.webp",
-        "title": "自分のペースで働ける",
-        "description": "勤務日数や時間など、希望に合わせた働き方を相談できます。"
+        "iconName": "ShieldCheck",
+        "featured": true,
+        "title": "充実したサポート体制",
+        "description": "専任の女性サポート担当（あおい）と現場の仲居さんが、事前見学から出勤初日の手順案内、勤務中の困りごとやシフト・送迎・寮のご相談まで一貫してフォローします。"
       },
       {
         "number": "04",
-        "iconName": "HeartHandshake",
-        "image": "/images/col_friendly_staff_jp_1792476884275.webp",
-        "featured": true,
-        "title": "いじめ・派閥のない働きやすい環境",
-        "description": "女性同士のいじめや派閥などがなく、人間関係のストレスを感じにくい職場環境を大切にしています。"
+        "iconName": "Sparkles",
+        "featured": false,
+        "title": "未経験から始めやすい",
+        "description": "初めての方にもお仕事の手順や基本マナー・1日の流れを、事前の見学や入店時に分かりやすく丁寧にご案内します。"
       },
       {
         "number": "05",
-        "iconName": "ShieldCheck",
-        "image": "/images/safety_female_consultation_1794375281375.webp",
-        "title": "サポート体制万全",
-        "description": "仕事のことや困ったことなど、働く女性をしっかりサポートできる体制を整えています。"
+        "iconName": "CalendarDays",
+        "featured": false,
+        "title": "自分のペースで働ける",
+        "description": "週1日・短時間勤務やWワーク、昼のみなど、生活リズムに合わせた無理のない働き方を直接ご相談いただけます。"
       }
     ]
   },
@@ -196,8 +194,8 @@
     ]
   },
   "consultation": {
-    "title": "まずは気軽にお話ししてみませんか？",
-    "description": "応募するかどうか決めていなくても大丈夫です。\n仕事内容やお給料、勤務条件など、気になることをLINEからご相談いただけます。\nあなたの希望をお聞きしながら、分かりやすくご案内します。",
+    "title": "応募するか迷っている方も、まずはお気軽にご相談ください。",
+    "description": "仕事内容・お給料・働き方など、気になることをLINEでご質問いただけます。\n無理に応募をおすすめすることはありません。まずは疑問や不安を解消するところから始めてみませんか？",
     "badgeText": "＼ワンタップでコピー可能／",
     "copySubtitle": "LINEで送る文章の参考例としてお使いいただけます",
     "templateText": "信太山ガールズを見ました。\nお名前（ニックネーム可）／\nご希望の働き方（週1日・短時間・未経験など）／\nご質問／",

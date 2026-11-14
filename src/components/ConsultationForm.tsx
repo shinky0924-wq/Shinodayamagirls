@@ -73,7 +73,7 @@ export default function ConsultationForm({
           LINE CONSULTATION
         </p>
 
-        <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] mb-4 leading-snug">
+        <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] mb-4 leading-snug text-balance">
           {content.title}
         </h2>
 
@@ -81,22 +81,27 @@ export default function ConsultationForm({
           {content.description}
         </p>
 
-        {/* Primary CTA Buttons */}
-        <div className="bg-white rounded-3xl border border-[#EFE2E7] shadow-[0_6px_24px_rgba(166,93,121,0.08)] p-6 sm:p-8 max-w-xl mx-auto">
-          <p className="text-xs font-bold text-[#A65D79] mb-4">
-            {content.lineBadgeText}
+        {/* Primary CTA Box with Large High-Contrast LINE Button */}
+        <div className="bg-white rounded-3xl border border-[#EFE2E7] shadow-[0_8px_28px_rgba(166,93,121,0.09)] p-6 sm:p-9 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm font-bold text-[#A65D79] mb-4 flex items-center justify-center gap-2 flex-wrap">
+            <span>24時間受付</span>
+            <span aria-hidden="true">·</span>
+            <span>{content.lineBadgeText}</span>
+            <span aria-hidden="true">·</span>
+            <span>女性スタッフ対応</span>
           </p>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3.5">
             <a
               href={LINE_OFFICIAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               id="consultation-line-cta-btn"
-              className="w-full font-display font-bold py-4 px-6 rounded-2xl shadow-[0_4px_16px_rgba(6,199,85,0.28)] hover:shadow-[0_6px_20px_rgba(6,199,85,0.36)] transition-all flex items-center justify-center gap-2.5 text-white bg-[#06C755] hover:bg-[#05b34c] text-base sm:text-lg"
+              className="w-full font-display font-bold py-5 sm:py-6 px-6 sm:px-8 rounded-2xl shadow-[0_8px_24px_rgba(6,199,85,0.34)] hover:shadow-[0_10px_28px_rgba(6,199,85,0.44)] hover:bg-[#05b34c] active:bg-[#049b42] transition-all flex items-center justify-center gap-3 text-white bg-[#06C755] text-base sm:text-xl leading-tight"
             >
-              <LucideIcon name="MessageCircle" className="fill-white text-white shrink-0" size={22} />
-              <span>当店の女性スタッフにLINEで相談する</span>
+              <LucideIcon name="MessageCircle" className="fill-white text-white shrink-0" size={26} />
+              <span>LINEで無料相談・質問してみる</span>
+              <LucideIcon name="ArrowRight" className="shrink-0" size={20} />
             </a>
 
             <button
@@ -110,7 +115,7 @@ export default function ConsultationForm({
             </button>
           </div>
 
-          <p className="text-[11px] text-[#666666] mt-3 whitespace-pre-line">
+          <p className="text-[11px] sm:text-xs text-[#666666] mt-3.5 whitespace-pre-line">
             {content.lineSubtitle}
           </p>
 
