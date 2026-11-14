@@ -109,7 +109,7 @@ export default function Hero({
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#F7F2EC]">
               <img
                 src={HERO_IMAGE_URL}
-                alt="信太山新地 お店直接求人 信太山ガールズ 公式求人イメージ"
+                alt="信太山新地 お店直接求人 信太山ガールズ 雰囲気イメージ"
                 className="w-full h-auto object-cover aspect-[16/9] sm:aspect-[16/8.5] object-center"
                 decoding="async"
                 loading="eager"
@@ -124,15 +124,18 @@ export default function Hero({
                   target.src = '/images/shinodayama_hero_banner_1792225964954.webp';
                 }}
               />
+              <span className="absolute bottom-2.5 right-2.5 bg-black/65 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-md">
+                画像はイメージです
+              </span>
             </div>
 
             {/* Integrated Clear Recruitment Bar Below Image (never ambiguous) */}
             <div className="px-3 sm:px-5 pt-2.5 pb-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-left">
               <p className="font-display font-bold text-xs sm:text-sm text-[#333333]">
-                信太山新地・老舗旅館直営のお店直接募集｜天引き0円・店先顔出しなし・個室待機
+                信太山新地・老舗旅館直営のお店直接募集｜天引き0円・店先顔出しなし・待機所待機
               </p>
               <span className="text-[11px] text-[#666666] shrink-0">
-                ※雰囲気イメージ・店舗見学受付中
+                ※画像はイメージです（店舗見学受付中）
               </span>
             </div>
           </div>

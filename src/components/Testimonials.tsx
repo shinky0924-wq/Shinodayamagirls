@@ -227,18 +227,21 @@ export default function Testimonials({ onCtaclick }: TestimonialsProps) {
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             INTERVIEW
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
-            実際に働く女性の声をご紹介
+          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
+            働き方の例・インタビューイメージ
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            働き始める前に気になっていたことや、実際に働いて感じたことをご紹介します。
+            働き始める前に気になりやすい点や、1日の過ごし方のモデルケースをご紹介します。
+          </p>
+          <p className="text-[11px] text-[#666666] mt-1.5">
+            ※プライバシー保護のため、掲載写真はすべてイメージ素材を使用しています（実際の在籍スタッフの顔写真ではありません）。
           </p>
         </div>
 
         {/* Mobile horizontal swipe hint */}
         <p className="lg:hidden text-[11px] text-[#A65D79] font-bold text-center mb-3 flex items-center justify-center gap-1">
           <LucideIcon name="ArrowRight" size={12} />
-          <span>横にスライドして3名の声をご覧いただけます</span>
+          <span>横にスライドして3パターンの例をご覧いただけます</span>
         </p>
 
         {/* 3 Interview Cards: PC 3 columns, Mobile horizontal snap slide */}
@@ -257,18 +260,21 @@ export default function Testimonials({ onCtaclick }: TestimonialsProps) {
                   <div className="relative aspect-[16/10] bg-[#F7F2EC] overflow-hidden">
                     <img
                       src={cast.avatarUrl}
-                      alt={`${cast.name}さん（${cast.age}・${cast.tag}）`}
+                      alt={`${cast.tag}の働き方イメージ`}
                       width={640}
                       height={400}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover object-center"
                     />
+                    <span className="absolute top-2.5 right-2.5 bg-black/60 text-white text-[10px] font-medium px-2 py-0.5 rounded">
+                      画像はイメージです
+                    </span>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
                     <div className="absolute bottom-3 left-4 right-4 text-white flex items-baseline justify-between gap-2">
                       <div>
                         <span className="font-display font-bold text-lg sm:text-xl">
-                          {cast.name}さん
+                          {cast.name}さん（仮名）
                         </span>
                         <span className="text-xs sm:text-sm ml-2 opacity-90">
                           {cast.age}

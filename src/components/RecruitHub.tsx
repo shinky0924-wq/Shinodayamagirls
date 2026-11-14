@@ -169,6 +169,9 @@ export default function RecruitHub({
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
             気になるテーマから当店の募集情報を詳しく確認できます。分からないことはLINEでも当店スタッフが直接お答えします。
           </p>
+          <p className="text-[11px] text-[#666666] mt-1.5">
+            ※各カードの画像は各テーマの雰囲気をお伝えするためのイメージ素材です。
+          </p>
         </div>
 
         {/* 12 Compact Uniform Cards (PC 3 cols x 4 rows, Tablet 2 cols, Mobile 1 col) */}

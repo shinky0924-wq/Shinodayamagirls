@@ -93,7 +93,7 @@ export default function JobIntroSection({
                 className="w-full aspect-[4/3] object-cover"
               />
               <figcaption className="px-2.5 py-1.5 text-[11px] text-[#555555] bg-white">
-                出勤〜退勤の流れイメージ
+                ※画像は1日の流れのイメージです
               </figcaption>
             </figure>
             <figure className="rounded-xl overflow-hidden bg-white border border-[#E9DFD4]">
@@ -107,7 +107,7 @@ export default function JobIntroSection({
                 className="w-full aspect-[4/3] object-cover"
               />
               <figcaption className="px-2.5 py-1.5 text-[11px] text-[#555555] bg-white">
-                接客の雰囲気イメージ
+                ※画像は接客雰囲気のイメージです
               </figcaption>
             </figure>
           </div>
@@ -123,7 +123,7 @@ export default function JobIntroSection({
               街頭や店先に座ってお客様を待つ必要がないため、初めての方でも落ち着いて勤務できます。お客様のご案内やお部屋の用意・片付け、時間の管理は当店の仲居さんが行うため、一人で無理に対応することはありません。
             </p>
             <p className="text-[11px] text-[#666666]">
-              ※掲載写真は雰囲気をお伝えするためのイメージです。当店の実際の館内・個室・待機場所は面接・見学時に直接ご覧いただけます。
+              ※掲載画像は働き方や雰囲気をお伝えするためのイメージ素材であり、実際の店舗写真ではありません。実際の館内・待機場所は見学時に直接ご確認いただけます。
             </p>
           </div>
         </div>

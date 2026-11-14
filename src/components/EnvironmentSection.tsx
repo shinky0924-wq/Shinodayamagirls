@@ -18,46 +18,46 @@ interface EnvironmentItem {
 
 const ENVIRONMENT_ITEMS: EnvironmentItem[] = [
   {
-    title: 'お店の外観・周辺雰囲気',
+    title: '街並み・周辺の雰囲気',
     image: '/images/col_secure_ryotei_1792475628730.webp',
-    captionLabel: '※信太山新地エリアの雰囲気イメージ',
+    captionLabel: '※エリアの雰囲気イメージ（実物写真ではありません）',
     description:
-      '落ち着いた和風の街並みの中に位置し、JR信太山駅から徒歩約5分。目立つ看板や呼び込みがなく、出勤時も人目を気にせずお越しいただけます。',
+      'JR信太山駅から徒歩約5分の落ち着いた街並みの中にあります。目立つ看板や街頭での呼び込みがないため、出退勤時も周囲を気にせず通いやすい環境です。',
   },
   {
-    title: '館内の様子',
+    title: '館内の落ち着いた雰囲気',
     image: '/images/col_ryokan_manner_1792465891118.webp',
-    captionLabel: '※旅館内の落ち着いた雰囲気イメージ',
+    captionLabel: '※館内の雰囲気イメージ（実物写真ではありません）',
     description:
-      '清掃の行き届いた清潔な和風館内です。仲居さん・女性スタッフが常駐しており、働き始める前に実際の館内を見学いただけます。',
+      '仲居さん・女性スタッフが常駐し、働き始める前の事前見学で実際の館内の様子をご確認いただけます。',
   },
   {
-    title: '待機スペース',
+    title: '待機時の過ごし方',
     image: '/images/col_privacy_discretion_1792475612461.webp',
-    captionLabel: '※待機環境のイメージ',
+    captionLabel: '※待機時のイメージ（実物写真ではありません）',
     description:
-      '通りから見える場所に座る必要はありません。空調・Wi-Fiが整った専用スペースで、スマートフォンなどを見ながら落ち着いて待機できます。',
+      '通りから見える場所に座る待機はありません。待機所（スタンドまたは旅館）でスマートフォンを見たりしながら、ご自身のペースで待機できます。',
   },
   {
-    title: '個室・設備',
+    title: 'お部屋・設備のご案内方針',
     image: '/images/privacy_ryokan_room_1794375281070.webp',
-    captionLabel: '※個室・客室の雰囲気イメージ',
+    captionLabel: '※接客空間のイメージ（実物写真ではありません）',
     description:
-      'シャワー・空調・タオル類・アメニティを完備した個室を用意しています。衛生面や設備の使い方も初日に分かりやすくご案内します。',
+      'シャワーやタオル類などお仕事に必要な備品をご用意しています。実際のお部屋や備品の使い方は見学・初日案内の際にそのままご確認いただけます。',
   },
   {
-    title: '当店の寮（ワンルーム個室）',
+    title: '寮利用のご相談について',
     image: '/images/dorm_main_studio_1794374510330.webp',
-    captionLabel: '※当店ご用意の個室寮参考イメージ',
+    captionLabel: '※寮生活のイメージ（実際の間取りは異なります）',
     description:
-      'JR信太山駅周辺に家具・家電付きのワンルーム個室寮をご用意しています（日額0〜2,000円目安）。入居時期や滞在期間のご希望もお気軽にお伝えください。',
+      'JR信太山駅周辺で個室寮のご案内を行っています（日額0〜2,000円目安）。入居可能な時期や設備の詳細は、ご希望に合わせて事前に個別ご案内します。',
   },
   {
-    title: '当店の送迎・車通勤サポート',
+    title: '送迎・アクセスサポート',
     image: '/images/col_safety_gate_1792474007202.webp',
-    captionLabel: '※送迎・アクセス案内イメージ',
+    captionLabel: '※通勤・送迎のイメージ（実物写真ではありません）',
     description:
-      'JR信太山駅や指定場所からの無料送迎に対応しており、マイカー通勤向けの専用駐車場も完備しています。送迎希望のお時間もお知らせください。',
+      'JR信太山駅や指定場所からの送迎、マイカー通勤の駐車スペースについてご相談いただけます。対応可能な時間や場所は事前にお伝えします。',
   },
 ];
 
@@ -70,15 +70,18 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             ENVIRONMENT
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
-            実際に働く場所や環境をご紹介します
+          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
+            働く環境や雰囲気のご案内
           </h2>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-            信太山新地にある当店の雰囲気や働く環境・設備を、応募前にご確認いただけます。
+            信太山新地にある当店の働く環境の特徴や過ごし方を、雰囲気イメージとあわせてご紹介します。
+          </p>
+          <p className="text-[11px] text-[#666666] mt-1.5">
+            ※掲載写真はすべてイメージ素材です。実際の店舗・待機場所・お部屋は面接・見学時に直接ご覧いただけます。
           </p>
         </div>
 
-        {/* 6 Environment Photo Cards */}
+        {/* 6 Environment Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8">
           {ENVIRONMENT_ITEMS.map((item) => (
             <figure
@@ -89,13 +92,16 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
                 <div className="relative aspect-[16/10] bg-[#F7F2EC] overflow-hidden">
                   <img
                     src={item.image}
-                    alt={`${item.title}（${item.captionLabel}）`}
+                    alt={`${item.title}のイメージ`}
                     width={640}
                     height={400}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover"
                   />
+                  <span className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-medium px-2 py-0.5 rounded">
+                    画像はイメージです
+                  </span>
                 </div>
                 <div className="p-4 sm:p-5">
                   <p className="text-[11px] font-medium text-[#A65D79] mb-1">
@@ -117,10 +123,10 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
         <div className="bg-[#F7F2EC] rounded-2xl p-5 sm:p-6 border border-[#E9DFD4] flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <p className="font-display font-bold text-sm sm:text-base text-[#333333] mb-1">
-              働く前に、当店の館内や待機個室を実際に見学いただけます
+              働く前に、実際のお部屋や待機場所を見学いただけます
             </p>
             <p className="text-xs sm:text-sm text-[#555555]">
-              ※掲載画像は施設・設備の雰囲気をお伝えするためのイメージです。ご希望の方は面接時に当店のお部屋・待機スペースをご案内します。
+              ※当サイトではプライバシー配慮と誤解防止のためイメージ画像を使用しています。実物の館内や設備はご見学時にぜひ直接お確かめください。
             </p>
           </div>
           <button

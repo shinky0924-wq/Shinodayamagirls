@@ -99,6 +99,9 @@ export default function WorkstyleFinderSection({
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
             当店での働き方や募集条件について、ご希望や状況に合う項目からご確認いただけます。
           </p>
+          <p className="text-[11px] text-[#666666] mt-1.5">
+            ※各カードの画像は働き方の雰囲気をお伝えするためのイメージ素材です。
+          </p>
         </div>
 
         {/* 7 Cards: PC 3 cols, Mobile 2 cols (or 1 col on narrow screens) */}
