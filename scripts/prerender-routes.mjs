@@ -251,7 +251,14 @@ function stripRootOnlyStructuredData(html) {
             logo: {
               '@type': 'ImageObject',
               url: `${BASE_DOMAIN}/favicon.png`
-            }
+            },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              url: 'https://lin.ee/Z70RRKH',
+              availableLanguage: ['Japanese']
+            },
+            sameAs: ['https://lin.ee/Z70RRKH']
           }
         ]
       };
@@ -477,6 +484,7 @@ function main() {
       '@id': `${BASE_DOMAIN}/compare#webpage`,
       name: '信太山新地・他業種 徹底比較ガイド',
       url: `${BASE_DOMAIN}/compare`,
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP'
     }
   });
@@ -551,6 +559,7 @@ function main() {
       '@id': `${BASE_DOMAIN}/types#webpage`,
       name: '信太山新地 タイプ別働き方ガイド',
       url: `${BASE_DOMAIN}/types`,
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP',
       mainEntity: {
         '@type': 'ItemList',
@@ -682,6 +691,7 @@ function main() {
       '@id': `${BASE_DOMAIN}/interview#article`,
       headline: '旅館の求人・採用担当者へのインタビュー',
       description: '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP'
     }
   });
@@ -699,6 +709,7 @@ function main() {
       '@type': 'AboutPage',
       name: '運営者情報・店舗概要',
       url: `${BASE_DOMAIN}/about`,
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP'
     }
   });
@@ -718,6 +729,7 @@ function main() {
       '@type': 'WebPage',
       name: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
       url: `${BASE_DOMAIN}/policy`,
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP'
     }
   });
@@ -784,7 +796,7 @@ function main() {
     route: 'blog',
     title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
     description:
-      '信太山新地の仕事内容、15分単位の給料システム、待機所での個室待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
+      '信太山新地の仕事内容、15分単位の給料システム、待機所（スタンドまたは旅館）での待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
     canonicalUrl: `${BASE_DOMAIN}/blog`,
     heading: '信太山新地求人 お仕事コラム一覧',
     ssrBodyHtml: blogListingSsrHtml,
@@ -793,6 +805,7 @@ function main() {
       '@type': 'CollectionPage',
       name: '信太山新地求人 お仕事コラム一覧',
       url: `${BASE_DOMAIN}/blog`,
+      dateModified: '2026-11-14',
       inLanguage: 'ja-JP'
     }
   });
@@ -851,13 +864,81 @@ function main() {
     });
   });
 
-  // Also inject styled SSR shell into root dist/index.html for instant first paint & initial HTML content
+  // Also inject comprehensive semantic SSR HTML into root dist/index.html for JS-less AI bots & instant first paint
+  const siteContentPath = path.join(rootDir, 'data', 'siteContent.json');
+  const siteContent = fs.existsSync(siteContentPath)
+    ? JSON.parse(fs.readFileSync(siteContentPath, 'utf8'))
+    : {};
+  const reasonsHtml = Array.isArray(siteContent?.reasons?.items)
+    ? `<section class="mb-8"><h2 class="text-xl font-bold text-zinc-900 mb-3">${escapeHtml(siteContent.reasons.title || '信太山ガールズの5つの魅力')}</h2><div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${siteContent.reasons.items.map((r) => `<div class="p-4 rounded-2xl bg-rose-50/50 border border-rose-100"><p class="text-xs font-bold text-rose-700">${escapeHtml(r.number)}</p><h3 class="font-bold text-base text-zinc-900 mb-1">${escapeHtml(r.title)}</h3><p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">${escapeHtml(r.description)}</p></div>`).join('')}</div></section>`
+    : '';
+  const faqsHtml = Array.isArray(siteContent?.faq?.items)
+    ? `<section class="mb-8"><h2 class="text-xl font-bold text-zinc-900 mb-3">よくある質問</h2><div class="space-y-3">${siteContent.faq.items.map((f) => `<div class="p-4 rounded-xl bg-rose-50/40 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">${escapeHtml(f.question)}</p><p class="text-sm text-zinc-700 leading-relaxed">${escapeHtml(f.answer)}</p></div>`).join('')}</div></section>`
+    : '';
+  const topPageBodyHtml = `
+    <section class="mb-8 p-4 rounded-2xl bg-rose-50/60 border border-rose-100">
+      <p id="hero-tagline" class="text-xs font-bold text-rose-700 mb-2">${escapeHtml(siteContent?.hero?.tagline || '信太山新地 お店直接求人｜信太山ガールズ【公式】')}</p>
+      <div id="hero-description" class="space-y-2 text-sm text-zinc-700 leading-relaxed">
+        <p>${escapeHtml(siteContent?.hero?.descriptionLine1 || '信太山新地の中でもトップクラスのお店です。')}</p>
+        <p>${escapeHtml(siteContent?.hero?.descriptionLine2 || '当店では未経験の方も、経験のある方も歓迎。仕事内容・お給料・待遇・働く環境まで、当店の条件を応募前に分かりやすくご案内します。')}</p>
+        <p>${escapeHtml(siteContent?.hero?.descriptionLine3 || '週1日からの勤務や1日3〜4時間の短時間勤務など、ご希望の働き方もお気軽にご相談ください。')}</p>
+      </div>
+      <p class="mt-3 text-xs text-zinc-600">${escapeHtml(siteContent?.hero?.badgeText || '')}</p>
+      <p class="mt-3"><a href="https://lin.ee/Z70RRKH" class="inline-block px-5 py-2.5 rounded-xl bg-[#06C755] text-white font-bold text-sm">LINEで気軽に相談する</a></p>
+      <p class="mt-2 text-xs text-zinc-500">※掲載画像は雰囲気をお伝えするためのイメージ素材であり、実際の店舗写真・在籍スタッフ写真ではありません。</p>
+    </section>
+    ${reasonsHtml}
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-zinc-900 mb-3">初めての方にも分かる、お仕事内容（1日の流れ）</h2>
+      <ol class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-xs sm:text-sm">
+        <li class="p-3 rounded-xl bg-rose-50/40 border border-rose-100"><strong>STEP 1：出勤・無料衣装に着替え</strong><br />手ぶら出勤OK・身支度</li>
+        <li class="p-3 rounded-xl bg-rose-50/40 border border-rose-100"><strong>STEP 2：待機所（スタンドまたは旅館）で待機</strong><br />店先顔出しなし・自由時間</li>
+        <li class="p-3 rounded-xl bg-rose-50/40 border border-rose-100"><strong>STEP 3：仲居さんの案内で接客</strong><br />15分〜の個室コース対応</li>
+        <li class="p-3 rounded-xl bg-rose-50/40 border border-rose-100"><strong>STEP 4：全額現金受取・退勤</strong><br />その日の報酬を当日手渡し</li>
+      </ol>
+      <p class="text-sm text-zinc-700 leading-relaxed">旅館内個室で行う15分単位のショートコース（15分〜60分）を中心とした1対1の接客です。軽い会話のあと、スキンシップ・フェラ・コンドーム着用厳守での本番行為（生本番禁止）などを行います。お茶出しや飲酒、連絡先交換・営業LINE、客室清掃はありません。仲居さんが受付・お部屋案内・時間管理・片付けを担当するため初めての方も安心です。</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-zinc-900 mb-3">気になるお給料について、分かりやすくご説明します</h2>
+      <table class="w-full text-xs sm:text-sm border-collapse border border-rose-100 mb-4">
+        <thead><tr class="bg-rose-50"><th class="p-2 border border-rose-100 text-left">コース時間</th><th class="p-2 border border-rose-100 text-left">手取り報酬基準</th><th class="p-2 border border-rose-100 text-left">補足</th></tr></thead>
+        <tbody>
+          <tr><td class="p-2 border border-rose-100">15分コース</td><td class="p-2 border border-rose-100">3,800円〜</td><td class="p-2 border border-rose-100">短時間の基本コース</td></tr>
+          <tr><td class="p-2 border border-rose-100">30分コース</td><td class="p-2 border border-rose-100">7,600円〜</td><td class="p-2 border border-rose-100">定番・ゆったり接客</td></tr>
+          <tr><td class="p-2 border border-rose-100">45分コース</td><td class="p-2 border border-rose-100">11,400円〜</td><td class="p-2 border border-rose-100">長めにお話ししたい方向け</td></tr>
+          <tr><td class="p-2 border border-rose-100">60分コース</td><td class="p-2 border border-rose-100">15,200円〜</td><td class="p-2 border border-rose-100">じっくり接客（以降15分毎加算）</td></tr>
+        </tbody>
+      </table>
+      <ul class="space-y-2 text-xs sm:text-sm text-zinc-700">
+        <li><strong>例1｜Wワーク・短時間勤務（週2日・1日4時間 18:00〜22:00）</strong>：日給目安 15,200円〜22,800円（月8日で約12万〜18万円目安／15分×2＋30分×1〜30分×3）</li>
+        <li><strong>例2｜副業・夕方〜夜ペース（週3日・1日6時間 17:00〜23:00）</strong>：日給目安 26,600円〜38,000円（月12日で約31万〜45万円目安／15分×3＋30分×2〜30分×5）</li>
+        <li><strong>例3｜日中中心でしっかり勤務（週4日・1日8時間 11:00〜19:00）</strong>：日給目安 38,000円〜57,000円（月16日で約60万〜91万円目安／30分×5〜30分×6＋45分×1）</li>
+      </ul>
+      <p class="mt-2 text-xs text-zinc-600">※退勤時に即日全額現金日払い、雑費・紹介料などの天引き0円。最低時給10,000円保証・待機日給保証制度あり（適用条件は面接時に事前ご説明します）。</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-zinc-900 mb-3">募集要項・勤務条件</h2>
+      <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-700">
+        <li><strong>応募資格：</strong>20歳以上の女性（未経験・経験者歓迎 ※20歳未満不可）</li>
+        <li><strong>勤務地：</strong>大阪府和泉市幸二丁目（信太山新地／JR阪和線「信太山駅」徒歩約5分）</li>
+        <li><strong>待機方法：</strong>店先での顔見せなし／待機所（スタンドまたは旅館）での待機</li>
+        <li><strong>勤務時間・シフト：</strong>10:00〜24:00（完全自由出勤制・週1日〜・1日3〜4時間の短時間相談可）</li>
+        <li><strong>定休日：</strong>毎月20日（信太山新地エリア一斉定休日）</li>
+        <li><strong>寮・送迎・託児：</strong>個室マンション寮（日額0〜2,000円目安）、駅送迎・駐車場相談可、託児費用補助相談可</li>
+      </ul>
+    </section>
+    ${faqsHtml}
+    <section class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200">
+      <h2 class="text-lg font-bold text-zinc-900 mb-2">${escapeHtml(siteContent?.consultation?.title || '応募するか迷っている方も、まずはお気軽にご相談ください。')}</h2>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-3">${escapeHtml(siteContent?.consultation?.description || '仕事内容・お給料・働き方など、気になることをLINEでご質問いただけます。無理に応募をおすすめすることはありません。')}</p>
+      <p><a href="https://lin.ee/Z70RRKH" class="inline-block px-5 py-2.5 rounded-xl bg-[#06C755] text-white font-bold text-sm">LINEで気軽に相談する（https://lin.ee/Z70RRKH）</a></p>
+    </section>
+  `;
+
   const rootSsrShell = buildSsrRootShell({
-    heading: '信太山新地でお仕事を探す女性へ。自分に合った働き方を、信太山ガールズで見つけませんか？',
-    description:
-      '仲介業者や紹介所を通さない、信太山新地にあるお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仕事内容・お給料・待遇・働く環境まで分かりやすくご案内します。',
-    noscriptBodyHtml:
-      '<p>未経験の方も相談OK・週1日から相談OK・働き方の相談OK・LINEで事前相談OK。待機所（スタンドまたは旅館）での待機、15分〜60分の短時間コース（ゴム着用厳守、お茶出し・飲酒なし）、即日全額日払いや信太山ガールズの5つの魅力を分かりやすくご案内しています。</p>'
+    heading: `${siteContent?.hero?.titleLine1 || '信太山新地でお仕事を探す女性へ。'}${siteContent?.hero?.titleLine2 || '自分に合った働き方を、信太山ガールズで見つけませんか？'}`,
+    hideLeadInSsr: true,
+    ssrBodyHtml: topPageBodyHtml
   });
   const updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
   fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');

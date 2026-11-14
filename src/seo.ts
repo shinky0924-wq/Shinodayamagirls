@@ -177,7 +177,14 @@ export function updatePageSeo(config: SeoConfig) {
             logo: {
               '@type': 'ImageObject',
               url: `${BASE_SITE_URL}/favicon.png`
-            }
+            },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              url: 'https://lin.ee/Z70RRKH',
+              availableLanguage: ['Japanese']
+            },
+            sameAs: ['https://lin.ee/Z70RRKH']
           }
         ]
       });
