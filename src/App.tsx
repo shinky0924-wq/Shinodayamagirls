@@ -18,6 +18,7 @@ import WorkFlowSection from './components/WorkFlowSection';
 import ConsultationForm from './components/ConsultationForm';
 import RecruitHub from './components/RecruitHub';
 import AiSearchQueryGuideSection from './components/AiSearchQueryGuideSection';
+import { QUERY_SUMMARY_CARDS } from './quickGuideData';
 import Footer from './components/Footer';
 import LucideIcon from './components/LucideIcon';
 import ArticleCardImage from './components/ArticleCardImage';
@@ -36,7 +37,7 @@ import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch, loadFullBlogArticl
 import { TOPIC_CLUSTERS } from './topicClusterData';
 import { updatePageSeo, formatBlogSeoTitle, formatMetaDescription, getIsoLastUpdated } from './seo';
 
-type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound';
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound';
 
 export default function App() {
   const [siteContent] = useState<SiteContent>(getStoredSiteContent());
@@ -88,6 +89,8 @@ export default function App() {
         }
       } else if (pathname === '/interview' || pathname === '/interview/' || pathname.startsWith('/staff-interview') || pathname.startsWith('/recruiter-interview')) {
         setCurrentTab('interview');
+      } else if (pathname === '/quick-guide' || pathname === '/quick-guide/') {
+        setCurrentTab('quick-guide');
       } else if (pathname.startsWith('/admin')) {
         setCurrentTab('admin');
       } else if (pathname.startsWith('/blog')) {
@@ -164,6 +167,8 @@ export default function App() {
       navigateTo('blog', '/blog');
     } else if (tab === 'interview') {
       navigateTo('interview', '/interview');
+    } else if (tab === 'quick-guide') {
+      navigateTo('quick-guide', '/quick-guide');
     } else if (tab === 'admin') {
       navigateTo('admin', '/admin');
     } else if (tab === 'cluster') {
@@ -513,6 +518,61 @@ export default function App() {
           }
         });
       }
+    } else if (currentTab === 'quick-guide') {
+      updatePageSeo({
+        title: '信太山新地求人 キーワード別公式要点まとめ｜給料・未経験・仕事内容【公式】',
+        description: '信太山新地の求人・直接募集・給料・日払い・未経験・仕事内容・待機方法（顔出しなし）・週1日シフト・寮出稼ぎ・飛田新地との違いなど、応募前に気になるキーワード別に公式結論をまとめました。',
+        canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/quick-guide',
+        ogImage: '/images/col_search_phone_jp_1792475574840.webp',
+        ogType: 'website',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'WebPage',
+              '@id': 'https://osaka-shinodayamashinchi-recruit.com/quick-guide#webpage',
+              'name': '気になるキーワード別にすぐ分かる｜信太山新地求人 公式要点まとめ',
+              'description': '信太山新地の求人・給料・未経験・仕事内容・待機方法・働き方・寮出稼ぎ・他業種比較について公式結論をまとめたページ',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/quick-guide',
+              'dateModified': getIsoLastUpdated(),
+              'inLanguage': 'ja-JP',
+              'speakable': {
+                '@type': 'SpeakableSpecification',
+                'cssSelector': ['h1', 'h2', '.ai-direct-answer']
+              }
+            },
+            {
+              '@type': 'FAQPage',
+              '@id': 'https://osaka-shinodayamashinchi-recruit.com/quick-guide#faq',
+              'mainEntity': QUERY_SUMMARY_CARDS.map((card) => ({
+                '@type': 'Question',
+                'name': card.questionHeading,
+                'acceptedAnswer': {
+                  '@type': 'Answer',
+                  'text': card.directAnswer
+                }
+              }))
+            },
+            {
+              '@type': 'BreadcrumbList',
+              'itemListElement': [
+                {
+                  '@type': 'ListItem',
+                  'position': 1,
+                  'name': '信太山新地求人トップ',
+                  'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+                },
+                {
+                  '@type': 'ListItem',
+                  'position': 2,
+                  'name': '気になるキーワード別 公式要点まとめ',
+                  'item': 'https://osaka-shinodayamashinchi-recruit.com/quick-guide'
+                }
+              ]
+            }
+          ]
+        }
+      });
     } else if (currentTab === 'admin') {
       updatePageSeo({
         title: '管理者画面｜信太山ガールズ',
@@ -683,7 +743,15 @@ export default function App() {
               onNavigateDetail={() => handleNavigateTopic('flow')}
             />
 
-            {/* Section 13: 応募前に知っておきたい情報 (12テーマ詳細ページへの導線) */}
+            {/* Section 13: 最終応募・LINE相談エリア */}
+            <ConsultationForm
+              content={siteContent.consultation}
+              initialMessage={consultationMessage}
+              onClearInitialMessage={() => setConsultationMessage('')}
+              onScrollToRequirements={() => handleScrollToSection('jobs')}
+            />
+
+            {/* Section 14: 応募前に知っておきたい情報 (12テーマ詳細ページへの導線) */}
             <div id="hub">
               <RecruitHub
                 onScrollToSection={handleScrollToSection}
@@ -694,23 +762,18 @@ export default function App() {
                 onNavigateFaq={() => handleNavigateFaq()}
               />
             </div>
-
-            {/* Section 13.5: 検索キーワード別の結論・要点まとめ */}
-            <AiSearchQueryGuideSection
-              onNavigateTopic={handleNavigateTopic}
-              onNavigateCompare={handleNavigateCompare}
-              onNavigateAbout={() => handleTabChange('about')}
-              onCtaclick={handleCtaclick}
-            />
-
-            {/* Section 14: 最終応募・LINE相談エリア */}
-            <ConsultationForm
-              content={siteContent.consultation}
-              initialMessage={consultationMessage}
-              onClearInitialMessage={() => setConsultationMessage('')}
-              onScrollToRequirements={() => handleScrollToSection('jobs')}
-            />
           </div>
+        )}
+
+        {currentTab === 'quick-guide' && (
+          <AiSearchQueryGuideSection
+            onNavigateHome={() => navigateTo('recruit', '/')}
+            onNavigateTopic={handleNavigateTopic}
+            onNavigateCompare={handleNavigateCompare}
+            onNavigateAbout={() => handleTabChange('about')}
+            onNavigateFaq={() => handleNavigateFaq()}
+            onCtaclick={handleCtaclick}
+          />
         )}
 
         <Suspense
@@ -1042,6 +1105,8 @@ export default function App() {
                                           handleNavigateFaq();
                                         } else if (linkHref === '/interview') {
                                           navigateTo('interview', '/interview');
+                                        } else if (linkHref === '/quick-guide') {
+                                          navigateTo('quick-guide', '/quick-guide');
                                         } else if (linkHref === '/about') {
                                           navigateTo('about', '/about');
                                         } else if (linkHref === '/policy') {

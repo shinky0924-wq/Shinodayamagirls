@@ -355,7 +355,7 @@ function buildSsrRootShell(routeMeta) {
   const heading = escapeHtml(routeMeta.heading || routeMeta.title);
   const lead = escapeHtml(routeMeta.leadText || routeMeta.description || '');
   const body = routeMeta.ssrBodyHtml || routeMeta.noscriptBodyHtml || '';
-  return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between flex-wrap gap-2"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/experienced">経験者</a><a href="${BASE_DOMAIN}/requirements">募集要項</a><a href="${BASE_DOMAIN}/flow">面接・体入</a><a href="${BASE_DOMAIN}/workstyle">働き方</a><a href="${BASE_DOMAIN}/shops">お店選び</a><a href="${BASE_DOMAIN}/dorm">寮・出稼ぎ</a><a href="${BASE_DOMAIN}/safety">身バレ対策</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1>${routeMeta.hideLeadInSsr ? '' : `<p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>`}${body}</article></main></div></div></div>`;
+  return `<div id="root"><div class="min-h-screen bg-[#faf6f7] text-zinc-900 pt-20 pb-16 px-4 sm:px-6"><div class="max-w-4xl mx-auto"><header class="mb-6 pb-4 border-b border-rose-100 flex items-center justify-between flex-wrap gap-2"><a href="${BASE_DOMAIN}/" class="font-bold text-rose-600 text-base">信太山ガールズ｜信太山新地求人 公式</a><nav aria-label="主要メニュー" class="flex flex-wrap gap-3 text-xs text-zinc-600"><a href="${BASE_DOMAIN}/job">仕事内容</a><a href="${BASE_DOMAIN}/salary">給料</a><a href="${BASE_DOMAIN}/beginner">未経験</a><a href="${BASE_DOMAIN}/experienced">経験者</a><a href="${BASE_DOMAIN}/requirements">募集要項</a><a href="${BASE_DOMAIN}/flow">面接・体入</a><a href="${BASE_DOMAIN}/workstyle">働き方</a><a href="${BASE_DOMAIN}/shops">お店選び</a><a href="${BASE_DOMAIN}/dorm">寮・出稼ぎ</a><a href="${BASE_DOMAIN}/safety">身バレ対策</a><a href="${BASE_DOMAIN}/compare">徹底比較</a><a href="${BASE_DOMAIN}/types">働き方ガイド</a><a href="${BASE_DOMAIN}/quick-guide">キーワード別まとめ</a><a href="${BASE_DOMAIN}/faq">FAQ</a><a href="${BASE_DOMAIN}/blog">コラム</a></nav></header><main><article class="bg-white rounded-3xl p-6 sm:p-10 border border-rose-100 shadow-xs"><h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 leading-snug mb-4">${heading}</h1>${routeMeta.hideLeadInSsr ? '' : `<p class="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">${lead}</p>`}${body}</article></main></div></div></div>`;
 }
 
 function stripRootOnlyStructuredData(html) {
@@ -553,6 +553,7 @@ function buildRouteHtml(baseHtml, routeMeta) {
               <li><a href="${BASE_DOMAIN}/safety">身バレ対策・プライバシー配慮</a></li>
               <li><a href="${BASE_DOMAIN}/compare">信太山新地 徹底比較ガイド</a></li>
               <li><a href="${BASE_DOMAIN}/types">タイプ別働き方ガイド（WORK STYLE GUIDE）</a></li>
+              <li><a href="${BASE_DOMAIN}/quick-guide">気になるキーワード別 公式要点まとめ</a></li>
               <li><a href="${BASE_DOMAIN}/faq">よくある質問 FAQ（66問）</a></li>
               <li><a href="${BASE_DOMAIN}/about">運営者情報・店舗概要</a></li>
               <li><a href="${BASE_DOMAIN}/policy">掲載ポリシー・安全規約・個人情報保護</a></li>
@@ -681,6 +682,7 @@ async function main() {
   const compareModule = await loadTsModule('src/compareData.ts');
   const faqModule = await loadTsModule('src/faq11CategoriesData.ts');
   const workstyleModule = await loadTsModule('src/workstyleGuideData.ts');
+  const quickGuideModule = await loadTsModule('src/quickGuideData.ts');
 
   const mainTargets = Array.isArray(compareModule.MAIN_6_TARGETS) ? compareModule.MAIN_6_TARGETS : [];
   const mainItems = Array.isArray(compareModule.MAIN_11_COMPARISON_ITEMS) ? compareModule.MAIN_11_COMPARISON_ITEMS : [];
@@ -692,6 +694,7 @@ async function main() {
 
   const workstyleTypes = Array.isArray(workstyleModule.WORKSTYLE_8_TYPES) ? workstyleModule.WORKSTYLE_8_TYPES : [];
   const workstyleOverviewFaqs = Array.isArray(workstyleModule.WORKSTYLE_OVERVIEW_FAQS) ? workstyleModule.WORKSTYLE_OVERVIEW_FAQS : [];
+  const quickGuideCards = Array.isArray(quickGuideModule.QUERY_SUMMARY_CARDS) ? quickGuideModule.QUERY_SUMMARY_CARDS : [];
 
   // Build clean noindex, nofollow 404.html (prevents Soft-404 duplication against '/')
   const notFoundHtml = buildRouteHtml(baseHtml, {
@@ -718,6 +721,7 @@ async function main() {
   const interviewLastMod = getFileLastMod(['src/components/RecruiterInterviewPage.tsx']);
   const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
   const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
+  const quickGuideLastMod = getFileLastMod(['src/quickGuideData.ts', 'src/components/AiSearchQueryGuideSection.tsx']);
   const topicLastMod = getFileLastMod(['data/topicClusters.json', 'src/components/TopicClusterPage.tsx']);
 
   const routes = [];
@@ -1272,6 +1276,64 @@ async function main() {
     }
   });
 
+  // Dedicated Quick Guide Route (/quick-guide)
+  const quickGuideSsrHtml = `<section id="ai-query-summary" class="mb-8"><p class="text-sm text-zinc-700 leading-relaxed mb-6">「給料」「未経験」「仕事内容」「待機方法・身バレ対策」「寮・出稼ぎ」など、応募前によく調べられるポイントを結論からお伝えします。</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">${quickGuideCards
+    .map(
+      (card) =>
+        `<article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100 flex flex-col justify-between"><div><p class="font-bold text-rose-700 mb-1">${escapeHtml(card.queryLabel)}</p><h2 class="font-bold text-base text-zinc-900 mb-2">${escapeHtml(card.questionHeading)}</h2><p class="ai-direct-answer text-zinc-700 leading-relaxed mb-3">${escapeHtml(card.directAnswer)}</p></div><a href="${BASE_DOMAIN}${escapeHtml(card.targetPath)}" class="text-rose-700 font-bold underline">${escapeHtml(card.targetLabel)}</a></article>`
+    )
+    .join('')}</div></section><div class="p-4 rounded-2xl bg-rose-50/70 border border-rose-200"><p class="font-bold text-sm text-zinc-900 mb-2">さらに詳しく確認したい・個別に質問したい方へ</p><p class="text-xs sm:text-sm text-zinc-700 mb-3">詳しい全66問のQ&amp;Aページをご覧いただくか、当店公式LINEで女性スタッフへ直接ご質問いただけます。</p><p><a href="https://lin.ee/Z70RRKH" class="inline-block px-4 py-2 rounded-xl bg-[#06C755] text-white font-bold text-xs">LINEで直接質問してみる</a>｜<a href="${BASE_DOMAIN}/faq" class="text-rose-700 font-bold underline text-xs">よくある質問（66問）を見る</a>｜<a href="${BASE_DOMAIN}/" class="text-rose-700 font-bold underline text-xs">トップページへ戻る</a></p></div>`;
+
+  routes.push({
+    route: 'quick-guide',
+    mdPath: '/quick-guide.md',
+    title: '信太山新地求人 キーワード別公式要点まとめ｜給料・未経験・仕事内容【公式】',
+    description:
+      '信太山新地の求人・直接募集・給料・日払い・未経験・仕事内容・待機方法（顔出しなし）・週1日シフト・寮出稼ぎ・飛田新地との違いなど、応募前に気になるキーワード別に公式結論をまとめました。',
+    canonicalUrl: `${BASE_DOMAIN}/quick-guide`,
+    imagePath: '/images/col_search_phone_jp_1792475574840.webp',
+    heading: '気になるキーワード別にすぐ分かる｜公式要点まとめ',
+    hideLeadInSsr: true,
+    ssrBodyHtml: quickGuideSsrHtml,
+    noscriptBodyHtml: `<ul>${quickGuideCards
+      .map(
+        (card) =>
+          `<li><strong>${escapeHtml(card.queryLabel)}</strong>：${escapeHtml(card.directAnswer)}（<a href="${BASE_DOMAIN}${escapeHtml(card.targetPath)}">${escapeHtml(card.targetLabel)}</a>）</li>`
+      )
+      .join('')}</ul>`,
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/quick-guide#webpage`,
+          name: '気になるキーワード別にすぐ分かる｜信太山新地求人 公式要点まとめ',
+          description:
+            '信太山新地の求人・給料・未経験・仕事内容・待機方法・働き方・寮出稼ぎ・他業種比較について公式結論をまとめたページ',
+          url: `${BASE_DOMAIN}/quick-guide`,
+          dateModified: `${quickGuideLastMod}T00:00:00+09:00`,
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2', '.ai-direct-answer']
+          }
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${BASE_DOMAIN}/quick-guide#faq`,
+          mainEntity: quickGuideCards.map((card) => ({
+            '@type': 'Question',
+            name: card.questionHeading,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: card.directAnswer
+            }
+          }))
+        }
+      ]
+    }
+  });
+
   routes.push({
     route: 'admin',
     title: '管理者画面｜信太山ガールズ',
@@ -1554,63 +1616,29 @@ async function main() {
       </ul>
     </section>
     ${faqsHtml}
-    <section id="ai-query-summary" class="mb-8">
-      <h2 class="text-xl font-bold text-zinc-900 mb-3">気になるキーワード別にすぐ分かる｜信太山新地求人 公式要点まとめ</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 求人・直接募集</p>
-          <h3 class="font-bold text-zinc-900 mb-1">お店直接募集と紹介・スカウト経由の違いは？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：信太山ガールズは仲介業者やスカウトを通さない老舗旅館直営のお店直接募集窓口です。紹介料や待機料・雑費の天引きがなく、条件を応募前に確認できます。</p>
-          <a href="${BASE_DOMAIN}/about" class="text-rose-700 font-bold underline">運営者情報・直営店舗概要を見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 給料・日払い</p>
-          <h3 class="font-bold text-zinc-900 mb-1">給料体系と日払い・保証制度の仕組みは？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：15分単位のコース報酬（15分3,800円〜・30分7,600円〜・45分11,400円〜・60分15,200円〜）で、退勤時に即日全額現金日払いです。条件に応じた最低時給10,000円保証・待機日給保証制度あり。</p>
-          <a href="${BASE_DOMAIN}/salary" class="text-rose-700 font-bold underline">給料・保証条件の詳細を見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 未経験・体入</p>
-          <h3 class="font-bold text-zinc-900 mb-1">未経験でも始められますか？面接や体入は？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：20歳以上の女性であれば未経験の方も多数活躍しています。履歴書不要・私服での事前見学や相談のみ、即日日払いの体験入店も相談できます。</p>
-          <a href="${BASE_DOMAIN}/beginner" class="text-rose-700 font-bold underline">未経験スタート安心ガイドを見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 仕事内容</p>
-          <h3 class="font-bold text-zinc-900 mb-1">15分コースの流れとお酒や掃除の有無は？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：仲居さんの案内で個室へ向かい、15分〜60分の短時間で軽い会話・スキンシップ・フェラ・避妊具着用厳守での本番行為などを行います。お茶出し・飲酒・営業LINE・部屋掃除はありません。</p>
-          <a href="${BASE_DOMAIN}/job" class="text-rose-700 font-bold underline">仕事内容・1日の流れを見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 待機・身バレ対策</p>
-          <h3 class="font-bold text-zinc-900 mb-1">店先での顔出しはありますか？待機方法は？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：通り沿いの店先に座って顔を見せる接客はなく、待機所（スタンドまたは旅館）で待機します。WebやSNSへの顔写真掲載もなく、源氏名で働けます。</p>
-          <a href="${BASE_DOMAIN}/safety" class="text-rose-700 font-bold underline">身バレ対策・安全ルールを見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 働き方・週1日</p>
-          <h3 class="font-bold text-zinc-900 mb-1">週1日・短時間やWワーク、定休日は？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：10:00〜24:00の完全自由出勤制で、週1日・1日3〜4時間の短時間勤務やWワークも相談可能です。毎月20日はエリア一斉定休日となります。</p>
-          <a href="${BASE_DOMAIN}/workstyle" class="text-rose-700 font-bold underline">働き方・自由シフトの詳細を見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地 寮・出稼ぎ・送迎</p>
-          <h3 class="font-bold text-zinc-900 mb-1">個室マンション寮や交通費・託児補助は？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：JR信太山駅周辺に家具家電付きの個室マンション寮（日額0〜2,000円目安）、往復交通費規定支給、送迎、駐車場、託児費用補助を相談できます。</p>
-          <a href="${BASE_DOMAIN}/dorm" class="text-rose-700 font-bold underline">寮・出稼ぎ・交通費条件を見る</a>
-        </article>
-        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
-          <p class="font-bold text-rose-700 mb-1">信太山新地と飛田新地・他業種の違い</p>
-          <h3 class="font-bold text-zinc-900 mb-1">飛田新地やメンエス・キャバとの違いは？</h3>
-          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：店先顔見せの有無（信太山新地は待機所待機で顔出しなし）と15分単位の短時間制、飲酒・営業LINE・ノルマなし・ネット顔出しなしが特徴です。</p>
-          <a href="${BASE_DOMAIN}/compare" class="text-rose-700 font-bold underline">6業種・11項目徹底比較を見る</a>
-        </article>
-      </div>
-    </section>
-    <section class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200">
+    <section id="consultation" class="mb-8 p-5 rounded-2xl bg-rose-50/70 border border-rose-200">
       <h2 class="text-lg font-bold text-zinc-900 mb-2">${escapeHtml(siteContent?.consultation?.title || '応募するか迷っている方も、まずはお気軽にご相談ください。')}</h2>
-      <p class="text-sm text-zinc-700 leading-relaxed mb-3">${escapeHtml(siteContent?.consultation?.description || '仕事内容・お給料・働き方など、気になることをLINEでご質問いただけます。無理に応募をおすすめすることはありません。')}</p>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-3">${escapeHtml(siteContent?.consultation?.description || '仕事内容・お給料・働き方など、気になることをLINEでご質問いただけます。無理に応募をおすすめすることはありません。まずは疑問や不安を解消するところから始めてみませんか？')}</p>
       <p><a href="https://lin.ee/Z70RRKH" class="inline-block px-5 py-2.5 rounded-xl bg-[#06C755] text-white font-bold text-sm">LINEで気軽に相談する（https://lin.ee/Z70RRKH）</a></p>
+    </section>
+    <section id="recruit-hub" class="mb-8">
+      <h2 class="text-xl font-bold text-zinc-900 mb-2">応募前に知っておきたい情報（RECRUIT GUIDE）</h2>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-4">気になるテーマから当店の募集情報を詳しく確認できます。分からないことはLINEでも当店スタッフが直接お答えします。</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs sm:text-sm font-bold mb-3">
+        <a href="${BASE_DOMAIN}/job" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">仕事内容・1日の流れ</a>
+        <a href="${BASE_DOMAIN}/salary" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">お給料・日払い条件</a>
+        <a href="${BASE_DOMAIN}/beginner" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">未経験ガイド</a>
+        <a href="${BASE_DOMAIN}/experienced" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">経験者優遇・移籍</a>
+        <a href="${BASE_DOMAIN}/requirements" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">募集要項・応募条件</a>
+        <a href="${BASE_DOMAIN}/flow" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">面接・体験入店の流れ</a>
+        <a href="${BASE_DOMAIN}/workstyle" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">自由出勤・働き方</a>
+        <a href="${BASE_DOMAIN}/shops" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">お店選び・半年ルール</a>
+        <a href="${BASE_DOMAIN}/dorm" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">個室寮・出稼ぎ</a>
+        <a href="${BASE_DOMAIN}/safety" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">身バレ・安全対策</a>
+        <a href="${BASE_DOMAIN}/compare" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">6業種・徹底比較</a>
+        <a href="${BASE_DOMAIN}/quick-guide" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">キーワード別要点まとめ</a>
+      </div>
+      <p class="text-xs text-zinc-500">※各カードの画像は各テーマの雰囲気をお伝えするためのイメージ素材です。</p>
     </section>
   `;
 

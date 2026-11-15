@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import LucideIcon from './LucideIcon';
 
 interface HeaderProps {
-  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound';
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound') => void;
+  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound';
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound') => void;
   onCtaclick: () => void;
   onScrollToSection: (sectionId: string) => void;
   onNavigateTopic?: (topicId: string) => void;
@@ -50,8 +50,8 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
       'jobs',
       'top-faq',
       'flow',
-      'recruit-hub',
       'consultation',
+      'recruit-hub',
     ];
 
     const handleScroll = () => {
@@ -376,16 +376,16 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
                     target: item.target,
                   })),
                   {
-                    label: '応募前に知っておきたい情報（総合ガイド）',
-                    href: '#recruit-hub',
-                    action: 'section',
-                    target: '#recruit-hub',
-                  },
-                  {
                     label: 'LINE相談・お問い合わせ',
                     href: '#consultation',
                     action: 'section',
                     target: '#consultation',
+                  },
+                  {
+                    label: '応募前に知っておきたい情報（総合ガイド）',
+                    href: '#recruit-hub',
+                    action: 'section',
+                    target: '#recruit-hub',
                   },
                 ].map((item) => (
                   <a

@@ -9,7 +9,7 @@ import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
 
 interface FooterProps {
   currentTab: string;
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview') => void;
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide') => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAdmin: () => void;
   onNavigateCompare?: (categorySlug?: string) => void;
@@ -54,8 +54,8 @@ export default function Footer({
     { name: '信太山ガールズの募集条件', action: 'section', target: '#jobs' },
     { name: 'よくある質問', action: 'section', target: '#top-faq' },
     { name: '応募からの流れ', action: 'section', target: '#flow' },
-    { name: '応募前に知っておきたい情報', action: 'section', target: '#recruit-hub' },
     { name: 'LINE相談・お問い合わせ', action: 'section', target: '#consultation' },
+    { name: '応募前に知っておきたい情報', action: 'section', target: '#recruit-hub' },
   ];
 
   const workstyleLinks = [
@@ -188,6 +188,18 @@ export default function Footer({
               運営方針・関連ページ
             </p>
             <ul className="space-y-2 text-xs sm:text-[13px]">
+              <li>
+                <a
+                  href="/quick-guide"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onChangeTab('quick-guide');
+                  }}
+                  className="text-[#4A4A4A] hover:text-[#A65D79] hover:underline font-medium"
+                >
+                  気になるキーワード別 公式要点まとめ
+                </a>
+              </li>
               <li>
                 <a
                   href="/compare"
