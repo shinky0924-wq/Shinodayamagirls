@@ -1,0 +1,28 @@
+{
+  "name": "信太山ガールズ｜信太山新地求人公式サイト",
+  "short_name": "信太山ガールズ",
+  "description": "信太山新地の老舗旅館直営による女性向け公式求人情報サイト。仕事内容・お給料（15分単位のコース報酬）・条件別収入例・待遇・働く環境を応募前に分かりやすくご案内します。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#A65D79",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/shinodayama_logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ import {
   WorkstyleRelatedLink
 } from '../workstyleGuideData';
 import { LINE_OFFICIAL_URL } from '../data';
-import { updatePageSeo } from '../seo';
+import { updatePageSeo, getIsoLastUpdated } from '../seo';
 
 interface ComparisonPageProps {
   onNavigateHome: () => void;
@@ -133,7 +133,7 @@ export default function ComparisonPage({
             'name': title,
             'description': rawDesc,
             'url': canonicalUrl,
-            'dateModified': '2026-11-14',
+            'dateModified': getIsoLastUpdated(),
             'inLanguage': 'ja-JP',
             'speakable': {
               '@type': 'SpeakableSpecification',

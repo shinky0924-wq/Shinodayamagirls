@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LucideIcon from './LucideIcon';
 import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
-import { updatePageSeo } from '../seo';
+import { updatePageSeo, getIsoLastUpdated } from '../seo';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -22,6 +22,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
             title: '求人情報掲載ポリシー・安全規約・個人情報保護｜信太山ガールズ公式',
             description: '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内。満20歳以上の厳格な本人確認や個人情報の秘密厳守を徹底しています。',
             canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/policy',
+            ogImage: '/images/col_official_documents_1792465890547.webp',
             ogType: 'website',
             jsonLd: {
               '@context': 'https://schema.org',
@@ -32,7 +33,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
                   'name': '求人情報掲載ポリシー・安全規約・個人情報保護方針',
                   'description': '信太山ガールズの求人掲載基準、コンプライアンス就労憲章、個人情報保護方針',
                   'url': 'https://osaka-shinodayamashinchi-recruit.com/policy',
-                  'dateModified': '2026-11-14',
+                  'dateModified': getIsoLastUpdated(),
                   'inLanguage': 'ja-JP',
                   'speakable': {
                     '@type': 'SpeakableSpecification',
@@ -63,6 +64,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
             title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
             description: '信太山新地の老舗旅館直営公式求人「信太山ガールズ」の運営者情報、店舗概要、所在地（大阪府和泉市）、女性専任サポート体制、所属団体、コンプライアンス就労憲章、個人情報保護規程を詳しく明示しています。',
             canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
+            ogImage: '/images/col_secure_ryotei_1792475628730.webp',
             ogType: 'website',
             jsonLd: {
               '@context': 'https://schema.org',
@@ -73,7 +75,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
                   'name': '運営者情報・店舗概要',
                   'description': '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
                   'url': 'https://osaka-shinodayamashinchi-recruit.com/about',
-                  'dateModified': '2026-11-14',
+                  'dateModified': getIsoLastUpdated(),
                   'inLanguage': 'ja-JP',
                   'speakable': {
                     '@type': 'SpeakableSpecification',

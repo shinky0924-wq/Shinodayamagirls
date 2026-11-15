@@ -22,7 +22,7 @@ const DormPageContent = lazy(() => import('./DormPageContent'));
 const SafetyPageContent = lazy(() => import('./SafetyPageContent'));
 import TopicClusterBottomNav from './TopicClusterBottomNav';
 import { getStoredSiteContent } from '../siteContent';
-import { updatePageSeo } from '../seo';
+import { updatePageSeo, getIsoLastUpdated } from '../seo';
 
 interface TopicClusterPageProps {
   topicId: string;
@@ -328,7 +328,7 @@ export default function TopicClusterPage({
           'description': data.metaDescription || data.overview,
           'image': data.heroImage ? `https://osaka-shinodayamashinchi-recruit.com${data.heroImage}` : undefined,
           'datePublished': '2026-10-01T00:00:00+09:00',
-          'dateModified': '2026-11-14T00:00:00+09:00',
+          'dateModified': `${getIsoLastUpdated()}T00:00:00+09:00`,
           'inLanguage': 'ja-JP',
           'author': {
             '@type': 'Organization',

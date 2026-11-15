@@ -18,6 +18,15 @@ export const BASE_SITE_URL = 'https://osaka-shinodayamashinchi-recruit.com';
 export const DEFAULT_OG_IMAGE = `${BASE_SITE_URL}/images/shinodayama_hero_banner_1792225964954.jpg`;
 const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
+declare const __BUILD_DATE_ISO__: string | undefined;
+
+export function getIsoLastUpdated(fallback: string = '2026-11-15'): string {
+  if (typeof __BUILD_DATE_ISO__ !== 'undefined' && __BUILD_DATE_ISO__) {
+    return __BUILD_DATE_ISO__;
+  }
+  return fallback;
+}
+
 /**
  * Formats blog article titles to stay concise for Google SERP rendering while preserving full headline in H1/JSON-LD.
  */
@@ -167,7 +176,15 @@ export function updatePageSeo(config: SeoConfig) {
             url: `${BASE_SITE_URL}/`,
             name: '信太山ガールズ（信太山新地求人公式サイト）',
             inLanguage: 'ja-JP',
-            publisher: { '@id': `${BASE_SITE_URL}/#organization` }
+            publisher: { '@id': `${BASE_SITE_URL}/#organization` },
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: `${BASE_SITE_URL}/blog?q={search_term_string}`
+              },
+              'query-input': 'required name=search_term_string'
+            }
           },
           {
             '@type': 'Organization',

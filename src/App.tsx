@@ -33,7 +33,7 @@ import { getStoredSiteContent, SiteContent } from './siteContent';
 import { LINE_OFFICIAL_URL } from './data';
 import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch, loadFullBlogArticle } from './blogData';
 import { TOPIC_CLUSTERS } from './topicClusterData';
-import { updatePageSeo, formatBlogSeoTitle, formatMetaDescription } from './seo';
+import { updatePageSeo, formatBlogSeoTitle, formatMetaDescription, getIsoLastUpdated } from './seo';
 
 type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'notfound';
 
@@ -42,6 +42,8 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState<AppTab>('recruit');
   const [selectedTopicId, setSelectedTopicId] = useState<string>('job');
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
+  const [blogSearchQuery, setBlogSearchQuery] = useState<string>('');
+  const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>('all');
   const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
   const [initialFaqCategory, setInitialFaqCategory] = useState<string | null>(null);
   const [consultationMessage, setConsultationMessage] = useState<string>('');
@@ -94,6 +96,8 @@ export default function App() {
           setSelectedBlogSlug(parts[1]);
         } else {
           setSelectedBlogSlug(null);
+          setBlogSearchQuery(params.get('q') || '');
+          setBlogCategoryFilter(params.get('category') || 'all');
         }
       } else {
         const clusterTopics = [
@@ -321,6 +325,37 @@ export default function App() {
     return [...sameCategory, ...otherArticles].slice(0, 3);
   }, [currentArticle]);
 
+  const blogCategories = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const a of BLOG_ARTICLES) {
+      if (a.category && !map.has(a.category)) {
+        map.set(a.category, a.categoryLabel || a.category);
+      }
+    }
+    return Array.from(map.entries()).map(([id, label]) => ({ id, label }));
+  }, []);
+
+  const filteredBlogArticles = useMemo(() => {
+    const q = blogSearchQuery.trim().toLowerCase();
+    return BLOG_ARTICLES.filter((a) => {
+      if (blogCategoryFilter !== 'all' && a.category !== blogCategoryFilter) {
+        return false;
+      }
+      if (!q) return true;
+      const haystack = `${a.title} ${a.summary || ''} ${a.categoryLabel || ''} ${(a.tags || []).join(' ')}`.toLowerCase();
+      return haystack.includes(q);
+    });
+  }, [blogSearchQuery, blogCategoryFilter]);
+
+  const syncBlogQueryUrl = (nextQ: string, nextCat: string) => {
+    if (typeof window === 'undefined') return;
+    const p = new URLSearchParams();
+    if (nextQ.trim()) p.set('q', nextQ.trim());
+    if (nextCat && nextCat !== 'all') p.set('category', nextCat);
+    const qs = p.toString();
+    window.history.replaceState({}, '', qs ? `/blog?${qs}` : '/blog');
+  };
+
   // Synchronize dynamic SEO metadata and JSON-LD structured data for LLM and Web crawlers
   useEffect(() => {
     if (currentTab === 'recruit') {
@@ -350,6 +385,19 @@ export default function App() {
                 '@type': 'BlogPosting',
                 'headline': currentArticle.title,
                 'description': currentArticle.summary,
+                'articleSection': currentArticle.categoryLabel || currentArticle.category || '解説コラム',
+                'wordCount': (() => {
+                  let chars = (currentArticle.summary || '').length;
+                  if (Array.isArray(currentArticle.content)) {
+                    for (const b of currentArticle.content) {
+                      if (b.text) chars += b.text.length;
+                      if (b.question) chars += b.question.length;
+                      if (b.answer) chars += b.answer.length;
+                      if (Array.isArray(b.items)) chars += b.items.join('').length;
+                    }
+                  }
+                  return Math.max(chars, 300);
+                })(),
                 'datePublished': currentArticle.publishedAt,
                 'dateModified': currentArticle.publishedAt,
                 'inLanguage': 'ja-JP',
@@ -415,16 +463,33 @@ export default function App() {
           title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
           description: '信太山新地の仕事内容、15分単位の給料システム、待機所（スタンドまたは旅館）での待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
           canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
+          ogImage: '/images/col_search_phone_jp_1792475574840.webp',
           ogType: 'website',
           jsonLd: {
             '@context': 'https://schema.org',
             '@graph': [
               {
                 '@type': 'CollectionPage',
+                '@id': 'https://osaka-shinodayamashinchi-recruit.com/blog#collection',
                 'name': '信太山新地求人 お仕事コラム一覧',
                 'description': '信太山新地の仕事内容、給料システム、顔出しなしルール、未経験向けガイドなどの公式解説コラム一覧',
                 'url': 'https://osaka-shinodayamashinchi-recruit.com/blog',
-                'inLanguage': 'ja-JP'
+                'dateModified': getIsoLastUpdated(),
+                'inLanguage': 'ja-JP',
+                'speakable': {
+                  '@type': 'SpeakableSpecification',
+                  'cssSelector': ['h1', 'h2']
+                },
+                'mainEntity': {
+                  '@type': 'ItemList',
+                  'numberOfItems': BLOG_ARTICLES.length,
+                  'itemListElement': BLOG_ARTICLES.slice(0, 30).map((a, idx) => ({
+                    '@type': 'ListItem',
+                    'position': idx + 1,
+                    'name': a.title,
+                    'url': `https://osaka-shinodayamashinchi-recruit.com/blog/${a.slug}`
+                  }))
+                }
               },
               {
                 '@type': 'BreadcrumbList',
@@ -966,6 +1031,28 @@ export default function App() {
                                           handleNavigateCompare();
                                         } else if (linkHref === '/faq') {
                                           handleNavigateFaq();
+                                        } else if (linkHref === '/interview') {
+                                          navigateTo('interview', '/interview');
+                                        } else if (linkHref === '/about') {
+                                          navigateTo('about', '/about');
+                                        } else if (linkHref === '/policy') {
+                                          navigateTo('policy', '/policy');
+                                        } else if (
+                                          [
+                                            '/job',
+                                            '/salary',
+                                            '/benefits',
+                                            '/beginner',
+                                            '/experienced',
+                                            '/requirements',
+                                            '/flow',
+                                            '/workstyle',
+                                            '/shops',
+                                            '/dorm',
+                                            '/safety'
+                                          ].includes(linkHref)
+                                        ) {
+                                          handleNavigateTopic(linkHref.slice(1));
                                         } else {
                                           navigateTo('recruit', '/');
                                         }
@@ -1328,49 +1415,124 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* Grid of Articles */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {BLOG_ARTICLES.map((article) => (
-                      <a
-                        key={article.id}
-                        href={`/blog/${article.slug}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleNavigateBlog(article.slug);
+                  {/* Search & Category Filter Bar (supports SearchAction /blog?q=...) */}
+                  <div className="mb-8 bg-white rounded-3xl p-4 sm:p-5 border border-rose-100 shadow-2xs space-y-3">
+                    <div className="relative">
+                      <LucideIcon
+                        name="Search"
+                        size={16}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+                      />
+                      <input
+                        type="search"
+                        value={blogSearchQuery}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setBlogSearchQuery(v);
+                          syncBlogQueryUrl(v, blogCategoryFilter);
                         }}
-                        className="bg-white rounded-3xl overflow-hidden border border-rose-100/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1 text-left"
+                        placeholder="キーワードでコラムを検索（例：未経験、日払い、待機所、寮、週1日）"
+                        aria-label="お仕事コラムを検索"
+                        className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-rose-100 bg-rose-50/30 focus:bg-white focus:border-rose-300 focus:outline-hidden text-zinc-800 placeholder:text-zinc-400"
+                      />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBlogCategoryFilter('all');
+                          syncBlogQueryUrl(blogSearchQuery, 'all');
+                        }}
+                        className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-colors cursor-pointer ${
+                          blogCategoryFilter === 'all'
+                            ? 'bg-secondary text-white shadow-2xs'
+                            : 'bg-rose-50 text-zinc-600 hover:bg-rose-100'
+                        }`}
                       >
-                        <div>
-                          <div className="w-full h-48 bg-rose-50 overflow-hidden relative">
-                            <ArticleCardImage
-                              src={getValidArticleEyeCatch(article)}
-                              alt={article.title}
-                              title={article.title}
-                              articleId={article.id}
-                              slug={article.slug}
-                              category={article.category}
-                              categoryLabel={article.categoryLabel}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-5">
-                            <h2 className="font-bold text-sm sm:text-base text-zinc-900 line-clamp-2 group-hover:text-secondary transition-colors mb-2">
-                              {article.title}
-                            </h2>
-                            <p className="text-xs text-zinc-500 line-clamp-2 leading-relaxed">
-                              {article.summary}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="p-5 pt-0 flex items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-100 mt-2">
-                          <span>{article.publishedAt || '最新'}</span>
-                          <span className="text-secondary font-bold group-hover:translate-x-1 transition-transform">
-                            続きを読む →
-                          </span>
-                        </div>
-                      </a>
-                    ))}
+                        すべて（{BLOG_ARTICLES.length}件）
+                      </button>
+                      {blogCategories.map((cat) => (
+                        <button
+                          key={cat.id}
+                          type="button"
+                          onClick={() => {
+                            setBlogCategoryFilter(cat.id);
+                            syncBlogQueryUrl(blogSearchQuery, cat.id);
+                          }}
+                          className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-colors cursor-pointer ${
+                            blogCategoryFilter === cat.id
+                              ? 'bg-secondary text-white shadow-2xs'
+                              : 'bg-rose-50 text-zinc-600 hover:bg-rose-100'
+                          }`}
+                        >
+                          {cat.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Grid of Articles */}
+                  {filteredBlogArticles.length === 0 ? (
+                    <div className="text-center py-12 bg-white rounded-3xl border border-rose-100 p-6">
+                      <p className="text-sm font-bold text-zinc-700 mb-3">
+                        該当するコラムが見つかりませんでした。
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBlogSearchQuery('');
+                          setBlogCategoryFilter('all');
+                          syncBlogQueryUrl('', 'all');
+                        }}
+                        className="px-4 py-2 rounded-xl bg-rose-50 text-rose-700 font-bold text-xs hover:bg-rose-100 cursor-pointer"
+                      >
+                        検索条件をリセットする
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {filteredBlogArticles.map((article) => (
+                        <a
+                          key={article.id}
+                          href={`/blog/${article.slug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigateBlog(article.slug);
+                          }}
+                          className="bg-white rounded-3xl overflow-hidden border border-rose-100/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1 text-left"
+                        >
+                          <div>
+                            <div className="w-full h-48 bg-rose-50 overflow-hidden relative">
+                              <ArticleCardImage
+                                src={getValidArticleEyeCatch(article)}
+                                alt={article.title}
+                                title={article.title}
+                                articleId={article.id}
+                                slug={article.slug}
+                                category={article.category}
+                                categoryLabel={article.categoryLabel}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                            <div className="p-5">
+                              <h2 className="font-bold text-sm sm:text-base text-zinc-900 line-clamp-2 group-hover:text-secondary transition-colors mb-2">
+                                {article.title}
+                              </h2>
+                              <p className="text-xs text-zinc-500 line-clamp-2 leading-relaxed">
+                                {article.summary}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="p-5 pt-0 flex items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-100 mt-2">
+                            <span>{article.publishedAt || '最新'}</span>
+                            <span className="text-secondary font-bold group-hover:translate-x-1 transition-transform">
+                              続きを読む →
+                            </span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

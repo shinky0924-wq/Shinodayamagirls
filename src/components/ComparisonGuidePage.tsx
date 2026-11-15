@@ -13,7 +13,7 @@ import {
   MainComparisonItem
 } from '../compareData';
 import { LINE_OFFICIAL_URL, CONSULTANT_AVATAR_URL } from '../data';
-import { updatePageSeo } from '../seo';
+import { updatePageSeo, getIsoLastUpdated } from '../seo';
 
 interface ComparisonGuidePageProps {
   onNavigateHome: () => void;
@@ -62,6 +62,7 @@ export default function ComparisonGuidePage({
       title: '信太山新地・他業種 徹底比較｜飛田新地・メンエス・キャバクラとの違い',
       description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策、直営ならではの応募条件まで詳しく解説します。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/compare',
+      ogImage: '/images/col_ryokan_manner_1792465891118.webp',
       ogType: 'website',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -72,7 +73,7 @@ export default function ComparisonGuidePage({
             'name': '信太山新地・他業種 徹底比較ガイド',
             'description': '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違いを11項目で比較解説。',
             'url': 'https://osaka-shinodayamashinchi-recruit.com/compare',
-            'dateModified': '2026-11-14',
+            'dateModified': getIsoLastUpdated(),
             'inLanguage': 'ja-JP',
             'speakable': {
               '@type': 'SpeakableSpecification',

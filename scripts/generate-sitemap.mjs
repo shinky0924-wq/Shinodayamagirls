@@ -122,7 +122,11 @@ urls.push({
   loc: `${BASE_URL}/compare`,
   lastmod: compareLastMod,
   changefreq: 'weekly',
-  priority: '0.88'
+  priority: '0.88',
+  image: {
+    loc: `${BASE_URL}/images/col_ryokan_manner_1792465891118.webp`,
+    title: '信太山新地・他業種 徹底比較ガイド'
+  }
 });
 
 urls.push({
@@ -141,7 +145,11 @@ workstyleTypeSlugs.forEach((slug) => {
     loc: `${BASE_URL}/types/${slug}`,
     lastmod: workstyleLastMod,
     changefreq: 'weekly',
-    priority: '0.85'
+    priority: '0.85',
+    image: {
+      loc: `${BASE_URL}/images/workstyle_guide_hero_1794546577303.webp`,
+      title: `信太山新地 タイプ別働き方ガイド（${slug}）`
+    }
   });
 });
 
@@ -150,14 +158,22 @@ urls.push({
   loc: `${BASE_URL}/faq`,
   lastmod: faqLastMod,
   changefreq: 'weekly',
-  priority: '0.88'
+  priority: '0.88',
+  image: {
+    loc: `${BASE_URL}/images/col_interview_counseling_jp_1792475575633.webp`,
+    title: '信太山新地求人 よくある質問 FAQ（66問）'
+  }
 });
 
 urls.push({
   loc: `${BASE_URL}/interview`,
   lastmod: interviewLastMod,
   changefreq: 'monthly',
-  priority: '0.85'
+  priority: '0.85',
+  image: {
+    loc: `${BASE_URL}/images/shinodayama_advisor_sakura_1792225964799.webp`,
+    title: '旅館の求人・採用担当者インタビュー'
+  }
 });
 
 // Priority 0.85 - Blog Column Hub
@@ -165,7 +181,11 @@ urls.push({
   loc: `${BASE_URL}/blog`,
   lastmod: latestArticleDate,
   changefreq: 'daily',
-  priority: '0.85'
+  priority: '0.85',
+  image: {
+    loc: `${BASE_URL}/images/col_search_phone_jp_1792475574840.webp`,
+    title: '信太山新地求人 お仕事コラム一覧'
+  }
 });
 
 // Priority 0.80 - About / Company Profile & Policy
@@ -173,14 +193,22 @@ urls.push({
   loc: `${BASE_URL}/about`,
   lastmod: aboutLastMod,
   changefreq: 'monthly',
-  priority: '0.80'
+  priority: '0.80',
+  image: {
+    loc: `${BASE_URL}/images/col_secure_ryotei_1792475628730.webp`,
+    title: '運営者情報・店舗概要｜信太山ガールズ'
+  }
 });
 
 urls.push({
   loc: `${BASE_URL}/policy`,
   lastmod: policyLastMod,
   changefreq: 'monthly',
-  priority: '0.75'
+  priority: '0.75',
+  image: {
+    loc: `${BASE_URL}/images/col_official_documents_1792465890547.webp`,
+    title: '求人情報掲載ポリシー・安全規約・個人情報保護'
+  }
 });
 
 // Priority 0.75 - Blog Detail Pages
@@ -303,6 +331,7 @@ Disallow: /admin/*
 # LLM Knowledge Index (Specification: https://llmstxt.org/)
 # LLMs-Text: ${BASE_URL}/llms.txt
 # LLMs-Full-Text: ${BASE_URL}/llms-full.txt
+# RSS-Feed: ${BASE_URL}/rss.xml
 
 # Canonical Sitemap and Host
 Sitemap: ${BASE_URL}/sitemap.xml
@@ -410,6 +439,7 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [寮・出稼ぎ Markdown](${BASE_URL}/dorm.md) / [身バレ・安全対策 Markdown](${BASE_URL}/safety.md)
 - [徹底比較ガイド Markdown](${BASE_URL}/compare.md) / [よくある質問 FAQ 66問 Markdown](${BASE_URL}/faq.md) / [タイプ別働き方ガイド Markdown](${BASE_URL}/types.md)
 - [採用担当者インタビュー Markdown](${BASE_URL}/interview.md) / [運営者情報 Markdown](${BASE_URL}/about.md) / [掲載ポリシー Markdown](${BASE_URL}/policy.md) / [コラム一覧 Markdown](${BASE_URL}/blog.md)
+- [お仕事コラム RSS 2.0 フィード](${BASE_URL}/rss.xml)
 
 ## 詳細知識ベース（llms-full.txt）
 全10トピックの詳細解説・6業種11項目比較マトリクス・全66問FAQ・8タイプ別ガイド・全${blogArticles.length}件のお仕事コラムを含む統合知識ベースは ${BASE_URL}/llms-full.txt を参照してください。
@@ -825,5 +855,53 @@ ${mdFooter}`;
 }
 
 console.log(`[OK] Static Markdown mirrors (.md) generated: ${mdCount} files in ${publicDir}`);
+
+// 7. Generate RSS 2.0 Feed (public/rss.xml) sorted newest-first for Search & Feed Crawlers
+{
+  const sortedArticles = [...blogArticles]
+    .filter((a) => a.slug)
+    .sort((a, b) => String(b.publishedAt || '2026-01-01').localeCompare(String(a.publishedAt || '2026-01-01')))
+    .slice(0, 60);
+
+  const rssItemsXml = sortedArticles
+    .map((a) => {
+      const link = `${BASE_URL}/blog/${a.slug}`;
+      const dateStr = a.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(a.publishedAt) ? a.publishedAt.slice(0, 10) : latestArticleDate;
+      const pubDate = new Date(`${dateStr}T09:00:00+09:00`).toUTCString();
+      const imageUrl = a.eyeCatch
+        ? `${BASE_URL}${a.eyeCatch.startsWith('/') ? a.eyeCatch : `/${a.eyeCatch}`}`
+        : `${BASE_URL}/images/shinodayama_hero_banner_1792225964954.webp`;
+      const imgType = imageUrl.endsWith('.png') ? 'image/png' : imageUrl.endsWith('.jpg') ? 'image/jpeg' : 'image/webp';
+      return `    <item>
+      <title>${escapeXml(a.title)}</title>
+      <link>${escapeXml(link)}</link>
+      <guid isPermaLink="true">${escapeXml(link)}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <category>${escapeXml(a.categoryLabel || a.category || '解説コラム')}</category>
+      <description>${escapeXml(a.summary || '')}</description>
+      <enclosure url="${escapeXml(imageUrl)}" length="0" type="${imgType}" />
+    </item>`;
+    })
+    .join('\n');
+
+  const buildPubDate = new Date(`${latestArticleDate}T09:00:00+09:00`).toUTCString();
+  const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>信太山ガールズ｜信太山新地求人 公式お仕事コラム</title>
+    <link>${BASE_URL}/blog</link>
+    <description>信太山新地の老舗旅館直営による女性向け公式求人サイトのお仕事コラム。仕事内容、15分単位の報酬、店先顔出しなしの待機環境、未経験サポート、週1日・短時間勤務、寮・安全ルールなどを解説。</description>
+    <language>ja</language>
+    <lastBuildDate>${buildPubDate}</lastBuildDate>
+    <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />
+${rssItemsXml}
+  </channel>
+</rss>
+`;
+  const rssPath = path.join(publicDir, 'rss.xml');
+  fs.writeFileSync(rssPath, rssXml, 'utf8');
+  console.log(`[OK] rss.xml generated with ${sortedArticles.length} items at ${rssPath}`);
+}
+
 
 

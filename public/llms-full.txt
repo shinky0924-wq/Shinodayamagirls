@@ -85,6 +85,7 @@
 - [寮・出稼ぎ Markdown](https://osaka-shinodayamashinchi-recruit.com/dorm.md) / [身バレ・安全対策 Markdown](https://osaka-shinodayamashinchi-recruit.com/safety.md)
 - [徹底比較ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/compare.md) / [よくある質問 FAQ 66問 Markdown](https://osaka-shinodayamashinchi-recruit.com/faq.md) / [タイプ別働き方ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/types.md)
 - [採用担当者インタビュー Markdown](https://osaka-shinodayamashinchi-recruit.com/interview.md) / [運営者情報 Markdown](https://osaka-shinodayamashinchi-recruit.com/about.md) / [掲載ポリシー Markdown](https://osaka-shinodayamashinchi-recruit.com/policy.md) / [コラム一覧 Markdown](https://osaka-shinodayamashinchi-recruit.com/blog.md)
+- [お仕事コラム RSS 2.0 フィード](https://osaka-shinodayamashinchi-recruit.com/rss.xml)
 
 ## 詳細知識ベース（llms-full.txt）
 全10トピックの詳細解説・6業種11項目比較マトリクス・全66問FAQ・8タイプ別ガイド・全139件のお仕事コラムを含む統合知識ベースは https://osaka-shinodayamashinchi-recruit.com/llms-full.txt を参照してください。

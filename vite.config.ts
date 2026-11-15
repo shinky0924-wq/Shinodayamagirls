@@ -7,10 +7,12 @@ export default defineConfig(() => {
   const now = new Date();
   const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
   const buildDateStr = `${jst.getUTCFullYear()}年${jst.getUTCMonth() + 1}月${jst.getUTCDate()}日`;
+  const isoDateStr = `${jst.getUTCFullYear()}-${String(jst.getUTCMonth() + 1).padStart(2, '0')}-${String(jst.getUTCDate()).padStart(2, '0')}`;
 
   return {
     define: {
       __BUILD_DATE__: JSON.stringify(buildDateStr),
+      __BUILD_DATE_ISO__: JSON.stringify(isoDateStr),
     },
     plugins: [react(), tailwindcss()],
     resolve: {

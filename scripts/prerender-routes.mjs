@@ -12,6 +12,24 @@ const BASE_DOMAIN = 'https://osaka-shinodayamashinchi-recruit.com';
 const DEFAULT_IMAGE = `${BASE_DOMAIN}/images/shinodayama_hero_banner_1792225964954.jpg`;
 const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
+function getFileLastMod(relPaths = [], fallback = '2026-11-15') {
+  let latestMs = 0;
+  for (const rel of relPaths) {
+    const fp = path.join(rootDir, rel);
+    if (fs.existsSync(fp)) {
+      try {
+        const mtime = fs.statSync(fp).mtimeMs;
+        if (mtime > latestMs) latestMs = mtime;
+      } catch {
+        // ignore stat errors
+      }
+    }
+  }
+  if (!latestMs) return fallback;
+  const jstDate = new Date(latestMs + 9 * 60 * 60 * 1000);
+  return jstDate.toISOString().slice(0, 10);
+}
+
 async function loadTsModule(relPath) {
   const fullPath = path.join(rootDir, relPath);
   if (!fs.existsSync(fullPath)) return {};
@@ -88,7 +106,95 @@ function renderBlogParagraphWithLinks(text = '') {
     .join('');
 }
 
-function renderBlogArticleContentHtml(article) {
+const CATEGORY_PILLAR_MAP = {
+  job: { topic: 'job', workstyle: 'inexperienced', label: '仕事内容・1日の流れガイド' },
+  salary: { topic: 'salary', workstyle: 'high-income', label: '給料・日払いシステム解説' },
+  beginner: { topic: 'beginner', workstyle: 'inexperienced', label: '未経験スタート安心ガイド' },
+  experienced: { topic: 'experienced', workstyle: 'high-income', label: '経験者優遇・移籍サポート' },
+  workstyle: { topic: 'workstyle', workstyle: 'weekly-1', label: '働き方・週1日〜シフト解説' },
+  shops: { topic: 'shops', workstyle: 'consultation', label: 'お店選び・比較ポイント' },
+  dorm: { topic: 'dorm', workstyle: 'dormitory', label: '個室マンション寮・出稼ぎガイド' },
+  safety: { topic: 'safety', workstyle: 'privacy', label: '身バレ対策・安全ルール解説' },
+  interview: { topic: 'flow', workstyle: 'female-staff', label: '面接・見学・応募の流れ' },
+  faq: { topic: 'requirements', workstyle: 'consultation', label: '応募資格・募集要項ガイド' },
+  beauty: { topic: 'workstyle', workstyle: 'short-term', label: '自分に合った働き方ガイド' }
+};
+
+function computeArticleWordCount(article) {
+  if (!article) return 0;
+  let text = `${article.title || ''} ${article.summary || ''}`;
+  const content = article.content;
+  if (Array.isArray(content)) {
+    for (const block of content) {
+      if (!block) continue;
+      if (block.text) text += ` ${block.text}`;
+      if (block.question) text += ` ${block.question}`;
+      if (block.answer) text += ` ${block.answer}`;
+      if (Array.isArray(block.items)) text += ` ${block.items.join(' ')}`;
+    }
+  } else if (content && typeof content === 'object') {
+    if (content.intro) text += ` ${content.intro}`;
+    if (Array.isArray(content.sections)) {
+      for (const sec of content.sections) {
+        if (sec.heading) text += ` ${sec.heading}`;
+        if (sec.body) text += ` ${sec.body}`;
+        if (Array.isArray(sec.points)) text += ` ${sec.points.join(' ')}`;
+      }
+    }
+    if (Array.isArray(content.faqs)) {
+      for (const f of content.faqs) {
+        text += ` ${f.question || ''} ${f.answer || ''}`;
+      }
+    }
+  }
+  const clean = text.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1').replace(/\s+/g, '');
+  return clean.length;
+}
+
+function renderBlogArticleRelatedLinksHtml(article, allArticles = [], clusters = {}) {
+  if (!article || !Array.isArray(allArticles) || allArticles.length === 0) return '';
+  const mapping = CATEGORY_PILLAR_MAP[article.category] || { topic: 'job', workstyle: 'inexperienced', label: '仕事内容・条件解説' };
+  const topicTitle = clusters[mapping.topic]?.title || mapping.label;
+  const articleTags = new Set(Array.isArray(article.tags) ? article.tags : []);
+
+  const candidates = allArticles
+    .filter((other) => other && other.slug && other.slug !== article.slug)
+    .map((other) => {
+      const sameCategory = other.category === article.category ? 10 : 0;
+      const otherTags = Array.isArray(other.tags) ? other.tags : [];
+      const sharedTags = otherTags.filter((t) => articleTags.has(t)).length;
+      const score = sameCategory + sharedTags * 2;
+      return { other, score };
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return String(b.other.publishedAt || '').localeCompare(String(a.other.publishedAt || ''));
+    })
+    .slice(0, 4)
+    .map((entry) => entry.other);
+
+  const guideLinks = [
+    `<a href="${BASE_DOMAIN}/${escapeHtml(mapping.topic)}" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-700 font-bold text-xs border border-rose-100">${escapeHtml(topicTitle)}</a>`,
+    `<a href="${BASE_DOMAIN}/types/${escapeHtml(mapping.workstyle)}" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-700 font-bold text-xs border border-rose-100">タイプ別働き方ガイド</a>`,
+    `<a href="${BASE_DOMAIN}/compare" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-700 font-bold text-xs border border-rose-100">信太山新地・他業種 徹底比較</a>`,
+    `<a href="${BASE_DOMAIN}/faq" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-700 font-bold text-xs border border-rose-100">よくある質問 FAQ（全66問）</a>`
+  ].join('');
+
+  const relatedCards = candidates
+    .map(
+      (rel) =>
+        `<li class="p-3 bg-rose-50/40 rounded-xl border border-rose-100"><a href="${BASE_DOMAIN}/blog/${escapeHtml(rel.slug)}" class="font-bold text-rose-700 underline text-sm block mb-1">${escapeHtml(rel.title)}</a><p class="text-xs text-zinc-600 line-clamp-2">${escapeHtml(rel.summary || '')}</p></li>`
+    )
+    .join('');
+
+  return `<nav aria-label="あわせて読みたい公式専門ガイド" class="mt-8 pt-6 border-t border-rose-100"><h2 class="text-base font-bold text-zinc-900 mb-3">あわせて読みたい公式専門ガイド</h2><div class="flex flex-wrap gap-2">${guideLinks}</div></nav>${
+    relatedCards
+      ? `<section aria-label="関連記事" class="mt-6 pt-6 border-t border-rose-100"><h2 class="text-base font-bold text-zinc-900 mb-3">関連記事・おすすめの公式コラム</h2><ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">${relatedCards}</ul></section>`
+      : ''
+  }`;
+}
+
+function renderBlogArticleContentHtml(article, allArticles = [], clusters = {}) {
   if (!article) return '';
   const chunks = [];
   if (article.summary) {
@@ -133,6 +239,10 @@ function renderBlogArticleContentHtml(article) {
         chunks.push(`<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100 mb-4"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(f.question || '')}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(f.answer || '')}</p></div>`);
       }
     }
+  }
+  const relatedMesh = renderBlogArticleRelatedLinksHtml(article, allArticles, clusters);
+  if (relatedMesh) {
+    chunks.push(relatedMesh);
   }
   return chunks.join('');
 }
@@ -263,6 +373,14 @@ function stripRootOnlyStructuredData(html) {
             inLanguage: 'ja-JP',
             publisher: {
               '@id': `${BASE_DOMAIN}/#organization`
+            },
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: `${BASE_DOMAIN}/blog?q={search_term_string}`
+              },
+              'query-input': 'required name=search_term_string'
             }
           },
           {
@@ -593,6 +711,15 @@ async function main() {
     fs.copyFileSync(htaccessSrc, path.join(distDir, '.htaccess'));
   }
 
+  const rootLastMod = getFileLastMod(['index.html', 'data/siteContent.json', 'src/App.tsx']);
+  const compareLastMod = getFileLastMod(['src/compareData.ts', 'src/components/ComparisonGuidePage.tsx']);
+  const workstyleLastMod = getFileLastMod(['src/workstyleGuideData.ts', 'src/components/WorkstyleGuidePage.tsx']);
+  const faqLastMod = getFileLastMod(['src/faq11CategoriesData.ts', 'src/components/FAQPage.tsx']);
+  const interviewLastMod = getFileLastMod(['src/components/RecruiterInterviewPage.tsx']);
+  const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
+  const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
+  const topicLastMod = getFileLastMod(['data/topicClusters.json', 'src/components/TopicClusterPage.tsx']);
+
   const routes = [];
 
   // 1. /compare (Full 6-Target x 11-Item matrix, course schedule, area table, 5 FAQs)
@@ -664,6 +791,7 @@ async function main() {
     description:
       '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策、直営ならではの応募条件まで詳しく解説します。',
     canonicalUrl: `${BASE_DOMAIN}/compare`,
+    imagePath: '/images/col_ryokan_manner_1792465891118.webp',
     heading: '信太山新地 徹底比較ガイド（6種類の違いを11項目で比較）',
     ssrBodyHtml: compareSsrParts.join(''),
     noscriptBodyHtml:
@@ -677,7 +805,7 @@ async function main() {
           name: '信太山新地・他業種 徹底比較ガイド',
           description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違いを11項目で比較解説。',
           url: `${BASE_DOMAIN}/compare`,
-          dateModified: '2026-11-14',
+          dateModified: compareLastMod,
           inLanguage: 'ja-JP',
           speakable: {
             '@type': 'SpeakableSpecification',
@@ -744,7 +872,7 @@ async function main() {
           description:
             '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。',
           url: `${BASE_DOMAIN}/types`,
-          dateModified: '2026-11-14',
+          dateModified: workstyleLastMod,
           inLanguage: 'ja-JP',
           speakable: {
             '@type': 'SpeakableSpecification',
@@ -797,7 +925,7 @@ async function main() {
           name: fullTitle,
           description: fullDescription,
           url: `${BASE_DOMAIN}/types/${item.slug}`,
-          dateModified: '2026-11-14',
+          dateModified: workstyleLastMod,
           inLanguage: 'ja-JP',
           speakable: {
             '@type': 'SpeakableSpecification',
@@ -911,6 +1039,7 @@ async function main() {
     description:
       '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
     canonicalUrl: `${BASE_DOMAIN}/faq`,
+    imagePath: '/images/col_interview_counseling_jp_1792475575633.webp',
     heading: `よくある質問 FAQ（全${faqQuestions.length}問・${faqCategories.length}カテゴリー）`,
     ssrBodyHtml: faqSsrSections || '<p>全66問のQ&Aを掲載しています。</p>',
     noscriptBodyHtml:
@@ -925,7 +1054,7 @@ async function main() {
           description:
             '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。仕事内容、給料、働き方、未経験の疑問に公式がお答えします。',
           url: `${BASE_DOMAIN}/faq`,
-          dateModified: '2026-11-14',
+          dateModified: faqLastMod,
           inLanguage: 'ja-JP',
           speakable: {
             '@type': 'SpeakableSpecification',
@@ -979,6 +1108,7 @@ async function main() {
       '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験スタート多数の安心理由・給与や日払い・面接内容まで詳しく解説します。',
     canonicalUrl: `${BASE_DOMAIN}/interview`,
     ogType: 'article',
+    imagePath: '/images/shinodayama_advisor_sakura_1792225964799.webp',
     heading: '旅館の求人・採用担当者インタビュー',
     ssrBodyHtml: interviewSsrHtml,
     extraJsonLd: {
@@ -990,7 +1120,7 @@ async function main() {
           headline: '旅館の求人・採用担当者へのインタビュー',
           description: '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
           datePublished: '2026-10-01T00:00:00+09:00',
-          dateModified: '2026-11-14T00:00:00+09:00',
+          dateModified: `${interviewLastMod}T00:00:00+09:00`,
           inLanguage: 'ja-JP',
           speakable: {
             '@type': 'SpeakableSpecification',
@@ -1054,6 +1184,7 @@ async function main() {
     description:
       '信太山新地の老舗旅館直営公式求人「信太山ガールズ」の運営者情報、店舗概要、所在地（大阪府和泉市）、女性専任サポート体制、所属団体、コンプライアンス就労憲章、個人情報保護規程を詳しく明示しています。',
     canonicalUrl: `${BASE_DOMAIN}/about`,
+    imagePath: '/images/col_secure_ryotei_1792475628730.webp',
     heading: '運営者情報・店舗概要（信太山ガールズ）',
     ssrBodyHtml:
       '<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>大阪府和泉市幸二丁目（信太山新地 旅館街／JR阪和線「信太山駅」徒歩約5分）にて営業する老舗旅館直営の女性向け公式採用窓口です。外部スカウト業者や仲介所を介さない直営採用のため、紹介料や雑費の天引きは一切なく、即日全額現金日払い・店先顔見せなしの安心環境を提供しています。</p><h2 class="text-lg font-bold text-zinc-900 mt-4">店舗・運営詳細</h2><ul class="list-disc pl-5 space-y-1.5"><li><strong>屋号 / 窓口名称：</strong>信太山ガールズ 公式採用窓口（信太山新地 旅館直営グループ）</li><li><strong>運営責任者：</strong>採用・労務マネージャー 松本 健二 ／ 女性相談・就労サポート責任者 あおい</li><li><strong>所属団体：</strong>信太山新地旅館組合（正規加盟・健全就労規約遵守店舗）</li><li><strong>公式相談窓口：</strong>公式LINE（https://lin.ee/Z70RRKH）</li></ul></div>',
@@ -1064,7 +1195,7 @@ async function main() {
       name: '運営者情報・店舗概要',
       description: '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
       url: `${BASE_DOMAIN}/about`,
-      dateModified: '2026-11-14',
+      dateModified: aboutLastMod,
       inLanguage: 'ja-JP',
       speakable: {
         '@type': 'SpeakableSpecification',
@@ -1119,6 +1250,7 @@ async function main() {
     description:
       '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内。満20歳以上の厳格な本人確認や個人情報の秘密厳守を徹底しています。',
     canonicalUrl: `${BASE_DOMAIN}/policy`,
+    imagePath: '/images/col_official_documents_1792465890547.webp',
     heading: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
     ssrBodyHtml:
       '<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>満20歳以上の公的顔写真付き身分証による厳格な年齢・本人確認、誇大表現の排除、ノルマ・罰金・天引き完全0円規程、LINE相談内容や個人情報の採用管理目的外使用の禁止など、女性が安心して応募できる安全基準を明文化しています。</p><h2 class="text-lg font-bold text-zinc-900 mt-4">主な順守事項</h2><ul class="list-disc pl-5 space-y-1.5"><li>満20歳未満の就業禁止と公的身分証明書による本人確認</li><li>Web・SNS等への無断顔写真掲載の禁止と源氏名管理</li><li>お酒の強要・連絡先交換・生本番（コンドーム未着用）の禁止</li><li>誇大広告や未確認数値を使用しない正確な情報提供</li></ul></div>',
@@ -1131,7 +1263,7 @@ async function main() {
       name: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
       description: '信太山ガールズの求人掲載基準、コンプライアンス就労憲章、個人情報保護方針',
       url: `${BASE_DOMAIN}/policy`,
-      dateModified: '2026-11-14',
+      dateModified: policyLastMod,
       inLanguage: 'ja-JP',
       speakable: {
         '@type': 'SpeakableSpecification',
@@ -1152,8 +1284,10 @@ async function main() {
 
   // 6. Topic Clusters from data/topicClusters.json (+ Article dateModified/Speakable + HowTo for /job and /flow)
   const topicClustersPath = path.join(rootDir, 'data', 'topicClusters.json');
-  if (fs.existsSync(topicClustersPath)) {
-    const clusters = JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'));
+  const clusters = fs.existsSync(topicClustersPath)
+    ? JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'))
+    : {};
+  if (Object.keys(clusters).length > 0) {
     Object.entries(clusters).forEach(([key, data]) => {
       const isBenefitsAlias = key === 'benefits';
       const canonicalPath = isBenefitsAlias ? '/salary' : data.path || `/${key}`;
@@ -1167,7 +1301,7 @@ async function main() {
           description: data.metaDescription || data.overview || data.tagline || '',
           image: data.heroImage ? toAbsoluteUrl(data.heroImage) : DEFAULT_IMAGE,
           datePublished: '2026-10-01T00:00:00+09:00',
-          dateModified: '2026-11-14T00:00:00+09:00',
+          dateModified: `${topicLastMod}T00:00:00+09:00`,
           inLanguage: 'ja-JP',
           author: {
             '@type': 'Organization',
@@ -1233,12 +1367,18 @@ async function main() {
 
   // 7. Blog Listing & All Articles
   const articlesPath = path.join(rootDir, 'data', 'blogArticles.json');
-  const articles = fs.existsSync(articlesPath)
+  const rawArticles = fs.existsSync(articlesPath)
     ? JSON.parse(fs.readFileSync(articlesPath, 'utf8'))
     : [];
+  const sortedArticles = [...rawArticles].sort((a, b) =>
+    String(b.publishedAt || '').localeCompare(String(a.publishedAt || ''))
+  );
+  const latestArticleDate = sortedArticles[0]?.publishedAt
+    ? String(sortedArticles[0].publishedAt).slice(0, 10)
+    : getFileLastMod(['data/blogArticles.json']);
 
-  const blogListingSsrHtml = articles.length > 0
-    ? `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">${articles.filter((a) => a.slug).map((a) => `<li class="p-3 bg-rose-50/40 rounded-xl border border-rose-100"><a href="${BASE_DOMAIN}/blog/${escapeHtml(a.slug)}" class="font-bold text-rose-700 underline block mb-1">${escapeHtml(a.title)}</a><p class="text-xs text-zinc-600 line-clamp-2">${escapeHtml(a.summary || '')}</p></li>`).join('')}</ul>`
+  const blogListingSsrHtml = sortedArticles.length > 0
+    ? `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">${sortedArticles.filter((a) => a.slug).map((a) => `<li class="p-3 bg-rose-50/40 rounded-xl border border-rose-100"><a href="${BASE_DOMAIN}/blog/${escapeHtml(a.slug)}" class="font-bold text-rose-700 underline block mb-1">${escapeHtml(a.title)}</a><p class="text-xs text-zinc-600 line-clamp-2">${escapeHtml(a.summary || '')}</p></li>`).join('')}</ul>`
     : '<p>信太山新地の公式解説コラム一覧です。</p>';
 
   routes.push({
@@ -1248,6 +1388,7 @@ async function main() {
     description:
       '信太山新地の仕事内容、15分単位の給料システム、待機所（スタンドまたは旅館）での待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
     canonicalUrl: `${BASE_DOMAIN}/blog`,
+    imagePath: '/images/col_search_phone_jp_1792475574840.webp',
     heading: '信太山新地求人 お仕事コラム一覧',
     ssrBodyHtml: blogListingSsrHtml,
     extraJsonLd: {
@@ -1255,17 +1396,30 @@ async function main() {
       '@type': 'CollectionPage',
       '@id': `${BASE_DOMAIN}/blog#collection`,
       name: '信太山新地求人 お仕事コラム一覧',
+      description:
+        '信太山新地の仕事内容、給料システム、未経験向けガイド、安全・身バレ対策、寮・出稼ぎなど女性向け公式解説コラム一覧',
       url: `${BASE_DOMAIN}/blog`,
-      dateModified: '2026-11-14',
+      dateModified: latestArticleDate,
       inLanguage: 'ja-JP',
       speakable: {
         '@type': 'SpeakableSpecification',
         cssSelector: ['h1', 'h2']
+      },
+      mainEntity: {
+        '@type': 'ItemList',
+        name: '信太山新地求人 お仕事コラム一覧',
+        numberOfItems: sortedArticles.length,
+        itemListElement: sortedArticles.slice(0, 30).map((art, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: art.title,
+          url: `${BASE_DOMAIN}/blog/${art.slug}`
+        }))
       }
     }
   });
 
-  articles.forEach((article) => {
+  sortedArticles.forEach((article) => {
     if (!article.slug) return;
     const articleUrl = `${BASE_DOMAIN}/blog/${article.slug}`;
     const seoTitle = formatBlogSeoTitle(article.title);
@@ -1273,7 +1427,8 @@ async function main() {
       article.summary,
       `${article.title}についての信太山新地公式解説記事です。未経験女性が知りたい仕事内容・給料・待機環境・安全ルールまで詳しくお届けします。`
     );
-    const fullArticleHtml = renderBlogArticleContentHtml(article);
+    const fullArticleHtml = renderBlogArticleContentHtml(article, sortedArticles, clusters);
+    const wordCount = computeArticleWordCount(article);
     routes.push({
       route: `blog/${article.slug}`,
       title: seoTitle,
@@ -1291,6 +1446,8 @@ async function main() {
         '@type': 'BlogPosting',
         headline: article.title,
         description: article.summary || `${article.title}についての信太山新地公式解説記事です。`,
+        articleSection: article.categoryLabel || article.category || '解説コラム',
+        wordCount,
         datePublished: article.publishedAt,
         dateModified: article.publishedAt,
         inLanguage: 'ja-JP',
@@ -1399,7 +1556,11 @@ async function main() {
     hideLeadInSsr: true,
     ssrBodyHtml: topPageBodyHtml
   });
-  const updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
+  let updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
+  updatedRootHtml = updatedRootHtml.replace(
+    /"dateModified":\s*"2026-11-14T00:00:00\+09:00"/g,
+    `"dateModified": "${rootLastMod}T00:00:00+09:00"`
+  );
   fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');
 
   // Render all routes

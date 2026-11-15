@@ -7,7 +7,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import LucideIcon from './LucideIcon';
 import { LINE_OFFICIAL_URL } from '../data';
 import TopicClusterBottomNav from './TopicClusterBottomNav';
-import { updatePageSeo } from '../seo';
+import { updatePageSeo, getIsoLastUpdated } from '../seo';
 import {
   FAQ_11_CATEGORIES,
   FAQ_66_QUESTIONS,
@@ -55,6 +55,7 @@ export default function FAQPage({
       description:
         '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/faq',
+      ogImage: '/images/col_interview_counseling_jp_1792475575633.webp',
       ogType: 'website',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -66,7 +67,7 @@ export default function FAQPage({
             description:
               '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
             url: 'https://osaka-shinodayamashinchi-recruit.com/faq',
-            dateModified: '2026-11-14',
+            dateModified: getIsoLastUpdated(),
             inLanguage: 'ja-JP',
             speakable: {
               '@type': 'SpeakableSpecification',
