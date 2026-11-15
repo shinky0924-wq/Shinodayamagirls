@@ -60,9 +60,23 @@ export default function FAQPage({
         '@context': 'https://schema.org',
         '@graph': [
           {
+            '@type': 'WebPage',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#webpage',
+            name: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
+            description:
+              '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
+            url: 'https://osaka-shinodayamashinchi-recruit.com/faq',
+            dateModified: '2026-11-14',
+            inLanguage: 'ja-JP',
+            speakable: {
+              '@type': 'SpeakableSpecification',
+              cssSelector: ['h1', 'h2']
+            }
+          },
+          {
             '@type': 'FAQPage',
             '@id': 'https://osaka-shinodayamashinchi-recruit.com/faq#faqpage',
-            mainEntity: FAQ_66_QUESTIONS.slice(0, 20).map((item) => ({
+            mainEntity: FAQ_66_QUESTIONS.map((item) => ({
               '@type': 'Question',
               name: item.q,
               acceptedAnswer: {

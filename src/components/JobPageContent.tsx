@@ -38,7 +38,7 @@ export default function JobPageContent({
   const jobFaqs = [
     {
       q: '未経験でも働けますか？',
-      a: 'はい、全く問題ありません。当店で働く女性の約90%が夜職や接客の完全未経験からスタートしています。初日は女性スタッフが横について丁寧にお仕事の手順をお教えしますのでご安心ください。'
+      a: 'はい、全く問題ありません。当店で働く女性の多くが夜職や接客の未経験からスタートしています。初日は女性スタッフが横について丁寧にお仕事の手順をお教えしますのでご安心ください。'
     },
     {
       q: '仕事内容について面接前に詳しく聞けますか？',
@@ -46,7 +46,7 @@ export default function JobPageContent({
     },
     {
       q: '待機中はどこで過ごしますか？',
-      a: '旅館の清潔な完全個室で待機していただきます。飛田新地のように店先に座る必要は一切ありません。Wi-Fi・冷暖房・充電器を完備しており、スマホを見ながら自由にお過ごしいただけます。'
+      a: '待機所（スタンドまたは旅館）で待機していただきます。飛田新地のように店先に座る必要は一切ありません。Wi-Fi・冷暖房・充電器などを備えた待機環境で落ち着いてお過ごしいただけます。'
     },
     {
       q: '出勤日数や時間は相談できますか？',
@@ -66,7 +66,7 @@ export default function JobPageContent({
     },
     {
       q: '働くかどうかは見学後に決めても大丈夫ですか？',
-      a: 'はい、もちろん大丈夫です。お店の雰囲気や待機個室を実際に見学し、お仕事内容や条件に納得してから働くかどうかをご自身で決めていただけます。無理な勧誘は一切行いません。'
+      a: 'はい、もちろん大丈夫です。お店の雰囲気や待機所を実際に見学し、お仕事内容や条件に納得してから働くかどうかをご自身で決めていただけます。無理な勧誘は一切行いません。'
     }
   ];
 
@@ -103,7 +103,7 @@ export default function JobPageContent({
               信太山新地でのお仕事を検討している女性へ。接客の基本的な流れや勤務時間、お給料、待機中の過ごし方など、応募する前に知っておきたい情報をまとめました。
             </p>
             <div className="flex flex-wrap gap-2">
-              {['店先顔出しなし', '完全個室待機', '15分〜短時間接客', '即日全額日払い'].map((tag) => (
+              {['店先顔出しなし', '待機所待機（スタンド・旅館）', '15分〜短時間接客', '即日全額日払い'].map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center gap-1 bg-[#FFF1F5] text-[#D8175D] text-xs font-bold px-3 py-1 rounded-full border border-[#F0DDE4]"
@@ -128,7 +128,7 @@ export default function JobPageContent({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold bg-black/40 backdrop-blur-xs px-3 py-1.5 rounded-[10px] text-center border border-white/20">
-                清潔な旅館客室・店先顔見せなし・完全個室待機
+                店先顔見せなし・待機所（スタンドまたは旅館）での待機（画像はイメージです）
               </div>
             </div>
           </div>
@@ -187,10 +187,10 @@ export default function JobPageContent({
             </div>
             <span className="text-[11px] font-bold text-[#777777] block mb-0.5">④ 待機環境</span>
             <span className="font-display font-black text-lg sm:text-xl text-[#1F2432] block mb-1">
-              個室待機
+              待機所待機
             </span>
             <p className="text-[11px] text-[#555555] leading-snug">
-              旅館直営の完全個室（店先顔出しなし）。
+              スタンドまたは旅館で待機（店先顔出しなし）。
             </p>
           </div>
         </div>
@@ -216,8 +216,8 @@ export default function JobPageContent({
               icon: 'Smile'
             },
             {
-              title: '旅館の個室待機',
-              desc: '他人の目を気にせず、プライベートな個室で過ごせます。',
+              title: '待機所での安心待機',
+              desc: '通りに面した店先に座ることなく、待機所（スタンドまたは旅館）で落ち着いて待機できます。',
               icon: 'DoorClosed'
             },
             {
@@ -294,7 +294,7 @@ export default function JobPageContent({
             {
               num: '⑤',
               title: '未経験でも大丈夫？',
-              desc: '在籍女性の約90%が夜職初心者からのスタートです。応募から面接、体験入店まで女性スタッフが親身に付き添い、丁寧にお教えします。',
+              desc: '在籍女性の多くが夜職初心者からのスタートです。応募から面接、体験入店まで女性スタッフが親身に付き添い、丁寧にお教えします。',
               icon: 'Sparkles'
             },
             {
@@ -352,8 +352,8 @@ export default function JobPageContent({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
-              title: '① 旅館直営の個室待機',
-              desc: '清潔で落ち着いた旅館の個室で、周りの目を気にせずプライベートに待機できます。Wi-Fiや冷暖房も完備。',
+              title: '① 待機所（スタンドまたは旅館）での待機',
+              desc: '清潔で落ち着いた待機環境で、通りの人目を気にせず待機できます。Wi-Fiや冷暖房も完備しています。',
               icon: 'Home'
             },
             {

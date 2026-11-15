@@ -413,7 +413,7 @@ export default function App() {
       } else {
         updatePageSeo({
           title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
-          description: '信太山新地の仕事内容、15分単位の給料システム、待機所での個室待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
+          description: '信太山新地の仕事内容、15分単位の給料システム、待機所（スタンドまたは旅館）での待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
           canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/blog',
           ogType: 'website',
           jsonLd: {
@@ -902,8 +902,8 @@ export default function App() {
                         <div className="space-y-2 mb-4">
                           {[
                             currentArticle.title.includes('給料') || currentArticle.title.includes('稼')
-                              ? '信太山新地の給料システム・日給5万〜12万円即日手渡し日払いのリアル'
-                              : '信太山新地は店先顔見せ一切なし・旅館個室待機で知り合いバレ徹底防止',
+                              ? '信太山新地の給料システム・15分3,800円〜の明朗報酬＆即日手渡し日払い'
+                              : '信太山新地は店先顔見せなし・待機所（スタンドまたは旅館）待機でプライバシーに配慮',
                             'ノルマ・罰金・飲酒・客との連絡先交換（営業LINE）は一切不要',
                             '老舗旅館直営の専任仲居さん＆女性スタッフによる24時間親身サポート'
                           ].map((pt, idx) => (
@@ -1144,7 +1144,7 @@ export default function App() {
                           </span>
                           <span className="flex items-center gap-1">
                             <LucideIcon name="CheckCircle2" size={13} className="text-rose-500" />
-                            店先顔見せなし・完全個室待機公認
+                            店先顔見せなし・待機所待機ルール公認
                           </span>
                         </div>
                       </div>
@@ -1265,7 +1265,7 @@ export default function App() {
                       </h3>
                       <p className="text-xs sm:text-sm text-rose-100 max-w-xl mx-auto mb-6 leading-relaxed">
                         当店は紹介所や仲介ではなく、信太山新地の現場旅館が直接運営する正規公式求人です。<br className="hidden sm:inline" />
-                        【店先顔見せ一切なし（完全個室待機）】【15分3,800円〜即日全額現金日払い】【日給保証・時給1万円保証】など、未経験の方も初日から安心して高収入を稼げる環境をお約束します。
+                        【店先顔見せなし（待機所：スタンドまたは旅館）】【15分3,800円〜即日全額現金日払い】【最低時給・日給保証制度（条件あり）】など、未経験の方も安心して働ける環境をご案内しています。
                       </p>
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                         <button

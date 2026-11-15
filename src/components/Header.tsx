@@ -87,7 +87,7 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
   }, []);
 
   const guideCategories = [
-    { id: 'job', name: '仕事内容', icon: 'Coffee', desc: '個室待機・短時間接客の基本的な流れ' },
+    { id: 'job', name: '仕事内容', icon: 'Coffee', desc: '待機所（スタンドまたは旅館）待機・短時間接客の基本的な流れ' },
     { id: 'salary', name: '給料・待遇', icon: 'Coins', desc: '15分3,800円〜・即日全額日払い・保証条件' },
     { id: 'beginner', name: '未経験', icon: 'Sparkles', desc: '初めての方の事前準備とサポート体制' },
     { id: 'experienced', name: '経験者', icon: 'Award', desc: '移籍前に確認したい待遇や環境の違い' },

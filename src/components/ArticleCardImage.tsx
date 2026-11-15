@@ -89,7 +89,7 @@ function detectTopicFromContent(title: string, category: string, catLabel?: stri
       gradient: 'from-purple-900 via-indigo-800 to-rose-700',
       icon: 'ShieldCheck',
       tag: '店先顔見せなし・秘密厳守',
-      subtext: '旅館個室待機・写真ネット掲載なし'
+      subtext: '待機所（スタンドまたは旅館）待機・写真ネット掲載なし'
     };
   }
 
@@ -153,7 +153,7 @@ function detectTopicFromContent(title: string, category: string, catLabel?: stri
       gradient: 'from-rose-600 via-pink-500 to-rose-400',
       icon: 'Sparkles',
       tag: catLabel || '未経験歓迎',
-      subtext: '在籍の約90%が夜職ゼロから活躍'
+      subtext: '未経験からのスタートが多数'
     };
   }
   if (cat === 'safety' || cat === 'privacy') {
@@ -161,7 +161,7 @@ function detectTopicFromContent(title: string, category: string, catLabel?: stri
       gradient: 'from-purple-800 via-indigo-900 to-rose-700',
       icon: 'ShieldCheck',
       tag: catLabel || '身バレ・安全',
-      subtext: '店先顔見せなし・旅館個室待機'
+      subtext: '店先顔見せなし・待機所（スタンドまたは旅館）待機'
     };
   }
   if (cat === 'dorm' || cat === 'housing') {

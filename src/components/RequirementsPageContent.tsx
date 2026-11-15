@@ -45,7 +45,7 @@ export default function RequirementsPageContent({
     },
     {
       q: '未経験でも応募できますか？',
-      a: 'はい、大歓迎です。当店で働く女性の約90%が夜職や接客の完全未経験からスタートしています。'
+      a: 'はい、大歓迎です。当店で働く女性の多くが夜職や接客の未経験からスタートしています。'
     },
     {
       q: '経験者も応募できますか？',
@@ -131,7 +131,7 @@ export default function RequirementsPageContent({
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm aspect-[4/3] bg-[#FFF1F5]">
               <img
                 src="/images/col_ryokan_manner_1792465891118.webp"
-                alt="信太山新地 老舗旅館の客室・完全個室待機"
+                alt="信太山新地 和風の落ち着いたイメージ"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
                 width={480}
@@ -139,7 +139,7 @@ export default function RequirementsPageContent({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold bg-black/45 backdrop-blur-xs px-3 py-1.5 rounded-[10px] text-center border border-white/20">
-                信太山新地 老舗旅館直営・完全個室待機・店先顔出しなし
+                信太山新地 店先顔出しなし・待機所（スタンド・旅館）待機（※イメージ）
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function RequirementsPageContent({
               </p>
             </div>
             <p className="text-[11px] text-[#555555] mt-2 pt-2 border-t border-[#F0DDE4]/60">
-              在籍の約90%が未経験スタート。初日に丁寧な事前サポートあり。
+              在籍の多くが未経験スタート。初日に丁寧な事前サポートあり。
             </p>
           </div>
 
@@ -499,8 +499,8 @@ export default function RequirementsPageContent({
               icon: 'Car'
             },
             {
-              title: '旅館直営の完全個室待機環境',
-              desc: '店先での顔見せ（顔出し）は一切ありません。Wi-Fi・冷暖房完備の旅館客室で、スマホを見ながら静かに待機できます。',
+              title: '待機所（スタンドまたは旅館）での待機環境',
+              desc: '店先での顔見せ（顔出し）は一切ありません。Wi-Fi・冷暖房を備えた待機スペースで、通りからの視線を気にせず待機できます。',
               condition: '利用条件：在籍・体験入店のすべての方',
               icon: 'Home'
             },
@@ -577,7 +577,7 @@ export default function RequirementsPageContent({
           <table className="w-full text-sm border-collapse">
             <tbody className="divide-y divide-[#F0DDE4] bg-white">
               {[
-                { label: '募集職種', value: '接客スタッフ（短時間接客・旅館個室待機）' },
+                { label: '募集職種', value: '接客スタッフ（短時間接客・待機所待機）' },
                 { label: '応募資格', value: '20歳以上の女性（未成年・高校生不可）' },
                 { label: '募集対象', value: '未経験者・経験者（Wワーク・学生・主婦の方も歓迎）' },
                 { label: '給与・報酬', value: '日給 30,000円 〜 150,000円（15分3,800円〜高額バック）' },
@@ -587,7 +587,7 @@ export default function RequirementsPageContent({
                 { label: '勤務地', value: '大阪府和泉市・信太山新地（老舗直営旅館）' },
                 { label: '最寄り駅', value: 'JR阪和線「信太山駅」徒歩5分（無料送迎車・マイカー通勤OK）' },
                 { label: '仕事内容', value: '旅館客室での15分〜短時間接客（ゴム着用厳守での本番等を含む1対1サービス・店先顔出しなし）' },
-                { label: '待遇', value: '日払い、無料送迎、完全個室待機、女性スタッフ常駐、個室寮完備、交通費支給、託児所補助' },
+                { label: '待遇', value: '日払い、無料送迎、待機所（スタンドまたは旅館）待機、女性スタッフ常駐、個室寮完備、交通費支給、託児所補助' },
                 { label: '応募方法', value: '公式LINE・お電話（履歴書不要・私服手ぶらOK）' },
                 { label: '必要書類', value: '年齢確認ができる身分証明書（免許証・マイナンバーカード・パスポート等）' }
               ].map((row, idx) => (
@@ -607,7 +607,7 @@ export default function RequirementsPageContent({
         {/* スマホ向け縦型カード */}
         <div className="sm:hidden space-y-3">
           {[
-            { label: '募集職種', value: '接客スタッフ（短時間接客・旅館個室待機）' },
+            { label: '募集職種', value: '接客スタッフ（短時間接客・待機所待機）' },
             { label: '応募資格', value: '20歳以上の女性（未成年・高校生不可）' },
             { label: '募集対象', value: '未経験者・経験者（Wワーク・学生・主婦の方も歓迎）' },
             { label: '給与・報酬', value: '日給 30,000円 〜 150,000円（15分3,800円〜高額バック）' },
@@ -617,7 +617,7 @@ export default function RequirementsPageContent({
             { label: '勤務地', value: '大阪府和泉市・信太山新地（老舗直営旅館）' },
             { label: '最寄り駅', value: 'JR阪和線「信太山駅」徒歩5分（無料送迎車・マイカー通勤OK）' },
             { label: '仕事内容', value: '旅館客室での15分〜短時間接客（ゴム着用厳守での本番等を含む1対1サービス・店先顔出しなし）' },
-            { label: '待遇', value: '日払い、無料送迎、完全個室待機、女性スタッフ常駐、個室寮完備、交通費支給、託児所補助' },
+            { label: '待遇', value: '日払い、無料送迎、待機所（スタンドまたは旅館）待機、女性スタッフ常駐、個室寮完備、交通費支給、託児所補助' },
             { label: '応募方法', value: '公式LINE・お電話（履歴書不要・私服手ぶらOK）' },
             { label: '必要書類', value: '年齢確認ができる身分証明書（免許証・マイナンバーカード・パスポート等）' }
           ].map((item, idx) => (

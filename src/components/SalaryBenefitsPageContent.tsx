@@ -568,8 +568,8 @@ export default function SalaryBenefitsPageContent({
               icon: 'Banknote'
             },
             {
-              title: '② 旅館直営の個室待機',
-              desc: '清潔で落ち着いた旅館の個室で待機。Wi-Fi・冷暖房・充電器完備でプライベートが守られます。',
+              title: '② 待機所（スタンドまたは旅館）での待機',
+              desc: '通りから見えない待機所で待機。Wi-Fi・冷暖房・充電器を備え、落ち着いて過ごせる環境です。',
               icon: 'Home'
             },
             {
@@ -599,7 +599,7 @@ export default function SalaryBenefitsPageContent({
             },
             {
               title: '⑧ 未経験者へのサポート',
-              desc: '入室の流れや安全ルール・接客マナーを女性スタッフや仲居さんが丁寧に付き添い指導。約90%が未経験スタートです。',
+              desc: '入室の流れや安全ルール・接客マナーを女性スタッフや仲居さんが丁寧に付き添い指導。未経験スタートの女性が多数在籍しています。',
               icon: 'Sparkles'
             }
           ].map((item, idx) => (
@@ -638,12 +638,12 @@ export default function SalaryBenefitsPageContent({
           {[
             {
               title: '旅館直営の待機環境',
-              desc: '老舗旅館直営だからこそ、清潔な客室での完全個室待機を実現。他人の視線を気にせず過ごせます。',
+              desc: '老舗旅館直営だからこそ、落ち着いた待機所（スタンドまたは旅館）で周囲の視線を気にせず待機できます。',
               icon: 'Building2'
             },
             {
               title: '店先で顔を出さない接客スタイル',
-              desc: '衣装を着て通りに座る必要は一切ありません。個室待機・内線呼び出しでプライバシーを守ります。',
+              desc: '衣装を着て通りに座る必要は一切ありません。待機所での待機と内線呼び出しでプライバシーを守ります。',
               icon: 'ShieldCheck'
             },
             {

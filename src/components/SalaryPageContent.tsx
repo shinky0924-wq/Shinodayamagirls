@@ -106,10 +106,10 @@ export default function SalaryPageContent({
           <div className="p-4 bg-gradient-to-b from-amber-50 to-orange-50/40 rounded-2xl border border-amber-200/90 shadow-2xs">
             <div className="flex items-center gap-1.5 text-amber-800 font-bold mb-1">
               <LucideIcon name="Clock" size={16} className="text-amber-600" />
-              <span className="text-sm font-black">12時間待機で日給保証</span>
+              <span className="text-sm font-black">待機時間に応じた日給保証</span>
             </div>
             <p className="text-zinc-600 text-xs leading-relaxed">
-              12時間のフル待機シフトなら日給8万〜10万円保証。短期でしっかりまとまった貯金を作りたい方に最適です。
+              最低時給10,000円保証のほか待機時間に応じた日給保証制度もあり、適用条件は面接時に事前にご案内します。
             </p>
           </div>
 
@@ -225,7 +225,7 @@ export default function SalaryPageContent({
               </div>
 
               <p className="text-[10px] text-amber-900/80 leading-normal bg-amber-50/50 p-2.5 rounded-xl border border-amber-100">
-                ※15分単位の短時間コース制（15分3,800円〜）と時給1万円保証、日給5万〜10万円実績に基づく試算です。手取り100%支給で天引きは一切ありません。
+                ※15分単位の短時間コース制（15分3,800円〜）と最低時給10,000円保証制度に基づく試算です。手取り100%支給で雑費天引きはありません。
               </p>
             </div>
 
@@ -242,32 +242,32 @@ export default function SalaryPageContent({
         </div>
       </div>
 
-      {/* 3. 出勤モデル別のリアル月収実績 */}
+      {/* 3. 出勤モデル別の条件つき収入例 */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-amber-100 shadow-sm">
         <h3 className="font-bold text-sm sm:text-base text-zinc-900 mb-3 flex items-center gap-2">
           <LucideIcon name="TrendingUp" size={17} className="text-amber-600" />
-          <span>ライフスタイル別 リアル収入モデル</span>
+          <span>勤務条件ごとの収入例（計算例つき試算）</span>
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
           <div className="p-4 rounded-2xl bg-amber-50/40 border border-amber-100">
-            <span className="font-bold text-amber-900 block mb-1">週1日・週末Wワーク（月4日）</span>
+            <span className="font-bold text-amber-900 block mb-1">例1｜週2日・1日4時間（18:00〜22:00）</span>
             <p className="text-zinc-600 leading-relaxed">
-              1日5万円接客 × 月4日 ＝ <strong className="text-rose-700 font-black">月収 約20万円</strong>
-              <br /><span className="text-[11px] text-zinc-500">本業の給料にプラスして無理なく貯金</span>
+              日給目安 15,200〜22,800円 × 月8日 ＝ <strong className="text-rose-700 font-black">月約12万〜18万円目安</strong>
+              <br /><span className="text-[11px] text-zinc-500">15分×2＋30分×1〜30分×3本ペース（Wワーク向け）</span>
             </p>
           </div>
           <div className="p-4 rounded-2xl bg-amber-50/40 border border-amber-100">
-            <span className="font-bold text-amber-900 block mb-1">週3日・マイペース勤務（月12日）</span>
+            <span className="font-bold text-amber-900 block mb-1">例2｜週3日・1日6時間（17:00〜23:00）</span>
             <p className="text-zinc-600 leading-relaxed">
-              1日6万円接客 × 月12日 ＝ <strong className="text-rose-700 font-black">月収 約72万円</strong>
-              <br /><span className="text-[11px] text-zinc-500">プライベートを充実させつつ半年で300万貯金</span>
+              日給目安 26,600〜38,000円 × 月12日 ＝ <strong className="text-rose-700 font-black">月約31万〜45万円目安</strong>
+              <br /><span className="text-[11px] text-zinc-500">15分×3＋30分×2〜30分×5本ペース（副業・夕方〜夜）</span>
             </p>
           </div>
           <div className="p-4 rounded-2xl bg-amber-50/40 border border-amber-100">
-            <span className="font-bold text-amber-900 block mb-1">週5日・レギュラーフル勤務（月20日）</span>
+            <span className="font-bold text-amber-900 block mb-1">例3｜週4日・1日8時間（11:00〜19:00）</span>
             <p className="text-zinc-600 leading-relaxed">
-              1日8〜10万円 × 月20日 ＝ <strong className="text-rose-700 font-black">月収 約160万〜200万円</strong>
-              <br /><span className="text-[11px] text-zinc-500">短期集中で1,000万円貯金達成者多数</span>
+              日給目安 38,000〜57,000円 × 月16日 ＝ <strong className="text-rose-700 font-black">月約60万〜91万円目安</strong>
+              <br /><span className="text-[11px] text-zinc-500">30分×5〜30分×6＋45分×1本ペース（日中中心）</span>
             </p>
           </div>
         </div>

@@ -140,7 +140,7 @@ export default function SafetyPageContent({
             <div className="flex flex-wrap gap-2 text-xs font-semibold text-[#1F2432]">
               <span className="inline-flex items-center gap-1.5 bg-[#FFF1F5] text-[#D8175D] px-3 py-1 rounded-full border border-[#F0DDE4]">
                 <LucideIcon name="ShieldCheck" size={13} />
-                完全個室待機・店先顔見せなし
+                待機所（スタンドまたは旅館）待機・店先顔見せなし
               </span>
               <span className="inline-flex items-center gap-1.5 bg-[#FFF1F5] text-[#D8175D] px-3 py-1 rounded-full border border-[#F0DDE4]">
                 <LucideIcon name="UserCheck" size={13} />
@@ -158,7 +158,7 @@ export default function SafetyPageContent({
             <div className="relative rounded-[20px] overflow-hidden border border-[#F0DDE4] shadow-sm bg-[#FFF5F8]/40 aspect-[4/3]">
               <img
                 src="/images/privacy_ryokan_room_1794375281070.webp"
-                alt="落ち着いた和風旅館の個室空間（通りから見られない完全個室待機環境）"
+                alt="落ち着いた和風旅館のイメージ（通りから顔を見せない待機環境）"
                 width={1200}
                 height={896}
                 decoding="async"

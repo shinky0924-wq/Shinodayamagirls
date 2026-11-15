@@ -34,14 +34,14 @@ const INTERVIEW_QUESTIONS: QuestionItem[] = [
     id: 'beginner-ratio',
     category: 'beginner',
     question: 'Q. 未経験の女性はどのくらいいますか？年齢層は？',
-    answer: '「信太山新地では、現在在籍している女性の約90％が夜職や風俗がまったくの未経験からスタートしています。\n年齢層も20代前半〜後半はもちろん、30代の女性も大歓迎で安心して活躍されています。\n学生さん、主婦、フリーター、昼間OLさんの掛け持ちなど、ごく普通の女性たちが働いています。\n複雑な営業活動やSNS更新（写メ日記等）の義務は一切ありません。初日は先輩スタッフが横について丁寧にお教えしますので、どうぞご安心ください。」',
+    answer: '「信太山新地では、夜職や風俗がまったくの未経験からスタートされる方が多く活躍しています。\n年齢層も20代前半〜後半はもちろん、30代の女性も大歓迎で安心して活躍されています。\n学生さん、主婦、フリーター、昼間OLさんの掛け持ちなど、ごく普通の女性たちが働いています。\n複雑な営業活動やSNS更新（写メ日記等）の義務は一切ありません。初日は女性スタッフが丁寧にお教えしますので、どうぞご安心ください。」',
     respondent: {
       name: 'あおい',
       role: '女性サポートスタッフ・相談窓口',
       avatarEmoji: '🌸',
       badge: '女性目線サポート'
     },
-    highlight: '在籍女性の約90%が未経験！20代大歓迎・30代も安心'
+    highlight: '未経験スタート多数！20代大歓迎・30代も安心'
   },
   {
     id: 'first-day-anxiety',
@@ -54,7 +54,7 @@ const INTERVIEW_QUESTIONS: QuestionItem[] = [
       avatarEmoji: '👨‍💼',
       badge: '待機システム'
     },
-    highlight: '店先顔見せ一切なし！個室待機で身バレ・顔バレ完全防止'
+    highlight: '店先顔見せ一切なし！待機所（スタンド・旅館）待機でプライバシー保護'
   },
   {
     id: 'interview-questions',
@@ -80,13 +80,13 @@ const INTERVIEW_QUESTIONS: QuestionItem[] = [
       avatarEmoji: '🌸',
       badge: '1日の流れ'
     },
-    highlight: '15分単位の短時間接客・快適個室待機・即日全額日払い'
+    highlight: '15分単位の短時間接客・待機所待機・即日全額日払い'
   },
   {
     id: 'salary-guarantee',
     category: 'salary',
-    question: 'Q. 本当に日給5万〜10万円以上稼げますか？雑費の天引きは？',
-    answer: '「はい、十分可能です。信太山新地は15分3,800円〜、30分7,600円〜の高額バックに加え、未経験スタートの方向けに【時給1万円保証】や【待機日給保証】制度を設けています。\nまた、スカウト業者や仲介所を通さない【老舗旅館の直営採用】ですので、紹介料の天引きや衣装代・厚生費などの不明瞭な引かれ物は一切ありません。手取り100％を即日現金でお持ち帰りいただけます。」',
+    question: 'Q. 報酬システムや保証制度について教えてください。雑費の天引きは？',
+    answer: '「信太山新地は15分3,800円〜、30分7,600円〜の高水準コース報酬に加え、最低時給10,000円保証や待機時間に応じた日給保証制度も設けています（適用条件は面接時に事前ご説明します）。\nまた、スカウト業者や仲介所を通さない【老舗旅館の直営採用】ですので、紹介料の天引きや衣装代・厚生費などの不明瞭な引かれ物は一切ありません。手取り100％を即日現金でお持ち帰りいただけます。」',
     respondent: {
       name: '松本',
       role: '採用マネージャー・給与担当',
@@ -179,7 +179,7 @@ export default function RecruiterInterviewPage({
     window.scrollTo(0, 0);
     updatePageSeo({
       title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
-      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験率90%・給与や日払い・面接内容まで詳しく解説します。',
+      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験スタート多数の安心理由・給与や日払い・面接内容まで詳しく解説します。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
       ogType: 'article',
       jsonLd: {
@@ -190,14 +190,37 @@ export default function RecruiterInterviewPage({
             '@id': 'https://osaka-shinodayamashinchi-recruit.com/interview#article',
             'headline': '旅館の求人・採用担当者へのインタビュー',
             'description': '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
+            'datePublished': '2026-10-01T00:00:00+09:00',
+            'dateModified': '2026-11-14T00:00:00+09:00',
             'inLanguage': 'ja-JP',
-            'author': {
-              '@type': 'Organization',
-              'name': '信太山ガールズ（信太山新地 旅館直営公式採用窓口）'
+            'speakable': {
+              '@type': 'SpeakableSpecification',
+              'cssSelector': ['h1', 'h2', 'h3']
             },
+            'author': [
+              {
+                '@type': 'Person',
+                'name': 'あおい',
+                'jobTitle': '女性相談・就労サポート責任者（相談員歴8年）',
+                'worksFor': {
+                  '@type': 'Organization',
+                  'name': '信太山ガールズ（信太山新地 老舗旅館直営公式採用窓口）'
+                }
+              },
+              {
+                '@type': 'Person',
+                'name': '松本 健二',
+                'jobTitle': '採用・労務マネージャー（採用・面接担当12年）',
+                'worksFor': {
+                  '@type': 'Organization',
+                  'name': '信太山ガールズ（信太山新地 老舗旅館直営公式採用窓口）'
+                }
+              }
+            ],
             'publisher': {
               '@type': 'Organization',
               'name': '信太山ガールズ',
+              'url': 'https://osaka-shinodayamashinchi-recruit.com/',
               'logo': {
                 '@type': 'ImageObject',
                 'url': 'https://osaka-shinodayamashinchi-recruit.com/favicon.png'
@@ -330,11 +353,11 @@ export default function RecruiterInterviewPage({
           <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="bg-[#FFFCFC] p-3.5 rounded-[14px] border border-[#F0DDE4] text-center">
               <span className="text-[11px] text-zinc-500 block mb-0.5">プライバシー配慮</span>
-              <span className="text-xs font-bold text-[#D8175D]">店先顔出し一切なし（個室待機）</span>
+              <span className="text-xs font-bold text-[#D8175D]">店先顔出しなし（待機所：スタンドまたは旅館）</span>
             </div>
             <div className="bg-[#FFFCFC] p-3.5 rounded-[14px] border border-[#F0DDE4] text-center">
-              <span className="text-[11px] text-zinc-500 block mb-0.5">未経験スタート率</span>
-              <span className="text-xs font-bold text-[#D8175D]">約90%が夜職初心者</span>
+              <span className="text-[11px] text-zinc-500 block mb-0.5">未経験サポート</span>
+              <span className="text-xs font-bold text-[#D8175D]">未経験スタートが多数在籍</span>
             </div>
             <div className="bg-[#FFFCFC] p-3.5 rounded-[14px] border border-[#F0DDE4] text-center">
               <span className="text-[11px] text-zinc-500 block mb-0.5">給与システム</span>

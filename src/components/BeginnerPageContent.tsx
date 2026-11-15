@@ -41,7 +41,7 @@ export default function BeginnerPageContent({
   const beginnerFaqs = [
     {
       q: '本当に未経験でも応募できますか？',
-      a: 'はい、大歓迎です。当店で働く女性の約90%が夜職や接客の完全未経験からスタートしています。特別な経験やスキルは一切必要ありません。'
+      a: 'はい、大歓迎です。当店で働く女性の多くが夜職や接客の未経験からスタートしています。特別な経験やスキルは一切必要ありません。'
     },
     {
       q: '接客経験がなくても大丈夫ですか？',
@@ -65,7 +65,7 @@ export default function BeginnerPageContent({
     },
     {
       q: '家族や知人に知られないか心配です。',
-      a: '完全源氏名での勤務、完全個室待機、女性専用の無料送迎車の運行など、プライバシーに最大限配慮した環境を徹底しています。'
+      a: '完全源氏名での勤務、待機所（スタンドまたは旅館）での待機、女性専用の無料送迎車の運行など、プライバシーに配慮した環境を徹底しています。'
     },
     {
       q: '働いてみて合わなかった場合はどうなりますか？',
@@ -103,7 +103,7 @@ export default function BeginnerPageContent({
               不安や疑問を残したまま働き始めることがないよう、一つずつ丁寧に説明します。
             </p>
             <div className="flex flex-wrap gap-2">
-              {['約90%が未経験スタート', '女性スタッフ常駐', '店先顔出しなし', '履歴書不要・手ぶらOK'].map((tag) => (
+              {['未経験スタート多数', '女性スタッフ常駐', '店先顔出しなし', '履歴書不要・手ぶらOK'].map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center gap-1 bg-[#FFF1F5] text-[#D8175D] text-xs font-bold px-3 py-1 rounded-full border border-[#F0DDE4]"
@@ -224,7 +224,7 @@ export default function BeginnerPageContent({
             {
               num: '④',
               title: '落ち着いた待機環境',
-              desc: '旅館直営の個室待機環境について、実際の様子をご案内します。Wi-Fi・冷暖房完備の個室で人目を気にせず過ごせます。',
+              desc: '待機所（スタンドまたは旅館）での待機環境について、実際の様子をご案内します。Wi-Fi・冷暖房完備の環境で人目を気にせず過ごせます。',
               icon: 'Home'
             },
             {
@@ -472,7 +472,7 @@ export default function BeginnerPageContent({
                 「応募前の不安から、働き始めるまで」
               </h3>
               <p className="text-xs text-[#555555] leading-relaxed mb-3">
-                昼職と掛け持ちだったので、身バレや出勤の融通が利くかが一番の心配でした。店先での顔見せがなく、個室待機で知り合いに会う心配がないことを確認して安心できました。女性スタッフさんに何でも相談できるのが心強いです。
+                昼職と掛け持ちだったので、身バレや出勤の融通が利くかが一番の心配でした。店先での顔見せがなく、待機所（スタンドまたは旅館）で待機するため通りで知り合いに会う心配がないことを確認して安心できました。女性スタッフさんに何でも相談できるのが心強いです。
               </p>
             </div>
             <div className="pt-3 border-t border-[#F0DDE4] text-[11px] text-[#777777] flex justify-between items-center">

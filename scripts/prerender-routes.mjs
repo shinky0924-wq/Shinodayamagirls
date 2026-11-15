@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { transformSync } from 'esbuild';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,6 +11,19 @@ const distDir = path.join(rootDir, 'dist');
 const BASE_DOMAIN = 'https://osaka-shinodayamashinchi-recruit.com';
 const DEFAULT_IMAGE = `${BASE_DOMAIN}/images/shinodayama_hero_banner_1792225964954.jpg`;
 const DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+
+async function loadTsModule(relPath) {
+  const fullPath = path.join(rootDir, relPath);
+  if (!fs.existsSync(fullPath)) return {};
+  const tsCode = fs.readFileSync(fullPath, 'utf8');
+  const { code } = transformSync(tsCode, {
+    loader: 'ts',
+    format: 'esm',
+    target: 'es2022'
+  });
+  const dataUri = `data:text/javascript;base64,${Buffer.from(code, 'utf8').toString('base64')}`;
+  return import(dataUri);
+}
 
 function escapeHtml(str = '') {
   return String(str)
@@ -35,42 +49,6 @@ function upsertMeta(html, attrName, attrVal, content) {
     return html.replace(regex, tag);
   }
   return html.replace('</head>', `  ${tag}\n  </head>`);
-}
-
-function extractFaqQuestionsFromTs(filePath) {
-  if (!fs.existsSync(filePath)) return [];
-  const src = fs.readFileSync(filePath, 'utf8');
-  const results = [];
-  const itemRegex = /q:\s*(['"])((?:\\.|(?!\1).)*)\1\s*,\s*a:\s*(['"])((?:\\.|(?!\3).)*)\3/gs;
-  let m;
-  while ((m = itemRegex.exec(src)) !== null) {
-    results.push({ q: m[2], a: m[4] });
-  }
-  return results;
-}
-
-function extractWorkstyleDetailsFromTs(filePath) {
-  if (!fs.existsSync(filePath)) return {};
-  const src = fs.readFileSync(filePath, 'utf8');
-  const map = {};
-  const slugBlocks = src.split(/slug:\s*['"]([a-z0-9-]+)['"]/).slice(1);
-  for (let i = 0; i < slugBlocks.length; i += 2) {
-    const slug = slugBlocks[i];
-    const block = slugBlocks[i + 1] || '';
-    const leadMatch = block.match(/lead:\s*['"]([\s\S]*?)['"]/);
-    const suitableMatches = [...block.matchAll(/suitableFor:\s*\[([\s\S]*?)\]/g)]
-      .flatMap((m) => [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]))
-      .slice(0, 4);
-    const topicMatches = [...block.matchAll(/title:\s*['"]([^'"]+)['"]\s*,\s*description:\s*['"]([^'"]+)['"]/g)]
-      .map((m) => ({ title: m[1], description: m[2] }))
-      .slice(0, 5);
-    map[slug] = {
-      lead: leadMatch ? leadMatch[1] : '',
-      suitableFor: suitableMatches,
-      topics: topicMatches
-    };
-  }
-  return map;
 }
 
 function formatBlogSeoTitle(articleTitle = '') {
@@ -219,6 +197,50 @@ function renderTopicClusterSsrHtml(data, allClusters) {
   return parts.join('');
 }
 
+function renderWorkstyleTypeDetailHtml(item, overviewFaqs = []) {
+  const parts = [];
+  if (item.lead) {
+    parts.push(`<p class="text-sm sm:text-base text-zinc-700 leading-relaxed mb-5">${escapeHtml(item.lead)}</p>`);
+  }
+  if (Array.isArray(item.suitableFor) && item.suitableFor.length) {
+    parts.push(
+      `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-2">こんな方に向いています</h2><ul class="list-disc pl-5 space-y-1.5 text-sm text-zinc-700">${item.suitableFor
+        .map((s) => `<li>${escapeHtml(s)}</li>`)
+        .join('')}</ul></section>`
+    );
+  }
+  if (Array.isArray(item.considerations) && item.considerations.length) {
+    parts.push(
+      `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-2">押さえておきたいポイント</h2><ul class="list-disc pl-5 space-y-1.5 text-sm text-zinc-700">${item.considerations
+        .map((s) => `<li>${escapeHtml(s)}</li>`)
+        .join('')}</ul></section>`
+    );
+  }
+  if (Array.isArray(item.specificTopics) && item.specificTopics.length) {
+    parts.push(
+      `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-3">仕事・条件の詳しい確認ポイント</h2><div class="space-y-3">${item.specificTopics
+        .map((t) => `<div class="p-4 rounded-xl bg-rose-50/40 border border-rose-100"><h3 class="font-bold text-sm text-zinc-900 mb-1">${escapeHtml(t.title)}</h3><p class="text-sm text-zinc-700 leading-relaxed">${escapeHtml(t.description)}</p></div>`)
+        .join('')}</div></section>`
+    );
+  }
+  if (Array.isArray(item.preCheckList) && item.preCheckList.length) {
+    parts.push(
+      `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-2">応募・相談前のチェックリスト</h2><ul class="list-disc pl-5 space-y-1.5 text-sm text-zinc-700">${item.preCheckList
+        .map((chk) => `<li>${escapeHtml(chk)}</li>`)
+        .join('')}</ul></section>`
+    );
+  }
+  const combinedFaqs = [...(item.faqs || []), ...(overviewFaqs || [])];
+  if (combinedFaqs.length) {
+    parts.push(
+      `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-3">よくある質問</h2><div class="space-y-3">${combinedFaqs
+        .map((f) => `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(f.q)}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(f.a)}</p></div>`)
+        .join('')}</div></section>`
+    );
+  }
+  return parts.join('');
+}
+
 function buildSsrRootShell(routeMeta) {
   const heading = escapeHtml(routeMeta.heading || routeMeta.title);
   const lead = escapeHtml(routeMeta.leadText || routeMeta.description || '');
@@ -281,6 +303,16 @@ function buildRouteHtml(baseHtml, routeMeta) {
 
   // Avoid preloading the homepage hero banner on subpages that do not immediately display it
   html = html.replace(/<link\s+rel="preload"\s+as="image"\s+href="\/images\/shinodayama_hero_banner_1792225964954\.webp"[^>]*\/?>\s*/i, '');
+
+  // Swap or strip rel="alternate" type="text/markdown" per-route
+  if (routeMeta.mdPath) {
+    html = html.replace(
+      /<link\s+rel="alternate"\s+type="text\/markdown"[^>]*\/?>/i,
+      `<link rel="alternate" type="text/markdown" title="Markdown Version" href="${escapeHtml(routeMeta.mdPath)}" />`
+    );
+  } else {
+    html = html.replace(/<link\s+rel="alternate"\s+type="text\/markdown"[^>]*\/?>\s*/i, '');
+  }
 
   // Title, robots, meta description, canonical
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
@@ -433,7 +465,87 @@ function writeRouteFiles(routePath, htmlContent) {
   fs.writeFileSync(dirIndexFile, htmlContent, 'utf8');
 }
 
-function main() {
+function buildHowToNode(key) {
+  if (key === 'job') {
+    return {
+      '@type': 'HowTo',
+      '@id': `${BASE_DOMAIN}/job#howto`,
+      name: '信太山新地の1日の仕事の進め方（出勤〜退勤の流れ）',
+      description: '初めての方にも分かりやすい、信太山新地の旅館直営店舗での出勤から待機・接客・日払い受取までの基本4ステップ。',
+      inLanguage: 'ja-JP',
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'STEP1｜出勤・お着替え',
+          text: 'ご希望の出勤時刻に合わせて私服・手ぶらで出勤し、無料レンタル衣装やメイクなど身支度を整えます。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'STEP2｜待機所（スタンドまたは旅館）で待機',
+          text: '店先に立つことはなく、待機所でリラックスして過ごしながら案内を待ちます。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'STEP3｜仲居さんの案内で接客（15分〜の個室コース）',
+          text: 'お客様が先にシャワーを済ませたあと、仲居さんの呼び出しでお部屋へ向かい、軽い会話や基本接客（コンドーム着用厳守）を行います。時間管理も仲居さんが対応します。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'STEP4｜全額現金受取・退勤',
+          text: 'シフト終了後に当日分のお給料を全額現金手渡しで受け取り、退勤します（天引きなし）。'
+        }
+      ]
+    };
+  }
+  if (key === 'flow') {
+    return {
+      '@type': 'HowTo',
+      '@id': `${BASE_DOMAIN}/flow#howto`,
+      name: '信太山新地 求人応募〜面接・見学・体験入店の流れ',
+      description: 'LINE相談から条件説明、環境見学、体験入店（希望者のみ）までの応募ステップをご案内します。',
+      inLanguage: 'ja-JP',
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'STEP01｜LINE・電話でお問い合わせ',
+          text: '24時間受付の公式LINEから、仕事内容や給与、働く条件について質問・相談できます（相談のみも可）。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'STEP02｜面接の日程・希望条件を確認',
+          text: '希望する勤務時間や日数、気になる条件を調整します。履歴書不要で私服のまま手ぶらでお越しいただけます。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'STEP03｜面接・仕事内容・条件の説明',
+          text: '15分単位のコース別報酬、勤務条件、送迎や寮などの待遇を納得いただけるまで事前にお伝えします（年齢確認のため顔写真付き身分証1点が必要）。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'STEP04｜店舗・待機環境の見学、体験入店の相談',
+          text: '希望される方は待機所や館内設備を見学でき、体験入店の条件も確認できます。見学のみでの判断も可能です。'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 5,
+          name: 'STEP05｜希望者のみ体験入店・勤務開始',
+          text: '条件に納得し本人が希望する場合に体験入店または勤務を開始します。体験分の報酬も退勤時に全額日払いでお渡しします。'
+        }
+      ]
+    };
+  }
+  return null;
+}
+
+async function main() {
   if (!fs.existsSync(distDir)) {
     console.error('[prerender] dist directory not found. Run vite build first.');
     process.exit(1);
@@ -446,6 +558,22 @@ function main() {
   }
 
   const baseHtml = fs.readFileSync(indexPath, 'utf8');
+
+  // Load live TypeScript data modules cleanly via esbuild
+  const compareModule = await loadTsModule('src/compareData.ts');
+  const faqModule = await loadTsModule('src/faq11CategoriesData.ts');
+  const workstyleModule = await loadTsModule('src/workstyleGuideData.ts');
+
+  const mainTargets = Array.isArray(compareModule.MAIN_6_TARGETS) ? compareModule.MAIN_6_TARGETS : [];
+  const mainItems = Array.isArray(compareModule.MAIN_11_COMPARISON_ITEMS) ? compareModule.MAIN_11_COMPARISON_ITEMS : [];
+  const courseSchedule = Array.isArray(compareModule.COURSE_REWARD_SCHEDULE) ? compareModule.COURSE_REWARD_SCHEDULE : [];
+  const areaRows = Array.isArray(compareModule.AREA_COMPARISON_ROWS) ? compareModule.AREA_COMPARISON_ROWS : [];
+
+  const faqCategories = Array.isArray(faqModule.FAQ_11_CATEGORIES) ? faqModule.FAQ_11_CATEGORIES : [];
+  const faqQuestions = Array.isArray(faqModule.FAQ_66_QUESTIONS) ? faqModule.FAQ_66_QUESTIONS : [];
+
+  const workstyleTypes = Array.isArray(workstyleModule.WORKSTYLE_8_TYPES) ? workstyleModule.WORKSTYLE_8_TYPES : [];
+  const workstyleOverviewFaqs = Array.isArray(workstyleModule.WORKSTYLE_OVERVIEW_FAQS) ? workstyleModule.WORKSTYLE_OVERVIEW_FAQS : [];
 
   // Build clean noindex, nofollow 404.html (prevents Soft-404 duplication against '/')
   const notFoundHtml = buildRouteHtml(baseHtml, {
@@ -467,204 +595,108 @@ function main() {
 
   const routes = [];
 
-  // 1. Core static routes
+  // 1. /compare (Full 6-Target x 11-Item matrix, course schedule, area table, 5 FAQs)
+  const COMPARISON_FAQS = [
+    {
+      q: '飛田新地との一番大きな違いは何ですか？',
+      a: '最も大きな違いは「店先での顔見せ（顔出し）が一切ないこと」です。飛田新地では通りに面した玄関先（上がり框）に座って通行人にお顔を見せるスタイルですが、信太山新地は待機所（スタンドまたは旅館）で待機します。通りから顔を見られることが一切ないため、知り合いや通行人にバレるリスクを抑えられます。'
+    },
+    {
+      q: 'スカウト業者や仲介サイトから応募するのと何が違いますか？',
+      a: '信太山ガールズは旅館直営の公式採用窓口です。スカウト業者や外部の仲介者を挟まないため、毎月の給料から紹介料（10〜30%）が天引きされることは絶対にありません。100%全額があなたの手取りになり、条件に応じた時給保証や日給保証、寮相談、往復交通費支給などの待遇がそのまま適用されます。'
+    },
+    {
+      q: 'メンズエステやキャバクラ、ソープランドと比べて稼ぎやすさはどうですか？',
+      a: '信太山新地は15分単位（15分3,800円〜）の短時間コース設定のため、1回あたりの身体的負担が少なく効率よく回転してお給料を積み上げられます。また信太山新地独自の「時給10,000円保証」や待機時間に応じた「日給保証制度（適用条件は事前ご説明）」もあるため、待機損の心配を抑えて働けます。キャバクラのような売上ノルマ・営業連絡やお酒の強要も一切不要です。'
+    },
+    {
+      q: 'ネットやSNSに写真が載ることはありますか？',
+      a: '一切ありません。メンズエステやソープランドのようにパネル写真・顔写真・写メ日記などをネット上に掲載することはありません。完全源氏名でお仕事ができるため、プライバシーが守られます。'
+    },
+    {
+      q: 'お酒を飲む必要はありますか？',
+      a: 'お酒は一切不要です。キャバクラやガールズバーのように飲酒を伴う接客ではないため、お酒が苦手な方でも体調を崩したり二日酔いになったりする心配がありません。翌日の昼職や家事、学校への影響もゼロです。'
+    }
+  ];
+
+  const compareSsrParts = [];
+  if (mainTargets.length && mainItems.length) {
+    compareSsrParts.push(
+      `<section class="mb-8"><h2 class="text-lg sm:text-xl font-bold text-zinc-900 mb-3">信太山新地 vs 他業種・応募形態 11項目比較表</h2><div class="overflow-x-auto"><table class="w-full text-xs border-collapse border border-rose-100"><thead><tr class="bg-rose-50"><th class="p-2 border border-rose-100 text-left font-bold">比較項目</th>${mainTargets
+        .map((t) => `<th class="p-2 border border-rose-100 text-left font-bold">${escapeHtml(t.name)}<br /><span class="font-normal text-[11px] text-zinc-500">${escapeHtml(t.subName)}</span></th>`)
+        .join('')}</tr></thead><tbody>${mainItems
+        .map(
+          (item) =>
+            `<tr><th class="p-2 border border-rose-100 text-left font-bold bg-rose-50/30">${escapeHtml(item.name)}</th>${mainTargets
+              .map((t) => {
+                const v = item.values?.[t.id];
+                return `<td class="p-2 border border-rose-100 align-top">${escapeHtml(v?.text || '')}${v?.point ? `<div class="mt-1 font-bold text-rose-700">${escapeHtml(v.point)}</div>` : ''}</td>`;
+              })
+              .join('')}</tr>`
+        )
+        .join('')}</tbody></table></div></section>`
+    );
+  }
+  if (courseSchedule.length) {
+    compareSsrParts.push(
+      `<section class="mb-8"><h2 class="text-lg font-bold text-zinc-900 mb-3">15分単位のコース報酬・時給換算</h2><div class="overflow-x-auto"><table class="w-full text-xs sm:text-sm border-collapse border border-rose-100"><thead><tr class="bg-rose-50"><th class="p-2 border border-rose-100 text-left">コース時間</th><th class="p-2 border border-rose-100 text-left">キャスト手取り報酬</th><th class="p-2 border border-rose-100 text-left">時給換算相当</th><th class="p-2 border border-rose-100 text-left">特徴</th></tr></thead><tbody>${courseSchedule
+        .map((r) => `<tr><td class="p-2 border border-rose-100 font-bold">${escapeHtml(r.courseTime)}</td><td class="p-2 border border-rose-100">${Number(r.reward).toLocaleString()}円</td><td class="p-2 border border-rose-100">約${Number(r.hourlyEquivalent).toLocaleString()}円/h</td><td class="p-2 border border-rose-100">${escapeHtml(r.note)}</td></tr>`)
+        .join('')}</tbody></table></div></section>`
+    );
+  }
+  if (areaRows.length) {
+    compareSsrParts.push(
+      `<section class="mb-8"><h2 class="text-lg font-bold text-zinc-900 mb-3">大阪五大新地・他業種との違い比較</h2><div class="overflow-x-auto"><table class="w-full text-xs sm:text-sm border-collapse border border-rose-100"><thead><tr class="bg-rose-50"><th class="p-2 border border-rose-100 text-left">比較項目</th><th class="p-2 border border-rose-100 text-left">信太山新地（当店）</th><th class="p-2 border border-rose-100 text-left">飛田新地</th><th class="p-2 border border-rose-100 text-left">松島新地</th><th class="p-2 border border-rose-100 text-left">一般夜職・風俗</th></tr></thead><tbody>${areaRows
+        .map((r) => `<tr><th class="p-2 border border-rose-100 text-left font-bold bg-rose-50/30">${escapeHtml(r.criteria)}</th><td class="p-2 border border-rose-100">${escapeHtml(r.shinodayama?.text || '')}</td><td class="p-2 border border-rose-100">${escapeHtml(r.tobita?.text || '')}</td><td class="p-2 border border-rose-100">${escapeHtml(r.matsushima?.text || '')}</td><td class="p-2 border border-rose-100">${escapeHtml(r.generalNight?.text || '')}</td></tr>`)
+        .join('')}</tbody></table></div></section>`
+    );
+  }
+  compareSsrParts.push(
+    `<section><h2 class="text-lg font-bold text-zinc-900 mb-3">他業種との比較に関するよくある質問</h2><div class="space-y-3">${COMPARISON_FAQS.map(
+      (f) => `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(f.q)}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(f.a)}</p></div>`
+    ).join('')}</div></section>`
+  );
+
   routes.push({
     route: 'compare',
+    mdPath: '/compare.md',
     title: '信太山新地・他業種 徹底比較｜飛田新地・メンエス・キャバクラとの違い',
     description:
       '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較。仕事内容、接客スタイル、給料の仕組み、勤務時間、身バレ対策、直営ならではの応募条件まで詳しく解説します。',
     canonicalUrl: `${BASE_DOMAIN}/compare`,
     heading: '信太山新地 徹底比較ガイド（6種類の違いを11項目で比較）',
-    ssrBodyHtml: `<section class="mb-6"><h2 class="text-lg font-bold text-zinc-900 mb-3">15分単位のコース報酬・時給換算</h2><table class="w-full text-xs sm:text-sm border-collapse border border-rose-100"><thead><tr class="bg-rose-50"><th class="p-2 border border-rose-100 text-left">コース時間</th><th class="p-2 border border-rose-100 text-left">キャスト手取り報酬</th><th class="p-2 border border-rose-100 text-left">特徴</th></tr></thead><tbody><tr><td class="p-2 border border-rose-100">15分コース</td><td class="p-2 border border-rose-100">3,800円</td><td class="p-2 border border-rose-100">最短短時間コース（時給換算 約15,200円）</td></tr><tr><td class="p-2 border border-rose-100">30分コース</td><td class="p-2 border border-rose-100">7,600円</td><td class="p-2 border border-rose-100">定番人気コース。ゆったり接客</td></tr><tr><td class="p-2 border border-rose-100">45分コース</td><td class="p-2 border border-rose-100">11,400円</td><td class="p-2 border border-rose-100">リラックス接客。仲居さんが時間管理</td></tr><tr><td class="p-2 border border-rose-100">60分コース</td><td class="p-2 border border-rose-100">15,200円</td><td class="p-2 border border-rose-100">じっくりコース。延長15分毎に3,800円加算</td></tr></tbody></table></section><section><h2 class="text-lg font-bold text-zinc-900 mb-2">他業種との比較ポイント</h2><p class="text-sm text-zinc-700 leading-relaxed">信太山新地は店先での顔見せがなく、待機所（スタンドまたは旅館）での待機を採用。15分単位の短時間接客（軽い会話・スキンシップ・フェラ・ゴム着用厳守での本番行為など／お茶出し・飲酒・部屋掃除なし）で高日給・即日全額現金日払いを実現しています。</p></section>`,
+    ssrBodyHtml: compareSsrParts.join(''),
     noscriptBodyHtml:
       '<p>信太山新地・飛田新地・メンズエステ・キャバクラ・ソープランドの5業種と、スカウト・紹介経由（応募方法）の違いを11項目で比較解説しています。</p>',
     extraJsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      '@id': `${BASE_DOMAIN}/compare#webpage`,
-      name: '信太山新地・他業種 徹底比較ガイド',
-      url: `${BASE_DOMAIN}/compare`,
-      dateModified: '2026-11-14',
-      inLanguage: 'ja-JP'
-    }
-  });
-
-  // 2. 8 Workstyle Types (with rich SSR bullets) + Legacy Aliases (noindex, follow)
-  const workstyleDetails = extractWorkstyleDetailsFromTs(path.join(rootDir, 'src', 'workstyleGuideData.ts'));
-  const workstyleMetaList = [
-    {
-      slug: 'inexperienced',
-      title: '未経験から始めたい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '初めてのお仕事で不安がある方へ。仕事内容や接客の流れ、応募から面接までの流れ、事前に確認したいことをご紹介します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'high-income',
-      title: '高収入を目指したい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '報酬の仕組みやコース料金、収入に関係する条件について知りたい方へ。実際の報酬や控除、収入に影響するポイントを解説します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'weekly-1',
-      title: '週1日から働きたい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '毎日出勤するのは難しい方や、自分の予定に合わせて働きたい方へ。出勤日数やシフト、勤務条件の確認ポイントをご紹介します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'privacy',
-      title: '顔出しなし・身バレ対策｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '知人や家族に知られたくない、プライバシーが気になる方へ。写真掲載・個人情報・SNSなど、応募前に確認しておきたいポイントをご紹介します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'short-term',
-      title: '短時間・短期で働きたい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '長時間の勤務が難しい方や、働ける期間が限られている方へ。勤務時間・短時間勤務・期間などの相談ポイントを解説します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'female-staff',
-      title: '女性スタッフに相談したい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '男性には相談しにくいことや、女性目線で聞いてみたいことがある方へ。応募前の疑問や不安を相談する方法をご案内します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'dormitory',
-      title: '出稼ぎ・寮付き希望｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        '遠方から働くことを検討している方へ。寮の有無・利用条件・交通費・滞在期間など、事前に確認したい内容をご紹介します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    },
-    {
-      slug: 'consultation',
-      title: 'まずは話を聞きたい｜信太山新地・信太山求人 働き方ガイド',
-      description:
-        'まだ応募するか決めていない方や、まずは情報収集から始めたい方へ。仕事内容や待遇、お店選びなど、気になることを相談する方法をご案内します。信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。'
-    }
-  ];
-
-  routes.push({
-    route: 'types',
-    title: '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】',
-    description:
-      '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。',
-    canonicalUrl: `${BASE_DOMAIN}/types`,
-    imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
-    heading: 'あなたに合った働き方を見つけよう。（信太山新地 タイプ別ガイド）',
-    ssrBodyHtml: `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">${workstyleMetaList.map((w) => `<li class="p-3 bg-rose-50/50 rounded-xl border border-rose-100"><a href="${BASE_DOMAIN}/types/${w.slug}" class="font-bold text-rose-700 underline block mb-1">${escapeHtml(w.title.split('｜')[0])}</a><p class="text-xs text-zinc-600">${escapeHtml(w.description)}</p></li>`).join('')}</ul>`,
-    noscriptBodyHtml:
-      '<p>未経験から始めたい、高収入を目指したい、週1日から働きたい、顔出しなし・身バレ対策、短時間・短期で働きたい、女性スタッフに相談したい、出稼ぎ・寮付き希望、まずは話を聞きたいの8タイプ別に条件や確認ポイントをご案内します。</p>',
-    extraJsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      '@id': `${BASE_DOMAIN}/types#webpage`,
-      name: '信太山新地 タイプ別働き方ガイド',
-      url: `${BASE_DOMAIN}/types`,
-      dateModified: '2026-11-14',
-      inLanguage: 'ja-JP',
-      mainEntity: {
-        '@type': 'ItemList',
-        name: '信太山新地 タイプ別働き方ガイド 8選',
-        itemListElement: workstyleMetaList.map((w, idx) => ({
-          '@type': 'ListItem',
-          position: idx + 1,
-          name: w.title.split('｜')[0],
-          url: `${BASE_DOMAIN}/types/${w.slug}`
-        }))
-      }
-    }
-  });
-
-  workstyleMetaList.forEach((item) => {
-    const parentBreadcrumb = { name: 'タイプ別働き方ガイド', path: '/types' };
-    const detail = workstyleDetails[item.slug];
-    const detailHtmlParts = [];
-    if (detail?.lead) {
-      detailHtmlParts.push(`<p class="text-sm text-zinc-700 mb-4">${escapeHtml(detail.lead)}</p>`);
-    }
-    if (detail?.suitableFor?.length) {
-      detailHtmlParts.push(
-        `<h2 class="text-base font-bold text-zinc-900 mt-4 mb-2">こんな方に向いています</h2><ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-zinc-700 mb-4">${detail.suitableFor
-          .map((s) => `<li>${escapeHtml(s)}</li>`)
-          .join('')}</ul>`
-      );
-    }
-    if (detail?.topics?.length) {
-      detailHtmlParts.push(
-        `<h2 class="text-base font-bold text-zinc-900 mt-4 mb-2">主な確認テーマ</h2><ul class="space-y-2 text-xs sm:text-sm text-zinc-700">${detail.topics
-          .map((t) => `<li><strong>${escapeHtml(t.title)}：</strong>${escapeHtml(t.description)}</li>`)
-          .join('')}</ul>`
-      );
-    }
-    const richBody = detailHtmlParts.join('');
-
-    routes.push({
-      route: `types/${item.slug}`,
-      title: item.title,
-      description: item.description,
-      canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
-      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
-      heading: item.title.split('｜')[0],
-      parentBreadcrumb,
-      noscriptBodyHtml: richBody
-    });
-    routes.push({
-      route: `compare/${item.slug}`,
-      title: item.title,
-      description: item.description,
-      canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
-      robots: 'noindex, follow',
-      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
-      heading: item.title.split('｜')[0],
-      parentBreadcrumb,
-      noscriptBodyHtml: richBody
-    });
-  });
-
-  // Legacy type aliases -> noindex, follow pointing canonical to canonical /types/<to>
-  const legacyTypeAliases = [
-    { from: 'double-work', to: 'privacy' },
-    { from: 'age-20s', to: 'consultation' },
-    { from: 'age-30s', to: 'consultation' }
-  ];
-  legacyTypeAliases.forEach(({ from, to }) => {
-    const target = workstyleMetaList.find((m) => m.slug === to);
-    if (!target) return;
-    [`types/${from}`, `compare/${from}`].forEach((route) => {
-      routes.push({
-        route,
-        title: target.title,
-        description: target.description,
-        canonicalUrl: `${BASE_DOMAIN}/types/${to}`,
-        robots: 'noindex, follow',
-        imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
-        heading: target.title.split('｜')[0],
-        parentBreadcrumb: { name: 'タイプ別働き方ガイド', path: '/types' }
-      });
-    });
-  });
-
-  // 3. FAQ, Interview, About, Policy, Admin
-  const faqEntries = extractFaqQuestionsFromTs(path.join(rootDir, 'src', 'faq11CategoriesData.ts'));
-  const faqSsrHtml = faqEntries.length > 0
-    ? `<div class="space-y-3">${faqEntries.slice(0, 20).map((item) => `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(item.q)}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(item.a)}</p></div>`).join('')}</div>`
-    : '<p>全66問のQ&Aを掲載しています。</p>';
-
-  routes.push({
-    route: 'faq',
-    title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
-    description:
-      '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
-    canonicalUrl: `${BASE_DOMAIN}/faq`,
-    heading: 'よくある質問 FAQ（全66問・11カテゴリー）',
-    ssrBodyHtml: faqSsrHtml,
-    noscriptBodyHtml:
-      '<p>未経験からの始め方、仕事内容、給与・日払い、シフト・働き方、身バレ対策・プライバシー、寮・出稼ぎ、面接・体験入店、店舗選び・半年ルールなど全66問のQ&Aを掲載しています。</p>',
-    extraJsonLd: faqEntries.length > 0
-      ? {
-          '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/compare#webpage`,
+          name: '信太山新地・他業種 徹底比較ガイド',
+          description: '信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違いを11項目で比較解説。',
+          url: `${BASE_DOMAIN}/compare`,
+          dateModified: '2026-11-14',
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2']
+          },
+          mainEntity: {
+            '@type': 'ItemList',
+            name: '信太山新地・他業種・応募形態 6比較対象',
+            itemListElement: mainTargets.map((target, idx) => ({
+              '@type': 'ListItem',
+              position: idx + 1,
+              name: `${target.name}（${target.subName}）`
+            }))
+          }
+        },
+        {
           '@type': 'FAQPage',
-          '@id': `${BASE_DOMAIN}/faq#faqpage`,
-          mainEntity: faqEntries.slice(0, 20).map((item) => ({
+          '@id': `${BASE_DOMAIN}/compare#faq`,
+          mainEntity: COMPARISON_FAQS.map((item) => ({
             '@type': 'Question',
             name: item.q,
             acceptedAnswer: {
@@ -673,64 +705,438 @@ function main() {
             }
           }))
         }
-      : undefined
-  });
-
-  routes.push({
-    route: 'interview',
-    title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
-    description:
-      '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験率90%・給与や日払い・面接内容まで詳しく解説します。',
-    canonicalUrl: `${BASE_DOMAIN}/interview`,
-    ogType: 'article',
-    heading: '旅館の求人・採用担当者インタビュー',
-    ssrBodyHtml: '<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが、在籍女性の約9割を占める未経験スタートの安心理由、待機所（スタンドまたは旅館）での過ごし方、15分単位のコース給料や最低保証制度、週1日・短時間シフト、コンドーム着用厳守や泥酔客お断りなどの安全ルールについて詳しく回答しています。</p></div>',
-    extraJsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      '@id': `${BASE_DOMAIN}/interview#article`,
-      headline: '旅館の求人・採用担当者へのインタビュー',
-      description: '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
-      dateModified: '2026-11-14',
-      inLanguage: 'ja-JP'
+      ]
     }
   });
 
+  // 2. 8 Workstyle Types (/types and /types/:slug) + Legacy Aliases (noindex, follow)
+  const workstyleTitleSuffix = '｜信太山新地・信太山求人 働き方ガイド';
+  routes.push({
+    route: 'types',
+    mdPath: '/types.md',
+    title: '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】',
+    description:
+      '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。',
+    canonicalUrl: `${BASE_DOMAIN}/types`,
+    imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
+    heading: 'あなたに合った働き方を見つけよう。（信太山新地 タイプ別ガイド）',
+    ssrBodyHtml: `<section class="mb-8"><h2 class="text-lg font-bold text-zinc-900 mb-3">8つの働き方ガイド</h2><ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">${workstyleTypes
+      .map(
+        (w) =>
+          `<li class="p-3 bg-rose-50/50 rounded-xl border border-rose-100"><a href="${BASE_DOMAIN}/types/${escapeHtml(w.slug)}" class="font-bold text-rose-700 underline block mb-1">${escapeHtml(w.number)}. ${escapeHtml(w.title)}</a><p class="text-xs text-zinc-600">${escapeHtml(w.cardDescription || w.lead || '')}</p></li>`
+      )
+      .join('')}</ul></section>${
+      workstyleOverviewFaqs.length
+        ? `<section><h2 class="text-lg font-bold text-zinc-900 mb-3">働き方に関するよくある質問</h2><div class="space-y-3">${workstyleOverviewFaqs
+            .map((f) => `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">Q. ${escapeHtml(f.q)}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(f.a)}</p></div>`)
+            .join('')}</div></section>`
+        : ''
+    }`,
+    noscriptBodyHtml:
+      '<p>未経験から始めたい、高収入を目指したい、週1日から働きたい、顔出しなし・身バレ対策、短時間・短期で働きたい、女性スタッフに相談したい、出稼ぎ・寮付き希望、まずは話を聞きたいの8タイプ別に条件や確認ポイントをご案内します。</p>',
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/types#webpage`,
+          name: '信太山新地 タイプ別働き方ガイド',
+          description:
+            '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。',
+          url: `${BASE_DOMAIN}/types`,
+          dateModified: '2026-11-14',
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2']
+          },
+          mainEntity: {
+            '@type': 'ItemList',
+            name: '信太山新地 タイプ別働き方ガイド 8選',
+            itemListElement: workstyleTypes.map((w, idx) => ({
+              '@type': 'ListItem',
+              position: idx + 1,
+              name: `${w.number}. ${w.title}`,
+              url: `${BASE_DOMAIN}/types/${w.slug}`
+            }))
+          }
+        },
+        ...(workstyleOverviewFaqs.length
+          ? [
+              {
+                '@type': 'FAQPage',
+                '@id': `${BASE_DOMAIN}/types#faq`,
+                mainEntity: workstyleOverviewFaqs.map((item) => ({
+                  '@type': 'Question',
+                  name: item.q,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: item.a
+                  }
+                }))
+              }
+            ]
+          : [])
+      ]
+    }
+  });
+
+  workstyleTypes.forEach((item) => {
+    const parentBreadcrumb = { name: 'タイプ別働き方ガイド', path: '/types' };
+    const fullTitle = `${item.title}${workstyleTitleSuffix}`;
+    const fullDescription = `${item.cardDescription} 信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。`;
+    const richBody = renderWorkstyleTypeDetailHtml(item, workstyleOverviewFaqs);
+    const combinedFaqs = [...workstyleOverviewFaqs, ...(item.faqs || [])];
+
+    const detailJsonLd = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/types/${item.slug}#webpage`,
+          name: fullTitle,
+          description: fullDescription,
+          url: `${BASE_DOMAIN}/types/${item.slug}`,
+          dateModified: '2026-11-14',
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2']
+          },
+          mainEntity: {
+            '@type': 'ItemList',
+            name: '信太山新地 タイプ別働き方ガイド 8選',
+            itemListElement: workstyleTypes.map((w, idx) => ({
+              '@type': 'ListItem',
+              position: idx + 1,
+              name: `${w.number}. ${w.title}`,
+              url: `${BASE_DOMAIN}/types/${w.slug}`
+            }))
+          }
+        },
+        ...(combinedFaqs.length
+          ? [
+              {
+                '@type': 'FAQPage',
+                '@id': `${BASE_DOMAIN}/types/${item.slug}#faq`,
+                mainEntity: combinedFaqs.map((f) => ({
+                  '@type': 'Question',
+                  name: f.q,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: f.a
+                  }
+                }))
+              }
+            ]
+          : [])
+      ]
+    };
+
+    routes.push({
+      route: `types/${item.slug}`,
+      mdPath: `/types/${item.slug}.md`,
+      title: fullTitle,
+      description: fullDescription,
+      canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
+      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
+      heading: item.title,
+      parentBreadcrumb,
+      ssrBodyHtml: richBody,
+      noscriptBodyHtml: richBody,
+      extraJsonLd: detailJsonLd
+    });
+
+    routes.push({
+      route: `compare/${item.slug}`,
+      title: fullTitle,
+      description: fullDescription,
+      canonicalUrl: `${BASE_DOMAIN}/types/${item.slug}`,
+      robots: 'noindex, follow',
+      imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
+      heading: item.title,
+      parentBreadcrumb,
+      ssrBodyHtml: richBody,
+      noscriptBodyHtml: richBody
+    });
+  });
+
+  // Legacy type aliases -> noindex, follow pointing canonical to /types/<to>
+  const legacyTypeAliases = [
+    { from: 'double-work', to: 'privacy' },
+    { from: 'age-20s', to: 'consultation' },
+    { from: 'age-30s', to: 'consultation' }
+  ];
+  legacyTypeAliases.forEach(({ from, to }) => {
+    const target = workstyleTypes.find((m) => m.slug === to);
+    if (!target) return;
+    const fullTitle = `${target.title}${workstyleTitleSuffix}`;
+    const fullDescription = `${target.cardDescription} 信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。`;
+    const richBody = renderWorkstyleTypeDetailHtml(target, workstyleOverviewFaqs);
+    [`types/${from}`, `compare/${from}`].forEach((route) => {
+      routes.push({
+        route,
+        title: fullTitle,
+        description: fullDescription,
+        canonicalUrl: `${BASE_DOMAIN}/types/${to}`,
+        robots: 'noindex, follow',
+        imagePath: '/images/workstyle_guide_hero_1794546577303.webp',
+        heading: target.title,
+        parentBreadcrumb: { name: 'タイプ別働き方ガイド', path: '/types' },
+        ssrBodyHtml: richBody,
+        noscriptBodyHtml: richBody
+      });
+    });
+  });
+
+  // 3. /faq (All 66 FAQs grouped by 11 categories in SSR HTML + all 66 Question nodes in JSON-LD + WebPage Speakable)
+  const faqSsrSections = faqCategories
+    .map((cat) => {
+      const items = faqQuestions.filter((q) => q.categoryId === cat.id);
+      if (!items.length) return '';
+      return `<section class="mb-8"><h2 class="text-lg font-bold text-zinc-900 mb-3">${escapeHtml(cat.num)}. ${escapeHtml(cat.name)}（${escapeHtml(cat.desc)}）</h2><div class="space-y-3">${items
+        .map(
+          (item) =>
+            `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><p class="font-bold text-sm text-zinc-900 mb-1">Q${item.id}. ${escapeHtml(item.q)}</p><p class="text-sm text-zinc-700 leading-relaxed">A. ${escapeHtml(item.a)}</p></div>`
+        )
+        .join('')}</div></section>`;
+    })
+    .filter(Boolean)
+    .join('');
+
+  routes.push({
+    route: 'faq',
+    mdPath: '/faq.md',
+    title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
+    description:
+      '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
+    canonicalUrl: `${BASE_DOMAIN}/faq`,
+    heading: `よくある質問 FAQ（全${faqQuestions.length}問・${faqCategories.length}カテゴリー）`,
+    ssrBodyHtml: faqSsrSections || '<p>全66問のQ&Aを掲載しています。</p>',
+    noscriptBodyHtml:
+      '<p>未経験からの始め方、仕事内容、給与・日払い、シフト・働き方、身バレ対策・プライバシー、寮・出稼ぎ、面接・体験入店、店舗選び・半年ルールなど全66問のQ&Aを掲載しています。</p>',
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/faq#webpage`,
+          name: `信太山新地・信太山求人のよくある質問 FAQ（全${faqQuestions.length}問）`,
+          description:
+            '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。仕事内容、給料、働き方、未経験の疑問に公式がお答えします。',
+          url: `${BASE_DOMAIN}/faq`,
+          dateModified: '2026-11-14',
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2']
+          }
+        },
+        ...(faqQuestions.length > 0
+          ? [
+              {
+                '@type': 'FAQPage',
+                '@id': `${BASE_DOMAIN}/faq#faqpage`,
+                mainEntity: faqQuestions.map((item) => ({
+                  '@type': 'Question',
+                  name: item.q,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: item.a
+                  }
+                }))
+              }
+            ]
+          : [])
+      ]
+    }
+  });
+
+  // 4. /interview (Person authors, SpeakableSpecification, full Q&A SSR HTML + FAQPage)
+  const interviewSrcPath = path.join(rootDir, 'src', 'components', 'RecruiterInterviewPage.tsx');
+  const interviewSrc = fs.existsSync(interviewSrcPath) ? fs.readFileSync(interviewSrcPath, 'utf8') : '';
+  const interviewQnas = [...interviewSrc.matchAll(/question:\s*'([^']+)',\s*answer:\s*'([^']+)'/g)].map((m) => ({
+    q: m[1].replace(/\\n/g, ' '),
+    a: m[2].replace(/\\n/g, '\n')
+  }));
+
+  const interviewSsrHtml = `<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>面接・給与担当の松本マネージャー（採用・面接担当12年）と女性相談窓口のあおいスタッフ（相談員歴8年）が、未経験スタートが多数活躍する安心の理由、待機所（スタンドまたは旅館）での過ごし方、15分単位のコース給料や最低保証制度、週1日・短時間シフト、コンドーム着用厳守や泥酔客お断りなどの安全ルールについて詳しく回答しています。</p>${
+    interviewQnas.length
+      ? `<section class="mt-6 space-y-3"><h2 class="text-lg font-bold text-zinc-900">採用担当者Q&amp;A一覧</h2>${interviewQnas
+          .map(
+            (qna) =>
+              `<div class="bg-rose-50/40 rounded-xl p-4 border border-rose-100"><h3 class="font-bold text-sm text-zinc-900 mb-1">${escapeHtml(qna.q)}</h3><p class="text-sm text-zinc-700 leading-relaxed whitespace-pre-line">${escapeHtml(qna.a)}</p></div>`
+          )
+          .join('')}</section>`
+      : ''
+  }</div>`;
+
+  routes.push({
+    route: 'interview',
+    mdPath: '/interview.md',
+    title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
+    description:
+      '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験スタート多数の安心理由・給与や日払い・面接内容まで詳しく解説します。',
+    canonicalUrl: `${BASE_DOMAIN}/interview`,
+    ogType: 'article',
+    heading: '旅館の求人・採用担当者インタビュー',
+    ssrBodyHtml: interviewSsrHtml,
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Article',
+          '@id': `${BASE_DOMAIN}/interview#article`,
+          headline: '旅館の求人・採用担当者へのインタビュー',
+          description: '面接・給与担当の松本マネージャーと女性相談窓口のあおいスタッフが信太山新地の現場実態に本音で回答。',
+          datePublished: '2026-10-01T00:00:00+09:00',
+          dateModified: '2026-11-14T00:00:00+09:00',
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2', 'h3']
+          },
+          author: [
+            {
+              '@type': 'Person',
+              name: 'あおい',
+              jobTitle: '女性相談・就労サポート責任者（相談員歴8年）',
+              worksFor: {
+                '@type': 'Organization',
+                name: '信太山ガールズ（信太山新地 老舗旅館直営公式採用窓口）'
+              }
+            },
+            {
+              '@type': 'Person',
+              name: '松本 健二',
+              jobTitle: '採用・労務マネージャー（採用・面接担当12年）',
+              worksFor: {
+                '@type': 'Organization',
+                name: '信太山ガールズ（信太山新地 老舗旅館直営公式採用窓口）'
+              }
+            }
+          ],
+          publisher: {
+            '@type': 'Organization',
+            name: '信太山ガールズ',
+            url: `${BASE_DOMAIN}/`,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_DOMAIN}/favicon.png`
+            }
+          }
+        },
+        ...(interviewQnas.length
+          ? [
+              {
+                '@type': 'FAQPage',
+                '@id': `${BASE_DOMAIN}/interview#faq`,
+                mainEntity: interviewQnas.map((item) => ({
+                  '@type': 'Question',
+                  name: item.q,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: item.a
+                  }
+                }))
+              }
+            ]
+          : [])
+      ]
+    }
+  });
+
+  // 5. /about & /policy & /admin
   routes.push({
     route: 'about',
+    mdPath: '/about.md',
     title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
     description:
       '信太山新地の老舗旅館直営公式求人「信太山ガールズ」の運営者情報、店舗概要、所在地（大阪府和泉市）、女性専任サポート体制、所属団体、コンプライアンス就労憲章、個人情報保護規程を詳しく明示しています。',
     canonicalUrl: `${BASE_DOMAIN}/about`,
     heading: '運営者情報・店舗概要（信太山ガールズ）',
-    ssrBodyHtml: '<div class="space-y-3 text-sm text-zinc-700 leading-relaxed"><p>大阪府和泉市幸二丁目（信太山新地 旅館街）にて営業する老舗旅館直営の女性向け公式採用窓口です。外部スカウト業者や仲介所を介さない直営採用のため、紹介料や雑費の天引きは一切なく、即日全額現金日払い・店先顔見せなしの安心環境を提供しています。</p></div>',
+    ssrBodyHtml:
+      '<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>大阪府和泉市幸二丁目（信太山新地 旅館街／JR阪和線「信太山駅」徒歩約5分）にて営業する老舗旅館直営の女性向け公式採用窓口です。外部スカウト業者や仲介所を介さない直営採用のため、紹介料や雑費の天引きは一切なく、即日全額現金日払い・店先顔見せなしの安心環境を提供しています。</p><h2 class="text-lg font-bold text-zinc-900 mt-4">店舗・運営詳細</h2><ul class="list-disc pl-5 space-y-1.5"><li><strong>屋号 / 窓口名称：</strong>信太山ガールズ 公式採用窓口（信太山新地 旅館直営グループ）</li><li><strong>運営責任者：</strong>採用・労務マネージャー 松本 健二 ／ 女性相談・就労サポート責任者 あおい</li><li><strong>所属団体：</strong>信太山新地旅館組合（正規加盟・健全就労規約遵守店舗）</li><li><strong>公式相談窓口：</strong>公式LINE（https://lin.ee/Z70RRKH）</li></ul></div>',
     extraJsonLd: {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
+      '@id': `${BASE_DOMAIN}/about#aboutpage`,
       name: '運営者情報・店舗概要',
+      description: '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
       url: `${BASE_DOMAIN}/about`,
       dateModified: '2026-11-14',
-      inLanguage: 'ja-JP'
+      inLanguage: 'ja-JP',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2']
+      },
+      mainEntity: {
+        '@type': 'LodgingBusiness',
+        '@id': `${BASE_DOMAIN}/#localbusiness`,
+        name: '信太山ガールズ 公式採用窓口（信太山新地 旅館直営グループ）',
+        url: `${BASE_DOMAIN}/`,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '幸二丁目（信太山新地 旅館街）',
+          addressLocality: '和泉市',
+          addressRegion: '大阪府',
+          postalCode: '594-0003',
+          addressCountry: 'JP'
+        },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer support',
+          url: 'https://lin.ee/Z70RRKH',
+          availableLanguage: ['Japanese']
+        },
+        knowsAbout: [
+          '信太山新地 旅館直営公式求人',
+          '待機所（スタンドまたは旅館）での待機',
+          '15分単位のコース別報酬制度',
+          '即日全額現金日払い',
+          '毎月20日エリア一斉定休日'
+        ],
+        employee: [
+          {
+            '@type': 'Person',
+            name: '松本 健二',
+            jobTitle: '採用・労務マネージャー'
+          },
+          {
+            '@type': 'Person',
+            name: 'あおい',
+            jobTitle: '女性相談・就労サポート責任者'
+          }
+        ]
+      }
     }
   });
 
   routes.push({
     route: 'policy',
+    mdPath: '/policy.md',
     title: '求人情報掲載ポリシー・安全規約・個人情報保護｜信太山ガールズ公式',
     description:
       '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内。満20歳以上の厳格な本人確認や個人情報の秘密厳守を徹底しています。',
     canonicalUrl: `${BASE_DOMAIN}/policy`,
     heading: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
-    ssrBodyHtml: '<div class="space-y-3 text-sm text-zinc-700 leading-relaxed"><p>満20歳以上の公的顔写真付き身分証による厳格な年齢・本人確認、誇大表現の排除、ノルマ・罰金・天引き完全0円規程、LINE相談内容や個人情報の採用管理目的外使用の禁止など、女性が安心して応募できる安全基準を明文化しています。</p></div>',
+    ssrBodyHtml:
+      '<div class="space-y-4 text-sm text-zinc-700 leading-relaxed"><p>満20歳以上の公的顔写真付き身分証による厳格な年齢・本人確認、誇大表現の排除、ノルマ・罰金・天引き完全0円規程、LINE相談内容や個人情報の採用管理目的外使用の禁止など、女性が安心して応募できる安全基準を明文化しています。</p><h2 class="text-lg font-bold text-zinc-900 mt-4">主な順守事項</h2><ul class="list-disc pl-5 space-y-1.5"><li>満20歳未満の就業禁止と公的身分証明書による本人確認</li><li>Web・SNS等への無断顔写真掲載の禁止と源氏名管理</li><li>お酒の強要・連絡先交換・生本番（コンドーム未着用）の禁止</li><li>誇大広告や未確認数値を使用しない正確な情報提供</li></ul></div>',
     noscriptBodyHtml:
       '<p>満20歳以上の厳格な本人確認、虚偽・誇大表現の排除、ノルマ・天引き0円規程、身バレ防止・第三者提供禁止の個人情報保護方針を公開しています。</p>',
     extraJsonLd: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
+      '@id': `${BASE_DOMAIN}/policy#webpage`,
       name: '求人情報掲載ポリシー・安全規約・個人情報保護方針',
+      description: '信太山ガールズの求人掲載基準、コンプライアンス就労憲章、個人情報保護方針',
       url: `${BASE_DOMAIN}/policy`,
       dateModified: '2026-11-14',
-      inLanguage: 'ja-JP'
+      inLanguage: 'ja-JP',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2']
+      }
     }
   });
 
@@ -744,30 +1150,70 @@ function main() {
     heading: '管理者画面'
   });
 
-  // 4. Topic Clusters from data/topicClusters.json
+  // 6. Topic Clusters from data/topicClusters.json (+ Article dateModified/Speakable + HowTo for /job and /flow)
   const topicClustersPath = path.join(rootDir, 'data', 'topicClusters.json');
   if (fs.existsSync(topicClustersPath)) {
     const clusters = JSON.parse(fs.readFileSync(topicClustersPath, 'utf8'));
     Object.entries(clusters).forEach(([key, data]) => {
       const isBenefitsAlias = key === 'benefits';
       const canonicalPath = isBenefitsAlias ? '/salary' : data.path || `/${key}`;
-      const topicFaqs = Array.isArray(data.faqs) && data.faqs.length > 0
-        ? {
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            '@id': `${BASE_DOMAIN}${canonicalPath}#faq`,
-            mainEntity: data.faqs.map((item) => ({
-              '@type': 'Question',
-              name: item.q,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: item.a
-              }
-            }))
+      const howToNode = !isBenefitsAlias ? buildHowToNode(key) : null;
+
+      const graphNodes = [
+        {
+          '@type': 'Article',
+          '@id': `${BASE_DOMAIN}${canonicalPath}#article`,
+          headline: data.title,
+          description: data.metaDescription || data.overview || data.tagline || '',
+          image: data.heroImage ? toAbsoluteUrl(data.heroImage) : DEFAULT_IMAGE,
+          datePublished: '2026-10-01T00:00:00+09:00',
+          dateModified: '2026-11-14T00:00:00+09:00',
+          inLanguage: 'ja-JP',
+          author: {
+            '@type': 'Organization',
+            name: '信太山ガールズ（信太山新地 旅館直営公式採用窓口）'
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: '信太山ガールズ',
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_DOMAIN}/favicon.png`
+            }
+          },
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2', '#llm-direct-answer-text']
+          },
+          about: {
+            '@type': 'Thing',
+            name: '信太山新地求人・旅館直営・即日全額日払い'
           }
-        : undefined;
+        }
+      ];
+
+      if (howToNode) {
+        graphNodes.push(howToNode);
+      }
+
+      if (Array.isArray(data.faqs) && data.faqs.length > 0) {
+        graphNodes.push({
+          '@type': 'FAQPage',
+          '@id': `${BASE_DOMAIN}${canonicalPath}#faq`,
+          mainEntity: data.faqs.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.a
+            }
+          }))
+        });
+      }
+
       routes.push({
         route: key,
+        mdPath: isBenefitsAlias ? undefined : `/${key}.md`,
         title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド`,
         description: data.metaDescription || data.overview || data.tagline || '',
         canonicalUrl: `${BASE_DOMAIN}${canonicalPath}`,
@@ -777,12 +1223,15 @@ function main() {
         heading: data.title,
         ssrBodyHtml: renderTopicClusterSsrHtml(data, clusters),
         noscriptBodyHtml: `<p>${escapeHtml(data.overview || data.metaDescription || '')}</p>`,
-        extraJsonLd: topicFaqs
+        extraJsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': graphNodes
+        }
       });
     });
   }
 
-  // 5. Blog Listing & All Articles
+  // 7. Blog Listing & All Articles
   const articlesPath = path.join(rootDir, 'data', 'blogArticles.json');
   const articles = fs.existsSync(articlesPath)
     ? JSON.parse(fs.readFileSync(articlesPath, 'utf8'))
@@ -794,6 +1243,7 @@ function main() {
 
   routes.push({
     route: 'blog',
+    mdPath: '/blog.md',
     title: '信太山新地求人・信太山求人 お仕事コラム一覧｜信太山ガールズ公式',
     description:
       '信太山新地の仕事内容、15分単位の給料システム、待機所（スタンドまたは旅館）での待機や顔出しなしルール、未経験向けガイド、週1日勤務や寮・出稼ぎ情報など、働く前に役立つ公式解説コラム一覧を掲載しています。',
@@ -803,10 +1253,15 @@ function main() {
     extraJsonLd: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
+      '@id': `${BASE_DOMAIN}/blog#collection`,
       name: '信太山新地求人 お仕事コラム一覧',
       url: `${BASE_DOMAIN}/blog`,
       dateModified: '2026-11-14',
-      inLanguage: 'ja-JP'
+      inLanguage: 'ja-JP',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2']
+      }
     }
   });
 
@@ -842,6 +1297,10 @@ function main() {
         isAccessibleForFree: true,
         keywords: Array.isArray(article.tags) ? article.tags.join(', ') : '信太山新地, 信太山求人, 未経験, 待機所',
         image: article.eyeCatch ? toAbsoluteUrl(article.eyeCatch) : DEFAULT_IMAGE,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '#llm-article-summary-text']
+        },
         author: {
           '@type': 'Person',
           name: article.author?.name || 'あおい（信太山新地女性専任アドバイザー）',
@@ -952,4 +1411,7 @@ function main() {
   console.log(`[prerender] Successfully generated static HTML for ${routes.length} routes + 404.html + root SSR shell in dist/`);
 }
 
-main();
+main().catch((err) => {
+  console.error('[prerender] Failed:', err);
+  process.exit(1);
+});

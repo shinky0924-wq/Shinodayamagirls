@@ -65,7 +65,7 @@ export default function ExperiencedPageContent({
     },
     {
       q: '移籍前に待機場所を見学できますか？',
-      a: 'はい、事前に実際の個室待機室や旅館の設備をご自身の目でご確認いただけます。見学後に働くかどうかをご判断ください。'
+      a: 'はい、事前に実際の待機所（スタンドまたは旅館）や館内の設備をご自身の目でご確認いただけます。見学後に働くかどうかをご判断ください。'
     },
     {
       q: '出勤日数や時間帯は相談できますか？',
@@ -109,7 +109,7 @@ export default function ExperiencedPageContent({
               {[
                 { label: '手取り受取', val: '100%支給', sub: '天引き・雑費0円' },
                 { label: '支給方法', val: '全額即日日払い', sub: '退勤時現金手渡し' },
-                { label: '待機環境', val: '旅館完全個室', sub: '店先顔出し一切なし' },
+                { label: '待機環境', val: '待機所待機', sub: 'スタンド・旅館／顔出しなし' },
                 { label: '出勤シフト', val: 'ノルマ・罰金0', sub: '週1日〜希望制' }
               ].map((c, i) => (
                 <div key={i} className="bg-[#FFFAFC] border border-[#F0DDE4] rounded-[14px] p-2.5 text-center">
@@ -151,7 +151,7 @@ export default function ExperiencedPageContent({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold bg-black/45 backdrop-blur-xs px-3 py-1.5 rounded-[10px] text-center border border-white/20">
-                落ち着いた老舗旅館直営・個室待機・秘密厳守
+                店先顔出しなし・待機所（スタンドまたは旅館）待機（画像はイメージです）
               </div>
             </div>
           </div>

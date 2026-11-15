@@ -54,7 +54,7 @@ export default function ShopsPageContent({
     },
     {
       q: '入店前にお店を見学できますか？',
-      a: '見学の可否や方法については、お店に事前にご相談ください。当店では履歴書不要・私服のままで待機個室や旅館環境の事前見学を随時歓迎しております。'
+      a: '見学の可否や方法については、お店に事前にご相談ください。当店では履歴書不要・私服のままで待機所や旅館環境の事前見学を随時歓迎しております。'
     },
     {
       q: '半年ルールとは何ですか？',
@@ -134,7 +134,7 @@ export default function ShopsPageContent({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold bg-black/45 backdrop-blur-xs px-3 py-1.5 rounded-[10px] text-center border border-white/20">
-                落ち着いた老舗旅館・清潔な完全個室待機環境
+                店先顔出しなしの安心環境（画像はイメージです）
               </div>
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function ShopsPageContent({
             {
               num: '03',
               title: '待機時間・勤務環境',
-              desc: '出勤してからどのように過ごすのか、待機場所はどんな環境なのかも確認したいポイントです。落ち着いて過ごせる環境かどうか、自分の目で確かめましょう。集団待機か完全個室待機かも大切です。',
+              desc: '出勤してからどのように過ごすのか、待機場所はどんな環境なのかも確認したいポイントです。落ち着いて過ごせる環境かどうか、自分の目で確かめましょう。スタンドや旅館の待機環境の清潔さも大切です。',
               icon: 'Home'
             },
             {
@@ -259,7 +259,7 @@ export default function ShopsPageContent({
             {
               num: '05',
               title: '働きやすい環境',
-              desc: '店先での顔出しは一切なく、旅館の清潔な完全個室で人目を気にせず落ち着いて待機していただけます。'
+              desc: '店先での顔出しは一切なく、待機所（スタンドまたは旅館）で人目を気にせず落ち着いて待機していただけます。'
             },
             {
               num: '06',

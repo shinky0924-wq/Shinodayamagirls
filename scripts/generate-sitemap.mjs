@@ -403,6 +403,14 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [掲載ポリシー・安全規約・個人情報保護](${BASE_URL}/policy): コンプライアンス・安全基準・身バレ対策規程
 - [お仕事コラム一覧](${BASE_URL}/blog): 全${blogArticles.length}本の公式解説コラム
 
+## Markdown ミラーページ（llmstxt.org 準拠 .md エンドポイント）
+- [トップページ Markdown](${BASE_URL}/index.html.md)
+- [仕事内容 Markdown](${BASE_URL}/job.md) / [給料・保証 Markdown](${BASE_URL}/salary.md) / [未経験ガイド Markdown](${BASE_URL}/beginner.md) / [経験者ガイド Markdown](${BASE_URL}/experienced.md)
+- [募集要項 Markdown](${BASE_URL}/requirements.md) / [面接・体入の流れ Markdown](${BASE_URL}/flow.md) / [働き方 Markdown](${BASE_URL}/workstyle.md) / [お店選び・半年ルール Markdown](${BASE_URL}/shops.md)
+- [寮・出稼ぎ Markdown](${BASE_URL}/dorm.md) / [身バレ・安全対策 Markdown](${BASE_URL}/safety.md)
+- [徹底比較ガイド Markdown](${BASE_URL}/compare.md) / [よくある質問 FAQ 66問 Markdown](${BASE_URL}/faq.md) / [タイプ別働き方ガイド Markdown](${BASE_URL}/types.md)
+- [採用担当者インタビュー Markdown](${BASE_URL}/interview.md) / [運営者情報 Markdown](${BASE_URL}/about.md) / [掲載ポリシー Markdown](${BASE_URL}/policy.md) / [コラム一覧 Markdown](${BASE_URL}/blog.md)
+
 ## 詳細知識ベース（llms-full.txt）
 全10トピックの詳細解説・6業種11項目比較マトリクス・全66問FAQ・8タイプ別ガイド・全${blogArticles.length}件のお仕事コラムを含む統合知識ベースは ${BASE_URL}/llms-full.txt を参照してください。
 `;
@@ -439,6 +447,9 @@ for (const key of clusterKeys) {
 // 5b. 6-Target x 11-Item Comparison Matrix
 const mainTargets = Array.isArray(compareModule.MAIN_6_TARGETS) ? compareModule.MAIN_6_TARGETS : [];
 const mainItems = Array.isArray(compareModule.MAIN_11_COMPARISON_ITEMS) ? compareModule.MAIN_11_COMPARISON_ITEMS : [];
+const areaRows = Array.isArray(compareModule.AREA_COMPARISON_ROWS) ? compareModule.AREA_COMPARISON_ROWS : [];
+const courseSchedule = Array.isArray(compareModule.COURSE_REWARD_SCHEDULE) ? compareModule.COURSE_REWARD_SCHEDULE : [];
+
 if (mainTargets.length > 0 && mainItems.length > 0) {
   fullParts.push(`---\n\n## 信太山新地 vs 他業種・応募形態 11項目徹底比較データ（${BASE_URL}/compare）\n`);
   fullParts.push(`比較対象: ${mainTargets.map((t) => `${t.name}（${t.subName}）`).join(' / ')}\n`);
@@ -478,6 +489,7 @@ if (faqQuestions.length > 0) {
 
 // 5d. All 8 Workstyle Type Guides
 const workstyleTypes = Array.isArray(workstyleModule.WORKSTYLE_8_TYPES) ? workstyleModule.WORKSTYLE_8_TYPES : [];
+const workstyleOverviewFaqs = Array.isArray(workstyleModule.WORKSTYLE_OVERVIEW_FAQS) ? workstyleModule.WORKSTYLE_OVERVIEW_FAQS : [];
 if (workstyleTypes.length > 0) {
   fullParts.push(`---\n\n## タイプ別働き方ガイド 8選（${BASE_URL}/types）\n`);
   for (const w of workstyleTypes) {
@@ -531,4 +543,287 @@ const llmsFullTxt = fullParts.join('\n');
 const llmsFullPath = path.join(publicDir, 'llms-full.txt');
 fs.writeFileSync(llmsFullPath, llmsFullTxt, 'utf8');
 console.log(`[OK] llms-full.txt generated (${clusterKeys.length} clusters, ${mainItems.length} comparisons, ${faqQuestions.length} FAQs, ${workstyleTypes.length} workstyles, ${blogArticles.length} articles) at ${llmsFullPath}`);
+
+// 6. Generate Static Markdown Mirror Pages (.md endpoints in public/, copied to dist/ by Vite)
+function writeMdFile(relFile, content) {
+  const fullPath = path.join(publicDir, relFile);
+  fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+  fs.writeFileSync(fullPath, `${content.trim()}\n`, 'utf8');
+}
+
+const mdFooter = `\n---\n\n- 公式ページ: ${BASE_URL}/\n- LINE事前相談窓口（24時間受付・質問のみ可）: https://lin.ee/Z70RRKH\n- 最終更新日: 2026-11-14\n`;
+let mdCount = 0;
+
+// 6a. /index.html.md
+const topFaqsMd = Array.isArray(siteContent?.faq?.items)
+  ? siteContent.faq.items.map((f) => `- **${f.question}**\n  ${f.answer}`).join('\n')
+  : '';
+const topReasonsMd = Array.isArray(siteContent?.reasons?.items)
+  ? siteContent.reasons.items.map((r) => `- **${r.number} ${r.title}**: ${r.description}`).join('\n')
+  : '';
+writeMdFile(
+  'index.html.md',
+  `# 信太山新地の求人なら信太山ガールズ｜お店直接募集・仕事内容・待遇案内
+
+> 信太山新地の中でもトップクラスのお店（老舗旅館直営）が女性を直接募集する公式求人サイトです。仲介なし・天引き0円で、店先顔出しなしの待機環境・15分単位のコース報酬・即日全額日払い・週1日や短時間勤務・寮や託児所の条件まで応募前に分かりやすくご案内します。
+
+- Canonical URL: ${BASE_URL}/
+- 公式LINE相談窓口: https://lin.ee/Z70RRKH
+
+## 信太山ガールズの5つの魅力
+${topReasonsMd}
+
+## 初めての方にも分かる、お仕事内容（1日の流れ）
+1. **STEP 1｜出勤・お着替え**: 無料レンタル衣装や身支度を整えます（私服・手ぶら出勤可）。
+2. **STEP 2｜待機所（スタンドまたは旅館）で待機**: 店先に座って顔を見せることはありません。
+3. **STEP 3｜仲居さんの案内で接客（15分〜）**: 軽い会話・スキンシップ・フェラ・コンドーム着用厳守での本番行為（生本番禁止）を行います。お茶出し・飲酒・連絡先交換・部屋掃除はありません。
+4. **STEP 4｜全額現金受取・退勤**: 終了後に当日分を全額現金でお受け取りいただきます。
+
+## お給料（15分単位のコース報酬・条件別収入例）
+| コース時間 | 手取り報酬基準 | 時給換算相当 |
+| :--- | :--- | :--- |
+| 15分コース | 3,800円〜 | 約15,200円/h相当 |
+| 30分コース | 7,600円〜 | 約15,200円/h相当 |
+| 45分コース | 11,400円〜 | 約15,200円/h相当 |
+| 60分コース | 15,200円〜 | 約15,200円/h相当 |
+
+- **例1｜週2日・1日4時間（18:00〜22:00）**: 日給目安 15,200円〜22,800円（月8日で約12万〜18万円目安）
+- **例2｜週3日・1日6時間（17:00〜23:00）**: 日給目安 26,600円〜38,000円（月12日で約31万〜45万円目安）
+- **例3｜週4日・1日8時間（11:00〜19:00）**: 日給目安 38,000円〜57,000円（月16日で約60万〜91万円目安）
+- 最低時給10,000円保証や待機時間に応じた日給保証制度あり（適用条件は面接時に事前ご説明します）。
+
+## 募集要項・勤務条件
+- **応募資格**: 20歳以上の女性（未経験・経験者歓迎 ※20歳未満不可）
+- **勤務地**: 大阪府和泉市幸二丁目（JR阪和線「信太山駅」徒歩約5分／送迎・駐車場相談可）
+- **勤務時間**: 10:00〜24:00（完全自由出勤制・週1日〜・短時間勤務可）
+- **定休日**: 毎月20日（信太山新地エリア一斉定休日）
+- **待遇**: 個室マンション寮（日額0〜2,000円目安）、往復交通費支給（規定あり）、託児費用補助相談可、無料衣装レンタル
+- **画像ポリシー**: サイト内の人物・風景写真はイメージ素材であり、実際の店舗・スタッフ写真ではありません。
+
+## よくある質問（抜粋）
+${topFaqsMd}
+${mdFooter}`
+);
+mdCount++;
+
+// 6b. 10 Topic Cluster .md files
+for (const key of clusterKeys) {
+  const c = topicClusters[key];
+  if (!c) continue;
+  const parts = [
+    `# ${c.title}`,
+    c.tagline ? `> ${c.tagline}` : '',
+    `- Canonical URL: ${BASE_URL}${c.path || `/${key}`}`,
+    c.llmDirectAnswer ? `## 結論・ダイレクトアンサー\n${c.llmDirectAnswer}` : '',
+    Array.isArray(c.stats) && c.stats.length
+      ? `## 基本データ\n${c.stats.map((s) => `- **${s.label}**: ${s.value}${s.desc ? `（${s.desc}）` : ''}`).join('\n')}`
+      : '',
+    Array.isArray(c.keyPoints) && c.keyPoints.length
+      ? `## 重要ポイント\n${c.keyPoints.map((pt) => `- ${pt}`).join('\n')}`
+      : '',
+    c.overview ? `## 概要\n${c.overview}` : ''
+  ].filter(Boolean);
+
+  if (Array.isArray(c.sections)) {
+    for (const sec of c.sections) {
+      const secLines = [];
+      if (sec.title) secLines.push(`## ${sec.title}`);
+      if (sec.description) secLines.push(sec.description);
+      if (Array.isArray(sec.points) && sec.points.length) {
+        secLines.push(sec.points.map((pt) => `- ${pt}`).join('\n'));
+      }
+      if (sec.table && Array.isArray(sec.table.headers) && Array.isArray(sec.table.rows)) {
+        secLines.push(`| ${sec.table.headers.join(' | ')} |`);
+        secLines.push(`| ${sec.table.headers.map(() => ':---').join(' | ')} |`);
+        sec.table.rows.forEach((row) => secLines.push(`| ${row.join(' | ')} |`));
+      }
+      if (sec.callout?.text) {
+        secLines.push(`> **${sec.callout.title || '補足'}**: ${sec.callout.text}`);
+      }
+      if (secLines.length) parts.push(secLines.join('\n\n'));
+    }
+  }
+
+  if (Array.isArray(c.faqs) && c.faqs.length) {
+    parts.push(`## よくある質問\n${c.faqs.map((f) => `### Q. ${f.q}\nA. ${f.a}`).join('\n\n')}`);
+  }
+  writeMdFile(`${key}.md`, `${parts.join('\n\n')}${mdFooter}`);
+  mdCount++;
+}
+
+// 6c. /compare.md
+{
+  const compareParts = [
+    `# 信太山新地・他業種 徹底比較ガイド`,
+    `> 信太山新地と飛田新地・メンズエステ・キャバクラ・ソープランド、スカウト経由との違いを11項目で比較します。`,
+    `- Canonical URL: ${BASE_URL}/compare`
+  ];
+  if (mainTargets.length && mainItems.length) {
+    compareParts.push(
+      `## 6業種・応募形態 11項目比較マトリクス`,
+      mainItems
+        .map((item, idx) => {
+          const lines = [`### ${idx + 1}. ${item.name}（${item.summary}）`];
+          mainTargets.forEach((t) => {
+            const v = item.values?.[t.id];
+            if (v) lines.push(`- **${t.name}**: ${v.text}${v.point ? `（${v.point}）` : ''}`);
+          });
+          return lines.join('\n');
+        })
+        .join('\n\n')
+    );
+  }
+  if (courseSchedule.length) {
+    compareParts.push(
+      `## 15分単位のコース報酬基準\n| コース | 報酬 | 時給換算 | 備考 |\n| :--- | :--- | :--- | :--- |\n${courseSchedule
+        .map((r) => `| ${r.courseTime} | ${Number(r.reward).toLocaleString()}円 | 約${Number(r.hourlyEquivalent).toLocaleString()}円/h相当 | ${r.note} |`)
+        .join('\n')}`
+    );
+  }
+  if (areaRows.length) {
+    compareParts.push(
+      `## 大阪・関西他エリアとの比較\n| 項目 | 信太山新地（当店） | 飛田新地 | 松島新地 | 一般夜職・風俗 |\n| :--- | :--- | :--- | :--- | :--- |\n${areaRows
+        .map((r) => `| ${r.criteria} | ${r.shinodayama?.text || ''} | ${r.tobita?.text || ''} | ${r.matsushima?.text || ''} | ${r.generalNight?.text || ''} |`)
+        .join('\n')}`
+    );
+  }
+  writeMdFile('compare.md', `${compareParts.join('\n\n')}${mdFooter}`);
+  mdCount++;
+}
+
+// 6d. /faq.md
+{
+  const faqParts = [
+    `# 信太山新地求人 よくある質問 FAQ（全${faqQuestions.length}問）`,
+    `> 全${faqCategories.length}カテゴリー・${faqQuestions.length}問の公式Q&Aを掲載しています。`,
+    `- Canonical URL: ${BASE_URL}/faq`
+  ];
+  for (const cat of faqCategories) {
+    const items = faqQuestions.filter((q) => q.categoryId === cat.id);
+    if (!items.length) continue;
+    faqParts.push(`## ${cat.num}. ${cat.name}（${cat.desc}）`);
+    faqParts.push(items.map((q) => `### Q${q.id}. ${q.q}\nA. ${q.a}`).join('\n\n'));
+  }
+  writeMdFile('faq.md', `${faqParts.join('\n\n')}${mdFooter}`);
+  mdCount++;
+}
+
+// 6e. /types.md and /types/<slug>.md
+{
+  const typesParts = [
+    `# 信太山新地 タイプ別働き方ガイド（8選）`,
+    `> 未経験・高収入・週1日・顔出しなし・短時間・女性スタッフ相談・寮付き出稼ぎ・事前相談の8タイプ別に確認ポイントをご案内します。`,
+    `- Canonical URL: ${BASE_URL}/types`,
+    `## 8つの働き方ガイド一覧\n${workstyleTypes
+      .map((w) => `- [${w.number}. ${w.title}](${BASE_URL}/types/${w.slug}.md): ${w.cardDescription}`)
+      .join('\n')}`,
+    workstyleOverviewFaqs.length
+      ? `## よくある質問\n${workstyleOverviewFaqs.map((f) => `### Q. ${f.q}\nA. ${f.a}`).join('\n\n')}`
+      : ''
+  ].filter(Boolean);
+  writeMdFile('types.md', `${typesParts.join('\n\n')}${mdFooter}`);
+  mdCount++;
+
+  for (const w of workstyleTypes) {
+    const wParts = [
+      `# ${w.title}`,
+      w.lead ? `> ${w.lead}` : '',
+      `- Canonical URL: ${BASE_URL}/types/${w.slug}`,
+      Array.isArray(w.suitableFor) && w.suitableFor.length
+        ? `## こんな方に向いています\n${w.suitableFor.map((s) => `- ${s}`).join('\n')}`
+        : '',
+      Array.isArray(w.considerations) && w.considerations.length
+        ? `## 応募前に確認したい点\n${w.considerations.map((s) => `- ${s}`).join('\n')}`
+        : '',
+      Array.isArray(w.specificTopics) && w.specificTopics.length
+        ? `## 詳細テーマ\n${w.specificTopics.map((tp) => `- **${tp.title}**: ${tp.description}`).join('\n')}`
+        : '',
+      Array.isArray(w.preCheckList) && w.preCheckList.length
+        ? `## 事前チェックリスト\n${w.preCheckList.map((chk) => `- ${chk}`).join('\n')}`
+        : '',
+      Array.isArray(w.faqs) && w.faqs.length
+        ? `## よくある質問\n${w.faqs.map((f) => `### Q. ${f.q}\nA. ${f.a}`).join('\n\n')}`
+        : ''
+    ].filter(Boolean);
+    writeMdFile(`types/${w.slug}.md`, `${wParts.join('\n\n')}${mdFooter}`);
+    mdCount++;
+  }
+}
+
+// 6f. /interview.md
+{
+  const interviewSrc = fs.readFileSync(path.join(rootDir, 'src', 'components', 'RecruiterInterviewPage.tsx'), 'utf8');
+  const qnaMatches = [...interviewSrc.matchAll(/question:\s*'([^']+)',\s*answer:\s*'([^']+)'/g)];
+  const interviewMd = `# 旅館の求人・採用担当者インタビュー
+
+> 面接・給与担当の松本マネージャー（採用・面接担当12年）と、女性相談窓口のあおいスタッフ（相談員歴8年）が信太山新地のリアルな現場実態に本音で回答しています。
+
+- Canonical URL: ${BASE_URL}/interview
+- 待機スタイル: 店先での顔見せなし／待機所（スタンドまたは旅館）での待機
+- 給与制度: 15分3,800円〜・即日全額現金日払い・天引き0円
+
+## 採用担当者Q&A
+${qnaMatches.map((m) => `### ${m[1].replace(/\\n/g, ' ')}\n${m[2].replace(/\\n/g, '\n')}`).join('\n\n')}
+${mdFooter}`;
+  writeMdFile('interview.md', interviewMd);
+  mdCount++;
+}
+
+// 6g. /about.md & /policy.md
+writeMdFile(
+  'about.md',
+  `# 運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）
+
+> 当サイト「信太山ガールズ」は、大阪府和泉市の信太山新地にて旅館を営む直営グループが、女性の安心・安全とプライバシー保護を最優先に運営する公式採用窓口です。
+
+- Canonical URL: ${BASE_URL}/about
+- **屋号 / 窓口名称**: 信太山ガールズ 公式採用窓口（信太山新地 旅館直営グループ）
+- **運営所在地**: 大阪府和泉市幸二丁目（信太山新地 旅館街／JR阪和線「信太山駅」徒歩約5分）
+- **所属団体**: 信太山新地旅館組合（正規加盟・健全就労規約遵守店舗）
+- **運営責任者**: 採用・労務マネージャー 松本 健二 ／ 女性相談・就労サポート責任者 あおい
+- **待機スタイル**: 店先での顔見せなし／待機所（スタンドまたは旅館）待機
+- **給与規定**: 15分3,800円 / 30分7,600円 / 45分11,400円 / 60分15,200円〜（即日全額現金日払い・天引き0円・最低時給10,000円保証や待機時間に応じた日給保証制度あり／適用条件は面接時に事前ご説明）
+- **応募資格**: 満20歳以上の女性（年齢確認のため顔写真付き公的身分証1点が必要）
+- **定休日**: 毎月20日（信太山新地エリア一斉定休日）
+- **連絡先**: 公式LINE（24時間受付） https://lin.ee/Z70RRKH
+${mdFooter}`
+);
+mdCount++;
+
+writeMdFile(
+  'policy.md',
+  `# 求人情報掲載ポリシー・安全規約・個人情報保護方針｜信太山ガールズ公式
+
+> 信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載基準、コンプライアンス＆就労安全憲章、個人情報保護方針（プライバシーポリシー）をご案内します。
+
+- Canonical URL: ${BASE_URL}/policy
+- **満20歳未満の就業禁止**: 法令および組合規約に基づき、面接時に顔写真付き公的身分証明書による厳格な年齢確認を実施しています。
+- **誇大表現・虚偽条件の排除**: 実際の勤務条件・コース報酬・保証適用条件・寮条件を面接前に正確にご案内します。
+- **ノルマ・罰金・不当天引き0円**: 出勤ノルマや罰金、紹介料・雑費の天引きを行いません。
+- **強要行為の禁止**: お酒の接待・連絡先交換・生本番（コンドーム未着用）の禁止を徹底し、困った際は仲居さん・フロントが即時対応します。
+- **個人情報・身バレ防止**: 本名や身分証情報は厳重に管理し、Web・SNS等への無断顔写真掲載を行わず、業務は源氏名で管理します。
+${mdFooter}`
+);
+mdCount++;
+
+// 6h. /blog.md
+{
+  const blogMd = `# 信太山新地求人 お仕事コラム一覧（全${blogArticles.length}本）
+
+> 仕事内容・15分単位の報酬・店先顔出しなしの待機環境・未経験スタート・週1日シフト・寮・安全ルールなどを解説する公式コラム一覧です。
+
+- Canonical URL: ${BASE_URL}/blog
+
+## 記事一覧
+${blogArticles
+  .filter((a) => a.slug)
+  .map((a, idx) => `${idx + 1}. [${a.title}](${BASE_URL}/blog/${a.slug})（${a.publishedAt || latestArticleDate}｜${a.categoryLabel || '解説コラム'}）\n   ${a.summary || ''}`)
+  .join('\n')}
+${mdFooter}`;
+  writeMdFile('blog.md', blogMd);
+  mdCount++;
+}
+
+console.log(`[OK] Static Markdown mirrors (.md) generated: ${mdCount} files in ${publicDir}`);
+
 

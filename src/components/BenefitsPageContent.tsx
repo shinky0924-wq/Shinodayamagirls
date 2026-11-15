@@ -119,7 +119,7 @@ export default function BenefitsPageContent({
               <LucideIcon name="EyeOff" size={18} />
             </div>
             <h3 className="font-bold text-sm sm:text-base text-zinc-900 mb-1.5">
-              店先顔出しゼロ・完全個室待機
+              店先顔出しなし・待機所（スタンド・旅館）待機
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
               飛田のような通りでの顔見せは一切なし。Web写真掲載も完全ゼロ。完全源氏名、住民税普通徴収手続きまで家族・会社バレを徹底防止。
@@ -193,7 +193,7 @@ export default function BenefitsPageContent({
         </div>
 
         <p className="text-xs sm:text-sm text-zinc-600 mb-5 leading-relaxed">
-          「他の新地や風俗と待遇はどう違うの？」信太山新地 老舗旅館直営である当店の最大の特徴は<strong className="text-rose-700 font-bold">「店先での顔見せが一切ない完全個室待機」</strong>と、<strong className="text-rose-700 font-bold">「天引き・引かれ物が完全0円」</strong>な点です。他店・他エリアで後悔した経験がある方も、ぜひ安心の信太山新地 当店へご応募ください。
+          「他の新地や風俗と待遇はどう違うの？」信太山新地 老舗旅館直営である当店の最大の特徴は<strong className="text-rose-700 font-bold">「店先での顔見せが一切ない待機所（スタンドまたは旅館）での待機」</strong>と、<strong className="text-rose-700 font-bold">「天引き・引かれ物が完全0円」</strong>な点です。他店・他エリアで後悔した経験がある方も、ぜひ安心の信太山新地 当店へご応募ください。
         </p>
 
         <div className="overflow-x-auto scrollbar-thin">
@@ -214,7 +214,7 @@ export default function BenefitsPageContent({
               <tr className="hover:bg-rose-50/30">
                 <th scope="row" className="py-2.5 px-3.5 font-bold text-zinc-900 text-left">店先顔見せ</th>
                 <td className="py-2.5 px-3.5 font-bold text-emerald-700 bg-rose-50/20">
-                  ◎ 一切なし（完全個室待機100%）
+                  ◎ 一切なし（待機所：スタンドまたは旅館）
                 </td>
                 <td className="py-2.5 px-3.5 text-zinc-600">✕ 上がり框で顔出し座り必須</td>
                 <td className="py-2.5 px-3.5 text-zinc-600">△ 店頭座り・顔出しあり</td>

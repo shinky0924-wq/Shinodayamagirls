@@ -133,7 +133,12 @@ export default function ComparisonPage({
             'name': title,
             'description': rawDesc,
             'url': canonicalUrl,
+            'dateModified': '2026-11-14',
             'inLanguage': 'ja-JP',
+            'speakable': {
+              '@type': 'SpeakableSpecification',
+              'cssSelector': ['h1', 'h2']
+            },
             'mainEntity': {
               '@type': 'ItemList',
               'name': '信太山新地 タイプ別働き方ガイド 8選',

@@ -48,7 +48,7 @@ const QUESTIONS: Question[] = [
       },
       {
         label: '短期間でまとまった貯金を一気に作りたい',
-        description: '目標金額があり、日給8万〜10万円超の高額日払いで効率よく稼ぎたい',
+        description: '目標金額があり、15分3,800円〜の高水準報酬＆即日日払いで効率よく稼ぎたい',
         icon: 'Coins',
         matchedSlug: 'high-income',
         consultMessage: '【診断結果：高収入求人】日給保証や短期集中で高収入を稼ぐシフトについて相談したいです。'

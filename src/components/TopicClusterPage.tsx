@@ -45,36 +45,36 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
 }> = {
   job: {
     secondaryImage: '/images/col_ryokan_manner_1792465891118.webp',
-    imageCaption: '落ち着いた旅館客室・店先顔見せなし・完全個室待機',
-    reassuranceTags: ['店先顔見せ一切なし', '完全個室待機', '15分〜短時間接客', '絶対ゴム着用厳守', '部屋掃除不要'],
+    imageCaption: '店先顔見せなし・待機所（スタンド・旅館）待機（画像はイメージです）',
+    reassuranceTags: ['店先顔見せ一切なし', '待機所（スタンド・旅館）待機', '15分〜短時間接客', '絶対ゴム着用厳守', '部屋掃除不要'],
     icon: 'HeartHandshake',
     accentBg: 'from-emerald-50 via-white to-teal-50/30',
   },
   salary: {
     secondaryImage: '/images/col_bonus_envelope_jp_1792476753315.webp',
     imageCaption: '全額即日現金手渡し・引かれ物一切ゼロ・安心の厚待遇',
-    reassuranceTags: ['15分3,800円〜高額支給', '退勤時全額現金手渡し', '天引き・雑費完全ゼロ', '時給1万円保証完備', '家具家電付き個室寮・交通費全額'],
+    reassuranceTags: ['15分3,800円〜高額支給', '退勤時全額現金手渡し', '天引き・雑費完全ゼロ', '最低保証制度あり（条件あり）', '個室マンション寮・交通費規定支給'],
     icon: 'Coins',
     accentBg: 'from-amber-50 via-white to-orange-50/30',
   },
   benefits: {
     secondaryImage: '/images/col_ryokan_manner_1792465891118.webp',
-    imageCaption: '手ぶら出勤OK・衣装無料レンタル・完全個室待機',
-    reassuranceTags: ['雑費天引き完全0円', '家具家電付き個室寮', '新幹線・飛行機代全額支給', '提携託児所完備', '店先顔出しなし'],
+    imageCaption: '手ぶら出勤OK・衣装無料レンタル・待機所（スタンド・旅館）待機',
+    reassuranceTags: ['雑費天引き完全0円', '家具家電付き個室寮', '往復交通費規定支給', '提携託児所相談可', '店先顔出しなし'],
     icon: 'HeartHandshake',
     accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   beginner: {
     secondaryImage: '/images/col_friendly_staff_jp_1792476884275.webp',
-    imageCaption: '在籍の約90%が夜職未経験スタート・女性スタッフが親身に伴走',
-    reassuranceTags: ['未経験率約90%', '履歴書不要・私服手ぶら面接', '営業活動・写真公開一切なし', '20代〜40代幅広く歓迎'],
+    imageCaption: '未経験スタートの女性が多数・女性スタッフが親身に伴走（画像はイメージです）',
+    reassuranceTags: ['未経験歓迎・サポート充実', '履歴書不要・私服手ぶら面接', '営業活動・写真公開一切なし', '20代〜40代幅広く相談可'],
     icon: 'Sparkles',
     accentBg: 'from-rose-50 via-white to-pink-50/30',
   },
   experienced: {
     secondaryImage: '/images/col_popular_cast_jp_1792476715216.webp',
-    imageCaption: '他業種からの移籍人気No.1・営業連絡や写真公開のストレスから解放',
-    reassuranceTags: ['Webパネル写真なし', '営業LINE一切不要', 'お風呂掃除などの肉体労働ゼロ', '即戦力高日給'],
+    imageCaption: '他業種からの移籍相談歓迎・営業連絡や写真公開のストレスから解放',
+    reassuranceTags: ['Webパネル写真なし', '営業LINE一切不要', 'お風呂掃除などの肉体労働ゼロ', '高水準バック100%支給'],
     icon: 'Award',
     accentBg: 'from-purple-50 via-white to-indigo-50/30',
   },
@@ -101,22 +101,22 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
   },
   shops: {
     secondaryImage: '/images/col_secure_ryotei_1792475628730.webp',
-    imageCaption: '信太山新地屈指の直営老舗旅館・清潔な個室待機室と設備完備',
-    reassuranceTags: ['老舗旅館直営店', 'オートロック・警備万全', 'Wi-Fi・冷暖房完備の個室待機', '無料レンタル衣装充実'],
+    imageCaption: '信太山新地屈指の直営老舗旅館・店先顔見せなしの安心環境（画像はイメージです）',
+    reassuranceTags: ['老舗旅館直営店', 'オートロック・警備万全', '冷暖房・Wi-Fi完備の待機所', '無料レンタル衣装充実'],
     icon: 'Building2',
     accentBg: 'from-emerald-50 via-white to-cyan-50/30',
   },
   dorm: {
     secondaryImage: '/images/dorm_main_studio_1794374510330.webp',
-    imageCaption: '信太山駅近辺の寮・清潔な生活環境・出稼ぎ・遠方からの応募歓迎',
-    reassuranceTags: ['信太山駅近辺の寮', '家具・家電・生活設備完備', '遠方からの応募歓迎', '交通費・移動費相談可能'],
+    imageCaption: '信太山駅近辺の個室寮・清潔な生活環境・出稼ぎ・遠方からの応募歓迎',
+    reassuranceTags: ['信太山駅近辺の個室寮', '家具・家電・生活設備完備', '遠方からの応募歓迎', '交通費・移動費相談可能'],
     icon: 'Home',
     accentBg: 'from-pink-50 via-white to-rose-50/30',
   },
   safety: {
     secondaryImage: '/images/privacy_ryokan_room_1794375281070.webp',
-    imageCaption: '落ち着いた和風個室・店先顔見せなし・プライバシーに配慮した環境',
-    reassuranceTags: ['店先顔見せなし', '完全個室待機', '源氏名管理', '女性スタッフ相談窓口'],
+    imageCaption: '落ち着いた和風のイメージ・店先顔見せなし・プライバシーに配慮した環境',
+    reassuranceTags: ['店先顔見せなし', '待機所（スタンド・旅館）待機', '源氏名管理', '女性スタッフ相談窓口'],
     icon: 'ShieldCheck',
     accentBg: 'from-rose-50 via-white to-purple-50/30',
   },
@@ -124,47 +124,47 @@ const TOPIC_VISUAL_ASSETS: Record<string, {
 
 const ADVISOR_TOPIC_INSIGHTS: Record<string, { advice: string; focus: string }> = {
   job: {
-    advice: "信太山新地の最大の特徴は『店先での顔見せが一切ない』点です。飛田新地のように通りに座る必要がなく、清潔な待機所（スタンドまたは旅館）でスマホを見ながら待機でき、仲居さんの呼び出しで客室へ向かいます。15分単位の短時間コースが中心で、お茶出しやお酒の接待・部屋掃除も不要なため、未経験の方でも効率よく日給5万〜12万円を目指せますよ。",
-    focus: "顔見せなし・完全個室待機"
+    advice: "信太山新地の最大の特徴は『店先での顔見せが一切ない』点です。飛田新地のように通りに座る必要がなく、待機所（スタンドまたは旅館）でスマホを見ながら待機でき、仲居さんの呼び出しで客室へ向かいます。15分単位の短時間コースが中心で、お茶出しやお酒の接待・部屋掃除も不要なため、未経験の方でも無理なく続けられます。",
+    focus: "顔見せなし・待機所（スタンド・旅館）待機"
   },
   salary: {
-    advice: "15分コース3,800円、30分7,600円と明確で、お茶引き（客ゼロ）でも時給1万円保証や日給保証があります。稼いだ報酬はその場で全額手渡し日払い。厚生費や衣装代の理不尽な天引きは一切ありませんので、手取り額の多さに驚かれる女の子が多いです。",
-    focus: "日給5万〜12万・全額日払い"
+    advice: "15分コース3,800円〜、30分7,600円〜と明確で、条件に応じた時給1万円保証や日給保証制度もご用意しています（適用条件は面接時に事前ご説明）。稼いだ報酬は退勤時に全額手渡し日払い。厚生費や衣装代の理不尽な天引きはありません。",
+    focus: "15分3,800円〜・全額日払い"
   },
   benefits: {
-    advice: "家電付きのワンルーム個室寮や託児所補助、送迎、そして毎月20日の一斉定休日など、女性がストレスフリーで続けられる待遇を徹底しています。営業LINEやお酒の強要も禁止されているので、プライベートとの切り替えがとても楽ですよ。",
-    focus: "毎月20日定休日・個室寮完備"
+    advice: "家電付きのワンルーム個室寮や託児所補助、送迎、そして毎月20日の一斉定休日など、女性がストレスフリーで続けられる待遇を整えています。営業LINEやお酒の強要も禁止されているので、プライベートとの切り替えがとても楽ですよ。",
+    focus: "毎月20日定休日・個室寮相談可"
   },
   beginner: {
-    advice: "在籍女性の約9割が未経験スタートです。専任の仲居さんがお部屋への案内から時間管理まで横でしっかりサポートしてくれるので、1人で不安になる場面がありません。私服手ぶらでの見学や、その日だけの体験入店から気軽に試してみてくださいね。",
-    focus: "未経験率90%・仲居常駐サポート"
+    advice: "在籍女性の多くが未経験スタートです。専任の仲居さんがお部屋への案内から時間管理まで横でしっかりサポートしてくれるので、1人で不安になる場面がありません。私服手ぶらでの見学や、その日だけの体験入店から気軽に試してみてくださいね。",
+    focus: "未経験多数・仲居常駐サポート"
   },
   experienced: {
-    advice: "キャバクラや他店で『同伴・ノルマ・営業LINE』に疲れて移籍してきたキャストが数多く活躍しています。信太山新地では客との連絡先交換が規約で禁止されているため、休日に出勤催促されるストレスがゼロ。今までの接客スキルを活かして効率よく最高日給を稼げます。",
-    focus: "営業LINE禁止・移籍優遇"
+    advice: "キャバクラや他店で『同伴・ノルマ・営業LINE』に疲れて移籍してきたキャストが多数活躍しています。信太山新地では客との連絡先交換が規約で禁止されているため、休日に出勤催促されるストレスがありません。これまでの経験を活かして効率よく働けます。",
+    focus: "営業LINE禁止・移籍相談歓迎"
   },
   requirements: {
-    advice: "採用基準は『20歳以上の女性』であること。容姿やスタイルの厳しい審査、年齢制限の厳格な縛りはなく、清潔感や礼儀正しさ、自然な笑顔を一番評価します。20代はもちろん、30代・40代の女性も大勢第一線で稼いでいます。",
+    advice: "採用基準は『20歳以上の女性』であること。容姿やスタイルの厳しい審査はなく、清潔感や礼儀正しさ、自然な笑顔を大切にしています。20代はもちろん、30代・40代の女性も幅広くご相談いただけます。",
     focus: "20歳以上・人柄重視採用"
   },
   flow: {
-    advice: "応募から面接、体験入店まで即日対応可能です。履歴書は一切不要で、私服のまま手ぶらでお越しいただけます。駅までの無料送迎があり、面接後『合わない』と思ったらその場で辞退しても交通費支給や費用請求はゼロなので安心してください。",
+    advice: "応募から面接、体験入店まで即日対応可能です。履歴書は一切不要で、私服のまま手ぶらでお越しいただけます。駅までの無料送迎があり、面接後『合わない』と思ったらその場で辞退しても問題ありませんので安心してください。",
     focus: "履歴書不要・即日日払い体入"
   },
   workstyle: {
-    advice: "完全自由出勤制なので、週1日・月数回・土日のみの出勤でも大歓迎。ノルマや罰金は一切ありません。学生さんのテスト期間やOLさんの本業繁忙期、ママさんの学校行事に合わせてシフトを100%自分でコントロールできます。",
+    advice: "完全自由出勤制なので、週1日・月数回・土日のみの出勤でも大歓迎。ノルマや罰金はありません。学生さんのテスト期間やOLさんの本業繁忙期、ママさんの学校行事に合わせてシフトをご自身のペースで調整できます。",
     focus: "完全自由シフト・週1日〜OK"
   },
   shops: {
-    advice: "信太山新地ではお店（旅館店舗）によって集客力が全く違います！さらに新地エリアの業界規約として、一度お店に入ると他店への移籍が半年間制限される【半年ルール】があるため、最初のお店選びは本当に慎重にしなければいけません。閑古鳥のお店に入ってしまうと半年間稼げずに後悔することに…。老舗直営の当店ならエリア屈指の圧倒的な集客力と安定した常連層があるため、未経験の方でも初日からしっかりお部屋が回転して日給5万〜12万円を安心して稼げますよ。",
-    focus: "集客力の格差と半年ルール"
+    advice: "信太山新地ではお店（旅館店舗）によって集客力や雰囲気が違います。またエリアの慣習として一度お店に入ると他店への移籍が半年間制限される【半年ルール】があるため、最初のお店選びはとても大切です。老舗直営の当店は安定した集客力と常連様が多く、初めての方も初日から安心してお仕事ができます。",
+    focus: "集客力と半年ルール"
   },
   dorm: {
-    advice: "信太山駅近辺の寮をご案内しています。ベッドや収納、冷暖房など実際の設備や生活環境、寮費・光熱費などの費用面も事前にすべてご説明します。遠方からの移動費や交通費の支給、出稼ぎの期間なども丁寧にご相談に乗りますので、まずはお気軽にLINEでご相談くださいね。",
+    advice: "信太山駅近辺の個室寮をご案内しています。ベッドや収納、冷暖房など実際の設備や生活環境、寮費・光熱費などの費用面も事前にすべてご説明します。遠方からの移動費や交通費の支給、出稼ぎの期間なども丁寧にご相談に乗りますので、まずはお気軽にLINEでご相談くださいね。",
     focus: "信太山駅近辺の寮・遠方応募歓迎"
   },
   safety: {
-    advice: "身バレやプライバシーへの不安はとても自然なことです。当店では店先での顔見せがなく完全個室で待機できるほか、源氏名の使用や生活圏と重ならない通勤方法など、身近な人に知られるリスクを減らすための工夫を一緒に考えます。困ったときは女性スタッフにいつでもご相談ください。",
+    advice: "身バレやプライバシーへの不安はとても自然なことです。当店では店先での顔見せがなく待機所（スタンドまたは旅館）で待機できるほか、源氏名の使用や生活圏と重ならない通勤方法など、身近な人に知られるリスクを減らすための工夫を一緒に考えます。困ったときは女性スタッフにいつでもご相談ください。",
     focus: "プライバシー配慮・相談対応"
   },
   faq: {
@@ -228,7 +228,7 @@ export default function TopicClusterPage({
   const visualAsset = TOPIC_VISUAL_ASSETS[topicId] || {
     secondaryImage: '/images/shinodayama_hero_banner_1792225964954.webp',
     imageCaption: '信太山新地 直営老舗旅館グループ',
-    reassuranceTags: ['店先顔見せなし', '完全個室待機', '即日全額日払い', '履歴書不要'],
+    reassuranceTags: ['店先顔見せなし', '待機所（スタンド・旅館）待機', '即日全額日払い', '履歴書不要'],
     icon: 'Sparkles',
     accentBg: 'from-rose-50 via-white to-pink-50/30',
   };
@@ -241,6 +241,83 @@ export default function TopicClusterPage({
 
   // Synchronize Page Title, Meta, Canonical & JSON-LD Structured Data
   useEffect(() => {
+    const howToNode =
+      data.id === 'job'
+        ? {
+            '@type': 'HowTo',
+            '@id': 'https://osaka-shinodayamashinchi-recruit.com/job#howto',
+            'name': '信太山新地の1日の仕事の進め方（出勤〜退勤の流れ）',
+            'description': '初めての方にも分かりやすい、信太山新地の旅館直営店舗での出勤から待機・接客・日払い受取までの基本4ステップ。',
+            'inLanguage': 'ja-JP',
+            'step': [
+              {
+                '@type': 'HowToStep',
+                'position': 1,
+                'name': 'STEP1｜出勤・お着替え',
+                'text': 'ご希望の出勤時刻に合わせて私服・手ぶらで出勤し、無料レンタル衣装やメイクなど身支度を整えます。'
+              },
+              {
+                '@type': 'HowToStep',
+                'position': 2,
+                'name': 'STEP2｜待機所（スタンドまたは旅館）で待機',
+                'text': '店先に立つことはなく、待機所でリラックスして過ごしながら案内を待ちます。'
+              },
+              {
+                '@type': 'HowToStep',
+                'position': 3,
+                'name': 'STEP3｜仲居さんの案内で接客（15分〜の個室コース）',
+                'text': 'お客様が先にシャワーを済ませたあと、仲居さんの呼び出しでお部屋へ向かい、軽い会話や基本接客（コンドーム着用厳守）を行います。時間管理も仲居さんが対応します。'
+              },
+              {
+                '@type': 'HowToStep',
+                'position': 4,
+                'name': 'STEP4｜全額現金受取・退勤',
+                'text': 'シフト終了後に当日分のお給料を全額現金手渡しで受け取り、退勤します（天引きなし）。'
+              }
+            ]
+          }
+        : data.id === 'flow'
+          ? {
+              '@type': 'HowTo',
+              '@id': 'https://osaka-shinodayamashinchi-recruit.com/flow#howto',
+              'name': '信太山新地 求人応募〜面接・見学・体験入店の流れ',
+              'description': 'LINE相談から条件説明、環境見学、体験入店（希望者のみ）までの応募ステップをご案内します。',
+              'inLanguage': 'ja-JP',
+              'step': [
+                {
+                  '@type': 'HowToStep',
+                  'position': 1,
+                  'name': 'STEP01｜LINE・電話でお問い合わせ',
+                  'text': '24時間受付の公式LINEから、仕事内容や給与、働く条件について質問・相談できます（相談のみも可）。'
+                },
+                {
+                  '@type': 'HowToStep',
+                  'position': 2,
+                  'name': 'STEP02｜面接の日程・希望条件を確認',
+                  'text': '希望する勤務時間や日数、気になる条件を調整します。履歴書不要で私服のまま手ぶらでお越しいただけます。'
+                },
+                {
+                  '@type': 'HowToStep',
+                  'position': 3,
+                  'name': 'STEP03｜面接・仕事内容・条件の説明',
+                  'text': '15分単位のコース別報酬、勤務条件、送迎や寮などの待遇を納得いただけるまで事前にお伝えします（年齢確認のため顔写真付き身分証1点が必要）。'
+                },
+                {
+                  '@type': 'HowToStep',
+                  'position': 4,
+                  'name': 'STEP04｜店舗・待機環境の見学、体験入店の相談',
+                  'text': '希望される方は待機所や館内設備を見学でき、体験入店の条件も確認できます。見学のみでの判断も可能です。'
+                },
+                {
+                  '@type': 'HowToStep',
+                  'position': 5,
+                  'name': 'STEP05｜希望者のみ体験入店・勤務開始',
+                  'text': '条件に納得し本人が希望する場合に体験入店または勤務を開始します。体験分の報酬も退勤時に全額日払いでお渡しします。'
+                }
+              ]
+            }
+          : null;
+
     const schemaData = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -250,6 +327,8 @@ export default function TopicClusterPage({
           'headline': data.title,
           'description': data.metaDescription || data.overview,
           'image': data.heroImage ? `https://osaka-shinodayamashinchi-recruit.com${data.heroImage}` : undefined,
+          'datePublished': '2026-10-01T00:00:00+09:00',
+          'dateModified': '2026-11-14T00:00:00+09:00',
           'inLanguage': 'ja-JP',
           'author': {
             '@type': 'Organization',
@@ -265,13 +344,14 @@ export default function TopicClusterPage({
           },
           'speakable': {
             '@type': 'SpeakableSpecification',
-            'cssSelector': ['#llm-direct-answer-text', 'h1']
+            'cssSelector': ['h1', 'h2', '#llm-direct-answer-text']
           },
           'about': {
             '@type': 'Thing',
             'name': '信太山新地求人・旅館直営・即日全額日払い'
           }
         },
+        ...(howToNode ? [howToNode] : []),
         {
           '@type': 'BreadcrumbList',
           '@id': `https://osaka-shinodayamashinchi-recruit.com${data.path}#breadcrumb`,
@@ -311,7 +391,7 @@ export default function TopicClusterPage({
       (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/benefits');
     updatePageSeo({
       title: data.seoTitle || `${data.title}｜信太山新地求人 公式ガイド【信太山ガールズ】`,
-      description: data.metaDescription || `${data.overview} 信太山新地の旅館直営公式求人情報。店先顔見せなし・完全個室待機・即日全額日払い。`,
+      description: data.metaDescription || `${data.overview} 信太山新地の旅館直営公式求人情報。店先顔見せなし・待機所（スタンドまたは旅館）待機・即日全額日払い。`,
       canonicalUrl: `https://osaka-shinodayamashinchi-recruit.com${canonicalPath}`,
       ogImage: data.heroImage || visualAsset.secondaryImage,
       ogType: 'article',
@@ -863,7 +943,7 @@ export default function TopicClusterPage({
                 女の子目線のサポートが徹底されているから、無理なく自分のペースで稼げます
               </h2>
               <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-4">
-                他エリアのように厳しいノルマや人間関係のストレス、店先での待機はなく、全室清潔な個室待機を完備。優しい仲居さんと女性スタッフが24時間体制であなたをサポートします。
+                他エリアのように厳しいノルマや人間関係のストレス、店先での顔出し待機はなく、待機所（スタンドまたは旅館）で落ち着いて過ごせます。優しい仲居さんと女性スタッフがいつでもあなたをサポートします。
               </p>
 
               {/* Badges Grid */}

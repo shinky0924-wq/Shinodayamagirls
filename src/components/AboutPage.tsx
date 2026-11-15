@@ -28,10 +28,16 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               '@graph': [
                 {
                   '@type': 'WebPage',
+                  '@id': 'https://osaka-shinodayamashinchi-recruit.com/policy#webpage',
                   'name': '求人情報掲載ポリシー・安全規約・個人情報保護方針',
                   'description': '信太山ガールズの求人掲載基準、コンプライアンス就労憲章、個人情報保護方針',
                   'url': 'https://osaka-shinodayamashinchi-recruit.com/policy',
-                  'inLanguage': 'ja-JP'
+                  'dateModified': '2026-11-14',
+                  'inLanguage': 'ja-JP',
+                  'speakable': {
+                    '@type': 'SpeakableSpecification',
+                    'cssSelector': ['h1', 'h2']
+                  }
                 },
                 {
                   '@type': 'BreadcrumbList',
@@ -63,10 +69,55 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               '@graph': [
                 {
                   '@type': 'AboutPage',
+                  '@id': 'https://osaka-shinodayamashinchi-recruit.com/about#aboutpage',
                   'name': '運営者情報・店舗概要',
                   'description': '信太山新地の旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要',
                   'url': 'https://osaka-shinodayamashinchi-recruit.com/about',
-                  'inLanguage': 'ja-JP'
+                  'dateModified': '2026-11-14',
+                  'inLanguage': 'ja-JP',
+                  'speakable': {
+                    '@type': 'SpeakableSpecification',
+                    'cssSelector': ['h1', 'h2']
+                  },
+                  'mainEntity': {
+                    '@type': 'LodgingBusiness',
+                    '@id': 'https://osaka-shinodayamashinchi-recruit.com/#localbusiness',
+                    'name': '信太山ガールズ 公式採用窓口（信太山新地 旅館直営グループ）',
+                    'url': 'https://osaka-shinodayamashinchi-recruit.com/',
+                    'address': {
+                      '@type': 'PostalAddress',
+                      'streetAddress': '幸二丁目（信太山新地 旅館街）',
+                      'addressLocality': '和泉市',
+                      'addressRegion': '大阪府',
+                      'postalCode': '594-0003',
+                      'addressCountry': 'JP'
+                    },
+                    'contactPoint': {
+                      '@type': 'ContactPoint',
+                      'contactType': 'customer support',
+                      'url': 'https://lin.ee/Z70RRKH',
+                      'availableLanguage': ['Japanese']
+                    },
+                    'knowsAbout': [
+                      '信太山新地 旅館直営公式求人',
+                      '待機所（スタンドまたは旅館）での待機',
+                      '15分単位のコース別報酬制度',
+                      '即日全額現金日払い',
+                      '毎月20日エリア一斉定休日'
+                    ],
+                    'employee': [
+                      {
+                        '@type': 'Person',
+                        'name': '松本 健二',
+                        'jobTitle': '採用・労務マネージャー'
+                      },
+                      {
+                        '@type': 'Person',
+                        'name': 'あおい',
+                        'jobTitle': '女性相談・就労サポート責任者'
+                      }
+                    ]
+                  }
                 },
                 {
                   '@type': 'BreadcrumbList',
@@ -137,7 +188,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
           <p className="text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">
             当サイト「信太山ガールズ」は、大阪府和泉市の信太山新地にて昭和期より旅館を営む直営グループが、女性の安心・安全とプライバシー保護を最優先に運営する公式採用窓口です。
             外部スカウト業者や仲介所を一切介さない直営採用のため、紹介料の天引きや不透明な中抜きは一切ありません。
-            法令遵守（コンプライアンス）のもと、店先での顔見せがない個室待機環境と高水準の報酬制度をお約束いたします。
+            法令遵守（コンプライアンス）のもと、店先での顔見せがない待機所（スタンドまたは旅館）での待機環境と明朗な報酬制度をお約束いたします。
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4 border-t border-rose-100">
@@ -149,7 +200,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
             <div className="p-3.5 bg-rose-50/50 rounded-2xl border border-rose-100/60">
               <div className="text-[11px] text-zinc-500 font-bold mb-0.5">待機スタイル</div>
               <div className="text-lg font-black text-rose-600">店先顔出しなし</div>
-              <div className="text-[11px] text-zinc-600 mt-0.5">旅館個室・スタンド待機</div>
+              <div className="text-[11px] text-zinc-600 mt-0.5">待機所（スタンド・旅館）待機</div>
             </div>
             <div className="p-3.5 bg-rose-50/50 rounded-2xl border border-rose-100/60">
               <div className="text-[11px] text-zinc-500 font-bold mb-0.5">給与支払規定</div>
@@ -283,7 +334,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
                       15分3,800円 / 30分7,600円 / 45分11,400円 / 60分15,200円
                     </p>
                     <p className="text-[11px] text-zinc-600 mt-1">
-                      時給1万円保証、待機時間に応じた日給保証（例：12時間待機で8〜10万円保証）完備。<br />
+                      最低時給10,000円保証や待機時間に応じた日給保証制度あり（適用条件は面接時に事前ご説明）。<br />
                       全額即日現金手渡し支給。衣装代・雑費・厚生費・講習費などの名目の天引きは一切ありません（天引き0円）。
                     </p>
                   </td>

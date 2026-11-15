@@ -75,7 +75,7 @@ export default function AdminPanel({ onNavigateHome, onNavigateBlog }: AdminPane
             '料亭ではなく旅館直営営業',
             '最短15分〜短時間接客・お酒不要',
             '毎月20日エリア一斉定休日',
-            '即日全額日払い（時給1万円保証・日給8〜10万円保証あり）',
+            '即日全額日払い（最低時給1万円保証・日給保証制度あり）',
             '家具家電付き個室寮・新幹線交通費全額支給'
           ]
         })
@@ -88,7 +88,7 @@ export default function AdminPanel({ onNavigateHome, onNavigateBlog }: AdminPane
         // Fallback generator template preview
         setGeneratedResult(`【タイトル案】信太山ガールズ公式求人：${generatorTopic}
 【リード文】大阪府和泉市に位置する信太山新地は、他の新地と異なり「店先での顔見せがない」安心の就労環境が整っています。
-【見出し1】個室待機で身バレ防止！通りに座らない安心の就労ルール
+【見出し1】店先での顔見せなし！待機所（スタンドまたは旅館）での安心待機ルール
 【見出し2】15分3,800円〜の高単価＆即日全額日払い手渡し
 【見出し3】毎月20日の一斉定休でプライベートも充実
 【まとめ】未経験の女性も女性スタッフが手厚くサポートします。`);
@@ -321,7 +321,7 @@ export default function AdminPanel({ onNavigateHome, onNavigateBlog }: AdminPane
                   value={generatorTopic}
                   onChange={e => setGeneratorTopic(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-zinc-200 focus:outline-rose-500"
-                  placeholder="例：30代主婦のWワーク、個室待機の過ごし方、毎月20日の定休日など"
+                  placeholder="例：30代主婦のWワーク、待機所の過ごし方、毎月20日の定休日など"
                 />
               </div>
 
@@ -334,7 +334,7 @@ export default function AdminPanel({ onNavigateHome, onNavigateBlog }: AdminPane
                 >
                   <option value="safety">身バレ・安全（店先顔見せなし）</option>
                   <option value="salary">給料・待遇（15分3,800円〜即日日払い）</option>
-                  <option value="beginner">未経験スタート（夜職ゼロ約90%）</option>
+                  <option value="beginner">未経験スタート（未経験の方歓迎）</option>
                   <option value="workstyle">働き方・シフト（毎月20日定休日）</option>
                   <option value="dorm">寮・出稼ぎ（家具家電付き個室寮）</option>
                   <option value="shops">お店選び（集客力・半年ルール）</option>
