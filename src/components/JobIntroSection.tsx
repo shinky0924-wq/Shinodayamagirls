@@ -81,21 +81,7 @@ export default function JobIntroSection({
 
         {/* Visual Showcase + Summary Banner (Unique Job-Specific Imagery) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center mb-6 bg-[#F7F2EC] rounded-2xl p-5 sm:p-7 border border-[#E9DFD4]">
-          <div className="md:col-span-5 grid grid-cols-2 gap-3">
-            <figure className="rounded-xl overflow-hidden bg-white border border-[#E9DFD4]">
-              <img
-                src="/images/col_one_day_flow_1792474096539.webp"
-                alt="出勤から退勤までの1日の勤務イメージ"
-                width={480}
-                height={360}
-                loading="lazy"
-                decoding="async"
-                className="w-full aspect-[4/3] object-cover"
-              />
-              <figcaption className="px-2.5 py-1.5 text-[11px] text-[#555555] bg-white">
-                ※画像は1日の流れのイメージです
-              </figcaption>
-            </figure>
+          <div className="md:col-span-4">
             <figure className="rounded-xl overflow-hidden bg-white border border-[#E9DFD4]">
               <img
                 src="/images/ryokan_working_woman_1792485020272.webp"
@@ -112,7 +98,7 @@ export default function JobIntroSection({
             </figure>
           </div>
 
-          <div className="md:col-span-7 space-y-3">
+          <div className="md:col-span-8 space-y-3">
             <p className="text-xs font-bold text-[#A65D79]">
               信太山新地・当店（旅館直営）ならではのポイント
             </p>
