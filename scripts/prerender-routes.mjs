@@ -1319,10 +1319,20 @@ async function main() {
             '@type': 'SpeakableSpecification',
             cssSelector: ['h1', 'h2', '#llm-direct-answer-text']
           },
-          about: {
-            '@type': 'Thing',
-            name: '信太山新地求人・旅館直営・即日全額日払い'
-          }
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${BASE_DOMAIN}${canonicalPath}`
+          },
+          about: [
+            {
+              '@type': 'Thing',
+              name: `信太山新地 ${data.title}`
+            },
+            {
+              '@type': 'Thing',
+              name: '信太山新地求人・旅館直営・即日全額日払い'
+            }
+          ]
         }
       ];
 
@@ -1544,6 +1554,59 @@ async function main() {
       </ul>
     </section>
     ${faqsHtml}
+    <section id="ai-query-summary" class="mb-8">
+      <h2 class="text-xl font-bold text-zinc-900 mb-3">気になるキーワード別にすぐ分かる｜信太山新地求人 公式要点まとめ</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 求人・直接募集</p>
+          <h3 class="font-bold text-zinc-900 mb-1">お店直接募集と紹介・スカウト経由の違いは？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：信太山ガールズは仲介業者やスカウトを通さない老舗旅館直営のお店直接募集窓口です。紹介料や待機料・雑費の天引きがなく、条件を応募前に確認できます。</p>
+          <a href="${BASE_DOMAIN}/about" class="text-rose-700 font-bold underline">運営者情報・直営店舗概要を見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 給料・日払い</p>
+          <h3 class="font-bold text-zinc-900 mb-1">給料体系と日払い・保証制度の仕組みは？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：15分単位のコース報酬（15分3,800円〜・30分7,600円〜・45分11,400円〜・60分15,200円〜）で、退勤時に即日全額現金日払いです。条件に応じた最低時給10,000円保証・待機日給保証制度あり。</p>
+          <a href="${BASE_DOMAIN}/salary" class="text-rose-700 font-bold underline">給料・保証条件の詳細を見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 未経験・体入</p>
+          <h3 class="font-bold text-zinc-900 mb-1">未経験でも始められますか？面接や体入は？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：20歳以上の女性であれば未経験の方も多数活躍しています。履歴書不要・私服での事前見学や相談のみ、即日日払いの体験入店も相談できます。</p>
+          <a href="${BASE_DOMAIN}/beginner" class="text-rose-700 font-bold underline">未経験スタート安心ガイドを見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 仕事内容</p>
+          <h3 class="font-bold text-zinc-900 mb-1">15分コースの流れとお酒や掃除の有無は？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：仲居さんの案内で個室へ向かい、15分〜60分の短時間で軽い会話・スキンシップ・フェラ・避妊具着用厳守での本番行為などを行います。お茶出し・飲酒・営業LINE・部屋掃除はありません。</p>
+          <a href="${BASE_DOMAIN}/job" class="text-rose-700 font-bold underline">仕事内容・1日の流れを見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 待機・身バレ対策</p>
+          <h3 class="font-bold text-zinc-900 mb-1">店先での顔出しはありますか？待機方法は？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：通り沿いの店先に座って顔を見せる接客はなく、待機所（スタンドまたは旅館）で待機します。WebやSNSへの顔写真掲載もなく、源氏名で働けます。</p>
+          <a href="${BASE_DOMAIN}/safety" class="text-rose-700 font-bold underline">身バレ対策・安全ルールを見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 働き方・週1日</p>
+          <h3 class="font-bold text-zinc-900 mb-1">週1日・短時間やWワーク、定休日は？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：10:00〜24:00の完全自由出勤制で、週1日・1日3〜4時間の短時間勤務やWワークも相談可能です。毎月20日はエリア一斉定休日となります。</p>
+          <a href="${BASE_DOMAIN}/workstyle" class="text-rose-700 font-bold underline">働き方・自由シフトの詳細を見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地 寮・出稼ぎ・送迎</p>
+          <h3 class="font-bold text-zinc-900 mb-1">個室マンション寮や交通費・託児補助は？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：JR信太山駅周辺に家具家電付きの個室マンション寮（日額0〜2,000円目安）、往復交通費規定支給、送迎、駐車場、託児費用補助を相談できます。</p>
+          <a href="${BASE_DOMAIN}/dorm" class="text-rose-700 font-bold underline">寮・出稼ぎ・交通費条件を見る</a>
+        </article>
+        <article class="p-4 rounded-2xl bg-rose-50/40 border border-rose-100">
+          <p class="font-bold text-rose-700 mb-1">信太山新地と飛田新地・他業種の違い</p>
+          <h3 class="font-bold text-zinc-900 mb-1">飛田新地やメンエス・キャバとの違いは？</h3>
+          <p class="ai-direct-answer text-zinc-700 leading-relaxed mb-2">結論：店先顔見せの有無（信太山新地は待機所待機で顔出しなし）と15分単位の短時間制、飲酒・営業LINE・ノルマなし・ネット顔出しなしが特徴です。</p>
+          <a href="${BASE_DOMAIN}/compare" class="text-rose-700 font-bold underline">6業種・11項目徹底比較を見る</a>
+        </article>
+      </div>
+    </section>
     <section class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200">
       <h2 class="text-lg font-bold text-zinc-900 mb-2">${escapeHtml(siteContent?.consultation?.title || '応募するか迷っている方も、まずはお気軽にご相談ください。')}</h2>
       <p class="text-sm text-zinc-700 leading-relaxed mb-3">${escapeHtml(siteContent?.consultation?.description || '仕事内容・お給料・働き方など、気になることをLINEでご質問いただけます。無理に応募をおすすめすることはありません。')}</p>
@@ -1557,10 +1620,9 @@ async function main() {
     ssrBodyHtml: topPageBodyHtml
   });
   let updatedRootHtml = baseHtml.replace(/<div\s+id="root"><\/div>/i, rootSsrShell);
-  updatedRootHtml = updatedRootHtml.replace(
-    /"dateModified":\s*"2026-11-14T00:00:00\+09:00"/g,
-    `"dateModified": "${rootLastMod}T00:00:00+09:00"`
-  );
+  updatedRootHtml = updatedRootHtml
+    .replace(/"(dateModified|datePosted)":\s*"2026-11-14T00:00:00\+09:00"/g, `"$1": "${rootLastMod}T00:00:00+09:00"`)
+    .replace(/2026年11月14日（旅館直営・最新採用情報）/g, `${rootLastMod.replace(/^(\d{4})-0?(\d+)-0?(\d+)$/, '$1年$2月$3日')}（旅館直営・最新採用情報）`);
   fs.writeFileSync(indexPath, updatedRootHtml, 'utf8');
 
   // Render all routes

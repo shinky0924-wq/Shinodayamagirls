@@ -17,6 +17,7 @@ import TopFaqSection from './components/TopFaqSection';
 import WorkFlowSection from './components/WorkFlowSection';
 import ConsultationForm from './components/ConsultationForm';
 import RecruitHub from './components/RecruitHub';
+import AiSearchQueryGuideSection from './components/AiSearchQueryGuideSection';
 import Footer from './components/Footer';
 import LucideIcon from './components/LucideIcon';
 import ArticleCardImage from './components/ArticleCardImage';
@@ -693,6 +694,14 @@ export default function App() {
                 onNavigateFaq={() => handleNavigateFaq()}
               />
             </div>
+
+            {/* Section 13.5: 検索キーワード別の結論・要点まとめ */}
+            <AiSearchQueryGuideSection
+              onNavigateTopic={handleNavigateTopic}
+              onNavigateCompare={handleNavigateCompare}
+              onNavigateAbout={() => handleTabChange('about')}
+              onCtaclick={handleCtaclick}
+            />
 
             {/* Section 14: 最終応募・LINE相談エリア */}
             <ConsultationForm

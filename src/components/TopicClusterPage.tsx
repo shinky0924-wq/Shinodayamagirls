@@ -177,14 +177,14 @@ const COMPARISON_CARDS = [
   {
     icon: 'Coins',
     category: '給料・日払い',
-    shinodayama: '日給50,000円〜120,000円（全額即日日払い手渡し・雑費天引き0円・時給1万円保証）',
+    shinodayama: '15分3,800円〜・30分7,600円〜（即日全額現金日払い・雑費天引き0円・条件に応じた時給1万円保証制度あり）',
     other: '日給保証なし・売上未達ペナルティ・ヘアメイク代や厚生費などの天引き多数',
     badge: '手取り100%支給'
   },
   {
     icon: 'EyeOff',
     category: '顔出し・待機場所',
-    shinodayama: '通りに座る顔見せ一切なし！冷暖房完備の完全個室でスマホを見ながら自由待機',
+    shinodayama: '通りに座る顔見せ一切なし！待機所（スタンドまたは旅館）でスマホを見ながら落ち着いて待機',
     other: '飛田・松島等は店先で通りに顔を晒す必要あり、知り合い遭遇リスク大',
     badge: '身バレ防止No.1'
   },
@@ -198,16 +198,16 @@ const COMPARISON_CARDS = [
   {
     icon: 'Users',
     category: '客層・接客サポート',
-    shinodayama: '常連の紳士客中心。専任仲居さんがお部屋への案内から時間管理まで全対応',
+    shinodayama: '常連の紳士客中心。専任仲居さんがお部屋への案内から時間管理・お片付けまで全対応',
     other: '客層が荒れやすくトラブルも1人で対応。部屋の清掃や準備も自分負担',
     badge: '仲居常駐サポート'
   },
   {
     icon: 'Home',
     category: '生活支援・設備',
-    shinodayama: '家具家電完備の完全個室マンション寮（即入居可）・往復交通費全額支給・専用駐車場',
+    shinodayama: '家具家電付き個室マンション寮相談可（日額0〜2,000円目安）・往復交通費支給（規定あり）・駐車場相談可',
     other: '寮なし・敷金礼金自腹、交通費支給に厳しい上限あり',
-    badge: '手ぶら即入居OK'
+    badge: '寮・出稼ぎ相談可'
   }
 ];
 
@@ -1070,7 +1070,7 @@ export default function TopicClusterPage({
                   待遇・福利厚生・生活支援
                 </h2>
                 <p className="text-xs sm:text-sm text-rose-100 leading-relaxed max-w-2xl mb-4">
-                  待機料・厚生費などの天引き完全0円。家具家電付き個室マンション寮・往復交通費全額支給・無料送迎・提携託児所補助など、女性がストレスなく安心して働ける最高水準の待遇を完備しています。
+                  待機料・厚生費などの天引き完全0円。家具家電付き個室マンション寮（日額0〜2,000円目安）・往復交通費支給（規定あり）・送迎相談・提携託児所補助など、女性がストレスなく安心して働ける待遇を整えています。
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   <div className="bg-white/15 backdrop-blur-xs rounded-xl p-2.5 text-center border border-white/20">
