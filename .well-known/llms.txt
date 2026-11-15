@@ -73,6 +73,7 @@
 - [徹底比較ガイド（6種類比較）](https://osaka-shinodayamashinchi-recruit.com/compare): 飛田新地・メンズエステ・キャバクラ・ソープランド・スカウトとの比較
 - [タイプ別働き方ガイド（WORK STYLE GUIDE）](https://osaka-shinodayamashinchi-recruit.com/types): 希望や条件で探せる8つのタイプ別詳細ガイド
 - [採用担当者インタビュー](https://osaka-shinodayamashinchi-recruit.com/interview): 現場スタッフ・女性相談窓口のQ&Aインタビュー
+- [気になるキーワード別 公式要点まとめ](https://osaka-shinodayamashinchi-recruit.com/quick-guide): 給料・未経験・仕事内容・待機方法・寮・他業種比較を結論から確認
 - [よくある質問集 FAQ（全66問）](https://osaka-shinodayamashinchi-recruit.com/faq): 11カテゴリー別の疑問と回答
 - [運営者情報・店舗概要](https://osaka-shinodayamashinchi-recruit.com/about): 運営主体・旅館組合所属・女性サポート体制
 - [掲載ポリシー・安全規約・個人情報保護](https://osaka-shinodayamashinchi-recruit.com/policy): コンプライアンス・安全基準・身バレ対策規程
@@ -83,7 +84,7 @@
 - [仕事内容 Markdown](https://osaka-shinodayamashinchi-recruit.com/job.md) / [給料・保証 Markdown](https://osaka-shinodayamashinchi-recruit.com/salary.md) / [未経験ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/beginner.md) / [経験者ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/experienced.md)
 - [募集要項 Markdown](https://osaka-shinodayamashinchi-recruit.com/requirements.md) / [面接・体入の流れ Markdown](https://osaka-shinodayamashinchi-recruit.com/flow.md) / [働き方 Markdown](https://osaka-shinodayamashinchi-recruit.com/workstyle.md) / [お店選び・半年ルール Markdown](https://osaka-shinodayamashinchi-recruit.com/shops.md)
 - [寮・出稼ぎ Markdown](https://osaka-shinodayamashinchi-recruit.com/dorm.md) / [身バレ・安全対策 Markdown](https://osaka-shinodayamashinchi-recruit.com/safety.md)
-- [徹底比較ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/compare.md) / [よくある質問 FAQ 66問 Markdown](https://osaka-shinodayamashinchi-recruit.com/faq.md) / [タイプ別働き方ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/types.md)
+- [徹底比較ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/compare.md) / [キーワード別要点まとめ Markdown](https://osaka-shinodayamashinchi-recruit.com/quick-guide.md) / [よくある質問 FAQ 66問 Markdown](https://osaka-shinodayamashinchi-recruit.com/faq.md) / [タイプ別働き方ガイド Markdown](https://osaka-shinodayamashinchi-recruit.com/types.md)
 - [採用担当者インタビュー Markdown](https://osaka-shinodayamashinchi-recruit.com/interview.md) / [運営者情報 Markdown](https://osaka-shinodayamashinchi-recruit.com/about.md) / [掲載ポリシー Markdown](https://osaka-shinodayamashinchi-recruit.com/policy.md) / [コラム一覧 Markdown](https://osaka-shinodayamashinchi-recruit.com/blog.md)
 - [お仕事コラム RSS 2.0 フィード](https://osaka-shinodayamashinchi-recruit.com/rss.xml)
 
