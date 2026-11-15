@@ -48,6 +48,7 @@ Disallow: /admin/*
 # LLM Knowledge Index (Specification: https://llmstxt.org/)
 # LLMs-Text: https://osaka-shinodayamashinchi-recruit.com/llms.txt
 # LLMs-Full-Text: https://osaka-shinodayamashinchi-recruit.com/llms-full.txt
+# RSS-Feed: https://osaka-shinodayamashinchi-recruit.com/rss.xml
 
 # Canonical Sitemap and Host
 Sitemap: https://osaka-shinodayamashinchi-recruit.com/sitemap.xml
