@@ -37,11 +37,20 @@ User-agent: cohere-ai
 User-agent: CCBot
 User-agent: Bytespider
 User-agent: Diffbot
+User-agent: Applebot
+User-agent: BingPreview
+User-agent: NovaAct
+User-agent: AI2Bot
+User-agent: MistralAI-Bot
+User-agent: ChatGPT-Bot
+User-agent: iaskspider
 Allow: /
+Allow: /.well-known/
 
 # General Crawlers
 User-agent: *
 Allow: /
+Allow: /.well-known/
 Disallow: /admin
 Disallow: /admin/*
 
