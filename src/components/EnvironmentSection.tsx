@@ -33,7 +33,7 @@ const ENVIRONMENT_ITEMS: EnvironmentItem[] = [
   },
   {
     title: '待機時の過ごし方',
-    image: '/images/col_privacy_discretion_1792475612461.webp',
+    image: '/images/waiting_lounge_woman_1794803592646.webp',
     captionLabel: '※待機時のイメージ（実物写真ではありません）',
     description:
       '通りから見える場所に座る待機はありません。待機所（スタンドまたは旅館）でスマートフォンを見たりしながら、ご自身のペースで待機できます。',
@@ -97,6 +97,7 @@ export default function EnvironmentSection({ onCtaclick }: EnvironmentSectionPro
                     height={400}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover"
                   />
                   <span className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-medium px-2 py-0.5 rounded">
