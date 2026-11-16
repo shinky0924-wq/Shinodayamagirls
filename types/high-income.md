@@ -35,4 +35,4 @@ A. いいえ、当店では待機料・雑費・厚生費・衣装代・シー�
 
 - 公式ページ: https://osaka-shinodayamashinchi-recruit.com/
 - LINE事前相談窓口（24時間受付・質問のみ可）: https://lin.ee/Z70RRKH
-- 最終更新日: 2026-11-15
+- 最終更新日: 2026-11-16
