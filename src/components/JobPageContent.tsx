@@ -74,7 +74,7 @@ export default function JobPageContent({
   const relatedSlugs = [
     'shinodayama-job-guide',
     'shinodayamashinchi-work-flow-simulation',
-    'shinodayama-salary-system',
+    'shinodayamashinchi-salary-system',
     'shinodayama-safe-recruitment'
   ];
 
@@ -94,7 +94,7 @@ export default function JobPageContent({
               OUR WORK
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              当店のお仕事内容について
+              信太山新地 求人のお仕事内容｜15分短時間・顔出しなし
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
               初めての方にも分かりやすく、仕事内容をご紹介します。

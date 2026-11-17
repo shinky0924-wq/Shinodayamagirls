@@ -46,15 +46,21 @@ export function formatBlogSeoTitle(articleTitle: string): string {
  * Normalizes and trims meta description cleanly at sentence/phrase boundaries for optimal SERP snippet display.
  */
 export function formatMetaDescription(rawDescription?: string, fallback: string = ''): string {
-  const normalized = (rawDescription || fallback).replace(/\s+/g, ' ').trim();
-  if (normalized.length <= 155) return normalized;
-  const sliced = normalized.slice(0, 140);
-  const lastPeriod = Math.max(sliced.lastIndexOf('。'), sliced.lastIndexOf('、'), sliced.lastIndexOf(' '));
-  if (lastPeriod >= 90) {
-    const candidate = sliced.slice(0, lastPeriod + (sliced[lastPeriod] === '。' ? 1 : 0));
-    return candidate.endsWith('。') ? candidate : `${candidate}…`;
+  const base = (rawDescription || fallback).replace(/\s+/g, ' ').trim();
+  const normalized = base.length > 0 && base.length < 120
+    ? `${base.replace(/。$/, '')}。信太山新地の老舗旅館直営公式求人「信太山ガールズ」が詳しく解説します。`
+    : base;
+  if (normalized.length <= 158) return normalized;
+  const sliced = normalized.slice(0, 155);
+  const lastPeriod = sliced.lastIndexOf('。');
+  if (lastPeriod >= 118) {
+    return sliced.slice(0, lastPeriod + 1);
   }
-  return `${sliced}…`;
+  const lastClause = Math.max(sliced.lastIndexOf('、'), sliced.lastIndexOf(' '));
+  if (lastClause >= 120) {
+    return `${sliced.slice(0, lastClause)}…`;
+  }
+  return `${normalized.slice(0, 150)}…`;
 }
 
 /**

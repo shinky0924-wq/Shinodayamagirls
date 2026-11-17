@@ -38,6 +38,7 @@ export interface TopicClusterData {
   id: string;
   path: string;
   title: string;
+  h1Title?: string;
   seoTitle: string;
   metaDescription: string;
   emoji: string;

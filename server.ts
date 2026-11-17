@@ -4,6 +4,7 @@
  */
 
 import express from 'express';
+import fs from 'node:fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
@@ -17,8 +18,8 @@ const PORT = process.env.PORT || 3000;
 
 // Project-wide isolated configurations
 export const FIRESTORE_DATABASE_ID = 'shinodayamashinchi';
-export const GITHUB_REPO_URL = 'https://github.com/shinodayamashinchi/shinodayamashinchi-recruit.git';
-export const GITHUB_REPO_WEB = 'https://github.com/shinodayamashinchi/shinodayamashinchi-recruit';
+export const GITHUB_REPO_URL = 'https://github.com/shinky0924-wq/Shinodayamagirls.git';
+export const GITHUB_REPO_WEB = 'https://github.com/shinky0924-wq/Shinodayamagirls';
 
 app.use(express.json());
 
@@ -47,7 +48,7 @@ app.post('/api/generate-column', async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
     if (!apiKey) {
       return res.status(200).json({
-        content: `【信太山新地求人公式解説】${topic}\n\n大阪府和泉市の信太山新地は、伝統ある旅館直営の営業形態です。\n他の新地と異なり、衣装を着て店先に座る必要は一切なく、旅館の個室や専用スタンドで落ち着いて待機できます。\n1回最短15分の短時間接客、お酒不要、毎月20日の一斉定休など、女性スタッフが安心の就労環境を完全サポートしています。`
+        content: `【信太山新地求人公式解説】${topic}\n\n大阪府和泉市の信太山新地は、伝統ある旅館直営の営業形態です。\n他の新地と異なり、衣装を着て店先に座る必要は一切なく、待機所（スタンドまたは旅館）で落ち着いて待機できます。\n1回最短15分の短時間接客、お酒不要、毎月20日の一斉定休など、女性スタッフが安心の就労環境を完全サポートしています。`
       });
     }
 
@@ -58,7 +59,7 @@ app.post('/api/generate-column', async (req, res) => {
 【厳格なレギュレーション】
 1. 対象地域：大阪府和泉市「信太山新地（しのだやま）」
 2. 営業形態：料亭ではなく【旅館】営業です。
-3. 最大の特徴：【店先での顔見せ（顔出し・上がり框に座る行為）は一切ありません】。個室や専用スタンド待機です。
+3. 最大の特徴：【店先での顔見せ（顔出し・上がり框に座る行為）は一切ありません】。待機所（スタンドまたは旅館）での待機です。
 4. 過去の他新地（飛田新地、松島新地、滝井新地等）の店舗名や独自ルール（料亭組合、青春通り、おばちゃん呼び込みなど）は絶対に出さず、信太山新地の正確な一次情報（仲居さんの客案内、全室シャワー完備、ゴム着用徹底、泥酔客拒否）で執筆してください。
 5. 待遇：15分単位の明確な給料（15分3,800円〜）、時給1万円保証・日給保証、即日全額日払い現金手渡し。毎月20日の一斉定休日。
 
@@ -94,9 +95,35 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, 'dist')));
-    app.get('*', (_req, res) => {
-      res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    const distDir = path.join(__dirname, 'dist');
+    app.use((req, res, next) => {
+      if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+      const reqPath = req.path;
+      if (reqPath === '/' || reqPath.startsWith('/api/') || path.extname(reqPath)) {
+        return next();
+      }
+      const cleanRel = reqPath.replace(/^\/+|\/+$/g, '');
+      if (!cleanRel || cleanRel.includes('..')) return next();
+      const flatHtml = path.join(distDir, `${cleanRel}.html`);
+      if (flatHtml.startsWith(distDir) && fs.existsSync(flatHtml) && fs.statSync(flatHtml).isFile()) {
+        return res.sendFile(flatHtml);
+      }
+      const dirHtml = path.join(distDir, cleanRel, 'index.html');
+      if (dirHtml.startsWith(distDir) && fs.existsSync(dirHtml) && fs.statSync(dirHtml).isFile()) {
+        return res.sendFile(dirHtml);
+      }
+      return next();
+    });
+    app.use(express.static(distDir, { extensions: ['html'] }));
+    app.get('*', (req, res) => {
+      if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: 'Not Found' });
+      }
+      const notFoundPath = path.join(distDir, '404.html');
+      if (fs.existsSync(notFoundPath)) {
+        return res.status(404).sendFile(notFoundPath);
+      }
+      return res.status(404).sendFile(path.join(distDir, 'index.html'));
     });
   }
 

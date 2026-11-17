@@ -20,7 +20,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
       isPolicy
         ? {
             title: '求人情報掲載ポリシー・安全規約・個人情報保護｜信太山ガールズ公式',
-            description: '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内。満20歳以上の厳格な本人確認や個人情報の秘密厳守を徹底しています。',
+            description: '信太山新地の老舗旅館直営「信太山ガールズ」の求人情報掲載ポリシー、コンプライアンス＆就労安全憲章、身バレ防止・個人情報保護方針（プライバシーポリシー）をご案内。満20歳以上の厳格な本人確認や個人情報の秘密厳守、天引き0円規程を徹底しています。疑問はLINEへ。',
             canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/policy',
             ogImage: '/images/col_official_documents_1792465890547.webp',
             ogType: 'website',
@@ -62,7 +62,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
           }
         : {
             title: '運営者情報・店舗概要｜信太山ガールズ（信太山新地 旅館直営公式採用窓口）',
-            description: '信太山新地の老舗旅館直営公式求人「信太山ガールズ」の運営者情報、店舗概要、所在地（大阪府和泉市）、女性専任サポート体制、所属団体、コンプライアンス就労憲章、個人情報保護規程を詳しく明示しています。',
+            description: '信太山新地の老舗旅館直営公式求人「信太山ガールズ」の運営者情報・店舗概要ページ。大阪府和泉市の勤務地アクセス、女性専任サポート体制、信太山新地旅館組合への加盟状況、コンプライアンス就労憲章、個人情報保護規程を詳しく明示しています。事前相談はお気軽にLINEへ。',
             canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/about',
             ogImage: '/images/col_secure_ryotei_1792475628730.webp',
             ogType: 'website',

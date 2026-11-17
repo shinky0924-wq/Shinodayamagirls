@@ -179,7 +179,7 @@ export default function RecruiterInterviewPage({
     window.scrollTo(0, 0);
     updatePageSeo({
       title: '旅館の求人・採用担当者インタビュー｜信太山新地 旅館直営公式採用',
-      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験スタート多数の安心理由・給与や日払い・面接内容まで詳しく解説します。',
+      description: '信太山新地の老舗旅館直営採用。面接・給与担当の松本マネージャーと、女性相談窓口のあおいスタッフが信太山新地のリアルな現場実態に本音で回答。店先顔見せなし・未経験スタート多数の安心理由・15分単位の給与や日払い・面接内容まで詳しく解説します。事前LINE相談歓迎。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/interview',
       ogImage: '/images/shinodayama_advisor_sakura_1792225964799.webp',
       ogType: 'article',

@@ -699,7 +699,7 @@ export default function TopicClusterPage({
 
               {/* Main Title H1 */}
               <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 leading-tight mb-3 tracking-tight">
-                {data.title}
+                {data.h1Title || data.title}
                 <span className="block text-base sm:text-lg font-bold text-rose-600 mt-1.5 font-sans">
                   {data.tagline}
                 </span>
@@ -1232,7 +1232,7 @@ export default function TopicClusterPage({
                 }}
                 className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-100 transition-colors shrink-0"
               >
-                <span>コラム全139件を見る</span>
+                <span>コラム全{BLOG_ARTICLES.filter((a) => !a.noindex).length}件を見る</span>
                 <LucideIcon name="ChevronRight" size={13} />
               </a>
             </div>

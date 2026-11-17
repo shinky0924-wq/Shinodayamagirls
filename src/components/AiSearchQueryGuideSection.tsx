@@ -56,7 +56,7 @@ export default function AiSearchQueryGuideSection({
             QUICK GUIDE BY TOPIC
           </p>
           <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-[#333333] leading-snug mb-4 text-balance">
-            気になるキーワード別にすぐ分かる｜公式要点まとめ
+            信太山新地求人 気になるキーワード別｜公式要点まとめ
           </h1>
           <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
             「給料」「未経験」「仕事内容」「待機方法・身バレ対策」「寮・出稼ぎ」など、応募前によく調べられるポイントを結論からお伝えします。

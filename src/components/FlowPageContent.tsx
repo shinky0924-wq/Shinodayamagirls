@@ -84,7 +84,7 @@ export default function FlowPageContent({
               APPLICATION GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              面接・体験入店までの流れ
+              信太山新地 求人の面接・体験入店までの流れ
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
               応募から見学・体験まで、初めての方にも分かりやすくご案内します。

@@ -142,7 +142,7 @@ export default function WorkstylePageContent({
               WORKSTYLE GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
-              自分の生活に合わせて働ける、信太山新地のお仕事スタイル
+              自分の生活に合わせて働ける、信太山新地求人のお仕事スタイル
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
               昼間だけ・副業・週1日・レギュラー・短期集中。<br className="hidden sm:inline" />

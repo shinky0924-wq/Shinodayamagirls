@@ -35,15 +35,50 @@ function getFileLastMod(relPaths, fallback = today) {
   return latestMs > 0 ? new Date(latestMs).toISOString().split('T')[0] : fallback;
 }
 
-// 1. Load blog articles & generate lightweight index (excludes heavy article bodies from initial JS bundle)
+// 1. Load blog articles & generate lightweight index + per-article JSON endpoints
 const blogArticlesPath = path.join(rootDir, 'data', 'blogArticles.json');
 const blogArticlesIndexPath = path.join(rootDir, 'data', 'blogArticlesIndex.json');
+const publicArticlesDir = path.join(rootDir, 'public', 'articles');
 let blogArticles = [];
+let indexableBlogArticles = [];
+const blogCategoryMap = new Map();
 if (fs.existsSync(blogArticlesPath)) {
   blogArticles = JSON.parse(fs.readFileSync(blogArticlesPath, 'utf8'));
-  const indexOnly = blogArticles.map(({ content, ...meta }) => meta);
+  indexableBlogArticles = blogArticles.filter((a) => !a.noindex);
+  const indexOnly = indexableBlogArticles.map(({ content, ...meta }) => meta);
   fs.writeFileSync(blogArticlesIndexPath, JSON.stringify(indexOnly), 'utf8');
-  console.log(`[OK] blogArticlesIndex.json generated (${indexOnly.length} entries) at ${blogArticlesIndexPath}`);
+  console.log(`[OK] blogArticlesIndex.json generated (${indexOnly.length} indexable entries out of ${blogArticles.length}) at ${blogArticlesIndexPath}`);
+
+  // Emit lightweight per-article JSON files for all articles (including legacy noindex URLs so direct visits work with HTTP 200)
+  fs.rmSync(publicArticlesDir, { recursive: true, force: true });
+  fs.mkdirSync(publicArticlesDir, { recursive: true });
+  let perArticleCount = 0;
+  for (const art of blogArticles) {
+    if (!art.slug) continue;
+    fs.writeFileSync(path.join(publicArticlesDir, `${art.slug}.json`), JSON.stringify(art), 'utf8');
+    perArticleCount++;
+    if (!art.noindex && art.category) {
+      if (!blogCategoryMap.has(art.category)) {
+        blogCategoryMap.set(art.category, { id: art.category, label: art.categoryLabel || art.category, articles: [] });
+      }
+      blogCategoryMap.get(art.category).articles.push(art);
+    }
+  }
+  console.log(`[OK] Per-article JSON endpoints generated (${perArticleCount} files) in ${publicArticlesDir}`);
+
+  // Sync functions/blog/articles.json so Cloudflare Pages Functions always match active indexable articles
+  const functionsBlogDir = path.join(rootDir, 'functions', 'blog');
+  fs.mkdirSync(functionsBlogDir, { recursive: true });
+  const functionsManifest = indexableBlogArticles
+    .filter((a) => a && a.slug)
+    .map((a) => ({
+      slug: a.slug,
+      title: a.title,
+      summary: String(a.summary || a.title || '').replace(/[\r\n\t]/g, ' ').slice(0, 160),
+      eyeCatch: a.eyeCatch ? (a.eyeCatch.startsWith('/') ? a.eyeCatch : `/${a.eyeCatch}`) : '/images/japanese_hero_banner.jpg'
+    }));
+  fs.writeFileSync(path.join(functionsBlogDir, 'articles.json'), JSON.stringify(functionsManifest, null, 2), 'utf8');
+  console.log(`[OK] functions/blog/articles.json synced (${functionsManifest.length} articles)`);
 }
 
 // 2. Load topic clusters
@@ -82,8 +117,9 @@ const quickGuideLastMod = getFileLastMod(['src/quickGuideData.ts', 'src/componen
 const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
 const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
 
-const latestArticleDate = blogArticles.reduce((max, a) => {
-  const d = a.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(a.publishedAt) ? a.publishedAt.slice(0, 10) : '';
+const latestArticleDate = indexableBlogArticles.reduce((max, a) => {
+  const raw = a.updatedAt || a.publishedAt || '';
+  const d = /^\d{4}-\d{2}-\d{2}/.test(raw) ? raw.slice(0, 10) : '';
   return d > max ? d : max;
 }, '2026-10-01');
 
@@ -200,6 +236,24 @@ urls.push({
   }
 });
 
+// Priority 0.82 - Blog Category Archive Pages
+blogCategoryMap.forEach((cat) => {
+  const catLatest = cat.articles.reduce((max, a) => {
+    const d = a.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(a.publishedAt) ? a.publishedAt.slice(0, 10) : '';
+    return d > max ? d : max;
+  }, latestArticleDate);
+  urls.push({
+    loc: `${BASE_URL}/blog/category/${cat.id}`,
+    lastmod: catLatest,
+    changefreq: 'weekly',
+    priority: '0.82',
+    image: {
+      loc: `${BASE_URL}/images/col_search_phone_jp_1792475574840.webp`,
+      title: `信太山新地「${cat.label}」コラム一覧`
+    }
+  });
+});
+
 // Priority 0.80 - About / Company Profile & Policy
 urls.push({
   loc: `${BASE_URL}/about`,
@@ -223,11 +277,12 @@ urls.push({
   }
 });
 
-// Priority 0.75 - Blog Detail Pages
-blogArticles.forEach((article) => {
+// Priority 0.75 - Indexable Blog Detail Pages
+indexableBlogArticles.forEach((article) => {
   if (article.slug) {
-    const lastmod = article.publishedAt && /^\d{4}-\d{2}-\d{2}/.test(article.publishedAt)
-      ? article.publishedAt.slice(0, 10)
+    const rawMod = article.updatedAt || article.publishedAt || '';
+    const lastmod = /^\d{4}-\d{2}-\d{2}/.test(rawMod)
+      ? rawMod.slice(0, 10)
       : latestArticleDate;
 
     urls.push({
@@ -454,7 +509,8 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [よくある質問集 FAQ（全66問）](${BASE_URL}/faq): 11カテゴリー別の疑問と回答
 - [運営者情報・店舗概要](${BASE_URL}/about): 運営主体・旅館組合所属・女性サポート体制
 - [掲載ポリシー・安全規約・個人情報保護](${BASE_URL}/policy): コンプライアンス・安全基準・身バレ対策規程
-- [お仕事コラム一覧](${BASE_URL}/blog): 全${blogArticles.length}本の公式解説コラム
+- [お仕事コラム一覧](${BASE_URL}/blog): 全${indexableBlogArticles.length}本の公式解説コラム
+- コラムカテゴリー一覧: ${Array.from(blogCategoryMap.values()).map((c) => `[${c.label}(${c.articles.length}本)](${BASE_URL}/blog/category/${c.id})`).join(' / ')}
 
 ## Markdown ミラーページ（llmstxt.org 準拠 .md エンドポイント）
 - [トップページ Markdown](${BASE_URL}/index.html.md)
@@ -484,7 +540,7 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
   飛田新地との最大の違いは店先顔見せ（顔出し）の有無で、信太山新地は待機所待機のため通行人に見られません。15分単位の短時間制・飲酒なし・営業LINEなし・ノルマなしの点でもキャバクラやメンズエステ等と異なります（参照: ${BASE_URL}/compare , ${BASE_URL}/compare.md）。
 
 ## 詳細知識ベース（llms-full.txt）
-全10トピックの詳細解説・6業種11項目比較マトリクス・全66問FAQ・8タイプ別ガイド・全${blogArticles.length}件のお仕事コラムを含む統合知識ベースは ${BASE_URL}/llms-full.txt を参照してください。
+全10トピックの詳細解説・6業種11項目比較マトリクス・全66問FAQ・8タイプ別ガイド・全${indexableBlogArticles.length}件のお仕事コラムを含む統合知識ベースは ${BASE_URL}/llms-full.txt を参照してください。
 `;
 
 const llmsPath = path.join(publicDir, 'llms.txt');
@@ -596,9 +652,9 @@ if (Array.isArray(siteContent?.faq?.items) && siteContent.faq.items.length > 0) 
   fullParts.push('');
 }
 
-// 5f. All Blog Article Summaries
-fullParts.push(`---\n\n## 全お仕事コラム記事一覧（全${blogArticles.length}件・${BASE_URL}/blog）\n`);
-blogArticles.forEach((article, idx) => {
+// 5f. All Indexable Blog Article Summaries
+fullParts.push(`---\n\n## 全お仕事コラム記事一覧（全${indexableBlogArticles.length}件・${BASE_URL}/blog）\n`);
+indexableBlogArticles.forEach((article, idx) => {
   const published = article.publishedAt || latestArticleDate;
   const summary = article.summary || '';
   const url = `${BASE_URL}/blog/${article.slug}`;
@@ -617,7 +673,7 @@ blogArticles.forEach((article, idx) => {
 const llmsFullTxt = fullParts.join('\n');
 const llmsFullPath = path.join(publicDir, 'llms-full.txt');
 fs.writeFileSync(llmsFullPath, llmsFullTxt, 'utf8');
-console.log(`[OK] llms-full.txt generated (${clusterKeys.length} clusters, ${mainItems.length} comparisons, ${faqQuestions.length} FAQs, ${workstyleTypes.length} workstyles, ${blogArticles.length} articles) at ${llmsFullPath}`);
+console.log(`[OK] llms-full.txt generated (${clusterKeys.length} clusters, ${mainItems.length} comparisons, ${faqQuestions.length} FAQs, ${workstyleTypes.length} workstyles, ${indexableBlogArticles.length} indexable articles) at ${llmsFullPath}`);
 
 // 6. Generate Static Markdown Mirror Pages (.md endpoints in public/, copied to dist/ by Vite)
 function writeMdFile(relFile, content) {
@@ -888,22 +944,39 @@ ${mdFooter}`
 );
 mdCount++;
 
-// 6h. /blog.md
+// 6h. /blog.md & /blog/category/<cat>.md
 {
-  const blogMd = `# 信太山新地求人 お仕事コラム一覧（全${blogArticles.length}本）
+  const blogMd = `# 信太山新地求人 お仕事コラム一覧（全${indexableBlogArticles.length}本）
 
 > 仕事内容・15分単位の報酬・店先顔出しなしの待機環境・未経験スタート・週1日シフト・寮・安全ルールなどを解説する公式コラム一覧です。
 
 - Canonical URL: ${BASE_URL}/blog
 
 ## 記事一覧
-${blogArticles
+${indexableBlogArticles
   .filter((a) => a.slug)
   .map((a, idx) => `${idx + 1}. [${a.title}](${BASE_URL}/blog/${a.slug})（${a.publishedAt || latestArticleDate}｜${a.categoryLabel || '解説コラム'}）\n   ${a.summary || ''}`)
   .join('\n')}
 ${mdFooter}`;
   writeMdFile('blog.md', blogMd);
   mdCount++;
+
+  blogCategoryMap.forEach((cat) => {
+    const catMd = `# 信太山新地「${cat.label}」コラム一覧（全${cat.articles.length}本）
+
+> 信太山新地求人の「${cat.label}」カテゴリーに分類された公式解説コラム一覧です。
+
+- Canonical URL: ${BASE_URL}/blog/category/${cat.id}
+
+## 記事一覧
+${cat.articles
+  .filter((a) => a.slug)
+  .map((a, idx) => `${idx + 1}. [${a.title}](${BASE_URL}/blog/${a.slug})（${a.publishedAt || latestArticleDate}）\n   ${a.summary || ''}`)
+  .join('\n')}
+${mdFooter}`;
+    writeMdFile(`blog/category/${cat.id}.md`, catMd);
+    mdCount++;
+  });
 }
 
 // 6i. /quick-guide.md
@@ -928,10 +1001,16 @@ console.log(`[OK] Static Markdown mirrors (.md) generated: ${mdCount} files in $
 
 // 7. Generate RSS 2.0 Feed (public/rss.xml) sorted newest-first for Search & Feed Crawlers
 {
-  const sortedArticles = [...blogArticles]
+  const sortedArticles = [...indexableBlogArticles]
     .filter((a) => a.slug)
-    .sort((a, b) => String(b.publishedAt || '2026-01-01').localeCompare(String(a.publishedAt || '2026-01-01')))
-    .slice(0, 60);
+    .sort((a, b) => {
+      const dateCmp = String(b.publishedAt || b.updatedAt || '2026-01-01').localeCompare(
+        String(a.publishedAt || a.updatedAt || '2026-01-01')
+      );
+      if (dateCmp !== 0) return dateCmp;
+      return Number(b.id || 0) - Number(a.id || 0);
+    })
+    .slice(0, 80);
 
   const rssItemsXml = sortedArticles
     .map((a) => {

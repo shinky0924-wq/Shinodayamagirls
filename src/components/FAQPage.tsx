@@ -53,7 +53,7 @@ export default function FAQPage({
     updatePageSeo({
       title: '信太山新地・信太山求人のよくある質問 FAQ（66問）【公式】',
       description:
-        '信太山新地求人・信太山求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接・顔出しなしの待機環境・日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールなど働く前の疑問に公式がお答えします。',
+        '信太山新地求人のよくある質問全66問を11カテゴリーで分かりやすく整理。未経験の面接や体験入店・店先顔出しなしの待機環境・15分単位の日払い給料・個室寮・身バレ対策・週1日シフト・半年ルールまで働く前の疑問に公式がお答えします。LINE相談も歓迎。',
       canonicalUrl: 'https://osaka-shinodayamashinchi-recruit.com/faq',
       ogImage: '/images/col_interview_counseling_jp_1792475575633.webp',
       ogType: 'website',

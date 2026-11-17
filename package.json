@@ -2,13 +2,13 @@
   "name": "shinodayamashinchi-recruit",
   "private": true,
   "version": "1.0.0",
-  "description": "信太山新地求人公式サイト - 店先顔見せなし・旅館個室待機・即日全額日払い",
+  "description": "信太山新地求人公式サイト - 店先顔見せなし・待機所（スタンドまたは旅館）待機・即日全額日払い",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shinodayamashinchi/shinodayamashinchi-recruit.git"
+    "url": "https://github.com/shinky0924-wq/Shinodayamagirls.git"
   },
-  "homepage": "https://github.com/shinodayamashinchi/shinodayamashinchi-recruit#readme",
+  "homepage": "https://osaka-shinodayamashinchi-recruit.com/",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",

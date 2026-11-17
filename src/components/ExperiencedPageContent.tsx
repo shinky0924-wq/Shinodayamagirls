@@ -93,7 +93,7 @@ export default function ExperiencedPageContent({
               EXPERIENCED STAFF GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              経験者の方へ
+              信太山新地 経験者・移籍歓迎の求人ガイド
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
               今までの経験を、もっと自分に合った環境で活かしませんか？
@@ -584,7 +584,7 @@ export default function ExperiencedPageContent({
               title: '信太山新地で働くメリット',
               desc: '他業種との違い・働きやすさ',
               slug: 'shinodayamashinchi-vs-other-night-jobs',
-              img: '/images/col_aroma_relax_1792474257103.webp'
+              img: '/images/col_secure_ryotei_1792475628730.webp'
             },
             {
               title: '女性インタビュー',

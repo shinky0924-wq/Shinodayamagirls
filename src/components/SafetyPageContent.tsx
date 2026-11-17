@@ -100,7 +100,7 @@ export default function SafetyPageContent({
     {
       title: '初めて働く女性が確認したい安全面のポイント',
       summary: '接客ルール、禁止事項、困ったときの相談体制など、安心して働くための事前チェック項目。',
-      slug: 'shinodayamashinchi-beginner-friendly-environment',
+      slug: 'shinodayamashinchi-work-rules-hygiene-safety-standards',
       tag: '安全基準'
     },
     {
@@ -123,8 +123,7 @@ export default function SafetyPageContent({
               PRIVACY & SAFETY GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
-              <span className="text-[#D8175D]">身バレ</span>が心配な方へ。<br />
-              <span className="text-[#D8175D]">プライバシー</span>に配慮した働き方をご案内します
+              信太山新地 求人の<span className="text-[#D8175D]">身バレ対策・安全配慮</span>｜店先顔出しなし・待機所待機
             </h1>
 
             <p className="font-bold text-sm sm:text-base text-[#1F2432] mb-3">

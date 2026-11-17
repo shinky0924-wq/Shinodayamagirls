@@ -94,7 +94,7 @@ export default function SalaryBenefitsPageContent({
               SALARY & BENEFITS
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              給料・待遇について
+              信太山新地 求人の給料・待遇｜15分3,800円〜・即日全額日払い
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
               頑張った分が分かりやすい給与体系。

@@ -12,7 +12,7 @@ import {
   WorkstyleRelatedLink
 } from '../workstyleGuideData';
 import { LINE_OFFICIAL_URL } from '../data';
-import { updatePageSeo, getIsoLastUpdated } from '../seo';
+import { updatePageSeo, formatMetaDescription, getIsoLastUpdated } from '../seo';
 
 interface ComparisonPageProps {
   onNavigateHome: () => void;
@@ -78,8 +78,10 @@ export default function ComparisonPage({
       ? `${activeType.title}｜信太山新地・信太山求人 働き方ガイド`
       : '信太山新地 タイプ別働き方ガイド｜未経験・週1日・顔出しなし【公式】';
     const rawDesc = isSpecific
-      ? `${activeType.lead} 信太山新地の老舗旅館直営店が、対象となる女性の働き方や応募前の確認ポイントを分かりやすくご案内します。`
-      : '未経験から始めたい方、収入を重視したい方、週1日・短時間勤務やプライバシーが気になる方まで。あなたの希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別にご紹介します。';
+      ? formatMetaDescription(
+          `${activeType.cardDescription} 信太山新地の老舗旅館直営店が、対象となる女性の働き方や待機環境・日払い・応募前の確認ポイントを分かりやすくご案内します。`
+        )
+      : '未経験から始めたい方、お給料・収入を重視したい方、週1日や短時間勤務・身バレ対策が気になる方まで。大阪・信太山新地で働く女性の希望やライフスタイルに合わせて、知りたい信太山新地の求人情報を8つのタイプ別に詳しくご案内します。LINE相談歓迎。';
     const canonicalUrl = isSpecific
       ? `https://osaka-shinodayamashinchi-recruit.com/types/${activeType.slug}`
       : 'https://osaka-shinodayamashinchi-recruit.com/types';
@@ -251,7 +253,9 @@ export default function ComparisonPage({
 
           {/* ② メインタイトル */}
           <h1 className="font-display font-extrabold text-2xl sm:text-4xl md:text-[42px] text-zinc-900 leading-tight mb-3 text-balance">
-            あなたに合った働き方を見つけよう。
+            {initialCategorySlug && initialCategorySlug !== 'all'
+              ? `${activeType.title}｜信太山新地求人 働き方ガイド`
+              : '信太山新地求人 タイプ別働き方ガイド'}
           </h1>
 
           {/* ③ サブタイトル */}

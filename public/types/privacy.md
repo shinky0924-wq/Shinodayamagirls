@@ -36,4 +36,4 @@ A. いいえ、当店ではWebサイトやSNS・求人広告へのキャスト�
 
 - 公式ページ: https://osaka-shinodayamashinchi-recruit.com/
 - LINE事前相談窓口（24時間受付・質問のみ可）: https://lin.ee/Z70RRKH
-- 最終更新日: 2026-11-16
+- 最終更新日: 2026-11-17

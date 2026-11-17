@@ -609,14 +609,14 @@ export const FAQ_RELATED_ARTICLES: FAQRelatedArticle[] = [
   {
     title: '信太山新地で初めて働く女性へ｜応募から勤務開始まで',
     summary: '応募から私服面接、当日の即日体験入店、お給料の手渡しまでの具体的なステップを分かりやすく解説します。',
-    slug: 'shinodayama-flow',
+    slug: 'shinodayamashinchi-work-flow-simulation',
     tag: '初めての方へ',
     image: '/images/col_taiken_prep_1792475646166.webp'
   },
   {
     title: '信太山新地のお給料の仕組みを分かりやすく解説',
     summary: '15分3,800円からのコースバックや日払い手渡し、引かれ物ゼロの明朗会計システムについて詳しくご案内します。',
-    slug: 'shinodayama-salary-system',
+    slug: 'shinodayamashinchi-salary-system',
     tag: '給与システム',
     image: '/images/col_bonus_envelope_jp_1792476753315.webp'
   },
@@ -644,7 +644,7 @@ export const FAQ_RELATED_ARTICLES: FAQRelatedArticle[] = [
   {
     title: '後悔しないお店選びのチェックポイント',
     summary: '信太山新地全体の「半年ルール」や店舗による集客力の違いなど、入店前に知っておくべき重要事項を解説。',
-    slug: 'shinodayama-ryokan-guide',
+    slug: 'shinodayamashinchi-half-year-rule-shop-choice',
     tag: 'お店選び',
     image: '/images/col_secure_ryotei_1792475628730.webp'
   }

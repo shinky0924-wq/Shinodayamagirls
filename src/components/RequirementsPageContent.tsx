@@ -97,7 +97,7 @@ export default function RequirementsPageContent({
               RECRUITMENT INFORMATION
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              募集要項
+              信太山新地 求人の募集要項・応募条件一覧
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
               応募前に、知りたい条件をすべて確認。

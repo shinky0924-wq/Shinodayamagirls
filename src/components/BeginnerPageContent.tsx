@@ -93,7 +93,7 @@ export default function BeginnerPageContent({
               FIRST TIME GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
-              未経験から始める方へ
+              信太山新地 未経験から始める求人ガイド
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
               初めてのお仕事だからこそ、丁寧にサポートします。

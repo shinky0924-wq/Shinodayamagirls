@@ -124,8 +124,7 @@ export default function DormPageContent({
               DORMITORY & RELOCATION GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
-              <span className="text-[#D8175D]">遠方からの応募も歓迎！</span><br />
-              <span className="text-[#D8175D]">信太山駅近く</span>の寮で新生活をスタート
+              信太山新地 求人の<span className="text-[#D8175D]">個室寮・出稼ぎ</span>ガイド｜信太山駅近く・遠方応募歓迎
             </h1>
 
             <p className="font-bold text-sm sm:text-base text-[#1F2432] mb-3">

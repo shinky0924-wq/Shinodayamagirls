@@ -91,8 +91,7 @@ export default function ShopsPageContent({
               SHOP SELECTION GUIDE
             </span>
             <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
-              後悔しないお店選び。<br />
-              <span className="text-[#D8175D]">自分に合ったお店を見つけよう</span>
+              信太山新地 求人の後悔しないお店選び｜<span className="text-[#D8175D]">集客力と半年ルール</span>
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4 leading-snug">
               集客力・お給料・接客スタイル・サポート体制。<br className="hidden sm:inline" />

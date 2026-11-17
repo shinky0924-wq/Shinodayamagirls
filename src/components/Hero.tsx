@@ -6,7 +6,7 @@
 import { HERO_IMAGE_URL } from '../data';
 import LucideIcon from './LucideIcon';
 import { SiteContent } from '../siteContent';
-import { BlogArticle } from '../blogData';
+import type { BlogArticle } from '../blogData';
 
 interface HeroProps {
   content: SiteContent['hero'];

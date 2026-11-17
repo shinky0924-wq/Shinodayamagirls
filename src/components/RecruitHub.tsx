@@ -32,7 +32,7 @@ export const HUB_TOPIC_ITEMS: HubTopicItem[] = [
     title: '仕事内容を詳しく見る',
     shortTitle: '仕事内容',
     description: '接客の手順、待機スペースでの過ごし方、仲居さんのフォロー体制などを解説しています。',
-    image: '/images/col_aroma_relax_1792474257103.webp',
+    image: '/images/ryokan_working_woman_1792485020272.webp',
   },
   {
     id: 'salary',
@@ -214,7 +214,16 @@ export default function RecruitHub({
                     {topic.number}｜{topic.shortTitle}
                   </p>
                   <h3 className="font-display font-bold text-base text-[#333333] group-hover:text-[#A65D79] transition-colors mb-2 leading-snug">
-                    {topic.title}
+                    <a
+                      href={topic.path}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCardClick(topic);
+                      }}
+                      className="hover:underline underline-offset-2"
+                    >
+                      {topic.title}
+                    </a>
                   </h3>
                   <p className="text-xs sm:text-[13px] text-[#555555] leading-relaxed line-clamp-2">
                     {topic.description}
@@ -232,7 +241,7 @@ export default function RecruitHub({
                   }}
                   className="w-full py-2.5 px-4 rounded-xl bg-[#FFF6F8] hover:bg-[#A65D79] text-[#A65D79] hover:text-white font-bold text-xs sm:text-sm border border-[#EFE2E7] hover:border-[#A65D79] transition-colors flex items-center justify-center gap-1.5"
                 >
-                  <span>詳しく見る</span>
+                  <span>{topic.shortTitle}を詳しく見る</span>
                   <LucideIcon name="ChevronRight" size={14} />
                 </a>
               </div>

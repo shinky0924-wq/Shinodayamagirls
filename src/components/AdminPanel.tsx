@@ -10,8 +10,8 @@ import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { BLOG_ARTICLES, BlogArticle } from '../blogData';
 
 // GitHub Sync configuration strictly isolated to the new Shinodayama Shinchi repository
-export const GITHUB_REPO_URL = 'https://github.com/shinodayamashinchi/shinodayamashinchi-recruit.git';
-export const GITHUB_REPO_WEB = 'https://github.com/shinodayamashinchi/shinodayamashinchi-recruit';
+export const GITHUB_REPO_URL = 'https://github.com/shinky0924-wq/Shinodayamagirls.git';
+export const GITHUB_REPO_WEB = 'https://github.com/shinky0924-wq/Shinodayamagirls';
 
 interface AdminPanelProps {
   onNavigateHome: () => void;
@@ -71,7 +71,7 @@ export default function AdminPanel({ onNavigateHome, onNavigateBlog }: AdminPane
           category: generatorCategory,
           targetRegion: '信太山新地',
           features: [
-            '店先顔見せ一切なし（旅館の個室や専用スタンド待機）',
+            '店先顔見せ一切なし（待機所（スタンドまたは旅館）での待機）',
             '料亭ではなく旅館直営営業',
             '最短15分〜短時間接客・お酒不要',
             '毎月20日エリア一斉定休日',
