@@ -114,6 +114,7 @@ const workstyleLastMod = getFileLastMod(['src/workstyleGuideData.ts', 'src/compo
 const faqLastMod = getFileLastMod(['src/faq11CategoriesData.ts', 'src/components/FAQPage.tsx']);
 const interviewLastMod = getFileLastMod(['src/components/RecruiterInterviewPage.tsx']);
 const quickGuideLastMod = getFileLastMod(['src/quickGuideData.ts', 'src/components/AiSearchQueryGuideSection.tsx']);
+const onayamiLastMod = getFileLastMod(['src/onayamiGuideData.ts', 'src/components/OnayamiGuidePage.tsx']);
 const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
 const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
 
@@ -221,6 +222,17 @@ urls.push({
   image: {
     loc: `${BASE_URL}/images/col_search_phone_jp_1792475574840.webp`,
     title: '信太山新地求人 気になるキーワード別 公式要点まとめ'
+  }
+});
+
+urls.push({
+  loc: `${BASE_URL}/onayami-guide/`,
+  lastmod: onayamiLastMod,
+  changefreq: 'weekly',
+  priority: '0.90',
+  image: {
+    loc: `${BASE_URL}/images/onayami_guide_hero_1794905324227.jpg`,
+    title: '働く前の不安・疑問を解決｜信太山新地お仕事ガイド'
   }
 });
 
@@ -428,6 +440,11 @@ const faqModule = await loadTsModule('src/faq11CategoriesData.ts');
 const workstyleModule = await loadTsModule('src/workstyleGuideData.ts');
 const quickGuideModule = await loadTsModule('src/quickGuideData.ts');
 const quickGuideCards = Array.isArray(quickGuideModule.QUERY_SUMMARY_CARDS) ? quickGuideModule.QUERY_SUMMARY_CARDS : [];
+const onayamiModule = await loadTsModule('src/onayamiGuideData.ts');
+const onayamiMeta = onayamiModule.ONAYAMI_PAGE_META || {};
+const onayamiCategories = Array.isArray(onayamiModule.ONAYAMI_CATEGORIES) ? onayamiModule.ONAYAMI_CATEGORIES : [];
+const onayamiQuestions = Array.isArray(onayamiModule.ONAYAMI_QUESTIONS) ? onayamiModule.ONAYAMI_QUESTIONS : [];
+const onayamiChecklist = Array.isArray(onayamiModule.PRE_APPLICATION_CHECKLIST) ? onayamiModule.PRE_APPLICATION_CHECKLIST : [];
 
 // 4. Write llms.txt (Standard specification for AI Search engines like Perplexity, ChatGPT, Claude)
 const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 お店直接求人サイト）
@@ -506,6 +523,7 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [タイプ別働き方ガイド（WORK STYLE GUIDE）](${BASE_URL}/types): 希望や条件で探せる8つのタイプ別詳細ガイド
 - [採用担当者インタビュー](${BASE_URL}/interview): 現場スタッフ・女性相談窓口のQ&Aインタビュー
 - [気になるキーワード別 公式要点まとめ](${BASE_URL}/quick-guide): 給料・未経験・仕事内容・待機方法・寮・他業種比較を結論から確認
+- [働く前の不安・疑問を解決｜信太山新地お仕事ガイド](${BASE_URL}/onayami-guide/): 未経験・仕事内容・週1日・顔出しなし・お店選び・人間関係・面接・遠方寮の10の疑問＆応募前チェックリスト
 - [よくある質問集 FAQ（全66問）](${BASE_URL}/faq): 11カテゴリー別の疑問と回答
 - [運営者情報・店舗概要](${BASE_URL}/about): 運営主体・旅館組合所属・女性サポート体制
 - [掲載ポリシー・安全規約・個人情報保護](${BASE_URL}/policy): コンプライアンス・安全基準・身バレ対策規程
@@ -517,7 +535,7 @@ const llmsTxt = `# 信太山ガールズ（信太山新地 老舗旅館直営 �
 - [仕事内容 Markdown](${BASE_URL}/job.md) / [給料・保証 Markdown](${BASE_URL}/salary.md) / [未経験ガイド Markdown](${BASE_URL}/beginner.md) / [経験者ガイド Markdown](${BASE_URL}/experienced.md)
 - [募集要項 Markdown](${BASE_URL}/requirements.md) / [面接・体入の流れ Markdown](${BASE_URL}/flow.md) / [働き方 Markdown](${BASE_URL}/workstyle.md) / [お店選び・半年ルール Markdown](${BASE_URL}/shops.md)
 - [寮・出稼ぎ Markdown](${BASE_URL}/dorm.md) / [身バレ・安全対策 Markdown](${BASE_URL}/safety.md)
-- [徹底比較ガイド Markdown](${BASE_URL}/compare.md) / [キーワード別要点まとめ Markdown](${BASE_URL}/quick-guide.md) / [よくある質問 FAQ 66問 Markdown](${BASE_URL}/faq.md) / [タイプ別働き方ガイド Markdown](${BASE_URL}/types.md)
+- [徹底比較ガイド Markdown](${BASE_URL}/compare.md) / [キーワード別要点まとめ Markdown](${BASE_URL}/quick-guide.md) / [お悩み・疑問解決ガイド Markdown](${BASE_URL}/onayami-guide.md) / [よくある質問 FAQ 66問 Markdown](${BASE_URL}/faq.md) / [タイプ別働き方ガイド Markdown](${BASE_URL}/types.md)
 - [採用担当者インタビュー Markdown](${BASE_URL}/interview.md) / [運営者情報 Markdown](${BASE_URL}/about.md) / [掲載ポリシー Markdown](${BASE_URL}/policy.md) / [コラム一覧 Markdown](${BASE_URL}/blog.md)
 - [お仕事コラム RSS 2.0 フィード](${BASE_URL}/rss.xml)
 
@@ -994,6 +1012,40 @@ ${quickGuideCards
   .join('\n\n')}
 ${mdFooter}`;
   writeMdFile('quick-guide.md', quickGuideMd);
+  mdCount++;
+}
+
+// 6j. /onayami-guide.md
+{
+  const onayamiParts = [
+    `# ${onayamiMeta.pageTitle || '働く前の不安・疑問を解決｜信太山新地お仕事ガイド'}`,
+    `> ${onayamiMeta.heroCatchLine1 || '信太山新地で働いてみたい。'}${onayamiMeta.heroCatchLine2 || 'でも、分からないことや不安もある。'}${onayamiMeta.heroCatchFollow || 'そんな女性の疑問に、一つひとつ分かりやすくお答えします。'}`,
+    `- Canonical URL: ${BASE_URL}/onayami-guide/`,
+    onayamiCategories.length
+      ? `## 疑問から探せるカテゴリー（8テーマ）\n${onayamiCategories.map((c) => `- **${c.label}**（${c.subLabel}）`).join('\n')}`
+      : '',
+    ...onayamiQuestions.map((q) => {
+      const lines = [
+        `## ${q.questionHeading}`,
+        `**${q.directAnswer}**`,
+        ...(Array.isArray(q.bodyParagraphs) ? q.bodyParagraphs : []),
+        q.pointsTitle && Array.isArray(q.points) && q.points.length
+          ? `### ${q.pointsTitle}\n${q.points.map((pt) => `- ${pt}`).join('\n')}`
+          : '',
+        q.staffCheckNoteTitle && Array.isArray(q.staffCheckItems) && q.staffCheckItems.length
+          ? `### ${q.staffCheckNoteTitle}\n${q.staffCheckItems.map((st) => `- ${st}`).join('\n')}`
+          : '',
+        Array.isArray(q.relatedLinks) && q.relatedLinks.length
+          ? `関連リンク: ${q.relatedLinks.map((lnk) => `[${lnk.label}](${BASE_URL}${lnk.href})`).join(' / ')}`
+          : ''
+      ].filter(Boolean);
+      return lines.join('\n\n');
+    }),
+    onayamiChecklist.length
+      ? `## 応募前チェックリスト\n${onayamiChecklist.map((chk) => `- [ ] **${chk.category}**: ${chk.text}`).join('\n')}`
+      : ''
+  ].filter(Boolean);
+  writeMdFile('onayami-guide.md', `${onayamiParts.join('\n\n')}${mdFooter}`);
   mdCount++;
 }
 

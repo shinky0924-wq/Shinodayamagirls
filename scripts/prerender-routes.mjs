@@ -617,6 +617,7 @@ function buildRouteHtml(baseHtml, routeMeta) {
               <li><a href="${BASE_DOMAIN}/compare">信太山新地 徹底比較ガイド</a></li>
               <li><a href="${BASE_DOMAIN}/types">タイプ別働き方ガイド（WORK STYLE GUIDE）</a></li>
               <li><a href="${BASE_DOMAIN}/quick-guide">気になるキーワード別 公式要点まとめ</a></li>
+              <li><a href="${BASE_DOMAIN}/onayami-guide/">働く前の不安・疑問を解決｜信太山新地お仕事ガイド</a></li>
               <li><a href="${BASE_DOMAIN}/faq">よくある質問 FAQ（66問）</a></li>
               <li><a href="${BASE_DOMAIN}/about">運営者情報・店舗概要</a></li>
               <li><a href="${BASE_DOMAIN}/policy">掲載ポリシー・安全規約・個人情報保護</a></li>
@@ -746,6 +747,7 @@ async function main() {
   const faqModule = await loadTsModule('src/faq11CategoriesData.ts');
   const workstyleModule = await loadTsModule('src/workstyleGuideData.ts');
   const quickGuideModule = await loadTsModule('src/quickGuideData.ts');
+  const onayamiModule = await loadTsModule('src/onayamiGuideData.ts');
 
   const mainTargets = Array.isArray(compareModule.MAIN_6_TARGETS) ? compareModule.MAIN_6_TARGETS : [];
   const mainItems = Array.isArray(compareModule.MAIN_11_COMPARISON_ITEMS) ? compareModule.MAIN_11_COMPARISON_ITEMS : [];
@@ -758,6 +760,10 @@ async function main() {
   const workstyleTypes = Array.isArray(workstyleModule.WORKSTYLE_8_TYPES) ? workstyleModule.WORKSTYLE_8_TYPES : [];
   const workstyleOverviewFaqs = Array.isArray(workstyleModule.WORKSTYLE_OVERVIEW_FAQS) ? workstyleModule.WORKSTYLE_OVERVIEW_FAQS : [];
   const quickGuideCards = Array.isArray(quickGuideModule.QUERY_SUMMARY_CARDS) ? quickGuideModule.QUERY_SUMMARY_CARDS : [];
+  const onayamiMeta = onayamiModule.ONAYAMI_PAGE_META || {};
+  const onayamiCategories = Array.isArray(onayamiModule.ONAYAMI_CATEGORIES) ? onayamiModule.ONAYAMI_CATEGORIES : [];
+  const onayamiQuestions = Array.isArray(onayamiModule.ONAYAMI_QUESTIONS) ? onayamiModule.ONAYAMI_QUESTIONS : [];
+  const onayamiChecklist = Array.isArray(onayamiModule.PRE_APPLICATION_CHECKLIST) ? onayamiModule.PRE_APPLICATION_CHECKLIST : [];
 
   // Build clean noindex, nofollow 404.html (prevents Soft-404 duplication against '/')
   const notFoundHtml = buildRouteHtml(baseHtml, {
@@ -785,6 +791,7 @@ async function main() {
   const aboutLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
   const policyLastMod = getFileLastMod(['src/components/AboutPage.tsx']);
   const quickGuideLastMod = getFileLastMod(['src/quickGuideData.ts', 'src/components/AiSearchQueryGuideSection.tsx']);
+  const onayamiLastMod = getFileLastMod(['src/onayamiGuideData.ts', 'src/components/OnayamiGuidePage.tsx']);
   const topicLastMod = getFileLastMod(['data/topicClusters.json', 'src/components/TopicClusterPage.tsx']);
 
   const routes = [];
@@ -1488,6 +1495,91 @@ async function main() {
     }
   });
 
+  // Dedicated Women's Concern & Question Guide Route (/onayami-guide/)
+  const onayamiMidCtaHtml = `<aside class="my-8 p-5 rounded-2xl bg-rose-50/70 border border-rose-200"><h3 class="text-lg font-bold text-zinc-900 mb-2">まだ分からないことがある方へ</h3><p class="text-sm text-zinc-700 leading-relaxed mb-3">仕事内容やお給料、働き方など、気になることはありませんか？応募するか決めていなくても大丈夫です。まずは疑問や不安をLINEでご相談ください。</p><p><a href="https://lin.ee/Z70RRKH" class="inline-block px-5 py-2.5 rounded-xl bg-[#06C755] text-white font-bold text-sm">LINEで気軽に相談する</a></p></aside>`;
+  const renderOnayamiQuestionSsr = (q) => `
+    <article id="${escapeHtml(q.id)}" class="mb-6 p-5 rounded-2xl bg-white border border-rose-100">
+      <p class="text-xs font-bold text-rose-700 mb-1">${escapeHtml(q.categoryLabel)}</p>
+      <h2 class="text-lg sm:text-xl font-bold text-zinc-900 mb-2">${escapeHtml(q.questionHeading)}</h2>
+      <p class="ai-direct-answer text-sm font-bold text-zinc-900 bg-rose-50/60 p-3 rounded-xl border border-rose-100 mb-3">${escapeHtml(q.directAnswer)}</p>
+      ${(Array.isArray(q.bodyParagraphs) ? q.bodyParagraphs : []).map((p) => `<p class="text-sm text-zinc-700 leading-relaxed mb-2.5">${escapeHtml(p)}</p>`).join('')}
+      ${Array.isArray(q.points) && q.points.length ? `<div class="mt-3 p-3.5 rounded-xl bg-[#FDF9F5] border border-amber-100"><p class="text-xs font-bold text-zinc-900 mb-2">${escapeHtml(q.pointsTitle || '知っておきたいポイント')}</p><ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-zinc-700">${q.points.map((pt) => `<li>${escapeHtml(pt)}</li>`).join('')}</ul></div>` : ''}
+      ${Array.isArray(q.staffCheckItems) && q.staffCheckItems.length ? `<div class="mt-3 p-3.5 rounded-xl bg-rose-50/40 border border-rose-100"><p class="text-xs font-bold text-zinc-900 mb-1.5">${escapeHtml(q.staffCheckNoteTitle || '事前に確認しておきたい事項')}</p><ul class="list-disc pl-5 space-y-1 text-xs text-zinc-700">${q.staffCheckItems.map((st) => `<li>${escapeHtml(st)}</li>`).join('')}</ul></div>` : ''}
+      ${Array.isArray(q.relatedLinks) && q.relatedLinks.length ? `<p class="mt-3 text-xs font-bold text-rose-700 flex flex-wrap gap-3">${q.relatedLinks.map((lnk) => `<a href="${BASE_DOMAIN}${escapeHtml(lnk.href)}" class="underline">${escapeHtml(lnk.label)}</a>`).join('')}</p>` : ''}
+    </article>`;
+
+  const onayamiSsrHtml = `
+    <section class="mb-8 p-5 rounded-2xl bg-rose-50/60 border border-rose-100">
+      <p class="text-xs font-bold text-rose-700 mb-1">${escapeHtml(onayamiMeta.heroSubheading || '信太山新地でお仕事を探している女性へ')}</p>
+      <p class="text-base sm:text-lg font-bold text-zinc-900 mb-2">${escapeHtml(onayamiMeta.heroCatchLine1 || '信太山新地で働いてみたい。')}${escapeHtml(onayamiMeta.heroCatchLine2 || 'でも、分からないことや不安もある。')}${escapeHtml(onayamiMeta.heroCatchFollow || 'そんな女性の疑問に、一つひとつ分かりやすくお答えします。')}</p>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-2">${escapeHtml(onayamiMeta.heroSubcopy || '')}</p>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-3">${escapeHtml(onayamiMeta.heroDescription1 || '')}${escapeHtml(onayamiMeta.heroDescription2 || '')}</p>
+      <p class="text-xs text-zinc-500">${escapeHtml(onayamiMeta.heroImageCaption || '※掲載写真はイメージ素材です。')}</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-lg font-bold text-zinc-900 mb-3">疑問から探せる8つのカテゴリー</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs sm:text-sm">${onayamiCategories.map((c) => `<a href="#${escapeHtml(c.targetQuestionId)}" class="p-3 rounded-xl bg-rose-50/40 border border-rose-100 font-bold text-zinc-800 block">${escapeHtml(c.label)}<span class="block text-[11px] font-normal text-rose-700 mt-0.5">${escapeHtml(c.subLabel)}</span></a>`).join('')}</div>
+    </section>
+    <section class="mb-8">
+      ${onayamiQuestions.slice(0, 5).map(renderOnayamiQuestionSsr).join('')}
+      ${onayamiMidCtaHtml}
+      ${onayamiQuestions.slice(5).map(renderOnayamiQuestionSsr).join('')}
+    </section>
+    ${onayamiChecklist.length ? `<section id="pre-application-checklist" class="mb-8 p-5 rounded-2xl bg-[#FDF9F5] border border-amber-100"><h2 class="text-lg font-bold text-zinc-900 mb-3">応募前チェックリスト</h2><ul class="space-y-2 text-xs sm:text-sm text-zinc-700">${onayamiChecklist.map((chk) => `<li><strong>${escapeHtml(chk.category)}</strong>：${escapeHtml(chk.text)}</li>`).join('')}</ul></section>` : ''}
+    ${onayamiMidCtaHtml}
+  `;
+
+  routes.push({
+    route: 'onayami-guide',
+    mdPath: '/onayami-guide.md',
+    title: onayamiMeta.seoTitle || '信太山新地で働く前の疑問・不安を解決｜未経験・仕事内容・給料・働き方',
+    description:
+      onayamiMeta.metaDescription ||
+      '信太山新地で働きたい女性へ。未経験でも働ける？仕事内容は？週1日でも大丈夫？顔出しは必要？お給料や面接、お店選びなど、応募前に気になる疑問や不安を分かりやすく解説します。',
+    canonicalUrl: `${BASE_DOMAIN}/onayami-guide/`,
+    imagePath: '/images/onayami_guide_hero_1794905324227.jpg',
+    heading: onayamiMeta.heroHeading || '働く前の不安・疑問を解決！',
+    breadcrumbName: onayamiMeta.pageTitle || '働く前の不安・疑問を解決｜信太山新地お仕事ガイド',
+    hideLeadInSsr: true,
+    ssrBodyHtml: onayamiSsrHtml,
+    noscriptBodyHtml: `<ul>${onayamiQuestions
+      .map(
+        (q) =>
+          `<li><strong>${escapeHtml(q.questionHeading)}</strong>：${escapeHtml(q.directAnswer)}</li>`
+      )
+      .join('')}</ul>`,
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${BASE_DOMAIN}/onayami-guide/#webpage`,
+          name: onayamiMeta.seoTitle || '信太山新地で働く前の疑問・不安を解決｜未経験・仕事内容・給料・働き方',
+          description: onayamiMeta.metaDescription || '',
+          url: `${BASE_DOMAIN}/onayami-guide/`,
+          dateModified: `${onayamiLastMod}T00:00:00+09:00`,
+          inLanguage: 'ja-JP',
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', 'h2', '.ai-direct-answer']
+          }
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${BASE_DOMAIN}/onayami-guide/#faq`,
+          mainEntity: onayamiQuestions.map((q) => ({
+            '@type': 'Question',
+            name: q.questionHeading.replace(/^\d+｜/, ''),
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `${q.directAnswer} ${(Array.isArray(q.bodyParagraphs) ? q.bodyParagraphs : []).join(' ')}`
+            }
+          }))
+        }
+      ]
+    }
+  });
+
   routes.push({
     route: 'admin',
     title: '管理者画面｜信太山ガールズ',
@@ -1900,6 +1992,7 @@ async function main() {
         <a href="${BASE_DOMAIN}/safety" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">身バレ・安全対策</a>
         <a href="${BASE_DOMAIN}/compare" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">6業種・徹底比較</a>
         <a href="${BASE_DOMAIN}/quick-guide" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">キーワード別要点まとめ</a>
+        <a href="${BASE_DOMAIN}/onayami-guide/" class="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-rose-700 underline">働く前の不安・疑問ガイド</a>
       </div>
       <p class="text-xs text-zinc-500">※各カードの画像は各テーマの雰囲気をお伝えするためのイメージ素材です。</p>
     </section>

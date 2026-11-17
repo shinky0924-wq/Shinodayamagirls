@@ -9,7 +9,7 @@ import { getStoredSiteContent, getEffectiveLastUpdated } from '../siteContent';
 
 interface FooterProps {
   currentTab: string;
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide') => void;
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'onayami-guide') => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAdmin: () => void;
   onNavigateCompare?: (categorySlug?: string) => void;
@@ -188,6 +188,18 @@ export default function Footer({
               運営方針・関連ページ
             </p>
             <ul className="space-y-2 text-xs sm:text-[13px]">
+              <li>
+                <a
+                  href="/onayami-guide/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onChangeTab('onayami-guide');
+                  }}
+                  className="text-[#85465F] hover:text-[#A65D79] hover:underline font-bold"
+                >
+                  働く前の不安・疑問を解決｜お仕事ガイド
+                </a>
+              </li>
               <li>
                 <a
                   href="/quick-guide"

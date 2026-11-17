@@ -19,6 +19,7 @@ import ConsultationForm from './components/ConsultationForm';
 import RecruitHub from './components/RecruitHub';
 import AiSearchQueryGuideSection from './components/AiSearchQueryGuideSection';
 import { QUERY_SUMMARY_CARDS } from './quickGuideData';
+import { ONAYAMI_PAGE_META, ONAYAMI_QUESTIONS } from './onayamiGuideData';
 import Footer from './components/Footer';
 import LucideIcon from './components/LucideIcon';
 
@@ -28,6 +29,7 @@ const ComparisonPage = lazy(() => import('./components/ComparisonPage'));
 const ComparisonGuidePage = lazy(() => import('./components/ComparisonGuidePage'));
 const FAQPage = lazy(() => import('./components/FAQPage'));
 const TopicClusterPage = lazy(() => import('./components/TopicClusterPage'));
+const OnayamiGuidePage = lazy(() => import('./components/OnayamiGuidePage'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const BlogView = lazy(() => import('./components/BlogView'));
 
@@ -36,7 +38,7 @@ import { LINE_OFFICIAL_URL } from './data';
 import { updatePageSeo, getIsoLastUpdated } from './seo';
 import { initAnalytics, trackPageView, trackLineCtaClick } from './analytics';
 
-type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound';
+type AppTab = 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'onayami-guide' | 'notfound';
 
 export default function App() {
   const [siteContent] = useState<SiteContent>(getStoredSiteContent());
@@ -90,6 +92,8 @@ export default function App() {
         setCurrentTab('interview');
       } else if (pathname === '/quick-guide' || pathname === '/quick-guide/') {
         setCurrentTab('quick-guide');
+      } else if (pathname === '/onayami-guide' || pathname === '/onayami-guide/') {
+        setCurrentTab('onayami-guide');
       } else if (pathname.startsWith('/admin')) {
         setCurrentTab('admin');
       } else if (pathname.startsWith('/blog')) {
@@ -177,6 +181,8 @@ export default function App() {
       navigateTo('interview', '/interview');
     } else if (tab === 'quick-guide') {
       navigateTo('quick-guide', '/quick-guide');
+    } else if (tab === 'onayami-guide') {
+      navigateTo('onayami-guide', '/onayami-guide/');
     } else if (tab === 'admin') {
       navigateTo('admin', '/admin');
     } else if (tab === 'cluster') {
@@ -325,6 +331,61 @@ export default function App() {
                   'position': 2,
                   'name': '気になるキーワード別 公式要点まとめ',
                   'item': 'https://osaka-shinodayamashinchi-recruit.com/quick-guide'
+                }
+              ]
+            }
+          ]
+        }
+      });
+    } else if (currentTab === 'onayami-guide') {
+      updatePageSeo({
+        title: ONAYAMI_PAGE_META.seoTitle,
+        description: ONAYAMI_PAGE_META.metaDescription,
+        canonicalUrl: ONAYAMI_PAGE_META.canonicalUrl,
+        ogImage: ONAYAMI_PAGE_META.heroImage,
+        ogType: 'website',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'WebPage',
+              '@id': `${ONAYAMI_PAGE_META.canonicalUrl}#webpage`,
+              'name': ONAYAMI_PAGE_META.pageTitle,
+              'description': ONAYAMI_PAGE_META.metaDescription,
+              'url': ONAYAMI_PAGE_META.canonicalUrl,
+              'dateModified': getIsoLastUpdated(),
+              'inLanguage': 'ja-JP',
+              'speakable': {
+                '@type': 'SpeakableSpecification',
+                'cssSelector': ['h1', 'h2', '.ai-direct-answer']
+              }
+            },
+            {
+              '@type': 'FAQPage',
+              '@id': `${ONAYAMI_PAGE_META.canonicalUrl}#faq`,
+              'mainEntity': ONAYAMI_QUESTIONS.map((q) => ({
+                '@type': 'Question',
+                'name': q.questionHeading,
+                'acceptedAnswer': {
+                  '@type': 'Answer',
+                  'text': `${q.directAnswer} ${q.bodyParagraphs.join(' ')}`
+                }
+              }))
+            },
+            {
+              '@type': 'BreadcrumbList',
+              'itemListElement': [
+                {
+                  '@type': 'ListItem',
+                  'position': 1,
+                  'name': '信太山新地求人トップ',
+                  'item': 'https://osaka-shinodayamashinchi-recruit.com/'
+                },
+                {
+                  '@type': 'ListItem',
+                  'position': 2,
+                  'name': ONAYAMI_PAGE_META.pageTitle,
+                  'item': ONAYAMI_PAGE_META.canonicalUrl
                 }
               ]
             }
@@ -616,6 +677,21 @@ export default function App() {
               onCtaclick={handleCtaclick}
               onNavigateBlog={() => handleNavigateBlog()}
               onNavigateFaq={() => handleNavigateFaq()}
+            />
+          )}
+
+          {/* Onayami Guide Page View (/onayami-guide/) */}
+          {currentTab === 'onayami-guide' && (
+            <OnayamiGuidePage
+              onNavigateHome={() => navigateTo('recruit', '/')}
+              onNavigateTopic={handleNavigateTopic}
+              onNavigateWorkstyles={handleNavigateWorkstyles}
+              onNavigateAbout={() => handleTabChange('about')}
+              onNavigateInterview={() => handleTabChange('interview')}
+              onNavigateQuickGuide={() => handleTabChange('quick-guide')}
+              onNavigateFaq={() => handleNavigateFaq()}
+              onScrollToHomeSection={handleScrollToSection}
+              onCtaclick={handleCtaclick}
             />
           )}
 

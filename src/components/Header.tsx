@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import LucideIcon from './LucideIcon';
 
 interface HeaderProps {
-  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound';
-  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'notfound') => void;
+  currentTab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'onayami-guide' | 'notfound';
+  onChangeTab: (tab: 'recruit' | 'blog' | 'admin' | 'about' | 'policy' | 'compare' | 'workstyle' | 'faq' | 'cluster' | 'interview' | 'quick-guide' | 'onayami-guide' | 'notfound') => void;
   onCtaclick: () => void;
   onScrollToSection: (sectionId: string) => void;
   onNavigateTopic?: (topicId: string) => void;
