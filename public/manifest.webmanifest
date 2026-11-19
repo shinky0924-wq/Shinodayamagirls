@@ -16,13 +16,13 @@
     },
     {
       "src": "/apple-touch-icon.png",
-      "sizes": "192x192",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "/images/shinodayama_logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "/images/shinodayama_brand_logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
     }
   ]
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import LucideIcon from './LucideIcon';
 import ArticleCardImage from './ArticleCardImage';
 import { BLOG_ARTICLES, BlogArticle, getValidArticleEyeCatch, loadFullBlogArticle } from '../blogData';
@@ -46,11 +46,12 @@ export default function BlogView({
   onCtaclick,
 }: BlogViewProps) {
   const [loadedFullArticle, setLoadedFullArticle] = useState<BlogArticle | null>(null);
-  const [visibleCount, setVisibleCount] = useState<number>(PAGE_SIZE);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const listTopRef = useRef<HTMLDivElement>(null);
 
   // Reset pagination when category or search query changes
   useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
+    setCurrentPage(1);
   }, [categoryFilter, searchQuery, selectedBlogSlug]);
 
   useEffect(() => {
@@ -160,10 +161,52 @@ export default function BlogView({
     });
   }, [searchQuery, categoryFilter]);
 
-  const visibleArticles = useMemo(
-    () => filteredBlogArticles.slice(0, visibleCount),
-    [filteredBlogArticles, visibleCount]
-  );
+  const totalPages = Math.max(1, Math.ceil(filteredBlogArticles.length / PAGE_SIZE));
+
+  const visibleArticles = useMemo(() => {
+    const safePage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIdx = (safePage - 1) * PAGE_SIZE;
+    return filteredBlogArticles.slice(startIdx, startIdx + PAGE_SIZE);
+  }, [filteredBlogArticles, currentPage, totalPages]);
+
+  const paginationItems = useMemo(() => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    const items: (number | 'ellipsis')[] = [1];
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    if (start > 3) {
+      items.push('ellipsis');
+    } else if (start === 3) {
+      items.push(2);
+    }
+
+    for (let i = start; i <= end; i++) {
+      items.push(i);
+    }
+
+    if (end < totalPages - 2) {
+      items.push('ellipsis');
+    } else if (end === totalPages - 2) {
+      items.push(totalPages - 1);
+    }
+
+    items.push(totalPages);
+    return items;
+  }, [currentPage, totalPages]);
+
+  const handlePageChange = (page: number) => {
+    const next = Math.min(Math.max(1, page), totalPages);
+    if (next === currentPage) return;
+    setCurrentPage(next);
+    if (listTopRef.current) {
+      listTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Extract headings & assign stable anchor IDs (#sec-1, #sec-2...) for Table of Contents
   const tocItems = useMemo(() => {
@@ -1081,7 +1124,7 @@ export default function BlogView({
             </div>
 
             {/* Search & Category Filter Bar */}
-            <div className="mb-8 bg-white rounded-3xl p-4 sm:p-5 border border-rose-100 shadow-2xs space-y-3">
+            <div ref={listTopRef} className="mb-8 bg-white rounded-3xl p-4 sm:p-5 border border-rose-100 shadow-2xs space-y-3 scroll-mt-20">
               <div className="relative">
                 <LucideIcon
                   name="Search"
@@ -1198,17 +1241,65 @@ export default function BlogView({
                   ))}
                 </div>
 
-                {visibleArticles.length < filteredBlogArticles.length && (
-                  <div className="mt-10 text-center">
+                {totalPages > 1 && (
+                  <nav aria-label="ページネーション" className="mt-10 flex flex-wrap items-center justify-center gap-2">
                     <button
                       type="button"
-                      onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-                      className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white hover:bg-rose-50 text-rose-700 font-bold text-xs sm:text-sm border border-rose-200 shadow-xs hover:shadow-sm transition-all cursor-pointer"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      aria-label="前のページへ"
+                      className={`inline-flex items-center gap-1 h-10 px-3.5 rounded-2xl text-xs sm:text-sm font-bold border transition-all ${
+                        currentPage === 1
+                          ? 'bg-white/80 text-zinc-400 border-rose-100 cursor-not-allowed'
+                          : 'bg-white text-zinc-700 border-rose-100 hover:bg-rose-50 hover:border-rose-200 cursor-pointer shadow-2xs'
+                      }`}
                     >
-                      <span>さらにコラムを表示（あと{filteredBlogArticles.length - visibleArticles.length}件）</span>
-                      <LucideIcon name="ChevronDown" size={16} />
+                      <LucideIcon name="ChevronLeft" size={15} />
+                      <span>前へ</span>
                     </button>
-                  </div>
+
+                    {paginationItems.map((item, idx) =>
+                      item === 'ellipsis' ? (
+                        <span
+                          key={`ellipsis-${idx}`}
+                          className="px-1.5 text-zinc-500 font-bold select-none text-sm"
+                          aria-hidden="true"
+                        >
+                          ...
+                        </span>
+                      ) : (
+                        <button
+                          key={item}
+                          type="button"
+                          onClick={() => handlePageChange(item)}
+                          aria-label={`${item}ページ目`}
+                          aria-current={currentPage === item ? 'page' : undefined}
+                          className={`min-w-[40px] h-10 px-3 rounded-2xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
+                            currentPage === item
+                              ? 'bg-secondary text-white border-secondary shadow-sm shadow-secondary/25'
+                              : 'bg-white text-zinc-800 border-rose-100 hover:bg-rose-50 hover:border-rose-200 shadow-2xs'
+                          }`}
+                        >
+                          {item}
+                        </button>
+                      )
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      aria-label="次のページへ"
+                      className={`inline-flex items-center gap-1 h-10 px-3.5 rounded-2xl text-xs sm:text-sm font-bold border transition-all ${
+                        currentPage === totalPages
+                          ? 'bg-white/80 text-zinc-400 border-rose-100 cursor-not-allowed'
+                          : 'bg-white text-zinc-800 border-rose-100 hover:bg-rose-50 hover:border-rose-200 cursor-pointer shadow-2xs'
+                      }`}
+                    >
+                      <span>次へ</span>
+                      <LucideIcon name="ChevronRight" size={15} />
+                    </button>
+                  </nav>
                 )}
               </div>
             )}

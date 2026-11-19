@@ -863,7 +863,7 @@ export default function TopicClusterPage({
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = '/images/shinodayama_logo.svg';
+                  target.src = '/images/shinodayama_brand_logo.webp';
                 }}
               />
               <span className="inline-flex items-center gap-0.5 bg-emerald-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-2xs mt-1.5">
@@ -1374,7 +1374,7 @@ export default function TopicClusterPage({
               onError={(e) => {
                 const target = e.currentTarget;
                 target.onerror = null;
-                target.src = '/images/shinodayama_logo.svg';
+                target.src = '/images/shinodayama_brand_logo.webp';
               }}
             />
             <div>

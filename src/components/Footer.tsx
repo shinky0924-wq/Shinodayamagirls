@@ -114,18 +114,19 @@ export default function Footer({
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
               <img
-                src="/images/shinodayama_logo.svg"
+                src="/images/shinodayama_brand_logo.webp"
                 alt="信太山ガールズ 信太山新地求人"
-                className="w-10 h-10 rounded-full object-cover border border-[#DFC0CC] bg-white shadow-xs"
-                width={40}
-                height={40}
+                className="w-11 h-11 rounded-full object-cover border border-[#EFCAD8] bg-[#FDF2F5] shadow-xs"
+                width={44}
+                height={44}
                 decoding="async"
+                referrerPolicy="no-referrer"
               />
               <div className="flex flex-col justify-center leading-none">
-                <span className="font-display font-extrabold text-lg text-[#8F3D5E] leading-none">
+                <span className="font-brand-title font-normal text-[18px] text-[#9E4266] tracking-[0.03em] leading-none">
                   信太山ガールズ
                 </span>
-                <span className="font-sans font-bold text-[11px] text-[#333333] tracking-[0.08em] leading-none mt-1">
+                <span className="font-brand-sub font-bold text-[11.5px] text-[#7A5463] tracking-[0.14em] leading-none mt-1">
                   信太山新地求人
                 </span>
               </div>

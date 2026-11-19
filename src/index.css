@@ -3,6 +3,8 @@
 @theme {
   --font-display: "Plus Jakarta Sans", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
   --font-sans: "Noto Sans JP", "Plus Jakarta Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --font-brand-title: "Mochiy Pop P One", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-brand-sub: "Zen Maru Gothic", "Noto Sans JP", "Hiragino Maru Gothic ProN", sans-serif;
   --color-primary-rose: #A65D79;
   --color-primary-rose-dark: #85465F;
   --color-accent-pink: #E85B91;
@@ -10,6 +12,13 @@
   --color-soft-pink: #FFF6F8;
   --color-warm-beige: #F7F2EC;
   --color-charcoal: #333333;
+  --color-secondary: #C85378;
+  --color-secondary-hover: #B04165;
+  --color-secondary-container: #FFE4EC;
+  --color-on-surface: #18181B;
+  --color-on-surface-variant: #52525B;
+  --color-surface: #FFF8FA;
+  --color-surface-container: #FFF1F5;
 }
 
 @layer base {

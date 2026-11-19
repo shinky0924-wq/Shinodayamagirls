@@ -189,21 +189,22 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
             className="flex items-center gap-2.5 group cursor-pointer shrink-0"
             id="header-brand-logo"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#DFC0CC] bg-white shrink-0 shadow-xs">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-[#EFCAD8] bg-[#FDF2F5] shrink-0 shadow-xs">
               <img
-                src="/images/shinodayama_logo.svg"
+                src="/images/shinodayama_brand_logo.webp"
                 alt="信太山ガールズ 信太山新地求人"
                 className="w-full h-full object-cover"
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 decoding="async"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="flex flex-col justify-center leading-none">
-              <span className="font-display font-extrabold text-[15px] sm:text-[18px] text-[#8F3D5E] group-hover:text-[#D81B60] transition-colors tracking-[-0.01em] whitespace-nowrap leading-none">
+              <span className="font-brand-title font-normal text-[15px] sm:text-[18px] text-[#9E4266] group-hover:text-[#D81B60] transition-colors tracking-[0.03em] whitespace-nowrap leading-none">
                 信太山ガールズ
               </span>
-              <span className="font-sans font-bold text-[10px] sm:text-[11px] text-[#333333] group-hover:text-[#8F3D5E] transition-colors tracking-[0.08em] whitespace-nowrap leading-none mt-1">
+              <span className="font-brand-sub font-bold text-[10.5px] sm:text-[11.5px] text-[#7A5463] group-hover:text-[#9E4266] transition-colors tracking-[0.14em] whitespace-nowrap leading-none mt-1">
                 信太山新地求人
               </span>
             </div>
