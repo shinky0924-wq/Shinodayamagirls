@@ -35,4 +35,4 @@ A. はい、もちろんです。本名や詳しい個人情報を伝える前�
 
 - 公式ページ: https://osaka-shinodayamashinchi-recruit.com/
 - LINE事前相談窓口（24時間受付・質問のみ可）: https://lin.ee/Z70RRKH
-- 最終更新日: 2026-11-17
+- 最終更新日: 2026-11-19

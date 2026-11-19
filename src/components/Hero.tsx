@@ -58,13 +58,26 @@ export default function Hero({
           id="hero-title"
         >
           <span className="block text-base sm:text-xl md:text-2xl font-bold text-[#A65D79] mb-1.5 sm:mb-2">
-            {content.titleLine1}
+            {content.titleLine1.includes('信太山ガールズ') ? (
+              <>
+                {content.titleLine1.split('信太山ガールズ')[0]}
+                <span className="text-[#E85B91]">信太山ガールズ</span>
+                {content.titleLine1.split('信太山ガールズ')[1]}
+              </>
+            ) : (
+              content.titleLine1
+            )}
           </span>
           <span className="block">
-            自分に合った働き方を、
-            <br className="sm:hidden" />
-            <span className="text-[#E85B91]">信太山ガールズ</span>
-            で見つけませんか？
+            {content.titleLine2.includes('、') ? (
+              <>
+                {content.titleLine2.split('、')[0]}、
+                <br className="sm:hidden" />
+                {content.titleLine2.split('、').slice(1).join('、')}
+              </>
+            ) : (
+              content.titleLine2
+            )}
           </span>
         </h1>
 

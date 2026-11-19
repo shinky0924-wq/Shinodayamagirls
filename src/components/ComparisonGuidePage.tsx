@@ -33,7 +33,7 @@ const COMPARISON_FAQS = [
   },
   {
     q: 'メンズエステやキャバクラ、ソープランドと比べて稼ぎやすさはどうですか？',
-    a: '信太山新地は15分単位（15分3,800円〜）の短時間コース設定のため、1回あたりの身体的負担が少なく効率よく回転してお給料を積み上げられます。また信太山新地独自の「時給10,000円保証」や待機時間に応じた「日給保証制度（適用条件は事前ご説明）」もあるため、待機損の心配を抑えて働けます。キャバクラのような売上ノルマ・営業連絡やお酒の強要も一切不要です。'
+    a: '信太山新地は15分単位（15分3,800円〜）の短時間コース設定のため、1回あたりの身体的負担が少なく効率よく回転してお給料を積み上げられます。さらに当店では、一般の他店（歩合のみ）にはない当店独自の「時給10,000円保証」や待機時間に応じた「日給保証制度（適用条件は事前ご説明）」も設けているため、待機損の心配を抑えて働けます。キャバクラのような売上ノルマ・営業連絡やお酒の強要も一切不要です。'
   },
   {
     q: 'ネットやSNSに写真が載ることはありますか？',
@@ -758,12 +758,12 @@ export default function ComparisonGuidePage({
 
             <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-4 border-t border-rose-100">
               <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
-                <span className="font-bold text-[#E5004F] block mb-0.5">時給10,000円保証</span>
-                <span className="text-zinc-600 text-[11px]">客足に関係なく最低時給1万円を保証。待機損がありません。</span>
+                <span className="font-bold text-[#E5004F] block mb-0.5">当店独自の時給10,000円保証</span>
+                <span className="text-zinc-600 text-[11px]">他店にはない当店独自の最低時給1万円保証（規定シフト条件あり）。</span>
               </div>
               <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
-                <span className="font-bold text-[#E5004F] block mb-0.5">待機時間に応じた日給保証</span>
-                <span className="text-zinc-600 text-[11px]">シフトや待機時間に応じた日給保証制度あり（適用条件は面接時に事前ご説明）。</span>
+                <span className="font-bold text-[#E5004F] block mb-0.5">当店独自の待機日給保証</span>
+                <span className="text-zinc-600 text-[11px]">待機時間に応じた当店だけの日給保証制度あり（適用条件は面接時に事前ご説明）。</span>
               </div>
               <div className="bg-rose-50/60 p-3 rounded-xl border border-rose-100">
                 <span className="font-bold text-[#E5004F] block mb-0.5">天引き完全0円</span>

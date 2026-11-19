@@ -115,15 +115,20 @@ export default function Footer({
             <div className="flex items-center gap-2.5">
               <img
                 src="/images/shinodayama_logo.svg"
-                alt="信太山ガールズ"
-                className="w-8 h-8 rounded-full object-cover border border-[#E5D4DC] bg-white"
-                width={32}
-                height={32}
+                alt="信太山ガールズ 信太山新地求人"
+                className="w-10 h-10 rounded-full object-cover border border-[#DFC0CC] bg-white shadow-xs"
+                width={40}
+                height={40}
                 decoding="async"
               />
-              <span className="font-display font-bold text-lg text-[#A65D79]">
-                信太山ガールズ
-              </span>
+              <div className="flex flex-col justify-center leading-none">
+                <span className="font-display font-extrabold text-lg text-[#8F3D5E] leading-none">
+                  信太山ガールズ
+                </span>
+                <span className="font-sans font-bold text-[11px] text-[#333333] tracking-[0.08em] leading-none mt-1">
+                  信太山新地求人
+                </span>
+              </div>
             </div>
             <p className="text-xs text-[#555555] leading-relaxed">
               信太山新地にある老舗旅館直営店が女性を直接募集する公式求人サイトです。仲介や紹介所を介さない直接採用のため、仕事内容・お給料・待遇・働く環境をそのままご案内しています。

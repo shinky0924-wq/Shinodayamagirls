@@ -186,22 +186,27 @@ export default function Header({ currentTab, onChangeTab, onCtaclick, onScrollTo
               onChangeTab('recruit');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex items-center gap-2 group cursor-pointer shrink-0"
+            className="flex items-center gap-2.5 group cursor-pointer shrink-0"
             id="header-brand-logo"
           >
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-[#E5D4DC] bg-white shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#DFC0CC] bg-white shrink-0 shadow-xs">
               <img
                 src="/images/shinodayama_logo.svg"
-                alt="信太山ガールズ"
+                alt="信太山ガールズ 信太山新地求人"
                 className="w-full h-full object-cover"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 decoding="async"
               />
             </div>
-            <span className="font-display font-bold text-base sm:text-lg text-[#A65D79] group-hover:text-[#E85B91] transition-colors tracking-tight whitespace-nowrap">
-              信太山ガールズ
-            </span>
+            <div className="flex flex-col justify-center leading-none">
+              <span className="font-display font-extrabold text-[15px] sm:text-[18px] text-[#8F3D5E] group-hover:text-[#D81B60] transition-colors tracking-[-0.01em] whitespace-nowrap leading-none">
+                信太山ガールズ
+              </span>
+              <span className="font-sans font-bold text-[10px] sm:text-[11px] text-[#333333] group-hover:text-[#8F3D5E] transition-colors tracking-[0.08em] whitespace-nowrap leading-none mt-1">
+                信太山新地求人
+              </span>
+            </div>
           </a>
 
           {/* Desktop Navigation (Strictly Ordered by Page Flow) */}

@@ -1920,7 +1920,7 @@ async function main() {
     : '';
   const topPageBodyHtml = `
     <section class="mb-8 p-4 rounded-2xl bg-rose-50/60 border border-rose-100">
-      <p id="hero-tagline" class="text-xs font-bold text-rose-700 mb-2">${escapeHtml(siteContent?.hero?.tagline || '信太山新地 お店直接求人｜信太山ガールズ【公式】')}</p>
+      <p id="hero-tagline" class="text-xs font-bold text-rose-700 mb-2">${escapeHtml(siteContent?.hero?.tagline || '老舗旅館直営・お店直接募集【公式】')}</p>
       <div id="hero-description" class="space-y-2 text-sm text-zinc-700 leading-relaxed">
         <p>${escapeHtml(siteContent?.hero?.descriptionLine1 || '信太山新地の中でもトップクラスのお店です。')}</p>
         <p>${escapeHtml(siteContent?.hero?.descriptionLine2 || '当店では未経験の方も、経験のある方も歓迎。仕事内容・お給料・待遇・働く環境まで、当店の条件を応募前に分かりやすくご案内します。')}</p>
@@ -1957,7 +1957,7 @@ async function main() {
         <li><strong>例2｜副業・夕方〜夜ペース（週3日・1日6時間 17:00〜23:00）</strong>：日給目安 26,600円〜38,000円（月12日で約31万〜45万円目安／15分×3＋30分×2〜30分×5）</li>
         <li><strong>例3｜日中中心でしっかり勤務（週4日・1日8時間 11:00〜19:00）</strong>：日給目安 38,000円〜57,000円（月16日で約60万〜91万円目安／30分×5〜30分×6＋45分×1）</li>
       </ul>
-      <p class="mt-2 text-xs text-zinc-600">※退勤時に即日全額現金日払い、雑費・紹介料などの天引き0円。最低時給10,000円保証・待機日給保証制度あり（適用条件は面接時に事前ご説明します）。</p>
+      <p class="mt-2 text-xs text-zinc-600">※退勤時に即日全額現金日払い、雑費・紹介料などの天引き0円。他店にはない当店独自の最低時給10,000円保証・待機日給保証制度あり（適用条件は面接時に事前ご説明します）。</p>
     </section>
     <section class="mb-8">
       <h2 class="text-xl font-bold text-zinc-900 mb-3">募集要項・勤務条件</h2>
@@ -1999,7 +1999,7 @@ async function main() {
   `;
 
   const rootSsrShell = buildSsrRootShell({
-    heading: `${siteContent?.hero?.titleLine1 || '信太山新地でお仕事を探す女性へ。'}${siteContent?.hero?.titleLine2 || '自分に合った働き方を、信太山ガールズで見つけませんか？'}`,
+    heading: `${siteContent?.hero?.titleLine1 || '信太山新地で働くなら、信太山ガールズ。'}${siteContent?.hero?.titleLine2 || '未経験でも安心、自分らしく高収入へ。'}`,
     hideLeadInSsr: true,
     ssrBodyHtml: topPageBodyHtml
   });

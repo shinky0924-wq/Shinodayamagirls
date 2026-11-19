@@ -1019,7 +1019,7 @@ export default function BlogView({
                 </h3>
                 <p className="text-xs sm:text-sm text-rose-100 max-w-xl mx-auto mb-6 leading-relaxed">
                   当店は紹介所や仲介ではなく、信太山新地の現場旅館が直接運営する正規公式求人です。<br className="hidden sm:inline" />
-                  【店先顔見せなし（待機所：スタンドまたは旅館）】【15分3,800円〜即日全額現金日払い】【最低時給・日給保証制度（条件あり）】など、未経験の方も安心して働ける環境をご案内しています。
+                  【店先顔見せなし（待機所：スタンドまたは旅館）】【15分3,800円〜即日全額現金日払い】【当店独自の最低時給・日給保証制度（条件あり）】など、未経験の方も安心して働ける環境をご案内しています。
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                   <button
