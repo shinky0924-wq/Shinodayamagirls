@@ -487,7 +487,7 @@ export default function BlogView({
               <div className="inline-block bg-rose-100 text-secondary text-xs font-bold px-3 py-1 rounded-full mb-3">
                 {currentArticle.categoryLabel || currentArticle.category}
               </div>
-              <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 mb-4 leading-tight">
+              <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-zinc-900 mb-4 leading-snug text-balance">
                 {currentArticle.title}
               </h1>
               <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-400 mb-6 pb-6 border-b border-zinc-100">
@@ -1065,17 +1065,17 @@ export default function BlogView({
         ) : (
           /* Article Listing View */
           <div>
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10">
               <div className="inline-flex items-center gap-1.5 bg-rose-100 text-secondary text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs">
                 <LucideIcon name="BookOpen" size={14} />
                 <span>OFFICIAL COLUMN</span>
               </div>
-              <h1 className="font-display font-black text-2xl sm:text-4xl text-zinc-900 mb-3">
+              <h1 className="font-display font-black text-[22px] sm:text-4xl text-zinc-900 leading-snug mb-3 text-balance">
                 {categoryFilter !== 'all'
                   ? `${blogCategories.find((c) => c.id === categoryFilter)?.label || categoryFilter}｜信太山新地求人 お仕事コラム一覧`
                   : '信太山新地求人 お仕事コラム一覧'}
               </h1>
-              <p className="text-xs sm:text-sm text-zinc-600">
+              <p className="text-xs sm:text-sm text-zinc-600 text-pretty">
                 仕事内容、給与システム、店先顔見せなしの待機ルール、毎月20日の定休日など、未経験の女性に役立つ公式解説をお届けします。
               </p>
             </div>

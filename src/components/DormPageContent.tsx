@@ -123,7 +123,7 @@ export default function DormPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               DORMITORY & RELOCATION GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-3 tracking-tight text-balance">
               信太山新地 求人の<span className="text-[#D8175D]">個室寮・出稼ぎ</span>ガイド｜信太山駅近く・遠方応募歓迎
             </h1>
 
@@ -223,15 +223,15 @@ export default function DormPageContent({
 
       {/* 2. 寮について詳しく紹介 */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             LOCATION & DETAILS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             信太山駅近辺の寮について
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            住み込みで働きたい女性に向けて、信太山駅近辺の寮をご案内しています。<br />
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
+            住み込みで働きたい女性に向けて、信太山駅近辺の寮をご案内しています。<br className="hidden sm:inline" />
             初めての土地で生活を始める方にも分かりやすいように、寮の場所や設備、利用条件などを事前にご説明します。
           </p>
         </div>
@@ -289,15 +289,15 @@ export default function DormPageContent({
 
       {/* 3. 寮の写真・住環境 */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             ROOM ENVIRONMENT
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             実際に生活するお部屋の環境
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            働く場所だけでなく、仕事以外の時間を過ごす住環境も大切です。<br />
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
+            働く場所だけでなく、仕事以外の時間を過ごす住環境も大切です。<br className="hidden sm:inline" />
             お部屋の広さや設備、収納、生活に必要なものなど、入寮前に気になるポイントを確認できるようにしてください。
           </p>
         </div>
@@ -365,7 +365,7 @@ export default function DormPageContent({
               <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-300 mb-2">
                 遠方・他府県からの応募も大歓迎
               </div>
-              <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-3">
+              <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-3 text-balance">
                 遠方にお住まいの女性もお気軽にご相談ください
               </h2>
               <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -439,15 +439,15 @@ export default function DormPageContent({
 
       {/* 5. 交通費・移動費について */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             TRANSPORTATION SUPPORT
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             遠方からの移動費・交通費について
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            遠方から応募する女性にとって、交通費や移動費も気になるポイントです。<br />
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
+            遠方から応募する女性にとって、交通費や移動費も気になるポイントです。<br className="hidden sm:inline" />
             支給の有無・対象となる交通手段・支給上限・支給タイミング・適用条件などを分かりやすく掲載しています。
           </p>
         </div>
@@ -518,14 +518,14 @@ export default function DormPageContent({
 
       {/* 6. 寮・出稼ぎで確認したい6つのポイント */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             CHECK POINTS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             入寮前に確認しておきたい6つのポイント
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             後から「知らなかった」と後悔しないために、入寮を決める前に以下の6項目を必ずチェックしておきましょう。
           </p>
         </div>
@@ -593,14 +593,14 @@ export default function DormPageContent({
 
       {/* 7. 入寮から勤務開始までの流れ */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             STEP BY STEP
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             お問い合わせから勤務開始までの簡単5ステップ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             遠方からの応募でも迷わないよう、お問い合わせから入寮・勤務スタートまでの流れを整理しました。
           </p>
         </div>
@@ -666,14 +666,14 @@ export default function DormPageContent({
 
       {/* 8. 入寮前の確認チェックリスト（白背景のカードでスマートフォンでも読みやすい設計） */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-6">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-6">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             PRE-ENTRY CHECKLIST
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             入寮を決める前に確認しておきたいこと
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             気になる項目をタップしてチェックできます。すべてクリアにしてから安心して入寮を決めましょう。
           </p>
         </div>
@@ -739,7 +739,7 @@ export default function DormPageContent({
             <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1 block">
               RELATED ARTICLES
             </span>
-            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432]">
+            <h2 className="font-display font-black text-[19px] sm:text-xl md:text-2xl leading-snug text-[#1F2432] text-balance">
               寮・出稼ぎに関するおすすめ記事
             </h2>
           </div>
@@ -791,14 +791,14 @@ export default function DormPageContent({
 
       {/* 11. よくある質問 */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             FREQUENTLY ASKED QUESTIONS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             寮・出稼ぎに関するよくある質問
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             住まいや出稼ぎに関して女性から多く寄せられる質問にお答えします。
           </p>
         </div>
@@ -853,7 +853,7 @@ export default function DormPageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           住まいの心配も、まずはお気軽にご相談ください
         </h2>
 

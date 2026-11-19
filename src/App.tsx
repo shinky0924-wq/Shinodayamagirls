@@ -439,14 +439,14 @@ export default function App() {
             {/* Section 4: 信太山ガールズの5つの魅力 */}
             <section className="py-16 sm:py-20 bg-white" id="reasons">
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+                <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
                   <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
                     {siteContent.reasons.subtitle || 'OUR STRENGTHS'}
                   </p>
-                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
+                  <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
                     {siteContent.reasons.title}
                   </h2>
-                  <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+                  <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
                     {siteContent.reasons.description}
                   </p>
                 </div>
@@ -712,7 +712,7 @@ export default function App() {
                 <LucideIcon name="AlertCircle" size={28} />
               </div>
               <p className="text-xs font-mono font-bold text-rose-500 tracking-widest mb-1">404 NOT FOUND</p>
-              <h1 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 mb-3">
+              <h1 className="font-display font-black text-[22px] sm:text-3xl text-zinc-900 leading-snug mb-3 text-balance max-w-md sm:max-w-xl mx-auto">
                 お探しのページが見つかりません
               </h1>
               <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-6">

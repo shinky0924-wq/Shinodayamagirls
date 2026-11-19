@@ -54,7 +54,7 @@ export default function Hero({
 
         {/* Main Display Title (H1) */}
         <h1
-          className="font-display font-bold text-2xl sm:text-3xl md:text-[42px] text-[#333333] leading-[1.35] mb-4 sm:mb-5 tracking-tight"
+          className="font-display font-bold text-[22px] sm:text-3xl md:text-[42px] text-[#333333] leading-[1.35] mb-4 sm:mb-5 tracking-tight text-balance max-w-md sm:max-w-2xl md:max-w-3xl mx-auto"
           id="hero-title"
         >
           <span className="block text-base sm:text-xl md:text-2xl font-bold text-[#A65D79] mb-1.5 sm:mb-2">
@@ -83,7 +83,7 @@ export default function Hero({
 
         {/* Concise Sub Description */}
         <div
-          className="font-sans text-xs sm:text-sm md:text-base text-[#4A4A4A] leading-relaxed mb-5 sm:mb-6 max-w-2xl space-y-1.5"
+          className="font-sans text-xs sm:text-sm md:text-base text-[#4A4A4A] leading-relaxed mb-5 sm:mb-6 max-w-md sm:max-w-2xl mx-auto text-pretty space-y-1.5"
           id="hero-description"
         >
           <p className="font-bold text-[#333333]">

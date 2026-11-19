@@ -92,7 +92,7 @@ export default function BeginnerPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               FIRST TIME GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 未経験から始める求人ガイド
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
@@ -137,12 +137,12 @@ export default function BeginnerPageContent({
 
       {/* 3. 未経験者が安心できる4つのサポート */}
       <section className="bg-white rounded-[22px] p-6 sm:p-8 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HeartHandshake" size={13} />
             <span>安心サポート体制</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             初めての方をサポートする当店の取り組み
           </h2>
         </div>
@@ -192,11 +192,11 @@ export default function BeginnerPageContent({
 
       {/* 4. 当店が未経験者に選ばれる6つの理由 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             6 REASONS TO CHOOSE
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             未経験の方に知ってほしい当店の6つの特徴
           </h2>
         </div>
@@ -263,12 +263,12 @@ export default function BeginnerPageContent({
 
       {/* 5. 初めての方が気になる6つの不安 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>疑問と不安にお答えします</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             初めてのお仕事で気になることにお答えします。
           </h2>
         </div>
@@ -328,14 +328,14 @@ export default function BeginnerPageContent({
 
       {/* 6. 応募からお仕事開始までの流れ（縦型ステップ形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-8 sm:mb-10">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             HOW TO START
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             初めての方も安心。お仕事開始までの5ステップ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             見学や条件確認を通して、自分が納得してから働くかどうかを決められます。
           </p>
         </div>
@@ -405,15 +405,15 @@ export default function BeginnerPageContent({
 
       {/* 7. 未経験から始めた女性の体験談 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Quote" size={13} />
             <span>リアルな体験談</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             未経験から始めた女性の体験談
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             実際に働いている女性の声を通じて、応募前の不安や働き始めた後の感想をご紹介します。
           </p>
         </div>
@@ -500,12 +500,12 @@ export default function BeginnerPageContent({
 
       {/* 8. 未経験者向けFAQ (10問) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             未経験についてのよくある質問
           </h2>
         </div>
@@ -555,11 +555,11 @@ export default function BeginnerPageContent({
 
       {/* 9. 関連ページへの案内 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             MORE INFORMATION
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             もっと詳しく知りたい方はこちら
           </h2>
         </div>
@@ -637,7 +637,7 @@ export default function BeginnerPageContent({
           <span>LINEで気軽に質問OK</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           初めてだからこそ、まずは相談から始めませんか？
         </h2>
 

@@ -141,7 +141,7 @@ export default function WorkstylePageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               WORKSTYLE GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-3 tracking-tight text-balance">
               自分の生活に合わせて働ける、信太山新地求人のお仕事スタイル
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
@@ -214,7 +214,7 @@ export default function WorkstylePageContent({
               <LucideIcon name="HeartHandshake" size={13} />
               <span>個別サポート体制</span>
             </div>
-            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432] mb-3 leading-snug">
+            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432] mb-3 leading-snug text-balance">
               初めての方も安心。女性スタッフが働き方を一緒に考えます
             </h2>
             <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-4">
@@ -239,14 +239,14 @@ export default function WorkstylePageContent({
       {/* 4. メインコンテンツ：あなたに合った5つの働き方 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
         {/* セクション見出し */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8 sm:mb-10">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             5 WORKSTYLES
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl text-[#1F2432] leading-snug mb-3 text-balance">
             あなたに合った働き方を見つけよう
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             働く理由も、希望する生活スタイルも人それぞれ。自分に合った働き方を見つけてみてください。
           </p>
         </div>
@@ -415,12 +415,12 @@ export default function WorkstylePageContent({
 
       {/* 5. お昼のシフトが人気急上昇の理由 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Sun" size={13} />
             <span>昼間勤務のメリット</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             お昼のシフト（10:00〜18:00）が選ばれる理由
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mt-1">
@@ -466,12 +466,12 @@ export default function WorkstylePageContent({
 
       {/* 6. 働き方についてのよくある質問 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             働き方についてのよくある質問
           </h2>
         </div>
@@ -521,11 +521,11 @@ export default function WorkstylePageContent({
 
       {/* 7. 関連ページへの案内 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             RELATED INFORMATION
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             合わせてチェックしたい情報
           </h2>
         </div>
@@ -603,7 +603,7 @@ export default function WorkstylePageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           まずは話を聞いてみるだけでも大丈夫です。
         </h2>
 

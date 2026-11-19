@@ -92,7 +92,7 @@ export default function ExperiencedPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               EXPERIENCED STAFF GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 経験者・移籍歓迎の求人ガイド
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
@@ -160,12 +160,12 @@ export default function ExperiencedPageContent({
 
       {/* 3. ファーストビュー直下に当店のメリット4項目 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-8 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Sparkles" size={13} />
             <span>事前確認で安心</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             経験者の方に確認してほしい当店の4つのポイント
           </h2>
         </div>
@@ -215,11 +215,11 @@ export default function ExperiencedPageContent({
 
       {/* 4. 当店に移籍する6つのメリット（最重要セクション・2列×3段） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             6 TRANSFER MERITS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             経験者だからこそ知ってほしい、当店の6つのメリット
           </h2>
         </div>
@@ -281,12 +281,12 @@ export default function ExperiencedPageContent({
 
       {/* 5. 経験者が移籍前に確認したい重要ポイント（チェックリスト形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="CheckSquare" size={13} />
             <span>CHECKLIST</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             移籍する前に確認しておきたい5つのポイント
           </h2>
         </div>
@@ -336,15 +336,15 @@ export default function ExperiencedPageContent({
 
       {/* 6. 経験者向け給与・待遇セクション */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="BadgePercent" size={13} />
             <span>給与システム</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             経験者の方へ。給与・待遇を事前にご確認ください。
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             これまでの経験や希望する働き方を伺い、当店の給与体系や待遇について詳しくご説明します。
           </p>
         </div>
@@ -438,11 +438,11 @@ export default function ExperiencedPageContent({
 
       {/* 7. 移籍を検討している女性へのメッセージ */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             STAFF MESSAGE
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             移籍について、一人で悩まずご相談ください。
           </h2>
         </div>
@@ -502,12 +502,12 @@ export default function ExperiencedPageContent({
 
       {/* 8. 移籍前に確認したい質問 (10問のアコーディオン) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             経験者の方からよくある質問
           </h2>
         </div>
@@ -557,11 +557,11 @@ export default function ExperiencedPageContent({
 
       {/* 9. 関連記事（既存の関連性が高い記事・写真付きカード） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             RELATED ARTICLES
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             経験者の方におすすめの記事
           </h2>
         </div>
@@ -649,7 +649,7 @@ export default function ExperiencedPageContent({
           <span>秘密厳守・条件確認OK</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           今のお店と比較して、納得できる移籍先を探しませんか？
         </h2>
 

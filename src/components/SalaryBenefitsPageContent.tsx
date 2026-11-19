@@ -93,7 +93,7 @@ export default function SalaryBenefitsPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               SALARY & BENEFITS
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 求人の給料・待遇｜15分3,800円〜・即日全額日払い
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
@@ -198,15 +198,15 @@ export default function SalaryBenefitsPageContent({
 
       {/* 3. コース別の給与一覧 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Table" size={13} />
             <span>明朗会計・受取保証</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             コース別・女性の受取給与一覧
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             接客コースごとの女性の受取額を掲載しています。お客様の利用料金ではなく、女性に支払われる金額をご確認ください。
           </p>
         </div>
@@ -341,14 +341,14 @@ export default function SalaryBenefitsPageContent({
 
       {/* 4. 収入シミュレーター */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             SIMULATOR
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             あなたの希望する働き方で収入をシミュレーション
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             15分コース（受取額3,800円）が多めの実態に合わせて、1日の接客本数や週の出勤日数から収入の目安を確認できます。
           </p>
         </div>
@@ -437,14 +437,14 @@ export default function SalaryBenefitsPageContent({
 
       {/* 5. 働き方別の収入例 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             WORK STYLE EXAMPLES
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             あなたに合った働き方を考えてみましょう。
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             生活スタイルや目標金額に合わせて、実際に多くの女性が選んでいる3つの勤務スタイルをご紹介します。
           </p>
         </div>
@@ -550,12 +550,12 @@ export default function SalaryBenefitsPageContent({
 
       {/* 6. 当店の待遇・福利厚生（8つの待遇カード） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Gift" size={13} />
             <span>充実の厚待遇</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             働きやすさを支える当店の待遇・サポート
           </h2>
         </div>
@@ -625,11 +625,11 @@ export default function SalaryBenefitsPageContent({
 
       {/* 7. 当店を選ぶメリット（他店比較表を削除し、当店の環境を紹介） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             WHY CHOOSE US
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             信太山新地で働くなら、当店の環境もご確認ください。
           </h2>
         </div>
@@ -689,12 +689,12 @@ export default function SalaryBenefitsPageContent({
 
       {/* 8. 給与・待遇に関するFAQ */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             給料・待遇についてのよくある質問
           </h2>
         </div>
@@ -749,7 +749,7 @@ export default function SalaryBenefitsPageContent({
           <span>LINEで気軽に質問OK</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           給料や待遇について、気になることはありませんか？
         </h2>
 

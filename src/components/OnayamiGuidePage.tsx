@@ -162,7 +162,7 @@ export default function OnayamiGuidePage({
               <p className="text-sm sm:text-base font-bold text-[#A65D79] mb-2">
                 {ONAYAMI_PAGE_META.heroSubheading}
               </p>
-              <h1 className="font-display font-bold text-2xl sm:text-4xl text-[#333333] leading-tight mb-4 text-balance">
+              <h1 className="font-display font-bold text-[22px] sm:text-4xl text-[#333333] leading-snug mb-4 text-balance">
                 {ONAYAMI_PAGE_META.heroHeading}
               </h1>
 
@@ -218,7 +218,7 @@ export default function OnayamiGuidePage({
         {/* Section 3: 8 Quick Categories */}
         <section id="onayami-categories" className="mb-12 sm:mb-14">
           <div className="mb-5">
-            <h2 className="font-display font-bold text-xl sm:text-2xl text-[#333333] mb-1.5">
+            <h2 className="font-display font-bold text-[19px] sm:text-2xl text-[#333333] leading-snug mb-1.5 text-balance">
               気になる疑問からテーマを選ぶ（8カテゴリー）
             </h2>
             <p className="text-xs sm:text-sm text-[#555555]">

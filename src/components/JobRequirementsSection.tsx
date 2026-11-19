@@ -71,14 +71,14 @@ export default function JobRequirementsSection({
     <section className="py-16 sm:py-20 bg-white" id="jobs">
       <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             JOB REQUIREMENTS
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+          <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
             信太山ガールズの募集条件
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             仲介業者や紹介所を通さない、信太山新地にある当店が女性を直接募集する公式求人条件です。
           </p>
         </div>

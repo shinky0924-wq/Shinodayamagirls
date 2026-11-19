@@ -183,7 +183,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
             </div>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-zinc-900 leading-tight mb-4 font-display">
+          <h1 className="text-[22px] sm:text-3xl md:text-4xl font-black text-zinc-900 leading-snug mb-4 font-display text-balance">
             {isPolicy ? '求人情報掲載ポリシー・安全規約・個人情報保護方針' : '運営者情報・グループ店舗概要'}
           </h1>
 
@@ -219,7 +219,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="Building2" size={20} />
             </span>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-zinc-900">
+              <h2 className="text-[17px] sm:text-xl font-black text-zinc-900 leading-snug text-balance">
                 公式運営者概要
               </h2>
               <p className="text-xs text-zinc-500">
@@ -362,7 +362,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="HeartHandshake" size={20} />
             </span>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-zinc-900">
+              <h2 className="text-[17px] sm:text-xl font-black text-zinc-900 leading-snug text-balance">
                 運営責任者からのご挨拶
               </h2>
               <p className="text-xs text-zinc-500">
@@ -431,7 +431,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="Shield" size={20} />
             </span>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-zinc-900">
+              <h2 className="text-[17px] sm:text-xl font-black text-zinc-900 leading-snug text-balance">
                 コンプライアンス＆就労安全憲章（5つの約束）
               </h2>
               <p className="text-xs text-zinc-500">
@@ -525,7 +525,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="Lock" size={20} />
             </span>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-zinc-900">
+              <h2 className="text-[17px] sm:text-xl font-black text-zinc-900 leading-snug text-balance">
                 個人情報保護方針（プライバシーポリシー）
               </h2>
               <p className="text-xs text-zinc-500">
@@ -561,7 +561,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
               <LucideIcon name="MapPin" size={20} />
             </span>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-zinc-900">
+              <h2 className="text-[17px] sm:text-xl font-black text-zinc-900 leading-snug text-balance">
                 アクセス＆通勤・出稼ぎサポート
               </h2>
               <p className="text-xs text-zinc-500">
@@ -630,7 +630,7 @@ export default function AboutPage({ onNavigateHome, onNavigateBlog, onCtaclick, 
             <LucideIcon name="Sparkles" size={13} />
             <span>見学・面談は私服手ぶらで大歓迎</span>
           </div>
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 font-display">
+          <h3 className="text-[19px] sm:text-2xl md:text-3xl font-black leading-snug mb-3 font-display text-balance max-w-md sm:max-w-2xl mx-auto">
             信太山新地の当店へ応募！まずは女性スタッフに気軽に相談してみませんか？
           </h3>
           <p className="text-xs sm:text-sm text-rose-100 mb-6 max-w-xl mx-auto leading-relaxed">

@@ -73,11 +73,11 @@ export default function ConsultationForm({
           LINE CONSULTATION
         </p>
 
-        <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] mb-4 leading-snug text-balance">
+        <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] mb-4 leading-snug text-balance max-w-lg sm:max-w-2xl mx-auto">
           {content.title}
         </h2>
 
-        <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed max-w-2xl mx-auto mb-8 whitespace-pre-line">
+        <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed max-w-lg sm:max-w-2xl mx-auto mb-8 whitespace-pre-line text-pretty">
           {content.description}
         </p>
 

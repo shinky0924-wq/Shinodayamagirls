@@ -89,14 +89,14 @@ export default function WorkstyleFinderSection({
     >
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             WORKSTYLE MATCH
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+          <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
             あなたに合った働き方を見つけましょう
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             当店での働き方や募集条件について、ご希望や状況に合う項目からご確認いただけます。
           </p>
           <p className="text-[11px] text-[#666666] mt-1.5">

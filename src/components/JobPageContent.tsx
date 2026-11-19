@@ -93,7 +93,7 @@ export default function JobPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               OUR WORK
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 求人のお仕事内容｜15分短時間・顔出しなし
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4">
@@ -198,12 +198,12 @@ export default function JobPageContent({
 
       {/* 4. 当店のサポート環境 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-8 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HeartHandshake" size={13} />
             <span>安心の環境づくり</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             働く女性が安心できる環境づくりを大切にしています。
           </h2>
         </div>
@@ -256,11 +256,11 @@ export default function JobPageContent({
 
       {/* 5. 仕事内容で知っておきたい8つのポイント */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             CHECK POINTS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             お仕事を始める前に知っておきたい8つのポイント
           </h2>
         </div>
@@ -339,12 +339,12 @@ export default function JobPageContent({
 
       {/* 6. 当店の働く環境・待遇（他店比較を削除し、当店の特徴を掲載） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="Building2" size={13} />
             <span>公式採用窓口</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             当店で働く環境・待遇をご紹介
           </h2>
         </div>
@@ -404,14 +404,14 @@ export default function JobPageContent({
 
       {/* 7. 1日のスケジュール（時間軸・ステップ形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-8">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             DAILY SCHEDULE
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             出勤から退勤までの1日の流れ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             初めての方でも働くイメージができるよう、基本的な1日の流れをご紹介します。出勤時間や勤務状況によって内容は異なります。
           </p>
         </div>
@@ -473,14 +473,14 @@ export default function JobPageContent({
 
       {/* 8. 接客の基本的な流れ（ステップ形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-8">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             SERVICE FLOW
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug mb-2 text-balance">
             1回の接客の基本的な流れ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             接客前の確認から終了後の対応まで、初めての女性でも安心しておもてなしができる流れをご説明します。
           </p>
         </div>
@@ -543,12 +543,12 @@ export default function JobPageContent({
 
       {/* 9. 安心して働くためのルール */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="ShieldCheck" size={13} />
             <span>女性を守る方針</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             女性が安心して働くために、当店が大切にしていること
           </h2>
         </div>
@@ -609,7 +609,7 @@ export default function JobPageContent({
               <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-0.5">
                 RELATED ARTICLES
               </span>
-              <h2 className="font-display font-black text-lg sm:text-xl text-[#1F2432]">
+              <h2 className="font-display font-black text-[17px] sm:text-xl text-[#1F2432] leading-snug text-balance">
                 お仕事内容に関連する解説コラム
               </h2>
             </div>
@@ -673,12 +673,12 @@ export default function JobPageContent({
 
       {/* 11. よくある質問（アコーディオン形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl text-[#1F2432] leading-snug text-balance">
             お仕事内容についてのよくある質問
           </h2>
         </div>
@@ -733,7 +733,7 @@ export default function JobPageContent({
           <span>LINEで気軽に質問OK</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           お仕事内容について、気になることはありませんか？
         </h2>
 

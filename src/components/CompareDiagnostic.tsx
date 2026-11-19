@@ -135,15 +135,15 @@ export default function CompareDiagnostic({
     <section className="mb-14 sm:mb-20 scroll-mt-24" id="section-diagnostic">
       <div className="bg-gradient-to-br from-rose-50/70 via-white to-pink-50/50 rounded-3xl p-5 sm:p-8 border border-rose-200/80 shadow-md">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-8">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center gap-1.5 bg-rose-100 text-secondary text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-xs">
             <LucideIcon name="Compass" size={14} />
             <span>30 SECONDS WORKSTYLE CHECK</span>
           </div>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl text-zinc-900 leading-snug mb-2 text-balance">
             1分でわかる！あなたに最適な信太山新地の働き方診断
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-600">
+          <p className="text-xs sm:text-sm text-zinc-600 text-pretty">
             2つの質問に答えるだけで、あなたの希望条件にぴったりの旅館直営求人が見つかります。
           </p>
         </div>

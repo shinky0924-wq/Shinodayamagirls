@@ -96,7 +96,7 @@ export default function RequirementsPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               RECRUITMENT INFORMATION
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 求人の募集要項・応募条件一覧
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
@@ -152,7 +152,7 @@ export default function RequirementsPageContent({
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             01｜応募資格
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 text-balance">
             20歳以上の女性を募集しています。
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -229,7 +229,7 @@ export default function RequirementsPageContent({
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             02｜給与・報酬
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 text-balance">
             頑張りに応じた給与体系をご案内します。
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -426,8 +426,8 @@ export default function RequirementsPageContent({
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             03｜勤務時間・出勤条件
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2 flex items-center gap-2">
-            <LucideIcon name="Clock" size={26} className="text-[#D8175D]" />
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 flex items-center gap-2 text-balance">
+            <LucideIcon name="Clock" size={26} className="text-[#D8175D] shrink-0" />
             <span>勤務時間：10:00 〜 24:00</span>
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -476,7 +476,7 @@ export default function RequirementsPageContent({
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             04｜待遇・サポート
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 text-balance">
             働く女性を支える充実のサポート
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -564,7 +564,7 @@ export default function RequirementsPageContent({
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             05｜詳しい募集条件・採用情報
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 text-balance">
             募集条件一覧表
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -635,15 +635,15 @@ export default function RequirementsPageContent({
 
       {/* 8. 応募前の確認事項（チェックリスト形式） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="mb-6 text-center max-w-xl mx-auto">
+        <div className="mb-6 text-center max-w-md sm:max-w-xl mx-auto">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="CheckSquare" size={13} />
             <span>CHECKLIST</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-2 text-balance">
             応募前に確認しておきたいこと
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             応募前に条件を確認していただき、疑問点があればお気軽にご質問ください。
           </p>
         </div>
@@ -676,14 +676,14 @@ export default function RequirementsPageContent({
 
       {/* 9. 応募から勤務開始までの流れ（5ステップ縦型レイアウト） */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-8 sm:mb-10">
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             06｜応募方法・お仕事開始までの流れ
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-2 text-balance">
             お仕事開始までの5ステップ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             まずは質問や相談だけでも大丈夫。条件に納得してから働くかどうかを決められます。
           </p>
         </div>
@@ -752,12 +752,12 @@ export default function RequirementsPageContent({
 
       {/* 10. よくある質問 (11問のアコーディオン) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             募集要項についてのよくある質問
           </h2>
         </div>
@@ -807,11 +807,11 @@ export default function RequirementsPageContent({
 
       {/* 11. 関連ページ */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             RELATED INFORMATION
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             応募前にこちらもご確認ください
           </h2>
         </div>
@@ -892,7 +892,7 @@ export default function RequirementsPageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           募集条件について、気になることはありませんか？
         </h2>
 

@@ -122,7 +122,7 @@ export default function SafetyPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               PRIVACY & SAFETY GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-3 tracking-tight text-balance">
               信太山新地 求人の<span className="text-[#D8175D]">身バレ対策・安全配慮</span>｜店先顔出しなし・待機所待機
             </h1>
 
@@ -174,14 +174,14 @@ export default function SafetyPageContent({
 
       {/* 2. 女性が心配する6つのポイント (ファーストビュー直後に配置、3列×2段) */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             CONCERNS & CHECKPOINTS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             働く前に知っておきたい6つの身バレ・安全対策
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             初めて働く方も、経験がある方も、気になることを事前に確認しておくことが大切です。
           </p>
         </div>
@@ -251,15 +251,15 @@ export default function SafetyPageContent({
 
       {/* 3. 当店のプライバシーへの配慮 (6項目) */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             OUR PRIVACY MEASURES
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             安心して働くために。プライバシーへの配慮について
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            働くうえで、個人情報やプライベートを大切にしたいと考えるのは自然なことです。<br />
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
+            働くうえで、個人情報やプライベートを大切にしたいと考えるのは自然なことです。<br className="hidden sm:inline" />
             当店では、入店前の相談時に不安や希望をお聞きし、実際の対応方法やルールについてご説明します。
           </p>
         </div>
@@ -335,7 +335,7 @@ export default function SafetyPageContent({
               <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-300 mb-2">
                 入店前に知っておきたい実践的知識
               </div>
-              <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-3">
+              <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-3 text-balance">
                 こんな場面に注意。身バレにつながる可能性があること
               </h2>
               <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -415,14 +415,14 @@ export default function SafetyPageContent({
 
       {/* 5. 安全に働くために確認したいこと */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             SAFETY GUIDELINES
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             入店前に確認したい安全面のポイント
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             安心して働くためには、お店の説明を聞くだけでなく、具体的なルールや対応方法を確認しておくことが大切です。
           </p>
         </div>
@@ -488,14 +488,14 @@ export default function SafetyPageContent({
 
       {/* 6. 身バレ・安全対策チェックリスト (白背景カード、スマートフォン対応) */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-6">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-6">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             PRE-INTERVIEW CHECKLIST
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             面接・見学の前に確認しておきたいこと
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             気になることは、入店を決める前に確認しておきましょう。<br className="hidden sm:inline" />
             タップして確認状況をチェックできます。
           </p>
@@ -563,7 +563,7 @@ export default function SafetyPageContent({
               <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
                 HOUSING & COMMUTE
               </span>
-              <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-3">
+              <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-3 text-balance">
                 通勤や生活環境についても事前にご相談ください
               </h2>
               <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-4">
@@ -652,14 +652,14 @@ export default function SafetyPageContent({
 
       {/* 8. お店選びでよくある不安 (4つのカード) */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             ANXIETIES & ANSWERS
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             身バレ・安全についてよくある不安
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             応募前に女性から多く寄せられる不安と、当店の考え方や対応方針をお伝えします。
           </p>
         </div>
@@ -716,7 +716,7 @@ export default function SafetyPageContent({
             <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1 block">
               RELATED ARTICLES
             </span>
-            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432]">
+            <h2 className="font-display font-black text-[19px] sm:text-xl md:text-2xl leading-snug text-[#1F2432] text-balance">
               身バレ・安全に関するおすすめ記事
             </h2>
           </div>
@@ -768,14 +768,14 @@ export default function SafetyPageContent({
 
       {/* 10. よくある質問 (既存FAQを整理してアコーディオンで活用) */}
       <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-lg sm:max-w-3xl mx-auto text-center mb-8">
           <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
             FAQ
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[20px] sm:text-2xl md:text-[26px] leading-snug text-[#1F2432] mb-3 text-balance">
             身バレ・安全に関するよくある質問
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             プライバシー保護やトラブル対応に関して、女性から多くいただく質問にお答えします。
           </p>
         </div>
@@ -830,7 +830,7 @@ export default function SafetyPageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           身バレや安全面が心配な方も、お気軽にご相談ください
         </h2>
 

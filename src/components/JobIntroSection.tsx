@@ -67,14 +67,14 @@ export default function JobIntroSection({
     >
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             JOB DESCRIPTION
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
+          <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
             初めての方にも分かる、お仕事内容
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             出勤から退勤までの流れや仕事の進め方など、当店で実際にお願いしている内容をご案内します。
           </p>
         </div>

@@ -698,7 +698,7 @@ export default function TopicClusterPage({
               </div>
 
               {/* Main Title H1 */}
-              <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-zinc-900 leading-tight mb-3 tracking-tight">
+              <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-zinc-900 leading-snug mb-3 tracking-tight text-balance">
                 {data.h1Title || data.title}
                 <span className="block text-base sm:text-lg font-bold text-rose-600 mt-1.5 font-sans">
                   {data.tagline}
@@ -939,7 +939,7 @@ export default function TopicClusterPage({
                 <LucideIcon name="HeartHandshake" size={13} className="text-rose-500" />
                 <span>信太山新地の当店ならではの安心環境</span>
               </div>
-              <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900 mb-2">
+              <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug mb-2 text-balance">
                 女の子目線のサポートが徹底されているから、無理なく自分のペースで稼げます
               </h2>
               <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-4">
@@ -962,8 +962,8 @@ export default function TopicClusterPage({
         {/* 5. Core Points Checklist (Visual Cards with Icons) */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-sm mb-8">
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-rose-100">
-            <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900 flex items-center gap-2">
-              <LucideIcon name="CheckCircle2" size={20} className="text-rose-600" />
+            <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug flex items-center gap-2 text-balance">
+              <LucideIcon name="CheckCircle2" size={20} className="text-rose-600 shrink-0" />
               <span>「{data.title}」で絶対に押さえておくべき重要ポイント</span>
             </h2>
             <span className="text-[11px] font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200">
@@ -993,7 +993,7 @@ export default function TopicClusterPage({
                 <LucideIcon name="Scale" size={13} />
                 <span>ひと目でわかる環境の違い</span>
               </div>
-              <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
+              <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug text-balance">
                 信太山新地 vs 一般夜職・他新地 5大条件の比較カード
               </h2>
             </div>
@@ -1066,7 +1066,7 @@ export default function TopicClusterPage({
                   <LucideIcon name="HeartHandshake" size={14} />
                   <span>信太山新地 老舗旅館直営【公式安心待遇】</span>
                 </div>
-                <h2 className="font-display font-black text-2xl sm:text-3xl text-white mb-2">
+                <h2 className="font-display font-black text-[21px] sm:text-3xl text-white leading-snug mb-2 text-balance">
                   待遇・福利厚生・生活支援
                 </h2>
                 <p className="text-xs sm:text-sm text-rose-100 leading-relaxed max-w-2xl mb-4">
@@ -1113,8 +1113,8 @@ export default function TopicClusterPage({
 
               return (
                 <div key={i} className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-sm">
-                  <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900 mb-3 flex items-center gap-2.5">
-                    <span className="w-3 h-7 bg-gradient-to-b from-rose-500 to-pink-600 rounded-full inline-block" />
+                  <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug mb-3 flex items-center gap-2.5 text-balance">
+                    <span className="w-3 h-7 bg-gradient-to-b from-rose-500 to-pink-600 rounded-full inline-block shrink-0" />
                     <span>{sec.title}</span>
                   </h2>
                   <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-5">
@@ -1220,7 +1220,7 @@ export default function TopicClusterPage({
                   <LucideIcon name="BookOpen" size={13} />
                   <span>専門解説コラム</span>
                 </div>
-                <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
+                <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug text-balance">
                   「{data.title}」をもっと詳しく知るおすすめ記事
                 </h2>
               </div>
@@ -1307,7 +1307,7 @@ export default function TopicClusterPage({
                 <LucideIcon name="HelpCircle" size={13} />
                 <span>よくある質問</span>
               </div>
-              <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
+              <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug text-balance">
                 「{data.title}」についての疑問を解決
               </h2>
             </div>

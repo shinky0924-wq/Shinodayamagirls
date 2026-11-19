@@ -38,7 +38,7 @@ export default function SalaryPageContent({
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-6 bg-amber-500 rounded-full inline-block" />
-            <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
+            <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug text-balance">
               15分単位の明確な給料体系＆時給換算表
             </h2>
           </div>

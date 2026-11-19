@@ -108,15 +108,15 @@ export default function WorkstyleFiveStylesSection({
       {/* 5つの働き方セクション本体 */}
       <section className="bg-white rounded-3xl p-6 sm:p-9 border border-rose-100 shadow-sm">
         {/* セクションヘッダー */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3.5 py-1 rounded-full border border-[#F0DDE4] mb-2.5">
             <LucideIcon name="Clock" size={13} />
             <span>5つのライフスタイル別</span>
           </div>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl text-[#1F2432] leading-snug mb-3 text-balance">
             あなたに合った働き方を見つけよう
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             昼間だけ・副業・週1日・レギュラー・短期集中。<br className="hidden sm:inline" />
             あなたの生活や目標に合わせた働き方をご紹介します。
           </p>

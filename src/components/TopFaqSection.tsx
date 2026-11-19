@@ -100,14 +100,14 @@ export default function TopFaqSection({
     <section id="top-faq" className="py-16 sm:py-20 bg-[#FFF6F8] border-y border-[#F3E5EA]">
       <div className="max-w-[920px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             FAQ
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3">
+          <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
             応募前によくいただく質問
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             応募やご相談の前に気になることが多い質問をまとめました。
           </p>
         </div>

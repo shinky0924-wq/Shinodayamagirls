@@ -51,14 +51,14 @@ export default function AiSearchQueryGuideSection({
         </nav>
 
         {/* Page Header */}
-        <header className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <header className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10 sm:mb-12">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             QUICK GUIDE BY TOPIC
           </p>
-          <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-[#333333] leading-snug mb-4 text-balance">
+          <h1 className="font-display font-bold text-[22px] sm:text-3xl md:text-4xl text-[#333333] leading-snug mb-4 text-balance">
             信太山新地求人 気になるキーワード別｜公式要点まとめ
           </h1>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             「給料」「未経験」「仕事内容」「待機方法・身バレ対策」「寮・出稼ぎ」など、応募前によく調べられるポイントを結論からお伝えします。
           </p>
         </header>
@@ -102,7 +102,7 @@ export default function AiSearchQueryGuideSection({
 
         {/* Bottom CTAs */}
         <div className="bg-white rounded-3xl border border-[#EFE2E7] p-6 sm:p-8 text-center max-w-3xl mx-auto shadow-[0_4px_16px_rgba(166,93,121,0.05)]">
-          <h2 className="font-display font-bold text-lg sm:text-xl text-[#333333] mb-2">
+          <h2 className="font-display font-bold text-lg sm:text-xl text-[#333333] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
             さらに詳しく確認したい・個別に質問したい方へ
           </h2>
           <p className="text-xs sm:text-sm text-[#555555] leading-relaxed mb-6">

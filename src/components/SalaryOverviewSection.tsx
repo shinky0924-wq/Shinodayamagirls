@@ -79,14 +79,14 @@ export default function SalaryOverviewSection({
     >
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8 sm:mb-10">
           <p className="text-xs font-bold tracking-[0.18em] text-[#A65D79] uppercase mb-2">
             SALARY &amp; CONDITIONS
           </p>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
+          <h2 className="font-display font-bold text-[22px] sm:text-3xl text-[#333333] leading-snug mb-3 text-balance">
             気になるお給料について、分かりやすくご説明します
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#555555] leading-relaxed text-pretty">
             報酬の計算方法・支給日・勤務条件・条件別の収入例を応募前にご確認いただけます。
           </p>
         </div>

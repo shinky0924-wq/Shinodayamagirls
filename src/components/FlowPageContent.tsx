@@ -83,7 +83,7 @@ export default function FlowPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               APPLICATION GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-2 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-2 tracking-tight text-balance">
               信太山新地 求人の面接・体験入店までの流れ
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-bold text-[#D8175D] mb-4 leading-snug">
@@ -144,12 +144,12 @@ export default function FlowPageContent({
 
       {/* 2. 最初に伝える4つのポイント */}
       <section className="bg-white rounded-[22px] p-6 sm:p-8 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="ShieldCheck" size={13} />
             <span>安心のお約束</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             応募前に知っておきたい4つのこと
           </h2>
         </div>
@@ -199,14 +199,14 @@ export default function FlowPageContent({
 
       {/* 3. 応募から体験入店までの5ステップ（縦型タイムライン・交互画像） */}
       <section id="five-steps-timeline" className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs scroll-mt-20">
-        <div className="text-center max-w-xl mx-auto mb-8 sm:mb-12">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-8 sm:mb-12">
           <span className="text-xs font-black text-[#D8175D] tracking-wider uppercase block mb-1">
             HOW TO PROCEED
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-2 text-balance">
             応募から体験入店までの5ステップ
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             初めての方でも流れが分かるように、応募から当日までの手順をまとめました。
           </p>
         </div>
@@ -415,12 +415,12 @@ export default function FlowPageContent({
 
       {/* 4. 面接当日に確認できること */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="ClipboardList" size={13} />
             <span>INTERVIEW CHECK</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             面接では、こんなことを確認できます。
           </h2>
         </div>
@@ -480,18 +480,18 @@ export default function FlowPageContent({
 
       {/* 5. 体験入店について */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="DoorOpen" size={13} />
             <span>TRIAL GUIDE</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-2 text-balance">
             体験入店について
           </h2>
-          <p className="text-xs sm:text-sm font-bold text-[#D8175D]">
+          <p className="text-xs sm:text-sm font-bold text-[#D8175D] text-pretty">
             実際の環境や仕事内容を確認してから判断したい方へ。
           </p>
-          <p className="text-xs text-[#555555] leading-relaxed mt-1">
+          <p className="text-xs text-[#555555] leading-relaxed mt-1 text-pretty">
             体験入店を希望される方には、事前に当日の流れや仕事内容、報酬、支払い条件などをご説明します。
           </p>
         </div>
@@ -542,12 +542,12 @@ export default function FlowPageContent({
 
       {/* 6. 初めての方が不安に感じること (カード形式Q&A) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>FAQ</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             初めての面接・体験入店でよくある不安
           </h2>
         </div>
@@ -581,15 +581,15 @@ export default function FlowPageContent({
 
       {/* 7. 面接・体験入店の前に確認しておきたいこと (チェックリスト) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-6">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-6">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="CheckSquare" size={13} />
             <span>CHECKLIST</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-2">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-2 text-balance">
             当日までに確認しておきたいチェックリスト
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             分からないことは事前にLINEでご確認いただけます。
           </p>
         </div>
@@ -622,11 +622,11 @@ export default function FlowPageContent({
 
       {/* 8. 関連ページ */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             RELATED INFORMATION
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             応募前にこちらもご確認ください
           </h2>
         </div>
@@ -707,7 +707,7 @@ export default function FlowPageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           まずは話を聞いてみるだけでも大丈夫です。
         </h2>
 

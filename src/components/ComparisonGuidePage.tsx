@@ -161,15 +161,15 @@ export default function ComparisonGuidePage({
         </nav>
 
         {/* Hero Header */}
-        <header className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+        <header className="text-center max-w-lg sm:max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 bg-rose-100 text-[#E5004F] text-xs sm:text-sm font-black px-4 py-1.5 rounded-full mb-4 shadow-2xs">
             <LucideIcon name="Scale" size={16} />
             <span>2026年最新版｜公式徹底比較ガイド</span>
           </div>
 
-          <h1 className="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-zinc-900 leading-tight mb-4">
+          <h1 className="font-display font-extrabold text-[22px] sm:text-3xl md:text-4xl text-zinc-900 leading-snug mb-4 text-balance">
             信太山新地 徹底比較ガイド<br />
-            <span className="text-[#E5004F]">飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違い</span>
+            <span className="text-[#E5004F] text-[18px] sm:text-2xl md:text-[32px] inline-block mt-1">飛田新地・メンズエステ・キャバクラ・ソープランド・スカウト経由との違い</span>
           </h1>
 
           <p className="text-xs sm:text-sm md:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto mb-6">
@@ -239,7 +239,7 @@ export default function ComparisonGuidePage({
                 <LucideIcon name="Layers" size={15} />
                 <span>6 TYPES & 11 CRITERIA COMPARISON</span>
               </div>
-              <h2 className="font-display font-black text-xl sm:text-2xl md:text-3xl text-zinc-900">
+              <h2 className="font-display font-black text-[19px] sm:text-2xl md:text-3xl text-zinc-900 leading-snug text-balance">
                 徹底比較｜信太山新地と他業種・応募形態の違い
               </h2>
               <p className="text-xs sm:text-sm text-zinc-600 mt-1">
@@ -775,15 +775,15 @@ export default function ComparisonGuidePage({
 
         {/* SECTION 3: 徹底比較の重要ポイント5選 */}
         <section className="mb-16 md:mb-20">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-10">
             <div className="inline-flex items-center gap-1.5 bg-rose-100 text-[#E5004F] text-xs font-black px-4 py-1.5 rounded-full mb-3 shadow-2xs">
               <LucideIcon name="CheckCircle2" size={14} />
               <span>5 KEY ADVANTAGES</span>
             </div>
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 mb-3">
+            <h2 className="font-display font-black text-[21px] sm:text-3xl text-zinc-900 leading-snug mb-3 text-balance">
               信太山新地が選ばれる5つの決定的な違い
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed text-pretty">
               他エリアや他業種（メンズエステ・キャバクラ・ソープなど）でよくある不安やデメリットを解消した、信太山新地ならではの安心体制です。
             </p>
           </div>
@@ -900,7 +900,7 @@ export default function ComparisonGuidePage({
               <LucideIcon name="HelpCircle" size={14} />
               <span>COMPARISON FAQ</span>
             </div>
-            <h2 className="font-display font-black text-xl sm:text-2xl text-zinc-900">
+            <h2 className="font-display font-black text-[19px] sm:text-2xl text-zinc-900 leading-snug text-balance max-w-md sm:max-w-xl mx-auto">
               比較に関するよくある質問
             </h2>
           </div>
@@ -954,7 +954,7 @@ export default function ComparisonGuidePage({
           <span className="text-xs font-black text-rose-100 uppercase tracking-widest block mb-1">
             OFFICIAL LINE SUPPORT
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl md:text-3xl text-white mb-3">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl md:text-3xl text-white leading-snug mb-3 text-balance max-w-md sm:max-w-xl mx-auto">
             他店との違いや気になること、何でもご相談ください
           </h2>
           <p className="text-xs sm:text-sm text-rose-100 max-w-xl mx-auto mb-6 leading-relaxed">

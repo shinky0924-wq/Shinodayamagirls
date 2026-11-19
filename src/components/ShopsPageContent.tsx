@@ -90,7 +90,7 @@ export default function ShopsPageContent({
             <span className="inline-block text-[11px] sm:text-xs font-bold tracking-widest text-[#D8175D] uppercase mb-2">
               SHOP SELECTION GUIDE
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+            <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-3 tracking-tight text-balance">
               信太山新地 求人の後悔しないお店選び｜<span className="text-[#D8175D]">集客力と半年ルール</span>
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#D8175D] mb-4 leading-snug">
@@ -142,14 +142,14 @@ export default function ShopsPageContent({
 
       {/* 2. お店選びで確認したい6つのポイント (3列×2段) */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8 sm:mb-10">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             6 CHECKPOINTS
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-3 text-balance">
             お店選びで失敗しないために確認したい6つのポイント
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             入店してから「思っていた条件と違った」とならないように、事前に確認しておきたいポイントをまとめました。
           </p>
         </div>
@@ -220,14 +220,14 @@ export default function ShopsPageContent({
 
       {/* 3. 当店を選ぶメリット */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-8 sm:mb-10">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             OUR ADVANTAGES
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-3 text-balance">
             当店で働く前に知ってほしいこと
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             お店を選ぶときは、条件だけでなく、実際に働く環境やスタッフの対応も大切です。<br className="hidden sm:inline" />
             当店では、入店前のご相談から勤務開始まで、一人ひとりの疑問に丁寧にお答えします。
           </p>
@@ -290,16 +290,16 @@ export default function ShopsPageContent({
 
       {/* 4. 集客力について分かりやすく解説 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3.5 py-1 rounded-full border border-[#F0DDE4] mb-2.5">
             <LucideIcon name="TrendingUp" size={13} />
             <span>来客状況のチェック</span>
           </div>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-3 text-balance">
             お客様の入り方はお店選びの大切なポイント
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-            同じエリアにあるお店でも、お客様の来店状況や集客方法は異なります。<br />
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
+            同じエリアにあるお店でも、お客様の来店状況や集客方法は異なります。<br className="hidden sm:inline" />
             そのため、求人に掲載されているお給料だけで判断するのではなく、実際のお客様の入り方や待機時間についても確認することが大切です。
           </p>
         </div>
@@ -350,7 +350,7 @@ export default function ShopsPageContent({
             </div>
           </div>
 
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] mb-3 text-balance">
             入店前に知っておくべき「半年ルール」と移籍条件
           </h2>
 
@@ -418,15 +418,15 @@ export default function ShopsPageContent({
 
       {/* 6. 入店前に確認するチェックリスト */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-7 sm:mb-9">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3.5 py-1 rounded-full border border-[#F0DDE4] mb-2.5">
             <LucideIcon name="CheckSquare" size={13} />
             <span>CHECKLIST</span>
           </div>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-3 text-balance">
             面接・見学で確認しておきたいこと
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             気になることは、入店を決める前に遠慮なく確認しておきましょう。
           </p>
         </div>
@@ -469,14 +469,14 @@ export default function ShopsPageContent({
 
       {/* 7. お店選びでよくある失敗 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-7 sm:mb-9">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             COMMON MISTAKES
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] mb-3">
+          <h2 className="font-display font-black text-[21px] sm:text-3xl leading-snug text-[#1F2432] mb-3 text-balance">
             入店してから後悔しないために
           </h2>
-          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
             お店選びでありがちな失敗ポイントを知り、納得のいく店舗を選びましょう。
           </p>
         </div>
@@ -526,11 +526,11 @@ export default function ShopsPageContent({
 
       {/* 8. 関連記事 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <span className="text-[11px] font-bold text-[#D8175D] tracking-widest uppercase block mb-1">
             RECOMMENDED ARTICLES
           </span>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             お店選びに役立つおすすめ記事
           </h2>
         </div>
@@ -603,12 +603,12 @@ export default function ShopsPageContent({
 
       {/* 9. よくある質問 */}
       <section className="bg-white rounded-[22px] p-6 sm:p-9 border border-[#F0DDE4] shadow-2xs">
-        <div className="text-center max-w-xl mx-auto mb-7">
+        <div className="text-center max-w-md sm:max-w-xl mx-auto mb-7">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8175D] bg-[#FFF1F5] px-3 py-1 rounded-full border border-[#F0DDE4] mb-2">
             <LucideIcon name="HelpCircle" size={13} />
             <span>Q&A</span>
           </div>
-          <h2 className="font-display font-black text-xl sm:text-2xl text-[#1F2432]">
+          <h2 className="font-display font-black text-[19px] sm:text-2xl leading-snug text-[#1F2432] text-balance">
             お店選びに関するよくある質問
           </h2>
         </div>
@@ -663,7 +663,7 @@ export default function ShopsPageContent({
           <span>24時間受付中</span>
         </div>
 
-        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+        <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
           信太山新地では、最初のお店選びがかなり重要です。
         </h2>
 

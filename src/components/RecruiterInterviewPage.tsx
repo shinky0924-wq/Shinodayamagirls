@@ -318,7 +318,7 @@ export default function RecruiterInterviewPage({
                 <LucideIcon name="MessageSquareText" size={14} className="text-[#D8175D]" />
                 <span>信太山新地 旅館直撃ヒアリング・生の声</span>
               </div>
-              <h1 className="font-display font-black text-2xl sm:text-3xl text-[#1F2432] tracking-tight leading-tight mb-2.5">
+              <h1 className="font-display font-black text-[22px] sm:text-3xl text-[#1F2432] tracking-tight leading-snug mb-2.5 text-balance">
                 旅館の求人・採用担当者へのインタビュー
               </h1>
               <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">

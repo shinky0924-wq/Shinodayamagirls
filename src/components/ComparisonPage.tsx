@@ -245,14 +245,14 @@ export default function ComparisonPage({
         {/* ============================================================
             SECTION 1 & 2: ファーストビュー（上から順番に配置）
            ============================================================ */}
-        <header className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <header className="text-center max-w-lg sm:max-w-3xl mx-auto mb-12 sm:mb-16">
           {/* ① 小さなラベル */}
           <p className="text-xs sm:text-sm font-bold tracking-[0.18em] text-[#E5004F] mb-3">
             WORK STYLE GUIDE
           </p>
 
           {/* ② メインタイトル */}
-          <h1 className="font-display font-extrabold text-2xl sm:text-4xl md:text-[42px] text-zinc-900 leading-tight mb-3 text-balance">
+          <h1 className="font-display font-extrabold text-[22px] sm:text-4xl md:text-[42px] text-zinc-900 leading-snug mb-3 text-balance">
             {initialCategorySlug && initialCategorySlug !== 'all'
               ? `${activeType.title}｜信太山新地求人 働き方ガイド`
               : '信太山新地求人 タイプ別働き方ガイド'}
@@ -302,14 +302,14 @@ export default function ComparisonPage({
             SECTION 3 & 4: 8つのタイプ（PC: 4列×2段 / SP: 2列×4段）
            ============================================================ */}
         <section className="mb-12 sm:mb-16 scroll-mt-24" id="workstyle-types-grid" aria-labelledby="types-grid-heading">
-          <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+          <div className="text-center max-w-lg sm:max-w-2xl mx-auto mb-7 sm:mb-9">
             <h2
               id="types-grid-heading"
-              className="font-display font-extrabold text-xl sm:text-2xl md:text-3xl text-zinc-900 mb-2 text-balance"
+              className="font-display font-extrabold text-[19px] sm:text-2xl md:text-3xl text-zinc-900 leading-snug mb-2 text-balance"
             >
               希望や条件から、気になるタイプを選ぶ
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600">
+            <p className="text-xs sm:text-sm text-zinc-600 text-pretty">
               8つのタイプの中から当てはまるものを選ぶと、詳しい情報へ移動します。
             </p>
           </div>
@@ -380,7 +380,7 @@ export default function ComparisonPage({
            ============================================================ */}
         <section className="mb-14 sm:mb-18" aria-label="タイプ選びに迷ったときのLINE相談">
           <div className="bg-gradient-to-r from-[#FFF5F7] via-white to-[#FFF5F7] rounded-3xl border border-rose-200/80 p-6 sm:p-8 text-center">
-            <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-2xl text-zinc-900 mb-2.5">
+            <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-2xl text-zinc-900 leading-snug mb-2.5 text-balance max-w-md sm:max-w-xl mx-auto">
               自分に合うタイプが分からなくても大丈夫
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-xl mx-auto mb-5">

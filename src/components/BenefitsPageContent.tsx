@@ -21,7 +21,7 @@ export default function BenefitsPageContent({
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-6 bg-rose-500 rounded-full inline-block" />
-            <h2 className="font-display font-black text-lg sm:text-xl text-zinc-900">
+            <h2 className="font-display font-black text-[17px] sm:text-xl text-zinc-900 leading-snug text-balance">
               信太山新地 当店（老舗旅館直営）の9大安心待遇
             </h2>
           </div>

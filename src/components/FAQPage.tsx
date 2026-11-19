@@ -239,7 +239,7 @@ export default function FAQPage({
                 </span>
               </div>
 
-              <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#1F2432] leading-tight mb-3 tracking-tight">
+              <h1 className="font-display font-black text-[22px] sm:text-3xl md:text-4xl text-[#1F2432] leading-snug mb-3 tracking-tight text-balance">
                 <span className="text-[#D8175D]">疑問や不安を解消して、</span><br />
                 安心してお仕事探し。
                 <span className="block text-base sm:text-lg md:text-xl font-bold text-[#444444] mt-2 font-sans">
@@ -295,14 +295,14 @@ export default function FAQPage({
 
         {/* 2. FAQカテゴリーを11種類に再構成（PC 4列、スマホ 2列カード） */}
         <section className="bg-white rounded-[24px] p-6 sm:p-9 border border-[#F0DDE4] shadow-[0_4px_25px_-5px_rgba(216,23,93,0.04)]">
-          <div className="max-w-3xl mx-auto text-center mb-8">
+          <div className="max-w-lg sm:max-w-2xl mx-auto text-center mb-8">
             <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1.5 block">
               CATEGORY DIRECTORY
             </span>
-            <h2 className="font-display font-black text-xl sm:text-2xl md:text-[26px] text-[#1F2432] mb-3">
+            <h2 className="font-display font-black text-[19px] sm:text-2xl md:text-[26px] text-[#1F2432] leading-snug mb-3 text-balance">
               知りたい分野から探す 11のFAQカテゴリー
             </h2>
-            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed text-pretty">
               気になるカテゴリーをタップすると、該当する質問一覧へジャンプして確認できます。
             </p>
           </div>
@@ -559,7 +559,7 @@ export default function FAQPage({
               <span className="text-[11px] font-bold tracking-widest text-[#D8175D] uppercase mb-1 block">
                 RELATED ARTICLES
               </span>
-              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432]">
+              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#1F2432] leading-snug text-balance">
                 よく読まれているお役立ち記事
               </h2>
             </div>
@@ -630,7 +630,7 @@ export default function FAQPage({
             <span>24時間受付中</span>
           </div>
 
-          <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] mb-2">
+          <h2 className="font-display font-extrabold text-lg sm:text-xl md:text-[22px] text-[#1F2432] leading-snug mb-2 text-balance max-w-md sm:max-w-xl mx-auto">
             まだ分からないことや、不安なことはありませんか？
           </h2>
 
